@@ -1,7 +1,9 @@
 ---
 // Footer.astro — Global footer
-const toBasePath = (path: string) =>
-  path === "/" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}${path.slice(1)}`;
+const toBasePath = (path: string) => {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return path === "/" ? `${base}/` : `${base}${path}`;
+};
 ---
 
 <footer class="footer">

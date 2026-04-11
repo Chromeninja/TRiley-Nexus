@@ -22,7 +22,8 @@ const statusLabels: Record<Project["status"], string> = {
   archived: "Archived",
   concept: "Concept",
 };
-const projectPath = `${import.meta.env.BASE_URL}projects/${project.slug}`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const projectPath = `${base}/projects/${project.slug}`;
 ---
 
 <a href={projectPath} class={`project-card ${featured ? "project-card--featured" : ""}`}>
