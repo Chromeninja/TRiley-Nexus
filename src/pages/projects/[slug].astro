@@ -1,0 +1,349 @@
+---
+// projects/[slug].astro — Individual project detail page
+import Layout from "../../layouts/Layout.astro";
+import { projects, getProjectBySlug } from "../../data/projects";
+import type { Project } from "../../data/projects";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const statusColors: Record<Project["status"], string> = {
+  active: "badge-green",
+  completed: "badge-cyan",
+  archived: "badge-gray",
+  concept: "badge-yellow",
+};
+
+const statusLabels: Record<Project["status"], string> = {
+  active: "Active",
+  completed: "Completed",
+  archived: "Archived",
+  concept: "Concept",
+};
+---
+
+<Layout
+  title={project.title}
+  description={project.summary}
+>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/projects">Projects</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page">{project.title}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <article class="section">
+    <div class="container">
+      <div class="project-layout">
+
+        <!-- Main content -->
+        <main class="project-main">
+          <!-- Header -->
+          <header class="project-header">
+            <div class="project-header__meta">
+              <span class={`badge ${statusColors[project.status]}`}>{statusLabels[project.status]}</span>
+              <span class="badge badge-purple">{project.category}</span>
+            </div>
+            <h1 class="project-header__title">{project.title}</h1>
+            {project.timeframe && (
+              <p class="project-header__timeframe text-mono text-muted">{project.timeframe}</p>
+            )}
+            {project.organization && (
+              <p class="project-header__org text-muted">{project.organization}</p>
+            )}
+            <p class="project-header__summary">{project.summary}</p>
+          </header>
+
+          <!-- Problem -->
+          {project.problem && (
+            <section class="detail-section">
+              <h2 class="detail-section__title">
+                <span class="text-accent text-mono">01 //</span> The Problem
+              </h2>
+              <p>{project.problem}</p>
+            </section>
+          )}
+
+          <!-- Approach -->
+          {project.approach && (
+            <section class="detail-section">
+              <h2 class="detail-section__title">
+                <span class="text-accent text-mono">02 //</span> Approach
+              </h2>
+              <p>{project.approach}</p>
+            </section>
+          )}
+
+          <!-- Outcome -->
+          {project.outcome && (
+            <section class="detail-section">
+              <h2 class="detail-section__title">
+                <span class="text-accent text-mono">03 //</span> Outcome
+              </h2>
+              <p>{project.outcome}</p>
+            </section>
+          )}
+
+          <!-- Links -->
+          {project.links && project.links.length > 0 && (
+            <section class="detail-section">
+              <h2 class="detail-section__title">Links</h2>
+              <div class="project-links">
+                {project.links.map((link) => (
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                    {link.label} ↗
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="project-sidebar">
+          <!-- Skills -->
+          {project.skills && project.skills.length > 0 && (
+            <div class="sidebar-card">
+              <h3 class="sidebar-card__title">Skills</h3>
+              <ul class="sidebar-list">
+                {project.skills.map((skill) => (
+                  <li class="sidebar-list__item">
+                    <span class="sidebar-list__dot text-accent" aria-hidden="true">◆</span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Tools -->
+          {project.tools && project.tools.length > 0 && (
+            <div class="sidebar-card">
+              <h3 class="sidebar-card__title">Tools & Stack</h3>
+              <div class="tag-cloud">
+                {project.tools.map((tool) => (
+                  <span class="badge badge-cyan">{tool}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Tags -->
+          {project.tags && project.tags.length > 0 && (
+            <div class="sidebar-card">
+              <h3 class="sidebar-card__title">Tags</h3>
+              <div class="tag-cloud">
+                {project.tags.map((tag) => (
+                  <span class="badge badge-purple">{tag}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Back link -->
+          <div>
+            <a href="/projects" class="btn btn-ghost" style="width: 100%; justify-content: center;">
+              ← All Projects
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb-bar {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+    padding-block: var(--space-sm);
+  }
+
+  .breadcrumb {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover { color: var(--color-accent); }
+  .breadcrumb [aria-current="page"] { color: var(--color-text); }
+
+  /* Layout */
+  .project-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  /* Header */
+  .project-header {
+    margin-bottom: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-header__meta {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-header__title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    margin-bottom: var(--space-sm);
+    line-height: 1.15;
+  }
+
+  .project-header__timeframe {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-header__org {
+    font-size: 0.9rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-header__summary {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  /* Detail sections */
+  .detail-section {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .detail-section:last-of-type {
+    border-bottom: none;
+  }
+
+  .detail-section__title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .detail-section p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    max-width: 70ch;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  /* Sidebar */
+  .project-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-xl));
+  }
+
+  .sidebar-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card__title {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .sidebar-list__item {
+    display: flex;
+    align-items: start;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  .sidebar-list__dot {
+    font-size: 0.4rem;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .btn-sm {
+    font-size: 0.7rem;
+    padding: 0.4em 0.9em;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .project-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .project-sidebar {
+      position: static;
+      order: -1;
+    }
+  }
+</style>

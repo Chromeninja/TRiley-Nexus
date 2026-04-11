@@ -1,0 +1,373 @@
+---
+// about.astro — About page
+import Layout from "../layouts/Layout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { skillGroups } from "../data/skills";
+---
+
+<Layout
+  title="About"
+  description="Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations."
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">// OPERATOR PROFILE</p>
+      <span class="accent-line"></span>
+      <h1>About Me</h1>
+      <p class="page-hero__sub">
+        A systems-minded builder at the intersection of people, process, and technology.
+      </p>
+    </div>
+  </section>
+
+  <!-- Background -->
+  <section class="section">
+    <div class="container container--md">
+      <SectionHeader label="// ORIGIN STORY" title="Background" />
+
+      <div class="prose">
+        <p>
+          I served in the U.S. military for over eight years, working in communications
+          and operations roles that required precision, adaptability, and the ability to
+          execute under pressure. That experience fundamentally shaped how I approach
+          complex work — I default to structure, clear communication, and planning for
+          contingencies before they happen.
+        </p>
+        <p>
+          After military service, I moved into technical program management and operations
+          leadership in the gaming and community space. Over the past several years, I've
+          designed and operated systems for communities with thousands of members — building
+          the governance structures, automation infrastructure, event frameworks, and
+          moderation pipelines that keep large-scale organizations running.
+        </p>
+        <p>
+          I've also done meaningful work in infrastructure modernization, migrating legacy
+          systems to modern architectures, building operational runbooks, and improving
+          reliability across distributed services. Alongside this, I've been building
+          AI-assisted workflow tools to reduce the manual overhead of program management
+          and knowledge work.
+        </p>
+        <p>
+          My background is deliberately broad because the problems I care about are broad.
+          I work best at the layer where systems thinking, technical execution, and human
+          coordination all have to come together at once.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How I Think -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container container--md">
+      <SectionHeader label="// MENTAL MODELS" title="How I Think" />
+
+      <div class="think-grid">
+        {[
+          {
+            title: "Systems first",
+            text: "I don't see isolated problems — I see systems with feedback loops, dependencies, and failure modes. My instinct is to map the whole before touching any part."
+          },
+          {
+            title: "Clarity as a product",
+            text: "One of the most valuable things I produce is clarity. Whether it's a plan, a decision, or a communication — if people leave the conversation less confused, I've done my job."
+          },
+          {
+            title: "Diagnose before designing",
+            text: "The stated problem is rarely the actual problem. I spend disproportionate time on diagnosis — because solving the wrong problem perfectly is still failure."
+          },
+          {
+            title: "Repeatable over clever",
+            text: "I'll take a boring, reliable system over an elegant one that only works when everything goes right. Operational excellence is built on boring fundamentals."
+          },
+          {
+            title: "Strategy and execution in parallel",
+            text: "Most planning failures come from people who think at one altitude only. I try to hold both levels simultaneously — the long view and the immediate execution surface."
+          },
+          {
+            title: "People are part of the system",
+            text: "Technical systems don't run themselves. The humans operating them are part of the design. I build for the actual humans, not the theoretical ideal ones."
+          }
+        ].map((item) => (
+          <div class="think-card">
+            <h3 class="think-card__title">{item.title}</h3>
+            <p class="think-card__text">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader label="// CAPABILITY MATRIX" title="Skills & Expertise" />
+
+      <div class="skills-grid">
+        {skillGroups.map((group) => (
+          <div class="skill-group">
+            <div class="skill-group__header">
+              <span class="skill-group__icon text-accent" aria-hidden="true">{group.icon}</span>
+              <h3 class="skill-group__label">{group.label}</h3>
+            </div>
+            <ul class="skill-list">
+              {group.skills.map((skill) => (
+                <li class="skill-item">
+                  <span class="skill-item__dot" aria-hidden="true">▸</span>
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container container--md">
+      <SectionHeader label="// PERSONAL SYSTEMS" title="Beyond Work" />
+
+      <div class="personal-grid">
+        <div class="personal-card">
+          <span class="personal-card__icon">◉</span>
+          <h3>Family</h3>
+          <p>
+            Husband and father. Family is the primary system I operate and optimize for.
+            Everything else is in service of building a life that works for the people I love.
+          </p>
+        </div>
+
+        <div class="personal-card">
+          <span class="personal-card__icon">⬡</span>
+          <h3>Star Citizen</h3>
+          <p>
+            Deep into the Star Citizen universe — not just as a player but as an org leader
+            and community operator. This is where many of my community systems skills were
+            actually developed and tested in production.
+          </p>
+        </div>
+
+        <div class="personal-card">
+          <span class="personal-card__icon">◆</span>
+          <h3>Systems & Strategy</h3>
+          <p>
+            I read heavily on systems thinking, organizational design, military history, and
+            decision theory. Understanding how complex systems succeed or fail is a genuine
+            intellectual interest, not just a professional one.
+          </p>
+        </div>
+
+        <div class="personal-card">
+          <span class="personal-card__icon">▣</span>
+          <h3>Building Things</h3>
+          <p>
+            I'm perpetually building something — whether it's automation tooling, a community
+            framework, or this site. The act of building is how I think.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Matters -->
+  <section class="section">
+    <div class="container container--sm">
+      <SectionHeader label="// CORE VALUES" title="What Matters to Me" centered />
+
+      <div class="values-list">
+        {[
+          "Doing the work, not just talking about it",
+          "Honesty about tradeoffs and risks",
+          "Building for people who actually have to use the system",
+          "Leaving things better than I found them",
+          "Not confusing busyness with progress",
+          "Owning outcomes, not just activities",
+        ].map((value) => (
+          <div class="value-item">
+            <span class="value-item__check text-accent" aria-hidden="true">✓</span>
+            <span>{value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-3xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+  }
+
+  .page-hero__sub {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    max-width: 55ch;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .prose p {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    max-width: 70ch;
+    margin-bottom: var(--space-lg);
+  }
+
+  .prose p:last-child { margin-bottom: 0; }
+
+  /* Think cards */
+  .think-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .think-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .think-card__title {
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .think-card__text {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .skill-group {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .skill-group__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .skill-group__icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .skill-group__label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    line-height: 1.3;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .skill-item__dot {
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* Personal */
+  .personal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .personal-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: border-color var(--transition-base);
+  }
+
+  .personal-card:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .personal-card__icon {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+    line-height: 1;
+  }
+
+  .personal-card h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .personal-card p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Values */
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .value-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    transition: border-color var(--transition-fast);
+  }
+
+  .value-item:hover {
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+  }
+
+  .value-item__check {
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+</style>

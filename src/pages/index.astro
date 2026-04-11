@@ -1,0 +1,511 @@
+---
+// index.astro — Homepage
+import Layout from "../layouts/Layout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getFeaturedProjects } from "../data/projects";
+import { coreStrengths } from "../data/skills";
+
+const featuredProjects = getFeaturedProjects();
+---
+
+<Layout
+  title="T.Riley"
+  description="Systems builder. Technical Program Manager. Operations architect. I build the infrastructure — technical and human — that makes complex work actually work."
+>
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div class="hero__content animate-fade-up">
+          <p class="hero__eyebrow section-label">// SYSTEMS ONLINE</p>
+          <h1 class="hero__headline">
+            I build systems that make
+            <span class="hero__headline-accent"> complex operations</span>
+            actually work.
+          </h1>
+          <p class="hero__subtext">
+            Technical Program Manager. Operations architect. Community engineer.
+            Military veteran. I work at the intersection of people, process, and
+            technology — turning ambiguity into structure and ideas into running systems.
+          </p>
+          <div class="hero__actions">
+            <a href="/projects" class="btn btn-primary">View Projects</a>
+            <a href="/about" class="btn btn-outline">About Me</a>
+          </div>
+        </div>
+
+        <div class="hero__terminal animate-fade-up delay-200" aria-hidden="true">
+          <div class="terminal">
+            <div class="terminal__bar">
+              <span class="terminal__dot terminal__dot--red"></span>
+              <span class="terminal__dot terminal__dot--yellow"></span>
+              <span class="terminal__dot terminal__dot--green"></span>
+              <span class="terminal__title">triley@nexus:~</span>
+            </div>
+            <div class="terminal__body">
+              <p><span class="terminal__prompt">$</span> whoami</p>
+              <p class="terminal__output">T. Riley — Systems Builder</p>
+              <br />
+              <p><span class="terminal__prompt">$</span> ls skills/</p>
+              <p class="terminal__output">
+                program-management/<br />
+                operations-architecture/<br />
+                community-systems/<br />
+                automation-tooling/<br />
+                military-leadership/
+              </p>
+              <br />
+              <p><span class="terminal__prompt">$</span> cat status.txt</p>
+              <p class="terminal__output text-accent">Open to opportunities. Always building.</p>
+              <p class="terminal__cursor">█</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background decoration -->
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CORE STRENGTHS
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        label="// CAPABILITIES"
+        title="Core Strengths"
+        subtitle="I work across the full operational stack — strategy, systems, people, and tools."
+      />
+
+      <div class="grid-3 strengths-grid">
+        {coreStrengths.map((strength, i) => (
+          <div class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}>
+            <span class="strength-card__icon" aria-hidden="true">{strength.icon}</span>
+            <h3 class="strength-card__title">{strength.title}</h3>
+            <p class="strength-card__desc">{strength.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURED PROJECTS
+  ═══════════════════════════════════════════ -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <SectionHeader
+        label="// SELECTED WORK"
+        title="Featured Projects"
+        subtitle="A cross-section of the systems I've built, led, and shipped."
+      />
+
+      <div class="grid-2">
+        {featuredProjects.map((project) => (
+          <ProjectCard project={project} featured />
+        ))}
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-2xl);">
+        <a href="/projects" class="btn btn-outline">View All Projects →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW I WORK — TEASER
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container--md">
+      <SectionHeader
+        label="// OPERATING PRINCIPLES"
+        title="How I Work"
+      />
+
+      <div class="principles-list">
+        {[
+          { num: "01", text: "Diagnose before designing — understand the real problem, not just the stated one." },
+          { num: "02", text: "Build systems, not solutions — make it repeatable, not just functional once." },
+          { num: "03", text: "Align people before automating process — technology amplifies what's already there." },
+          { num: "04", text: "Create clarity in ambiguity — my job is to reduce uncertainty for everyone around me." },
+          { num: "05", text: "Balance strategy and execution — think at both levels simultaneously." },
+        ].map((principle) => (
+          <div class="principle">
+            <span class="principle__num text-mono text-accent">{principle.num}</span>
+            <p class="principle__text">{principle.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style="margin-top: var(--space-2xl);">
+        <a href="/how-i-work" class="btn btn-outline">Read More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PERSONAL INTRO
+  ═══════════════════════════════════════════ -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container container--md">
+      <div class="intro-grid">
+        <div class="intro__text">
+          <p class="section-label">// SYSTEM OPERATOR</p>
+          <span class="accent-line"></span>
+          <h2>A bit about me</h2>
+          <p>
+            I'm a systems-minded builder with a background spanning U.S. military service,
+            technical program management, large-scale community operations, live events,
+            and automation infrastructure.
+          </p>
+          <p>
+            When I'm not building operational systems, I'm a husband and father,
+            a competitive Star Citizen player and community leader, and someone who
+            thinks deeply about how organizations actually function at scale.
+          </p>
+          <p>
+            I care about building things that work — not just on paper, but in the
+            messy reality of people, pressure, and imperfect information.
+          </p>
+          <a href="/about" class="btn btn-outline" style="margin-top: var(--space-md);">Full Background →</a>
+        </div>
+
+        <div class="intro__stats">
+          {[
+            { value: "8+", label: "Years military service" },
+            { value: "5K+", label: "Community members managed" },
+            { value: "40+", label: "Operations planned & executed" },
+            { value: "12+", label: "Large-scale events run" },
+          ].map((stat) => (
+            <div class="stat-card">
+              <span class="stat-card__value">{stat.value}</span>
+              <span class="stat-card__label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CTA
+  ═══════════════════════════════════════════ -->
+  <section class="section section--sm">
+    <div class="container">
+      <div class="cta-panel">
+        <p class="section-label">// OPEN CHANNEL</p>
+        <h2>Let's build something together.</h2>
+        <p>
+          I'm open to roles in technical program management, operations leadership,
+          and platform/community engineering. If you're building something complex
+          and need someone who can hold the whole system in their head — reach out.
+        </p>
+        <div class="cta-panel__actions">
+          <a href="/contact" class="btn btn-primary">Get in Touch</a>
+          <a href="/now" class="btn btn-ghost">What I'm Working On</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-4xl);
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__headline {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.15;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__headline-accent {
+    color: var(--color-accent);
+    position: relative;
+  }
+
+  .hero__subtext {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* Terminal widget */
+  .terminal {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card), var(--glow-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+  }
+
+  .terminal__bar {
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-sm) var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .terminal__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .terminal__dot--red { background: #ff5f57; }
+  .terminal__dot--yellow { background: #ffbd2e; }
+  .terminal__dot--green { background: #28c840; }
+
+  .terminal__title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-left: auto;
+    letter-spacing: 0.06em;
+  }
+
+  .terminal__body {
+    padding: var(--space-lg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .terminal__prompt {
+    color: var(--color-accent);
+    margin-right: var(--space-sm);
+    user-select: none;
+  }
+
+  .terminal__output {
+    color: var(--color-text-muted);
+    padding-left: 1.2em;
+    margin-top: 2px;
+  }
+
+  .terminal__cursor {
+    color: var(--color-accent);
+    animation: blink 1.2s step-end infinite;
+    line-height: 1;
+    margin-top: var(--space-sm);
+  }
+
+  /* Background grid pattern */
+  .hero__bg-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  /* ── Strengths ── */
+  .strength-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .strength-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--glow-accent);
+  }
+
+  .strength-card__icon {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+    line-height: 1;
+  }
+
+  .strength-card__title {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-heading);
+  }
+
+  .strength-card__desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Principles ── */
+  .principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .principle {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: var(--space-md);
+    align-items: start;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .principle:last-child { border-bottom: none; }
+
+  .principle__num {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    padding-top: 3px;
+  }
+
+  .principle__text {
+    color: var(--color-text);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Personal intro ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .intro__text p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .intro__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .stat-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .stat-card__value {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .stat-card__label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── CTA ── */
+  .cta-panel {
+    background: var(--color-bg-card);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--glow-accent);
+  }
+
+  .cta-panel h2 {
+    margin-block: var(--space-md);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .cta-panel p {
+    color: var(--color-text-muted);
+    max-width: 55ch;
+    margin-inline: auto;
+    line-height: 1.7;
+  }
+
+  .cta-panel__actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--space-xl);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .hero__terminal {
+      order: -1;
+      max-width: 500px;
+    }
+
+    .hero {
+      min-height: auto;
+      padding-block: var(--space-3xl);
+    }
+
+    .intro-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .intro__stats {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cta-panel {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+  }
+</style>

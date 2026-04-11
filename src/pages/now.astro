@@ -1,0 +1,404 @@
+---
+// now.astro — "Now" page (what I'm currently focused on)
+import Layout from "../layouts/Layout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { getActiveProjects } from "../data/projects";
+
+const activeProjects = getActiveProjects();
+const lastUpdated = "April 2025";
+---
+
+<Layout
+  title="Now"
+  description="What T.Riley is currently working on, exploring, and focused on right now."
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">// CURRENT STATUS</p>
+      <span class="accent-line"></span>
+      <h1>What I'm Doing Now</h1>
+      <p class="page-hero__meta text-mono text-muted">
+        Last updated: {lastUpdated} · Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">nownownow.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Status indicator -->
+  <section class="status-banner">
+    <div class="container">
+      <div class="status-display">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
+          SYSTEM STATUS: <span class="text-accent">OPERATIONAL</span>
+        </span>
+        <span class="text-mono text-muted" style="font-size: 0.75rem;">
+          // Open to opportunities · Actively building
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Projects -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader label="// ACTIVE WORKSTREAMS" title="Current Projects" />
+
+      <div class="active-projects">
+        {activeProjects.map((project) => (
+          <div class="active-project-card">
+            <div class="active-project-card__header">
+              <div>
+                <span class="badge badge-green" style="margin-bottom: var(--space-sm); display: inline-flex;">Active</span>
+                <h3 class="active-project-card__title">
+                  <a href={`/projects/${project.slug}`}>{project.title}</a>
+                </h3>
+              </div>
+              <span class="badge badge-purple">{project.category}</span>
+            </div>
+            <p class="active-project-card__summary">{project.summary}</p>
+            <div class="active-project-card__meta text-mono text-muted">
+              {project.timeframe && <span>{project.timeframe}</span>}
+              {project.organization && <span>· {project.organization}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas of Exploration -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container container--md">
+      <SectionHeader label="// SIGNAL SCAN" title="Areas I'm Exploring" />
+
+      <div class="exploration-grid">
+        {[
+          {
+            icon: "◈",
+            title: "AI-Assisted Operations",
+            body: "How agentic AI tools can reduce friction in program management, status reporting, and knowledge retrieval — without adding complexity."
+          },
+          {
+            icon: "⬡",
+            title: "Technical Program Management at Scale",
+            body: "Studying how TPM functions in large-scale engineering orgs — tooling, frameworks, and how the best TPMs create leverage for their teams."
+          },
+          {
+            icon: "◉",
+            title: "Community Infrastructure Patterns",
+            body: "Documenting patterns from large gaming community operations that apply broadly to online community design and management."
+          },
+          {
+            icon: "▣",
+            title: "Static Site Architecture",
+            body: "Exploring Astro, edge deployment, and content-first site architectures for fast, maintainable web properties."
+          },
+        ].map((item) => (
+          <div class="explore-card">
+            <span class="explore-card__icon text-accent" aria-hidden="true">{item.icon}</span>
+            <h3 class="explore-card__title">{item.title}</h3>
+            <p class="explore-card__body">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Priorities -->
+  <section class="section">
+    <div class="container container--sm">
+      <SectionHeader label="// PRIORITY QUEUE" title="Current Priorities" />
+
+      <div class="priority-list">
+        {[
+          { label: "HIGH", text: "Complete this portfolio site and deploy to GitHub Pages", color: "badge-green" },
+          { label: "HIGH", text: "Ship V1 of the AI workflow assistant", color: "badge-green" },
+          { label: "MED", text: "Document community operations patterns for public sharing", color: "badge-yellow" },
+          { label: "MED", text: "Deepen TypeScript and Astro proficiency through production use", color: "badge-yellow" },
+          { label: "LOW", text: "Begin formal TPM certification study track", color: "badge-gray" },
+        ].map((item) => (
+          <div class="priority-item">
+            <span class={`badge ${item.color}`} style="flex-shrink: 0; min-width: 50px; justify-content: center;">{item.label}</span>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What I'm Open To -->
+  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container container--md">
+      <SectionHeader label="// OPEN CHANNEL" title="What I'm Open To" />
+
+      <div class="open-to-grid">
+        <div class="open-to-card open-to-card--yes">
+          <h3>Yes, please</h3>
+          <ul>
+            <li>Technical Program Manager roles</li>
+            <li>Operations lead / director roles</li>
+            <li>Community platform or infrastructure roles</li>
+            <li>Building 0-to-1 operational systems</li>
+            <li>Organizations that value written communication and async work</li>
+          </ul>
+        </div>
+
+        <div class="open-to-card open-to-card--no">
+          <h3>Not the right fit</h3>
+          <ul>
+            <li>Pure IC development roles without operational scope</li>
+            <li>Organizations without strong writing culture</li>
+            <li>Roles that are primarily status-reporting with no ownership</li>
+            <li>Environments that treat busyness as productivity</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="open-to-cta">
+        If any of this sounds like what you're looking for, I'd like to hear from you.
+        <a href="/contact" class="btn btn-primary" style="margin-top: var(--space-md); display: inline-flex;">
+          Get in Touch
+        </a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-3xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+  }
+
+  .page-hero__meta {
+    font-size: 0.8rem;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+    letter-spacing: 0.04em;
+  }
+
+  /* Status banner */
+  .status-banner {
+    background: rgba(16, 185, 129, 0.05);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    padding-block: var(--space-md);
+  }
+
+  .status-display {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-success);
+    animation: pulse-glow 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  /* Active projects */
+  .active-projects {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .active-project-card {
+    background: var(--color-bg-card);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: border-color var(--transition-base);
+  }
+
+  .active-project-card:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+
+  .active-project-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .active-project-card__title {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .active-project-card__title a {
+    color: var(--color-text-heading);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .active-project-card__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .active-project-card__summary {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+  }
+
+  .active-project-card__meta {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  /* Exploration */
+  .exploration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .explore-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: border-color var(--transition-base);
+  }
+
+  .explore-card:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .explore-card__icon {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: var(--space-md);
+    line-height: 1;
+  }
+
+  .explore-card__title {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .explore-card__body {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Priority list */
+  .priority-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .priority-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .priority-item p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Open to */
+  .open-to-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .open-to-card {
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .open-to-card--yes {
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .open-to-card--no {
+    border: 1px solid var(--color-border);
+  }
+
+  .open-to-card h3 {
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .open-to-card--yes h3 { color: var(--color-success); }
+  .open-to-card--no h3 { color: var(--color-text-muted); }
+
+  .open-to-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .open-to-card li {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .open-to-card--yes li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-size: 0.75rem;
+  }
+
+  .open-to-card--no li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: var(--color-text-dim);
+    font-size: 0.75rem;
+  }
+
+  .open-to-cta {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .open-to-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
