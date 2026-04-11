@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Astro: Dev Server",
+      "type": "shell",
+      "command": "npm run dev -- --host localhost --port 4321",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^(?!x)x"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Local\\s+http://(?:localhost|127\\.0\\.0\\.1):4321"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Astro: Build",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build"
+    },
+    {
+      "label": "Astro: Preview",
+      "type": "shell",
+      "command": "npm run preview -- --host localhost --port 4321",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}
