@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#080d1a"/>
+  <!-- Border frame -->
+  <rect x="1.5" y="1.5" width="29" height="29" rx="5" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.6"/>
+  <!-- Corner accents -->
+  <path d="M3 3 L8 3 M3 3 L3 8" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M29 3 L24 3 M29 3 L29 8" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M3 29 L8 29 M3 29 L3 24" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M29 29 L24 29 M29 29 L29 24" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- T letter -->
+  <path d="M9 11 L23 11 M16 11 L16 22" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

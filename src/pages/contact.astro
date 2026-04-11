@@ -1,0 +1,316 @@
+---
+// contact.astro — Contact page
+import Layout from "../layouts/Layout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+---
+
+<Layout
+  title="Contact"
+  description="Get in touch with T.Riley — open to roles, collaborations, and conversations about systems, operations, and building things."
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">// OPEN CHANNEL</p>
+      <span class="accent-line"></span>
+      <h1>Get in Touch</h1>
+      <p class="page-hero__sub">
+        I'm open to conversations about roles, collaborations, and interesting problems.
+        Reach out through any of the channels below.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Contact options -->
+        <div class="contact-cards">
+          <SectionHeader label="// CONTACT CHANNELS" title="Connect With Me" />
+
+          <div class="channel-list">
+            <!-- Email -->
+            <a href="mailto:contact@triley.dev" class="channel-card">
+              <div class="channel-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </div>
+              <div>
+                <p class="channel-card__label text-mono">Email</p>
+                <p class="channel-card__value">contact@triley.dev</p>
+                <p class="channel-card__hint text-muted">Best for professional inquiries and opportunities</p>
+              </div>
+              <span class="channel-card__arrow text-accent" aria-hidden="true">→</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/triley" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="channel-card__label text-mono">LinkedIn</p>
+                <p class="channel-card__value">linkedin.com/in/triley</p>
+                <p class="channel-card__hint text-muted">Professional network and career history</p>
+              </div>
+              <span class="channel-card__arrow text-accent" aria-hidden="true">↗</span>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/Chromeninja" target="_blank" rel="noopener noreferrer" class="channel-card">
+              <div class="channel-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="channel-card__label text-mono">GitHub</p>
+                <p class="channel-card__value">github.com/Chromeninja</p>
+                <p class="channel-card__hint text-muted">Code, projects, and open source work</p>
+              </div>
+              <span class="channel-card__arrow text-accent" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Response expectations -->
+        <aside class="contact-aside">
+          <div class="response-panel">
+            <h2 class="response-panel__title">
+              <span class="text-mono text-accent">// </span>What to Expect
+            </h2>
+
+            <div class="response-items">
+              <div class="response-item">
+                <span class="response-item__label text-mono text-accent">Response time</span>
+                <p>I typically respond to email inquiries within 1–2 business days. LinkedIn messages may take a bit longer.</p>
+              </div>
+
+              <div class="response-item">
+                <span class="response-item__label text-mono text-accent">Best for</span>
+                <p>Job opportunities, collaboration proposals, interesting problems, and thoughtful conversations.</p>
+              </div>
+
+              <div class="response-item">
+                <span class="response-item__label text-mono text-accent">Not a fit</span>
+                <p>Generic outreach, spray-and-pray recruiting messages, or anything that opens with "we have an exciting opportunity."</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-panel">
+            <div class="status-row">
+              <span class="status-dot-sm" aria-hidden="true"></span>
+              <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
+                Status: <span class="text-accent">Open to opportunities</span>
+              </span>
+            </div>
+            <p class="status-note text-muted">
+              Actively considering TPM, ops lead, and platform engineering roles.
+              Remote-first preferred.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-3xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+  }
+
+  .page-hero__sub {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    max-width: 55ch;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  /* Layout */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  /* Channel cards */
+  .channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .channel-card {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color var(--transition-base), background var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .channel-card:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-bg-card-hover);
+    box-shadow: var(--glow-accent);
+    color: var(--color-text);
+  }
+
+  .channel-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--color-accent-dim);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .channel-card__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 2px;
+  }
+
+  .channel-card__value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-xs);
+  }
+
+  .channel-card__hint {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .channel-card__arrow {
+    font-size: 1.25rem;
+    transition: transform var(--transition-base);
+  }
+
+  .channel-card:hover .channel-card__arrow {
+    transform: translateX(3px);
+  }
+
+  /* Aside */
+  .contact-aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-xl));
+  }
+
+  .response-panel {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .response-panel__title {
+    font-size: 1rem;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .response-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .response-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .response-item__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .response-item p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Status panel */
+  .status-panel {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .status-dot-sm {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-success);
+    animation: pulse-glow 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .status-note {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-aside {
+      position: static;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .channel-card {
+      grid-template-columns: 40px 1fr auto;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+    }
+  }
+</style>

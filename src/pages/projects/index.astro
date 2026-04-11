@@ -1,0 +1,156 @@
+---
+// projects/index.astro — Projects listing page
+import Layout from "../../layouts/Layout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects, getCategories } from "../../data/projects";
+
+const categories = getCategories();
+const allProjects = [...projects].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+---
+
+<Layout
+  title="Projects"
+  description="Portfolio of projects spanning community systems, operations, automation, infrastructure, program management, and more."
+>
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        label="// PROJECT ARCHIVE"
+        title="Projects"
+        subtitle="Systems I've built, programs I've run, and operations I've led — across community, tech, events, and the military."
+      />
+
+      <!-- Filter Bar -->
+      <div class="filter-bar" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+        {categories.map((cat) => (
+          <button class="filter-btn" data-filter={cat}>{cat}</button>
+        ))}
+      </div>
+
+      <!-- Status legend -->
+      <div class="status-legend">
+        <span class="badge badge-green">Active</span>
+        <span class="badge badge-cyan">Completed</span>
+        <span class="badge badge-yellow">Concept</span>
+        <span class="badge badge-gray">Archived</span>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="projects-grid" id="projects-grid">
+        {allProjects.map((project) => (
+          <div class="project-item" data-category={project.category}>
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty state (hidden unless all filtered out) -->
+      <div class="empty-state" id="empty-state" hidden>
+        <p class="text-muted">No projects found in this category.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3em 0.9em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover,
+  .filter-btn--active {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .status-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+    align-items: center;
+  }
+
+  .status-legend::before {
+    content: "Status:";
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.06em;
+    margin-right: var(--space-xs);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .project-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-item > * {
+    height: 100%;
+  }
+
+  .project-item--hidden {
+    display: none;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--space-4xl);
+  }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const projectItems = document.querySelectorAll<HTMLElement>(".project-item");
+  const emptyState = document.getElementById("empty-state");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter ?? "all";
+
+      // Update active state
+      filterBtns.forEach((b) => b.classList.remove("filter-btn--active"));
+      btn.classList.add("filter-btn--active");
+
+      // Filter projects
+      let visibleCount = 0;
+      projectItems.forEach((item) => {
+        const cat = item.dataset.category ?? "";
+        const show = filter === "all" || cat === filter;
+        item.classList.toggle("project-item--hidden", !show);
+        if (show) visibleCount++;
+      });
+
+      // Show/hide empty state
+      if (emptyState) {
+        emptyState.hidden = visibleCount > 0;
+      }
+    });
+  });
+</script>
