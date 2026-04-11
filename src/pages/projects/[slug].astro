@@ -30,6 +30,8 @@ const statusLabels: Record<Project["status"], string> = {
   archived: "Archived",
   concept: "Concept",
 };
+const toBasePath = (path: string) =>
+  path === "/" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}${path.slice(1)}`;
 ---
 
 <Layout
@@ -41,9 +43,9 @@ const statusLabels: Record<Project["status"], string> = {
     <div class="container">
       <nav aria-label="Breadcrumb">
         <ol class="breadcrumb">
-          <li><a href="/">Home</a></li>
+          <li><a href={toBasePath("/")}>Home</a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/projects">Projects</a></li>
+          <li><a href={toBasePath("/projects")}>Projects</a></li>
           <li aria-hidden="true">/</li>
           <li aria-current="page">{project.title}</li>
         </ol>
@@ -161,7 +163,7 @@ const statusLabels: Record<Project["status"], string> = {
 
           <!-- Back link -->
           <div>
-            <a href="/projects" class="btn btn-ghost" style="width: 100%; justify-content: center;">
+            <a href={toBasePath("/projects")} class="btn btn-ghost" style="width: 100%; justify-content: center;">
               ← All Projects
             </a>
           </div>

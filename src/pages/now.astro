@@ -6,6 +6,8 @@ import { getActiveProjects } from "../data/projects";
 
 const activeProjects = getActiveProjects();
 const lastUpdated = "April 2025";
+const toBasePath = (path: string) =>
+  path === "/" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}${path.slice(1)}`;
 ---
 
 <Layout
@@ -51,7 +53,7 @@ const lastUpdated = "April 2025";
               <div>
                 <span class="badge badge-green" style="margin-bottom: var(--space-sm); display: inline-flex;">Active</span>
                 <h3 class="active-project-card__title">
-                  <a href={`/projects/${project.slug}`}>{project.title}</a>
+                  <a href={`${toBasePath("/projects")}/${project.slug}`}>{project.title}</a>
                 </h3>
               </div>
               <span class="badge badge-purple">{project.category}</span>
@@ -157,7 +159,7 @@ const lastUpdated = "April 2025";
 
       <p class="open-to-cta">
         If any of this sounds like what you're looking for, I'd like to hear from you.
-        <a href="/contact" class="btn btn-primary" style="margin-top: var(--space-md); display: inline-flex;">
+        <a href={toBasePath("/contact")} class="btn btn-primary" style="margin-top: var(--space-md); display: inline-flex;">
           Get in Touch
         </a>
       </p>

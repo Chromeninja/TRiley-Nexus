@@ -7,6 +7,8 @@ import { getFeaturedProjects } from "../data/projects";
 import { coreStrengths } from "../data/skills";
 
 const featuredProjects = getFeaturedProjects();
+const toBasePath = (path: string) =>
+  path === "/" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}${path.slice(1)}`;
 ---
 
 <Layout
@@ -32,8 +34,8 @@ const featuredProjects = getFeaturedProjects();
             technology — turning ambiguity into structure and ideas into running systems.
           </p>
           <div class="hero__actions">
-            <a href="/projects" class="btn btn-primary">View Projects</a>
-            <a href="/about" class="btn btn-outline">About Me</a>
+            <a href={toBasePath("/projects")} class="btn btn-primary">View Projects</a>
+            <a href={toBasePath("/about")} class="btn btn-outline">About Me</a>
           </div>
         </div>
 
@@ -112,7 +114,7 @@ const featuredProjects = getFeaturedProjects();
       </div>
 
       <div style="text-align: center; margin-top: var(--space-2xl);">
-        <a href="/projects" class="btn btn-outline">View All Projects →</a>
+        <a href={toBasePath("/projects")} class="btn btn-outline">View All Projects →</a>
       </div>
     </div>
   </section>
@@ -143,7 +145,7 @@ const featuredProjects = getFeaturedProjects();
       </div>
 
       <div style="margin-top: var(--space-2xl);">
-        <a href="/how-i-work" class="btn btn-outline">Read More →</a>
+        <a href={toBasePath("/how-i-work")} class="btn btn-outline">Read More →</a>
       </div>
     </div>
   </section>
@@ -172,7 +174,7 @@ const featuredProjects = getFeaturedProjects();
             I care about building things that work — not just on paper, but in the
             messy reality of people, pressure, and imperfect information.
           </p>
-          <a href="/about" class="btn btn-outline" style="margin-top: var(--space-md);">Full Background →</a>
+          <a href={toBasePath("/about")} class="btn btn-outline" style="margin-top: var(--space-md);">Full Background →</a>
         </div>
 
         <div class="intro__stats">
@@ -206,8 +208,8 @@ const featuredProjects = getFeaturedProjects();
           and need someone who can hold the whole system in their head — reach out.
         </p>
         <div class="cta-panel__actions">
-          <a href="/contact" class="btn btn-primary">Get in Touch</a>
-          <a href="/now" class="btn btn-ghost">What I'm Working On</a>
+          <a href={toBasePath("/contact")} class="btn btn-primary">Get in Touch</a>
+          <a href={toBasePath("/now")} class="btn btn-ghost">What I'm Working On</a>
         </div>
       </div>
     </div>

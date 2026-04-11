@@ -1,5 +1,7 @@
 ---
 // Footer.astro — Global footer
+const toBasePath = (path: string) =>
+  path === "/" ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}${path.slice(1)}`;
 ---
 
 <footer class="footer">
@@ -13,12 +15,12 @@
       </div>
 
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/projects">Projects</a>
-        <a href="/how-i-work">How I Work</a>
-        <a href="/now">Now</a>
-        <a href="/contact">Contact</a>
+        <a href={toBasePath("/")}>Home</a>
+        <a href={toBasePath("/about")}>About</a>
+        <a href={toBasePath("/projects")}>Projects</a>
+        <a href={toBasePath("/how-i-work")}>How I Work</a>
+        <a href={toBasePath("/now")}>Now</a>
+        <a href={toBasePath("/contact")}>Contact</a>
       </nav>
 
       <div class="footer__social">
