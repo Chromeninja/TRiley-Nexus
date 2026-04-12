@@ -3,10 +3,10 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { projects, getCategories } from "../../data/projects";
+import { getProjects, getCategories } from "../../data/projects";
 
-const categories = getCategories();
-const allProjects = [...projects].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+const categories = await getCategories();
+const allProjects = await getProjects();
 ---
 
 <Layout

@@ -1,10 +1,11 @@
 ---
 // projects/[slug].astro — Individual project detail page
 import Layout from "../../layouts/Layout.astro";
-import { projects, getProjectBySlug } from "../../data/projects";
+import { getProjects } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
 export async function getStaticPaths() {
+  const projects = await getProjects();
   return projects.map((project) => ({
     params: { slug: project.slug },
     props: { project },

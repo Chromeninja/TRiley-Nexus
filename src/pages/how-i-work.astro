@@ -2,6 +2,14 @@
 // how-i-work.astro — Methodology & operating style page
 import Layout from "../layouts/Layout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import {
+  aarIntro,
+  aarQuestions,
+  coreApproachParagraphs,
+  toolchainGroups,
+  workPrinciples,
+  workStyleGroups,
+} from "../data/howIWorkContent";
 ---
 
 <Layout
@@ -25,18 +33,9 @@ import SectionHeader from "../components/SectionHeader.astro";
     <div class="container container--md">
       <SectionHeader label="// PRIMARY DIRECTIVE" title="The Core Approach" />
       <div class="prose">
-        <p>
-          I'm not a specialist in one domain — I'm a generalist who builds systems.
-          The through-line in everything I do is translating complexity into structure:
-          taking messy, ambiguous situations and creating clarity, process, and working
-          systems out of them.
-        </p>
-        <p>
-          Whether I'm planning a military operation, running a large-scale community event,
-          migrating aging infrastructure, or designing an automation workflow, the underlying
-          methodology is the same. Understand the system. Identify the failure modes.
-          Build something that actually holds up in production.
-        </p>
+        {coreApproachParagraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
       </div>
     </div>
   </section>
@@ -47,38 +46,7 @@ import SectionHeader from "../components/SectionHeader.astro";
       <SectionHeader label="// OPERATING PRINCIPLES" title="How I Think About Problems" />
 
       <div class="principles-grid">
-        {[
-          {
-            num: "01",
-            title: "Diagnose before designing",
-            body: "The biggest failure mode in operations and engineering is solving the wrong problem well. I invest heavily in diagnosis — understanding root causes, mapping system states, and validating assumptions before proposing solutions. The stated problem is rarely the actual problem."
-          },
-          {
-            num: "02",
-            title: "Build systems, not solutions",
-            body: "A one-off fix is not a solution — it's technical debt with a short grace period. I build repeatable, maintainable systems that can be operated by others, updated without me, and scaled beyond the original scope. If it's not systemized, it's not done."
-          },
-          {
-            num: "03",
-            title: "Align people before automating process",
-            body: "Technology amplifies what's already in the organization. Automating a broken process makes broken things happen faster. I always start with the human system — the incentives, the workflows, the communication patterns — before reaching for tooling."
-          },
-          {
-            num: "04",
-            title: "Create clarity in ambiguity",
-            body: "Ambiguity is not an obstacle — it's the job. My role is to reduce uncertainty for the people around me: clear problem statements, defined ownership, explicit tradeoffs, documented decisions. Clarity is a deliverable."
-          },
-          {
-            num: "05",
-            title: "Balance strategy and execution",
-            body: "Most operational failures come from working at only one altitude — either too zoomed out to execute or too zoomed in to see the full picture. I deliberately move between both. Long-term architecture and immediate execution decisions both need attention simultaneously."
-          },
-          {
-            num: "06",
-            title: "Design for the humans who actually exist",
-            body: "Systems succeed or fail at the human interface. I build for the real operators — with their real constraints, cognitive loads, and failure modes — not the idealized ones. Good design accounts for how people actually behave under pressure."
-          },
-        ].map((p) => (
+        {workPrinciples.map((p) => (
           <div class="principle-card">
             <span class="principle-card__num text-mono text-accent">{p.num}</span>
             <div>
@@ -97,57 +65,18 @@ import SectionHeader from "../components/SectionHeader.astro";
       <SectionHeader label="// EXECUTION PROFILE" title="Working Style" />
 
       <div class="style-cols">
-        <div class="style-col">
-          <h3 class="style-col__title">
-            <span class="text-accent">◈</span> How I communicate
-          </h3>
-          <ul class="style-list">
-            <li>Direct, without being blunt. I say what I mean.</li>
-            <li>Written-first — I think clearly in structured writing.</li>
-            <li>I document decisions and the reasoning behind them.</li>
-            <li>Async by default, synchronous when it actually requires synchrony.</li>
-            <li>I give candid feedback and expect it in return.</li>
-          </ul>
-        </div>
-
-        <div class="style-col">
-          <h3 class="style-col__title">
-            <span class="text-accent">⬡</span> How I plan
-          </h3>
-          <ul class="style-list">
-            <li>Start with outcomes, not activities.</li>
-            <li>Work backward from the deadline with explicit milestones.</li>
-            <li>Build contingency into the plan before it's needed.</li>
-            <li>Track health, not just status — are we actually going to make it?</li>
-            <li>Regular review cadences to catch drift early.</li>
-          </ul>
-        </div>
-
-        <div class="style-col">
-          <h3 class="style-col__title">
-            <span class="text-accent">◉</span> How I lead teams
-          </h3>
-          <ul class="style-list">
-            <li>Clear mission and commander's intent — then let people execute.</li>
-            <li>Make ownership unambiguous. No unclear handoffs.</li>
-            <li>Run lightweight, high-value retrospectives after every major event.</li>
-            <li>Shield the team from noise; escalate blockers fast.</li>
-            <li>Invest in capability building, not just task completion.</li>
-          </ul>
-        </div>
-
-        <div class="style-col">
-          <h3 class="style-col__title">
-            <span class="text-accent">▣</span> How I build
-          </h3>
-          <ul class="style-list">
-            <li>Simplest working solution first, then optimize.</li>
-            <li>Document as I go — future me and future operators need this.</li>
-            <li>Build for observability — you can't operate what you can't see.</li>
-            <li>Automate the repeatable; keep humans in judgment roles.</li>
-            <li>Nothing is done until it's documented and someone else can run it.</li>
-          </ul>
-        </div>
+        {workStyleGroups.map((group) => (
+          <div class="style-col">
+            <h3 class="style-col__title">
+              <span class="text-accent">{group.icon}</span> {group.title}
+            </h3>
+            <ul class="style-list">
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -158,14 +87,7 @@ import SectionHeader from "../components/SectionHeader.astro";
       <SectionHeader label="// TOOLCHAIN" title="Tools & Frameworks I Use" />
 
       <div class="toolchain-grid">
-        {[
-          { category: "Planning & Documentation", tools: ["Notion", "Obsidian", "Google Workspace", "Markdown"] },
-          { category: "Community & Comms", tools: ["Discord", "Discord.js", "Webhooks", "Slack"] },
-          { category: "Automation & Integration", tools: ["Zapier", "n8n", "Python", "REST APIs", "Node.js"] },
-          { category: "AI & Workflow", tools: ["Ollama", "LangChain", "GPT-4", "Claude", "Prompt Engineering"] },
-          { category: "Infrastructure", tools: ["Docker", "Linux", "Nginx", "Grafana", "Ansible"] },
-          { category: "Development", tools: ["VS Code", "Git", "Astro", "TypeScript", "Python"] },
-        ].map((group) => (
+        {toolchainGroups.map((group) => (
           <div class="toolchain-group">
             <h4 class="toolchain-group__label">{group.category}</h4>
             <div class="tag-cloud">
@@ -186,18 +108,11 @@ import SectionHeader from "../components/SectionHeader.astro";
 
       <div class="aar-panel">
         <p class="aar-panel__intro">
-          The After Action Review (AAR) is one of the most valuable practices I took from
-          military service. After every significant operation, event, or project, I ask:
+          {aarIntro}
         </p>
 
         <div class="aar-questions">
-          {[
-            { q: "What was supposed to happen?", sub: "The plan, the intent, the expected outcome." },
-            { q: "What actually happened?", sub: "Honest, factual account — no spin, no blame." },
-            { q: "Why was there a difference?", sub: "Root causes, not symptoms. Contributing factors." },
-            { q: "What do we sustain?", sub: "What worked? What should become standard practice?" },
-            { q: "What do we improve?", sub: "Specific, actionable changes to make the next one better." },
-          ].map((item) => (
+          {aarQuestions.map((item) => (
             <div class="aar-item">
               <p class="aar-item__q">{item.q}</p>
               <p class="aar-item__sub">{item.sub}</p>

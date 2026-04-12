@@ -3,9 +3,15 @@
 import Layout from "../layouts/Layout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { getActiveProjects } from "../data/projects";
+import {
+  explorationItems,
+  nowLastUpdated,
+  openToItems,
+  priorityItems,
+} from "../data/nowContent";
 
-const activeProjects = getActiveProjects();
-const lastUpdated = "April 2025";
+const activeProjects = await getActiveProjects();
+const lastUpdated = nowLastUpdated;
 const toBasePath = (path: string) => {
   const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   return path === "/" ? `${base}/` : `${base}${path}`;
@@ -77,28 +83,7 @@ const toBasePath = (path: string) => {
       <SectionHeader label="// SIGNAL SCAN" title="Areas I'm Exploring" />
 
       <div class="exploration-grid">
-        {[
-          {
-            icon: "◈",
-            title: "AI-Assisted Operations",
-            body: "How agentic AI tools can reduce friction in program management, status reporting, and knowledge retrieval — without adding complexity."
-          },
-          {
-            icon: "⬡",
-            title: "Technical Program Management at Scale",
-            body: "Studying how TPM functions in large-scale engineering orgs — tooling, frameworks, and how the best TPMs create leverage for their teams."
-          },
-          {
-            icon: "◉",
-            title: "Community Infrastructure Patterns",
-            body: "Documenting patterns from large gaming community operations that apply broadly to online community design and management."
-          },
-          {
-            icon: "▣",
-            title: "Static Site Architecture",
-            body: "Exploring Astro, edge deployment, and content-first site architectures for fast, maintainable web properties."
-          },
-        ].map((item) => (
+        {explorationItems.map((item) => (
           <div class="explore-card">
             <span class="explore-card__icon text-accent" aria-hidden="true">{item.icon}</span>
             <h3 class="explore-card__title">{item.title}</h3>
@@ -115,13 +100,7 @@ const toBasePath = (path: string) => {
       <SectionHeader label="// PRIORITY QUEUE" title="Current Priorities" />
 
       <div class="priority-list">
-        {[
-          { label: "HIGH", text: "Complete this portfolio site and deploy to GitHub Pages", color: "badge-green" },
-          { label: "HIGH", text: "Ship V1 of the AI workflow assistant", color: "badge-green" },
-          { label: "MED", text: "Document community operations patterns for public sharing", color: "badge-yellow" },
-          { label: "MED", text: "Deepen TypeScript and Astro proficiency through production use", color: "badge-yellow" },
-          { label: "LOW", text: "Begin formal TPM certification study track", color: "badge-gray" },
-        ].map((item) => (
+        {priorityItems.map((item) => (
           <div class="priority-item">
             <span class={`badge ${item.color}`} style="flex-shrink: 0; min-width: 50px; justify-content: center;">{item.label}</span>
             <p>{item.text}</p>
@@ -140,21 +119,18 @@ const toBasePath = (path: string) => {
         <div class="open-to-card open-to-card--yes">
           <h3>Yes, please</h3>
           <ul>
-            <li>Technical Program Manager roles</li>
-            <li>Operations lead / director roles</li>
-            <li>Community platform or infrastructure roles</li>
-            <li>Building 0-to-1 operational systems</li>
-            <li>Organizations that value written communication and async work</li>
+            {openToItems.yes.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </div>
 
         <div class="open-to-card open-to-card--no">
           <h3>Not the right fit</h3>
           <ul>
-            <li>Pure IC development roles without operational scope</li>
-            <li>Organizations without strong writing culture</li>
-            <li>Roles that are primarily status-reporting with no ownership</li>
-            <li>Environments that treat busyness as productivity</li>
+            {openToItems.no.map((item) => (
+              <li>{item}</li>
+            ))}
           </ul>
         </div>
       </div>
