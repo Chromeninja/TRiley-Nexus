@@ -9,6 +9,9 @@ tags:
   - Process Improvement
 organization: Ubisoft
 timeframe: Past
+roleTitle: Senior Program Manager
+startedAt: Jan 2023
+endedAt: Dec 2023
 summary: Delivered improvements to Ubisoft Help platform workflows and support experience quality.
 problem: Support pathways and knowledge flow created friction for both players and support teams.
 approach: Identified high-friction points and implemented structured improvements to navigation, workflows, and support handoff quality.

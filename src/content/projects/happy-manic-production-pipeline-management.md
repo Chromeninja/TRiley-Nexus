@@ -9,6 +9,9 @@ tags:
   - Team Coordination
 organization: Happy Manic
 timeframe: Past
+roleTitle: Senior Program Manager
+startedAt: Jan 2023
+endedAt: Dec 2023
 summary: Managed production pipeline operations to improve delivery consistency and cross-team coordination at Happy Manic.
 problem: Pipeline bottlenecks and inconsistent handoffs impacted production velocity and quality.
 approach: Standardized workflow stages, ownership, and communication checkpoints across production tracks.

@@ -56,6 +56,12 @@ export interface SiteConfig {
     values: string[];
     profileMedia: { src: string; alt: string; caption?: string } | null;
     additionalMedia: Array<{ src: string; alt: string; caption?: string }>;
+    resume?: {
+      title: string;
+      filePath: string;
+      lastUpdated: string;
+      summary?: string;
+    };
   };
   skills: {
     groups: Array<{ label: string; icon: string; skills: string[] }>;

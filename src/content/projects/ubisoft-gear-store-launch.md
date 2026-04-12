@@ -9,6 +9,9 @@ tags:
   - Ubisoft
 organization: Ubisoft
 timeframe: Past
+roleTitle: Senior Program Manager
+startedAt: Jan 2023
+endedAt: Dec 2023
 summary: Supported launch execution for Ubisoft Gear Store with focus on customer experience and operational readiness.
 problem: Launching commerce experiences required coordinated support, workflows, and issue response coverage.
 approach: Helped align launch support operations and process checkpoints across teams.

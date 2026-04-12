@@ -3,6 +3,7 @@
 import Layout from "../../layouts/Layout.astro";
 import ProjectMediaGallery from "../../components/ProjectMediaGallery.astro";
 import {
+  formatProjectDateRange,
   getProjects,
   projectStatusColors,
   projectStatusLabels,
@@ -23,6 +24,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const projectDateRange = formatProjectDateRange(project);
 ---
 
 <Layout
@@ -57,11 +59,22 @@ const { project } = Astro.props;
               <span class="badge badge-purple">{project.category}</span>
             </div>
             <h1 class="project-header__title">{project.title}</h1>
-            {project.timeframe && (
-              <p class="project-header__timeframe text-mono text-muted">{project.timeframe}</p>
+            {projectDateRange && (
+              <p class="project-header__timeframe text-mono text-muted">{projectDateRange}</p>
             )}
             {project.organization && (
-              <p class="project-header__org text-muted">{project.organization}</p>
+              project.organizationUrl ? (
+                <p class="project-header__org text-muted">
+                  <a href={project.organizationUrl} target="_blank" rel="noopener noreferrer">
+                    {project.organization}
+                  </a>
+                </p>
+              ) : (
+                <p class="project-header__org text-muted">{project.organization}</p>
+              )
+            )}
+            {project.roleTitle && (
+              <p class="project-header__role text-mono text-muted">{project.roleTitle}</p>
             )}
             <p class="project-header__summary">{project.summary}</p>
           </header>
@@ -232,7 +245,23 @@ const { project } = Astro.props;
 
   .project-header__org {
     font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-header__role {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
     margin-bottom: var(--space-lg);
+  }
+
+  .project-header__org a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-header__org a:hover,
+  .project-header__org a:focus-visible {
+    color: var(--color-accent);
   }
 
   .project-header__summary {

@@ -141,7 +141,13 @@
         "alt": "Speaking at an event",
         "caption": "Speaking and leadership in action"
       }
-    ]
+    ],
+    "resume": {
+      "title": "Resume",
+      "filePath": "/documents/Timothy Garrett - Sep 25 Resume.pdf",
+      "lastUpdated": "September 2025",
+      "summary": "View or download my current resume in PDF format."
+    }
   },
   "skills": {
     "groups": [

@@ -31,7 +31,10 @@ function resolveSrc(src: string): string {
         {item.type === "video" ? (
           <video
             class="project-gallery__media"
+            autoplay
             controls
+            loop
+            muted
             preload="metadata"
             playsinline
             poster={item.poster ? resolveSrc(item.poster) : undefined}
@@ -95,6 +98,24 @@ function resolveSrc(src: string): string {
 
     let currentIndex = 0;
 
+    const syncActiveVideo = () => {
+      slides.forEach((slide, slideIndex) => {
+        const video = slide.querySelector("video");
+        if (!video) {
+          return;
+        }
+
+        if (slideIndex === currentIndex) {
+          void video.play().catch(() => {
+            // Browser autoplay policy may still block playback until interaction.
+          });
+        } else if (!video.paused) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    };
+
     const updateSlides = (index) => {
       currentIndex = (index + slides.length) % slides.length;
 
@@ -103,10 +124,6 @@ function resolveSrc(src: string): string {
         slide.classList.toggle("is-active", isActive);
         slide.setAttribute("aria-hidden", isActive ? "false" : "true");
 
-        const video = slide.querySelector("video");
-        if (!isActive && video && !video.paused) {
-          video.pause();
-        }
       });
 
       dots.forEach((dot, dotIndex) => {
@@ -114,6 +131,8 @@ function resolveSrc(src: string): string {
         dot.classList.toggle("is-active", isActive);
         dot.setAttribute("aria-selected", isActive ? "true" : "false");
       });
+
+      syncActiveVideo();
     };
 
     prevBtn?.addEventListener("click", () => updateSlides(currentIndex - 1));
@@ -133,6 +152,8 @@ function resolveSrc(src: string): string {
         updateSlides(currentIndex + 1);
       }
     });
+
+    syncActiveVideo();
   });
 </script>
 

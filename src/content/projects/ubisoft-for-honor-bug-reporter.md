@@ -9,6 +9,9 @@ tags:
   - Support Operations
 organization: Ubisoft
 timeframe: Past
+roleTitle: Senior Program Manager
+startedAt: Jan 2023
+endedAt: Dec 2023
 summary: Supported bug reporter process improvements for For Honor with focus on clearer intake and reproducible issue data.
 problem: Inconsistent bug submission structure created extra effort for support and engineering triage.
 approach: Improved intake expectations and reporting pathways to increase actionable submissions.

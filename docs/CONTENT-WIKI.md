@@ -52,12 +52,14 @@ Each project file should include:
 ## Optional Project Fields
 
 - organization
+- organizationUrl
 - timeframe
 - problem
 - approach
 - outcome
 - skills (array)
 - tools (array)
+- cover (object)
 - order (number)
 - links (array)
 - media (array)
@@ -72,12 +74,35 @@ links:
     url: https://github.com/yourname/your-repo
 ```
 
-## Media Example (Image)
+## Organization Link Example
+
+Use `organizationUrl` when you want the company name to link anywhere the organization name is shown.
+
+```yaml
+organization: Happy Manic
+organizationUrl: https://happymanic.com/
+```
+
+## Cover Example (Project Card Only)
+
+Use `cover` for the image shown on the projects grid card.
+
+This image does not appear in the project detail gallery.
+
+```yaml
+cover:
+  src: /images/projects/my-project/cover.webp
+  alt: My Project logo or cover image
+```
+
+## Media Example (Image On Project Page)
+
+Use `media` images for screenshots, product shots, or photos of real-world work on the detail page.
 
 ```yaml
 media:
   - type: image
-    src: /images/projects/my-project/hero.jpg
+    src: /images/projects/my-project/screenshot-01.webp
     alt: Screenshot of my project
     caption: Optional caption
 ```
@@ -87,10 +112,24 @@ media:
 ```yaml
 media:
   - type: video
-    src: /media/projects/my-project/demo.mp4
-    poster: /images/projects/my-project/poster.jpg
+    src: /media/projects/my-project/trailer.mp4
     caption: Optional caption
 ```
+
+## File Naming Best Practices
+
+- Cover image for project cards: `/images/projects/my-project/cover.webp`
+- Project screenshots: `/images/projects/my-project/screenshot-01.webp`
+- Product images: `/images/projects/my-project/product-01.webp`
+- Real-world or on-site photos: `/images/projects/my-project/photo-01.webp`
+- Trailer or demo video: `/media/projects/my-project/trailer.mp4` or `/media/projects/my-project/demo.mp4`
+
+## Format Guidance
+
+- Prefer `.webp` for cover images, screenshots, product images, and photos
+- Prefer `.mp4` for project videos
+- Use `cover` when you want a static card image and keep the detail page media separate
+- Use `media` when you want the asset to appear on the project detail page
 
 ## Where To Get Help
 

@@ -9,6 +9,8 @@ tags:
   - Check-in Systems
 organization: VR Villa
 timeframe: Ongoing
+roleTitle: Senior Program Manager
+startedAt: Jan 2024
 summary: Ongoing event, operations, and technical systems work supporting VR activations, convention presence, check-in systems, partnerships, and growth.
 problem: Scaling VR event operations across activations and conventions required clearer systems for attendees, staff, and partner coordination.
 approach: Designed repeatable operating workflows, improved check-in and attendee flows, and built partner-ready coordination playbooks.

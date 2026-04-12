@@ -22,6 +22,9 @@ function resolveMediaSrc(src: string): string {
 
   return toBasePath(src.startsWith("/") ? src : `/${src}`);
 }
+
+const resumeConfig = siteConfig.about.resume;
+const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undefined;
 ---
 
 <Layout
@@ -62,6 +65,31 @@ function resolveMediaSrc(src: string): string {
       </div>
     </div>
   </section>
+
+  {resumeConfig && resumePath && (
+    <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="container container--sm">
+        <SectionHeader label="// RESUME" title={resumeConfig.title} />
+
+        <div class="resume-panel panel">
+          {resumeConfig.summary && <p class="resume-panel__summary">{resumeConfig.summary}</p>}
+
+          <p class="resume-panel__updated text-mono text-muted">
+            Last updated: <span>{resumeConfig.lastUpdated}</span>
+          </p>
+
+          <div class="resume-panel__actions">
+            <a href={resumePath} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              View Resume
+            </a>
+            <a href={resumePath} class="btn btn-outline" download>
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- How I Think -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
@@ -177,6 +205,36 @@ function resolveMediaSrc(src: string): string {
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin: 0;
+  }
+
+  .resume-panel {
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .resume-panel__summary {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .resume-panel__updated {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .resume-panel__updated span {
+    color: var(--color-text);
+  }
+
+  .resume-panel__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
   }
 
   /* Think cards */

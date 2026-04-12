@@ -3,10 +3,22 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { getProjects, getCategories } from "../../data/projects";
+import {
+  getProjects,
+  getCategories,
+  getProjectOrganizationGroups,
+  projectStatusColors,
+  projectStatusLabels,
+  type Project,
+} from "../../data/projects";
 
 const categories = await getCategories();
 const allProjects = await getProjects();
+const organizationGroups = await getProjectOrganizationGroups();
+const statusDisplayOrder: Project["status"][] = ["active", "concept", "completed", "archived"];
+const usedStatuses = statusDisplayOrder.filter((status) =>
+  allProjects.some((project) => project.status === status),
+);
 ---
 
 <Layout
@@ -29,20 +41,54 @@ const allProjects = await getProjects();
         ))}
       </div>
 
-      <!-- Status legend -->
-      <div class="status-legend">
-        <span class="badge badge-green">Active</span>
-        <span class="badge badge-cyan">Completed</span>
-        <span class="badge badge-yellow">Concept</span>
-        <span class="badge badge-gray">Archived</span>
+      <!-- Status filter -->
+      <div class="status-legend" role="group" aria-label="Filter projects by status">
+        <button class="status-filter-btn status-filter-btn--active" data-status-filter="all">All statuses</button>
+        {usedStatuses.map((status) => (
+          <button
+            class={`status-filter-btn ${projectStatusColors[status]}`}
+            data-status-filter={status}
+          >
+            {projectStatusLabels[status]}
+          </button>
+        ))}
       </div>
 
-      <!-- Project Grid -->
-      <div class="projects-grid" id="projects-grid">
-        {allProjects.map((project) => (
-          <div class="project-item" data-category={project.category}>
-            <ProjectCard project={project} />
-          </div>
+      <!-- Organization Groups -->
+      <div class="organization-groups" id="projects-grid">
+        {organizationGroups.map((group) => (
+          <section class="organization-group" data-organization-group>
+            <h2 class="organization-group__title text-mono">{group.organization}</h2>
+            {(group.companySummary || group.companyInfo || group.myTimeInfo || group.timeRangeLabel) && (
+              <div class="organization-group__meta panel">
+                {group.companySummary && (
+                  <p class="organization-group__summary">{group.companySummary}</p>
+                )}
+                {group.companyInfo && (
+                  <p class="organization-group__description">
+                    <span class="text-mono text-accent">Company:</span> {group.companyInfo}
+                  </p>
+                )}
+                {group.myTimeInfo && (
+                  <p class="organization-group__description">
+                    <span class="text-mono text-accent">My time there:</span> {group.myTimeInfo}
+                  </p>
+                )}
+                {group.timeRangeLabel && (
+                  <p class="organization-group__time text-mono text-muted">
+                    Timeline: {group.timeRangeLabel}
+                  </p>
+                )}
+              </div>
+            )}
+            <div class="projects-grid">
+              {group.projects.map((project) => (
+                <div class="project-item" data-category={project.category} data-status={project.status}>
+                  <ProjectCard project={project} />
+                </div>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
 
@@ -100,10 +146,82 @@ const allProjects = await getProjects();
     margin-right: var(--space-xs);
   }
 
+  .status-filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3em 0.9em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .status-filter-btn:hover,
+  .status-filter-btn--active {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-xl);
+  }
+
+  .organization-groups {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+
+  .organization-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .organization-group__title {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .organization-group__meta {
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+  }
+
+  .organization-group__summary {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.65;
+  }
+
+  .organization-group__description {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    font-size: 0.95rem;
+  }
+
+  .organization-group__time {
+    margin: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .organization-group--hidden {
+    display: none;
   }
 
   .project-item {
@@ -127,30 +245,60 @@ const allProjects = await getProjects();
 
 <script>
   const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const statusFilterBtns = document.querySelectorAll<HTMLButtonElement>(".status-filter-btn");
   const projectItems = document.querySelectorAll<HTMLElement>(".project-item");
+  const organizationGroups = document.querySelectorAll<HTMLElement>(".organization-group");
   const emptyState = document.getElementById("empty-state");
+  let activeCategoryFilter = "all";
+  let activeStatusFilter = "all";
+
+  const updateProjectVisibility = () => {
+    let visibleCount = 0;
+
+    projectItems.forEach((item) => {
+      const category = item.dataset.category ?? "";
+      const status = item.dataset.status ?? "";
+      const matchesCategory = activeCategoryFilter === "all" || category === activeCategoryFilter;
+      const matchesStatus = activeStatusFilter === "all" || status === activeStatusFilter;
+      const show = matchesCategory && matchesStatus;
+
+      item.classList.toggle("project-item--hidden", !show);
+      if (show) {
+        visibleCount++;
+      }
+    });
+
+    organizationGroups.forEach((group) => {
+      const visibleProjectsInGroup = group.querySelectorAll(".project-item:not(.project-item--hidden)").length;
+      group.classList.toggle("organization-group--hidden", visibleProjectsInGroup === 0);
+    });
+
+    if (emptyState) {
+      emptyState.hidden = visibleCount > 0;
+    }
+  };
 
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter ?? "all";
+      activeCategoryFilter = btn.dataset.filter ?? "all";
 
-      // Update active state
       filterBtns.forEach((b) => b.classList.remove("filter-btn--active"));
       btn.classList.add("filter-btn--active");
 
-      // Filter projects
-      let visibleCount = 0;
-      projectItems.forEach((item) => {
-        const cat = item.dataset.category ?? "";
-        const show = filter === "all" || cat === filter;
-        item.classList.toggle("project-item--hidden", !show);
-        if (show) visibleCount++;
-      });
-
-      // Show/hide empty state
-      if (emptyState) {
-        emptyState.hidden = visibleCount > 0;
-      }
+      updateProjectVisibility();
     });
   });
+
+  statusFilterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activeStatusFilter = btn.dataset.statusFilter ?? "all";
+
+      statusFilterBtns.forEach((button) => button.classList.remove("status-filter-btn--active"));
+      btn.classList.add("status-filter-btn--active");
+
+      updateProjectVisibility();
+    });
+  });
+
+  updateProjectVisibility();
 </script>

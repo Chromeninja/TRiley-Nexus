@@ -63,7 +63,17 @@ const lastUpdated = nowLastUpdated;
             <p class="active-project-card__summary">{project.summary}</p>
             <div class="active-project-card__meta text-mono text-muted">
               {project.timeframe && <span>{project.timeframe}</span>}
-              {project.organization && <span>· {project.organization}</span>}
+              {project.organization && (
+                <span>
+                  · {project.organizationUrl ? (
+                    <a href={project.organizationUrl} target="_blank" rel="noopener noreferrer">
+                      {project.organization}
+                    </a>
+                  ) : (
+                    project.organization
+                  )}
+                </span>
+              )}
             </div>
           </div>
         ))}
@@ -218,6 +228,16 @@ const lastUpdated = nowLastUpdated;
     letter-spacing: 0.04em;
     display: flex;
     gap: var(--space-sm);
+  }
+
+  .active-project-card__meta a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .active-project-card__meta a:hover,
+  .active-project-card__meta a:focus-visible {
+    color: var(--color-accent);
   }
 
   /* Exploration */

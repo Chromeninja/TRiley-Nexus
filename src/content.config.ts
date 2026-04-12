@@ -8,6 +8,10 @@ const projectsCollection = defineCollection({
     category: z.string(),
     tags: z.array(z.string()),
     organization: z.string().optional(),
+    organizationUrl: z.string().url().optional(),
+    roleTitle: z.string().optional(),
+    startedAt: z.string().optional(),
+    endedAt: z.string().optional(),
     timeframe: z.string().optional(),
     summary: z.string(),
     problem: z.string().optional(),
@@ -15,6 +19,12 @@ const projectsCollection = defineCollection({
     outcome: z.string().optional(),
     skills: z.array(z.string()).optional(),
     tools: z.array(z.string()).optional(),
+    cover: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
     links: z
       .array(
         z.object({

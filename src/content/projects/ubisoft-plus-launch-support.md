@@ -9,6 +9,9 @@ tags:
   - Program Execution
 organization: Ubisoft
 timeframe: Past
+roleTitle: Senior Program Manager
+startedAt: Jan 2023
+endedAt: Dec 2023
 summary: Contributed to launch support readiness and operations for Ubisoft+ rollout activities.
 problem: Subscription launch complexity required aligned support workflows and readiness across teams.
 approach: Coordinated launch-support execution details, readiness checks, and process stabilization.
