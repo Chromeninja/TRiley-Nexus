@@ -1,0 +1,461 @@
+{
+  "site": {
+    "name": "T.Riley",
+    "logoText": "T.RILEY",
+    "baseTitle": "T.Riley",
+    "description": "Systems builder. Technical Program Manager. Operations architect. I build the infrastructure, technical and human, that makes complex work actually work.",
+    "canonicalUrl": "https://chromeninja.github.io",
+    "repository": {
+      "owner": "Chromeninja",
+      "name": "TRiley-Nexus"
+    },
+    "themeColor": "#08110d",
+    "ogImage": "/og-image.png"
+  },
+  "navigation": [
+    { "href": "/", "label": "Home", "enabled": true },
+    { "href": "/about", "label": "About", "enabled": true },
+    { "href": "/projects", "label": "Projects", "enabled": true },
+    { "href": "/how-i-work", "label": "How I Work", "enabled": true },
+    { "href": "/now", "label": "Now", "enabled": true },
+    { "href": "/contact", "label": "Contact", "enabled": true }
+  ],
+  "social": {
+    "githubUrl": "https://github.com/Chromeninja",
+    "linkedinUrl": "https://www.linkedin.com/in/trileygarrett/",
+    "email": "t.riley.garrett@gmail.com"
+  },
+  "footer": {
+    "tagline": "Program leadership for teams, systems, and innovation work in motion.",
+    "focusLine": "FOCUS: PROGRAMS, PROCESS, SYSTEMS"
+  },
+  "home": {
+    "metaDescription": "Systems builder. Technical Program Manager. Operations architect. I build the infrastructure, technical and human, that makes complex work actually work.",
+    "hero": {
+      "eyebrow": "// OPERATING FIELD",
+      "headlineLead": "I lead programs that turn",
+      "headlineAccent": "complex ideas",
+      "headlineTail": "into repeatable systems.",
+      "subtext": "Program manager. Operations architect. Systems-minded builder. I work where innovation, process, and technical execution meet, designing the structure that helps teams move from ambiguity to reliable delivery.",
+      "supportingText": "Code and automation are part of the toolkit, not the headline. The real work is building aligned programs, durable processes, and teams that can scale under pressure.",
+      "primaryAction": { "label": "View Projects", "href": "/projects" },
+      "secondaryAction": { "label": "About Me", "href": "/about" }
+    },
+    "principles": [
+      {
+        "num": "01",
+        "text": "Diagnose before designing - understand the real problem, not just the stated one."
+      },
+      {
+        "num": "02",
+        "text": "Build systems, not solutions - make it repeatable, not just functional once."
+      },
+      {
+        "num": "03",
+        "text": "Align people before automating process - technology amplifies what is already there."
+      },
+      {
+        "num": "04",
+        "text": "Create clarity in ambiguity - my job is to reduce uncertainty for everyone around me."
+      },
+      {
+        "num": "05",
+        "text": "Balance strategy and execution - think at both levels simultaneously."
+      }
+    ],
+    "stats": [
+      { "value": "15+", "label": "Years military experience" },
+      { "value": "10+", "label": "Years in gaming industry" },
+      { "value": "40+", "label": "Operations planned and executed" },
+      { "value": "12+", "label": "Large-scale events run" }
+    ]
+  },
+  "about": {
+    "metaDescription": "Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations.",
+    "backgroundParagraphs": [
+      "I served in the U.S. military for over eight years, working in communications and operations roles that required precision, adaptability, and the ability to execute under pressure. That experience fundamentally shaped how I approach complex work - I default to structure, clear communication, and planning for contingencies before they happen.",
+      "After military service, I moved into technical program management and operations leadership in the gaming and community space. Over the past several years, I have designed and operated systems for communities with thousands of members - building the governance structures, automation infrastructure, event frameworks, and moderation pipelines that keep large-scale organizations running.",
+      "I have also done meaningful work in infrastructure modernization, migrating legacy systems to modern architectures, building operational runbooks, and improving reliability across distributed services. Alongside this, I have been building AI-assisted workflow tools to reduce the manual overhead of program management and knowledge work.",
+      "My background is deliberately broad because the problems I care about are broad. I work best at the layer where systems thinking, technical execution, and human coordination all have to come together at once."
+    ],
+    "thinkItems": [
+      {
+        "title": "Systems first",
+        "text": "I do not see isolated problems - I see systems with feedback loops, dependencies, and failure modes. My instinct is to map the whole before touching any part."
+      },
+      {
+        "title": "Clarity as a product",
+        "text": "One of the most valuable things I produce is clarity. Whether it is a plan, a decision, or a communication - if people leave the conversation less confused, I have done my job."
+      },
+      {
+        "title": "Diagnose before designing",
+        "text": "The stated problem is rarely the actual problem. I spend disproportionate time on diagnosis - because solving the wrong problem perfectly is still failure."
+      },
+      {
+        "title": "Repeatable over clever",
+        "text": "I will take a boring, reliable system over an elegant one that only works when everything goes right. Operational excellence is built on boring fundamentals."
+      },
+      {
+        "title": "Strategy and execution in parallel",
+        "text": "Most planning failures come from people who think at one altitude only. I try to hold both levels simultaneously - the long view and the immediate execution surface."
+      },
+      {
+        "title": "People are part of the system",
+        "text": "Technical systems do not run themselves. The humans operating them are part of the design. I build for the actual humans, not the theoretical ideal ones."
+      }
+    ],
+    "personalItems": [
+      {
+        "icon": "◉",
+        "title": "Family",
+        "body": "Husband and father. Family is the primary system I operate and optimize for. Everything else is in service of building a life that works for the people I love."
+      },
+      {
+        "icon": "⬡",
+        "title": "Star Citizen",
+        "body": "Deep into the Star Citizen universe - not just as a player but as an org leader and community operator. This is where many of my community systems skills were actually developed and tested in production."
+      },
+      {
+        "icon": "◆",
+        "title": "Systems and Strategy",
+        "body": "I read heavily on systems thinking, organizational design, military history, and decision theory. Understanding how complex systems succeed or fail is a genuine intellectual interest, not just a professional one."
+      },
+      {
+        "icon": "▣",
+        "title": "Building Things",
+        "body": "I am perpetually building something - whether it is automation tooling, a community framework, or this site. The act of building is how I think."
+      }
+    ],
+    "values": [
+      "Doing the work, not just talking about it",
+      "Honesty about tradeoffs and risks",
+      "Building for people who actually have to use the system",
+      "Leaving things better than I found them",
+      "Not confusing busyness with progress",
+      "Owning outcomes, not just activities"
+    ],
+    "profileMedia": null,
+    "additionalMedia": [
+      {
+        "src": "/images/photos/speaking.JPG",
+        "alt": "Speaking at an event",
+        "caption": "Speaking and leadership in action"
+      }
+    ]
+  },
+  "skills": {
+    "groups": [
+      {
+        "label": "Technical Program Management",
+        "icon": "◈",
+        "skills": [
+          "Program Planning and Roadmapping",
+          "Risk Management",
+          "Cross-functional Coordination",
+          "Stakeholder Communication",
+          "OKR and KPI Frameworks",
+          "Dependency Mapping"
+        ]
+      },
+      {
+        "label": "Operations and Systems",
+        "icon": "⬡",
+        "skills": [
+          "Systems Design",
+          "Process Automation",
+          "Infrastructure Operations",
+          "Incident Management",
+          "Runbook Development",
+          "Change Management"
+        ]
+      },
+      {
+        "label": "Community and Event Leadership",
+        "icon": "◉",
+        "skills": [
+          "Community Architecture",
+          "Governance Design",
+          "Live Event Operations",
+          "Moderation Systems",
+          "Member Experience",
+          "Community Analytics"
+        ]
+      },
+      {
+        "label": "Technology and Tools",
+        "icon": "▣",
+        "skills": [
+          "Discord Bot Development",
+          "API Integration",
+          "Workflow Automation",
+          "AI and LLM Tools",
+          "Data Visualization",
+          "Static Site Development"
+        ]
+      },
+      {
+        "label": "Leadership and Strategy",
+        "icon": "◆",
+        "skills": [
+          "Military Leadership",
+          "Team Building and Coaching",
+          "Strategic Planning",
+          "Mission Clarity",
+          "Decision Frameworks",
+          "After Action Review"
+        ]
+      }
+    ],
+    "coreStrengths": [
+      {
+        "icon": "⬡",
+        "title": "Systems Thinking",
+        "description": "I see the whole board - how processes, people, and tools interact - and design solutions that hold up under real-world conditions."
+      },
+      {
+        "icon": "◈",
+        "title": "Operational Clarity",
+        "description": "I turn messy, ambiguous problems into structured plans with clear ownership, defined outcomes, and measurable progress."
+      },
+      {
+        "icon": "◉",
+        "title": "Community Architecture",
+        "description": "I build the systems that keep communities running - governance, automation, culture, and the quiet infrastructure most people never see."
+      },
+      {
+        "icon": "▣",
+        "title": "Automation and Tooling",
+        "description": "If a process can be systematized, I find a way to do it - reducing manual overhead and letting humans focus on judgment work."
+      },
+      {
+        "icon": "◆",
+        "title": "Program Execution",
+        "description": "From concept to delivery: I plan, coordinate, adapt, and ship - whether it is a live event, a migration, or a long-running product initiative."
+      },
+      {
+        "icon": "⊕",
+        "title": "Leadership Under Pressure",
+        "description": "Military background and years of leading teams through high-stakes, time-critical environments built a foundation that holds when things get hard."
+      }
+    ]
+  },
+  "howIWork": {
+    "metaDescription": "My operating principles, methodology, and approach to solving complex operational and technical problems.",
+    "coreApproachParagraphs": [
+      "I am not a specialist in one domain - I am a generalist who builds systems. The through-line in everything I do is translating complexity into structure: taking messy, ambiguous situations and creating clarity, process, and working systems out of them.",
+      "Whether I am planning a military operation, running a large-scale community event, migrating aging infrastructure, or designing an automation workflow, the underlying methodology is the same. Understand the system. Identify the failure modes. Build something that actually holds up in production."
+    ],
+    "workPrinciples": [
+      {
+        "num": "01",
+        "title": "Diagnose before designing",
+        "body": "The biggest failure mode in operations and engineering is solving the wrong problem well. I invest heavily in diagnosis - understanding root causes, mapping system states, and validating assumptions before proposing solutions. The stated problem is rarely the actual problem."
+      },
+      {
+        "num": "02",
+        "title": "Build systems, not solutions",
+        "body": "A one-off fix is not a solution - it is technical debt with a short grace period. I build repeatable, maintainable systems that can be operated by others, updated without me, and scaled beyond the original scope. If it is not systemized, it is not done."
+      },
+      {
+        "num": "03",
+        "title": "Align people before automating process",
+        "body": "Technology amplifies what is already in the organization. Automating a broken process makes broken things happen faster. I always start with the human system - the incentives, the workflows, the communication patterns - before reaching for tooling."
+      },
+      {
+        "num": "04",
+        "title": "Create clarity in ambiguity",
+        "body": "Ambiguity is not an obstacle - it is the job. My role is to reduce uncertainty for the people around me: clear problem statements, defined ownership, explicit tradeoffs, documented decisions. Clarity is a deliverable."
+      },
+      {
+        "num": "05",
+        "title": "Balance strategy and execution",
+        "body": "Most operational failures come from working at only one altitude - either too zoomed out to execute or too zoomed in to see the full picture. I deliberately move between both. Long-term architecture and immediate execution decisions both need attention simultaneously."
+      },
+      {
+        "num": "06",
+        "title": "Design for the humans who actually exist",
+        "body": "Systems succeed or fail at the human interface. I build for the real operators - with their real constraints, cognitive loads, and failure modes - not the idealized ones. Good design accounts for how people actually behave under pressure."
+      }
+    ],
+    "workStyleGroups": [
+      {
+        "icon": "◈",
+        "title": "How I communicate",
+        "items": [
+          "Direct, without being blunt. I say what I mean.",
+          "Written-first - I think clearly in structured writing.",
+          "I document decisions and the reasoning behind them.",
+          "Async by default, synchronous when it actually requires synchrony.",
+          "I give candid feedback and expect it in return."
+        ]
+      },
+      {
+        "icon": "⬡",
+        "title": "How I plan",
+        "items": [
+          "Start with outcomes, not activities.",
+          "Work backward from the deadline with explicit milestones.",
+          "Build contingency into the plan before it is needed.",
+          "Track health, not just status - are we actually going to make it?",
+          "Regular review cadences to catch drift early."
+        ]
+      },
+      {
+        "icon": "◉",
+        "title": "How I lead teams",
+        "items": [
+          "Clear mission and commander intent - then let people execute.",
+          "Make ownership unambiguous. No unclear handoffs.",
+          "Run lightweight, high-value retrospectives after every major event.",
+          "Shield the team from noise; escalate blockers fast.",
+          "Invest in capability building, not just task completion."
+        ]
+      },
+      {
+        "icon": "▣",
+        "title": "How I build",
+        "items": [
+          "Simplest working solution first, then optimize.",
+          "Document as I go - future me and future operators need this.",
+          "Build for observability - you cannot operate what you cannot see.",
+          "Automate the repeatable; keep humans in judgment roles.",
+          "Nothing is done until it is documented and someone else can run it."
+        ]
+      }
+    ],
+    "toolchainGroups": [
+      {
+        "category": "Planning and Documentation",
+        "tools": ["Notion", "Obsidian", "Google Workspace", "Markdown"]
+      },
+      {
+        "category": "Community and Communications",
+        "tools": ["Discord", "Discord.js", "Webhooks", "Slack"]
+      },
+      {
+        "category": "Automation and Integration",
+        "tools": ["Zapier", "n8n", "Python", "REST APIs", "Node.js"]
+      },
+      {
+        "category": "AI and Workflow",
+        "tools": ["Ollama", "LangChain", "GPT", "Claude", "Prompt Engineering"]
+      },
+      {
+        "category": "Infrastructure",
+        "tools": ["Docker", "Linux", "Nginx", "Grafana", "Ansible"]
+      },
+      {
+        "category": "Development",
+        "tools": ["VS Code", "Git", "Astro", "TypeScript", "Python"]
+      }
+    ],
+    "aar": {
+      "intro": "The After Action Review (AAR) is one of the most valuable practices I took from military service. After every significant operation, event, or project, I ask:",
+      "questions": [
+        {
+          "q": "What was supposed to happen?",
+          "sub": "The plan, the intent, the expected outcome."
+        },
+        {
+          "q": "What actually happened?",
+          "sub": "Honest, factual account - no spin, no blame."
+        },
+        {
+          "q": "Why was there a difference?",
+          "sub": "Root causes, not symptoms. Contributing factors."
+        },
+        {
+          "q": "What do we sustain?",
+          "sub": "What worked? What should become standard practice?"
+        },
+        {
+          "q": "What do we improve?",
+          "sub": "Specific, actionable changes to make the next one better."
+        }
+      ]
+    }
+  },
+  "now": {
+    "metaDescription": "What T.Riley is currently working on, exploring, and focused on right now.",
+    "lastUpdated": "April 2025",
+    "statusHeadline": "CURRENT FOCUS",
+    "statusValue": "OPEN TO OPPORTUNITIES",
+    "statusSupport": "Program work, systems improvement, and innovation tooling",
+    "explorationItems": [
+      {
+        "icon": "◈",
+        "title": "AI-Assisted Operations",
+        "body": "How agentic AI tools can reduce friction in program management, status reporting, and knowledge retrieval - without adding complexity."
+      },
+      {
+        "icon": "⬡",
+        "title": "Technical Program Management at Scale",
+        "body": "Studying how TPM functions in large-scale engineering orgs - tooling, frameworks, and how the best TPMs create leverage for their teams."
+      },
+      {
+        "icon": "◉",
+        "title": "Community Infrastructure Patterns",
+        "body": "Documenting patterns from large gaming community operations that apply broadly to online community design and management."
+      },
+      {
+        "icon": "▣",
+        "title": "Static Site Architecture",
+        "body": "Exploring Astro, edge deployment, and content-first site architectures for fast, maintainable web properties."
+      }
+    ],
+    "priorityItems": [
+      {
+        "label": "HIGH",
+        "text": "Complete this portfolio site and deploy to GitHub Pages",
+        "color": "badge-green"
+      },
+      {
+        "label": "HIGH",
+        "text": "Ship V1 of the AI workflow assistant",
+        "color": "badge-green"
+      },
+      {
+        "label": "MED",
+        "text": "Document community operations patterns for public sharing",
+        "color": "badge-yellow"
+      },
+      {
+        "label": "MED",
+        "text": "Deepen TypeScript and Astro proficiency through production use",
+        "color": "badge-yellow"
+      },
+      {
+        "label": "LOW",
+        "text": "Begin formal TPM certification study track",
+        "color": "badge-gray"
+      }
+    ],
+    "openTo": {
+      "yes": [
+        "Technical Program Manager roles",
+        "Operations lead and director roles",
+        "Community platform or infrastructure roles",
+        "Building zero-to-one operational systems",
+        "Organizations that value written communication and async work"
+      ],
+      "no": [
+        "Pure individual contributor development roles without operational scope",
+        "Organizations without strong writing culture",
+        "Roles that are primarily status reporting with no ownership",
+        "Environments that treat busyness as productivity"
+      ]
+    }
+  },
+  "contact": {
+    "metaDescription": "Get in touch with T.Riley - open to roles, collaborations, and conversations about systems, operations, and building things.",
+    "heroSubtitle": "I am open to conversations about roles, collaborations, and meaningful systems work. Reach out through any of the channels below.",
+    "emailHint": "Best for professional inquiries and opportunities",
+    "linkedinHint": "Professional network and career history",
+    "githubHint": "Selected builds, tooling, and project history",
+    "responseTime": "I typically respond to email inquiries within 1-2 business days. LinkedIn messages may take a bit longer.",
+    "bestFor": "Job opportunities, collaboration proposals, interesting problems, and thoughtful conversations.",
+    "notAFit": "Generic outreach, spray-and-pray recruiting messages, or anything that opens with a vague opportunity.",
+    "status": "Open to opportunities",
+    "statusNote": "Actively considering TPM, operations leadership, and systems enablement roles. Remote-first preferred."
+  }
+}

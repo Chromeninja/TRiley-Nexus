@@ -2,6 +2,7 @@
 // Footer.astro — Global footer
 import SocialIcon from "./SocialIcon.astro";
 import { toBasePath } from "../utils/paths";
+import { enabledNavItems, siteConfig } from "../data/siteConfig";
 ---
 
 <footer class="footer">
@@ -9,28 +10,25 @@ import { toBasePath } from "../utils/paths";
     <div class="footer__inner">
       <div class="footer__brand">
         <span class="footer__logo">
-          <span class="bracket">[</span>T.RILEY<span class="bracket">]</span>
+          <span class="bracket">[</span>{siteConfig.site.logoText}<span class="bracket">]</span>
         </span>
-        <p class="footer__tagline">Program leadership for teams, systems, and innovation work in motion.</p>
+        <p class="footer__tagline">{siteConfig.footer.tagline}</p>
       </div>
 
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href={toBasePath("/")}>Home</a>
-        <a href={toBasePath("/about")}>About</a>
-        <a href={toBasePath("/projects")}>Projects</a>
-        <a href={toBasePath("/how-i-work")}>How I Work</a>
-        <a href={toBasePath("/now")}>Now</a>
-        <a href={toBasePath("/contact")}>Contact</a>
+        {enabledNavItems.map((link) => (
+          <a href={toBasePath(link.href)}>{link.label}</a>
+        ))}
       </nav>
 
       <div class="footer__social">
-        <a href="https://github.com/Chromeninja" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <a href={siteConfig.social.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <SocialIcon kind="github" size={20} />
         </a>
-        <a href="https://www.linkedin.com/in/trileygarrett/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <a href={siteConfig.social.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <SocialIcon kind="linkedin" size={20} />
         </a>
-        <a href="mailto:t.riley.garrett@gmail.com" aria-label="Email">
+        <a href={`mailto:${siteConfig.social.email}`} aria-label="Email">
           <SocialIcon kind="email" size={20} />
         </a>
       </div>
@@ -38,7 +36,7 @@ import { toBasePath } from "../utils/paths";
 
     <div class="footer__bottom">
       <span class="text-mono text-muted" style="font-size: 0.7rem; letter-spacing: 0.06em;">
-        // FOCUS: PROGRAMS, PROCESS, SYSTEMS — {new Date().getFullYear()} T.RILEY
+        // {siteConfig.footer.focusLine} - {new Date().getFullYear()} {siteConfig.site.logoText}
       </span>
     </div>
   </div>

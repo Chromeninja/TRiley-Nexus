@@ -1,18 +1,10 @@
 ---
 // Nav.astro — Global navigation bar
 import { isActivePath, stripBasePath, toBasePath } from "../utils/paths";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/how-i-work", label: "How I Work" },
-  { href: "/now", label: "Now" },
-  { href: "/contact", label: "Contact" },
-];
+import { enabledNavItems, siteConfig } from "../data/siteConfig";
 
 const currentPath = stripBasePath(Astro.url.pathname);
-const navItems = navLinks.map((link) => ({
+const navItems = enabledNavItems.map((link) => ({
   ...link,
   isActive: isActivePath(currentPath, link.href),
 }));
@@ -21,9 +13,9 @@ const navItems = navLinks.map((link) => ({
 <nav class="nav" aria-label="Main navigation">
   <div class="nav__inner">
     <!-- Logo / Wordmark -->
-    <a href={toBasePath("/")} class="nav__logo" aria-label="TRiley — Home">
+    <a href={toBasePath("/")} class="nav__logo" aria-label={`${siteConfig.site.name} - Home`}>
       <span class="nav__logo-bracket">[</span>
-      <span class="nav__logo-text">T.RILEY</span>
+      <span class="nav__logo-text">{siteConfig.site.logoText}</span>
       <span class="nav__logo-bracket">]</span>
     </a>
 

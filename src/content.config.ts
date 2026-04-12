@@ -23,6 +23,24 @@ const projectsCollection = defineCollection({
         }),
       )
       .optional(),
+    media: z
+      .array(
+        z.discriminatedUnion("type", [
+          z.object({
+            type: z.literal("image"),
+            src: z.string(),
+            alt: z.string(),
+            caption: z.string().optional(),
+          }),
+          z.object({
+            type: z.literal("video"),
+            src: z.string(),
+            poster: z.string().optional(),
+            caption: z.string().optional(),
+          }),
+        ]),
+      )
+      .optional(),
     featured: z.boolean(),
     order: z.number().int().optional(),
   }),

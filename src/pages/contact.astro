@@ -4,17 +4,21 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import SocialIcon from "../components/SocialIcon.astro";
+import { siteConfig } from "../data/siteConfig";
+
+const githubHandle = siteConfig.social.githubUrl.replace("https://github.com/", "").replace(/\/$/, "");
+const linkedinHandle = siteConfig.social.linkedinUrl.replace("https://www.linkedin.com/", "").replace(/\/$/, "");
 ---
 
 <Layout
   title="Contact"
-  description="Get in touch with T.Riley — open to roles, collaborations, and conversations about systems, operations, and building things."
+  description={siteConfig.contact.metaDescription}
 >
   <!-- Page Hero -->
   <PageHero
     label="// CONTACT"
     title="Get in Touch"
-    subtitle="I'm open to conversations about roles, collaborations, and meaningful systems work. Reach out through any of the channels below."
+    subtitle={siteConfig.contact.heroSubtitle}
   />
 
   <section class="section">
@@ -27,40 +31,40 @@ import SocialIcon from "../components/SocialIcon.astro";
 
           <div class="channel-list">
             <!-- Email -->
-            <a href="mailto:t.riley.garrett@gmail.com" class="channel-card">
+            <a href={`mailto:${siteConfig.social.email}`} class="channel-card">
               <div class="channel-card__icon">
                 <SocialIcon kind="email" size={24} />
               </div>
               <div>
                 <p class="channel-card__label text-mono">Email</p>
-                <p class="channel-card__value">t.riley.garrett@gmail.com</p>
-                <p class="channel-card__hint text-muted">Best for professional inquiries and opportunities</p>
+                <p class="channel-card__value">{siteConfig.social.email}</p>
+                <p class="channel-card__hint text-muted">{siteConfig.contact.emailHint}</p>
               </div>
               <span class="channel-card__arrow text-accent" aria-hidden="true">→</span>
             </a>
 
             <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/trileygarrett/" target="_blank" rel="noopener noreferrer" class="channel-card">
+            <a href={siteConfig.social.linkedinUrl} target="_blank" rel="noopener noreferrer" class="channel-card">
               <div class="channel-card__icon">
                 <SocialIcon kind="linkedin" size={24} />
               </div>
               <div>
                 <p class="channel-card__label text-mono">LinkedIn</p>
-                <p class="channel-card__value">linkedin.com/in/trileygarrett</p>
-                <p class="channel-card__hint text-muted">Professional network and career history</p>
+                <p class="channel-card__value">linkedin.com/{linkedinHandle}</p>
+                <p class="channel-card__hint text-muted">{siteConfig.contact.linkedinHint}</p>
               </div>
               <span class="channel-card__arrow text-accent" aria-hidden="true">↗</span>
             </a>
 
             <!-- GitHub -->
-            <a href="https://github.com/Chromeninja" target="_blank" rel="noopener noreferrer" class="channel-card">
+            <a href={siteConfig.social.githubUrl} target="_blank" rel="noopener noreferrer" class="channel-card">
               <div class="channel-card__icon">
                 <SocialIcon kind="github" size={24} />
               </div>
               <div>
                 <p class="channel-card__label text-mono">GitHub</p>
-                <p class="channel-card__value">github.com/Chromeninja</p>
-                <p class="channel-card__hint text-muted">Selected builds, tooling, and project history</p>
+                <p class="channel-card__value">github.com/{githubHandle}</p>
+                <p class="channel-card__hint text-muted">{siteConfig.contact.githubHint}</p>
               </div>
               <span class="channel-card__arrow text-accent" aria-hidden="true">↗</span>
             </a>
@@ -77,17 +81,17 @@ import SocialIcon from "../components/SocialIcon.astro";
             <div class="response-items">
               <div class="response-item">
                 <span class="response-item__label text-mono text-accent">Response time</span>
-                <p>I typically respond to email inquiries within 1–2 business days. LinkedIn messages may take a bit longer.</p>
+                <p>{siteConfig.contact.responseTime}</p>
               </div>
 
               <div class="response-item">
                 <span class="response-item__label text-mono text-accent">Best for</span>
-                <p>Job opportunities, collaboration proposals, interesting problems, and thoughtful conversations.</p>
+                <p>{siteConfig.contact.bestFor}</p>
               </div>
 
               <div class="response-item">
                 <span class="response-item__label text-mono text-accent">Not a fit</span>
-                <p>Generic outreach, spray-and-pray recruiting messages, or anything that opens with "we have an exciting opportunity."</p>
+                <p>{siteConfig.contact.notAFit}</p>
               </div>
             </div>
           </div>
@@ -96,12 +100,11 @@ import SocialIcon from "../components/SocialIcon.astro";
             <div class="status-row">
               <span class="status-dot-sm" aria-hidden="true"></span>
               <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
-                Status: <span class="text-accent">Open to opportunities</span>
+                Status: <span class="text-accent">{siteConfig.contact.status}</span>
               </span>
             </div>
             <p class="status-note text-muted">
-              Actively considering TPM, operations leadership, and systems enablement roles.
-              Remote-first preferred.
+              {siteConfig.contact.statusNote}
             </p>
           </div>
         </aside>

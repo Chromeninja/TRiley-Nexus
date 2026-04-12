@@ -23,6 +23,11 @@ tools:
   - Azure
   - Docker
   - CI/CD
+links:
+  - label: Website
+    url: https://shepherdtech.io
+  - label: GitHub
+    url: https://github.com/Chromeninja
 featured: true
 order: 4
 ---

@@ -23,6 +23,13 @@ tools:
   - Notion
   - Discord
   - Event Ops Tooling
+links:
+  - label: Website
+    url: https://vrvilla.org/
+  - label: Discord
+    url: https://discord.gg/MpaU2WgZjY
+  - label: Instagram
+    url: https://www.instagram.com/vrvillage/
 featured: true
 order: 3
 ---

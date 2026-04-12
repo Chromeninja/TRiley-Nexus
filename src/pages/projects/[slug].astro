@@ -1,6 +1,7 @@
 ---
 // projects/[slug].astro — Individual project detail page
 import Layout from "../../layouts/Layout.astro";
+import ProjectMediaGallery from "../../components/ProjectMediaGallery.astro";
 import {
   getProjects,
   projectStatusColors,
@@ -64,6 +65,10 @@ const { project } = Astro.props;
             )}
             <p class="project-header__summary">{project.summary}</p>
           </header>
+
+          {project.media && project.media.length > 0 && (
+            <ProjectMediaGallery media={project.media} />
+          )}
 
           <!-- Problem -->
           {project.problem && (

@@ -7,13 +7,14 @@ import { homePrinciples, homeStats } from "../data/homeContent";
 import { getFeaturedProjects } from "../data/projects";
 import { coreStrengths } from "../data/skills";
 import { toBasePath } from "../utils/paths";
+import { siteConfig } from "../data/siteConfig";
 
 const featuredProjects = await getFeaturedProjects();
 ---
 
 <Layout
-  title="T.Riley"
-  description="Systems builder. Technical Program Manager. Operations architect. I build the infrastructure — technical and human — that makes complex work actually work."
+  title={siteConfig.site.baseTitle}
+  description={siteConfig.home.metaDescription}
 >
   <!-- ═══════════════════════════════════════════
        HERO
@@ -22,24 +23,21 @@ const featuredProjects = await getFeaturedProjects();
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content animate-fade-up">
-          <p class="hero__eyebrow section-label">// OPERATING FIELD</p>
+          <p class="hero__eyebrow section-label">{siteConfig.home.hero.eyebrow}</p>
           <h1 class="hero__headline">
-            I lead programs that turn
-            <span class="hero__headline-accent"> complex ideas</span>
-            into repeatable systems.
+            {siteConfig.home.hero.headlineLead}
+            <span class="hero__headline-accent"> {siteConfig.home.hero.headlineAccent}</span>
+            {siteConfig.home.hero.headlineTail}
           </h1>
           <p class="hero__subtext">
-            Program manager. Operations architect. Systems-minded builder.
-            I work where innovation, process, and technical execution meet,
-            designing the structure that helps teams move from ambiguity to reliable delivery.
+            {siteConfig.home.hero.subtext}
           </p>
           <p class="hero__supporting-text">
-            Code and automation are part of the toolkit, not the headline. The real work is
-            building aligned programs, durable processes, and teams that can scale under pressure.
+            {siteConfig.home.hero.supportingText}
           </p>
           <div class="hero__actions">
-            <a href={toBasePath("/projects")} class="btn btn-primary">View Projects</a>
-            <a href={toBasePath("/about")} class="btn btn-outline">About Me</a>
+            <a href={toBasePath(siteConfig.home.hero.primaryAction.href)} class="btn btn-primary">{siteConfig.home.hero.primaryAction.label}</a>
+            <a href={toBasePath(siteConfig.home.hero.secondaryAction.href)} class="btn btn-outline">{siteConfig.home.hero.secondaryAction.label}</a>
           </div>
         </div>
 

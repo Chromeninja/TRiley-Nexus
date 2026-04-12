@@ -5,17 +5,28 @@ import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { toBasePath } from "../utils/paths";
+import { siteConfig } from "../data/siteConfig";
 import {
+  aboutAdditionalMedia,
   aboutBackgroundParagraphs,
+  aboutProfileMedia,
   aboutPersonalItems,
   aboutThinkItems,
   aboutValues,
 } from "../data/aboutContent";
+
+function resolveMediaSrc(src: string): string {
+  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
+    return src;
+  }
+
+  return toBasePath(src.startsWith("/") ? src : `/${src}`);
+}
 ---
 
 <Layout
   title="About"
-  description="Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations."
+  description={siteConfig.about.metaDescription}
 >
   <!-- Page Hero -->
   <PageHero
@@ -23,16 +34,20 @@ import {
     title="About Me"
     subtitle="A program leader and systems-minded builder working at the intersection of people, process, and technology."
   >
-    <figure slot="aside" class="profile-photo panel" aria-label="Placeholder for profile photo">
-      <img
-        src={toBasePath("/images/placeholders/profile-headshot.svg")}
-        alt="Placeholder for a professional headshot"
-        loading="lazy"
-      />
-      <figcaption class="profile-photo__caption text-mono text-muted">
-        Placeholder: professional headshot
-      </figcaption>
-    </figure>
+    {aboutProfileMedia && (
+      <figure slot="aside" class="profile-photo panel" aria-label="Profile photo">
+        <img
+          src={resolveMediaSrc(aboutProfileMedia.src)}
+          alt={aboutProfileMedia.alt}
+          loading="lazy"
+        />
+        {aboutProfileMedia.caption && (
+          <figcaption class="profile-photo__caption text-mono text-muted">
+            {aboutProfileMedia.caption}
+          </figcaption>
+        )}
+      </figure>
+    )}
   </PageHero>
 
   <!-- Background -->
@@ -105,26 +120,20 @@ import {
         ))}
       </div>
 
-      <div class="photo-strip" aria-label="Additional photo placeholders">
-        <figure class="photo-slot">
-          <img
-            src={toBasePath("/images/photos/speaking.JPG")}
-            onerror={`this.onerror=null;this.src='${toBasePath("/images/placeholders/in-action.svg")}'`}
-            alt="Speaking at an event"
-            loading="lazy"
-          />
-          <figcaption class="text-mono text-muted">Speaking / leadership in action</figcaption>
-        </figure>
-
-        <figure class="photo-slot">
-          <img
-            src={toBasePath("/images/placeholders/community-context.svg")}
-            alt="Placeholder for a community or event context photo"
-            loading="lazy"
-          />
-          <figcaption class="text-mono text-muted">Placeholder: community or event context photo</figcaption>
-        </figure>
-      </div>
+      {aboutAdditionalMedia.length > 0 && (
+        <div class="photo-strip" aria-label="Additional photos">
+          {aboutAdditionalMedia.map((item) => (
+            <figure class="photo-slot">
+              <img
+                src={resolveMediaSrc(item.src)}
+                alt={item.alt}
+                loading="lazy"
+              />
+              {item.caption && <figcaption class="text-mono text-muted">{item.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 

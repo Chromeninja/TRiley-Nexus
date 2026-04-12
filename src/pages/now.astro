@@ -5,6 +5,7 @@ import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { getActiveProjects } from "../data/projects";
 import { toBasePath } from "../utils/paths";
+import { siteConfig } from "../data/siteConfig";
 import {
   explorationItems,
   nowLastUpdated,
@@ -18,7 +19,7 @@ const lastUpdated = nowLastUpdated;
 
 <Layout
   title="Now"
-  description="What T.Riley is currently working on, exploring, and focused on right now."
+  description={siteConfig.now.metaDescription}
 >
   <!-- Page Hero -->
   <PageHero label="// CURRENT FOCUS" title="What I'm Doing Now">
@@ -33,10 +34,10 @@ const lastUpdated = nowLastUpdated;
       <div class="status-display">
         <span class="status-dot" aria-hidden="true"></span>
         <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
-          CURRENT FOCUS: <span class="text-accent">OPEN TO OPPORTUNITIES</span>
+          {siteConfig.now.statusHeadline}: <span class="text-accent">{siteConfig.now.statusValue}</span>
         </span>
         <span class="text-mono text-muted" style="font-size: 0.75rem;">
-          Program work, systems improvement, and innovation tooling
+          {siteConfig.now.statusSupport}
         </span>
       </div>
     </div>

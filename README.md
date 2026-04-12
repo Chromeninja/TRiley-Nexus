@@ -1,41 +1,37 @@
-# TRiley-Nexus
+# TRiley-Nexus Portfolio Template
 
-## Local Development
+A customizable Astro portfolio template designed for GitHub Pages.
 
-### Prerequisites
+## Who This Is For
 
-- Node.js 20+
-- npm 10+
+- People who want a personal portfolio site with no paid hosting
+- Non-technical users who want a guided setup process
+- Developers who want to customize locally in VS Code
 
-### Install Dependencies
+## Start Here
 
-```bash
-npm install
-```
+1. Beginner setup: docs/GETTING-STARTED.md
+2. GitHub Pages publish steps: docs/SETUP-GITHUB-PAGES.md
+3. Optional local testing in VS Code: docs/LOCAL-DEVELOPMENT.md
+4. Project content reference: docs/CONTENT-WIKI.md
 
-### Run Locally
+## Configuration Model
 
-```bash
-npm run dev
-```
+Most site content is configurable in one file:
 
-Astro starts at `http://localhost:4321` by default.
+- portfolio-config.json
 
-## VS Code Run/Debug Setup
+This includes:
 
-This repo includes workspace-level VS Code config in `.vscode/` for local development and testing:
+- Name, branding text, and social links
+- Homepage/about/how-i-work/now/contact content blocks
+- Navigation and footer content
+- Skills and highlights
 
-- `launch.json`
-	- `Astro: Start Local Dev Server`: starts Astro locally on `http://localhost:4321`.
-- `tasks.json`
-	- `Astro: Dev Server`
-	- `Astro: Build`
-	- `Astro: Preview`
+Projects are managed as Markdown files in src/content/projects/.
 
-### Use The Debugger
+## Deployment
 
-1. Open the Run and Debug view in VS Code.
-2. Select `Astro: Start Local Dev Server`.
-3. Press F5.
+Deployment is automated with GitHub Actions to GitHub Pages.
 
-VS Code will start the dev server. Open `http://localhost:4321` manually in your browser.
+When you push changes to main, the site rebuilds and republishes automatically.
