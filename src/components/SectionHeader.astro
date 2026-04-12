@@ -20,10 +20,27 @@ const { label, title, subtitle, centered = false } = Astro.props;
 <style>
   .section-header {
     margin-bottom: var(--space-2xl);
+    position: relative;
+  }
+
+  .section-header::after {
+    content: "";
+    position: absolute;
+    top: 0.45rem;
+    left: 0;
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.24), rgba(201, 122, 43, 0.22), transparent);
+    transform: translateY(-1.4rem);
   }
 
   .section-header--centered {
     text-align: center;
+  }
+
+  .section-header--centered::after {
+    left: 50%;
+    transform: translate(-50%, -1.4rem);
   }
 
   .section-header--centered .accent-line {

@@ -1,5 +1,7 @@
 ---
 // Nav.astro — Global navigation bar
+import { isActivePath, stripBasePath, toBasePath } from "../utils/paths";
+
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
@@ -9,15 +11,11 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const currentPathRaw = Astro.url.pathname.replace(/\/$/, "") || "/";
-const currentPath = currentPathRaw.startsWith(basePath)
-  ? currentPathRaw.slice(basePath.length) || "/"
-  : currentPathRaw;
-const toBasePath = (path: string) => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-  return path === "/" ? `${base}/` : `${base}${path}`;
-};
+const currentPath = stripBasePath(Astro.url.pathname);
+const navItems = navLinks.map((link) => ({
+  ...link,
+  isActive: isActivePath(currentPath, link.href),
+}));
 ---
 
 <nav class="nav" aria-label="Main navigation">
@@ -31,17 +29,13 @@ const toBasePath = (path: string) => {
 
     <!-- Desktop Links -->
     <ul class="nav__links" role="list">
-      {navLinks.map((link) => {
-        const isActive =
-          link.href === "/"
-            ? currentPath === "/"
-            : currentPath.startsWith(link.href);
+      {navItems.map((link) => {
         return (
           <li>
             <a
               href={toBasePath(link.href)}
-              class={`nav__link ${isActive ? "nav__link--active" : ""}`}
-              aria-current={isActive ? "page" : undefined}
+              class={`nav__link ${link.isActive ? "nav__link--active" : ""}`}
+              aria-current={link.isActive ? "page" : undefined}
             >
               {link.label}
             </a>
@@ -61,17 +55,13 @@ const toBasePath = (path: string) => {
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
     <ul role="list">
-      {navLinks.map((link) => {
-        const isActive =
-          link.href === "/"
-            ? currentPath === "/"
-            : currentPath.startsWith(link.href);
+      {navItems.map((link) => {
         return (
           <li>
             <a
               href={toBasePath(link.href)}
-              class={`nav__mobile-link ${isActive ? "nav__mobile-link--active" : ""}`}
-              aria-current={isActive ? "page" : undefined}
+              class={`nav__mobile-link ${link.isActive ? "nav__mobile-link--active" : ""}`}
+              aria-current={link.isActive ? "page" : undefined}
             >
               {link.label}
             </a>
@@ -87,11 +77,13 @@ const toBasePath = (path: string) => {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(8, 13, 26, 0.92);
+    background:
+      linear-gradient(180deg, rgba(8, 17, 13, 0.96), rgba(16, 26, 22, 0.92));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
     height: var(--nav-height);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   }
 
   .nav__inner {
@@ -128,6 +120,10 @@ const toBasePath = (path: string) => {
     color: var(--color-accent);
   }
 
+  .nav__logo-text {
+    text-shadow: 0 0 14px rgba(124, 211, 137, 0.12);
+  }
+
   /* Desktop links */
   .nav__links {
     display: flex;
@@ -152,7 +148,7 @@ const toBasePath = (path: string) => {
 
   .nav__link:hover {
     color: var(--color-text);
-    background: rgba(255, 255, 255, 0.05);
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.08), rgba(201, 122, 43, 0.06));
   }
 
   .nav__link--active {
@@ -165,9 +161,9 @@ const toBasePath = (path: string) => {
     bottom: -4px;
     left: 50%;
     transform: translateX(-50%);
-    width: 20px;
-    height: 1px;
-    background: var(--color-accent);
+    width: 28px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent2));
   }
 
   /* Mobile toggle */
@@ -186,7 +182,7 @@ const toBasePath = (path: string) => {
     display: block;
     width: 22px;
     height: 2px;
-    background: var(--color-text);
+    background: var(--color-text-heading);
     border-radius: 1px;
     transition: transform var(--transition-base), opacity var(--transition-fast);
   }
@@ -194,7 +190,7 @@ const toBasePath = (path: string) => {
   /* Mobile menu */
   .nav__mobile {
     display: none;
-    background: var(--color-bg-secondary);
+    background: linear-gradient(180deg, rgba(16, 26, 22, 0.98), rgba(21, 35, 29, 0.96));
     border-top: 1px solid var(--color-border);
     padding: var(--space-md) var(--space-xl);
   }
@@ -222,7 +218,7 @@ const toBasePath = (path: string) => {
   .nav__mobile-link:hover,
   .nav__mobile-link--active {
     color: var(--color-accent);
-    background: var(--color-accent-dim);
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.12), rgba(201, 122, 43, 0.08));
   }
 
   /* Responsive */

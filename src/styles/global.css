@@ -1,45 +1,45 @@
 /* ============================================================
-   GLOBAL STYLES & DESIGN SYSTEM
-   TRiley Nexus — Futuristic Operations Console Theme
-   ============================================================ */
+  GLOBAL STYLES & DESIGN SYSTEM
+  TRiley Nexus — Eco-Punk Systems Theme
+  ============================================================ */
 
 /* --- Google Fonts --- */
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* --- CSS Custom Properties (Design Tokens) --- */
 :root {
   /* Colors */
-  --color-bg: #080d1a;
-  --color-bg-secondary: #0d1528;
-  --color-bg-card: #0f1b2e;
-  --color-bg-card-hover: #132035;
-  --color-border: rgba(0, 212, 255, 0.12);
-  --color-border-strong: rgba(0, 212, 255, 0.3);
+  --color-bg: #08110d;
+  --color-bg-secondary: #101a16;
+  --color-bg-card: #15231d;
+  --color-bg-card-hover: #1b2d25;
+  --color-border: rgba(124, 211, 137, 0.14);
+  --color-border-strong: rgba(124, 211, 137, 0.34);
 
-  /* Primary accent — cyan / electric blue */
-  --color-accent: #00d4ff;
-  --color-accent-dim: rgba(0, 212, 255, 0.15);
-  --color-accent-glow: rgba(0, 212, 255, 0.35);
+  /* Primary accent — bioluminescent green */
+  --color-accent: #7cd389;
+  --color-accent-dim: rgba(124, 211, 137, 0.14);
+  --color-accent-glow: rgba(124, 211, 137, 0.32);
 
-  /* Secondary accent — purple / violet */
-  --color-accent2: #7c3aed;
-  --color-accent2-dim: rgba(124, 58, 237, 0.15);
-  --color-accent2-glow: rgba(124, 58, 237, 0.35);
+  /* Secondary accent — warm industrial amber */
+  --color-accent2: #c97a2b;
+  --color-accent2-dim: rgba(201, 122, 43, 0.14);
+  --color-accent2-glow: rgba(201, 122, 43, 0.3);
 
   /* Status colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
+  --color-success: #4ade80;
+  --color-warning: #f4b860;
   --color-danger: #ef4444;
 
   /* Text */
-  --color-text: #e2e8f0;
-  --color-text-muted: #7a8fa6;
-  --color-text-dim: #4a5568;
-  --color-text-heading: #f0f6ff;
+  --color-text: #dbe7df;
+  --color-text-muted: #94a89b;
+  --color-text-dim: #5d6f65;
+  --color-text-heading: #f3f6ef;
 
   /* Typography */
   --font-heading: "Orbitron", "Space Grotesk", sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
   /* Spacing */
@@ -65,11 +65,11 @@
   --radius-xl: 16px;
 
   /* Shadows / Glows */
-  --glow-accent: 0 0 20px rgba(0, 212, 255, 0.25);
-  --glow-accent-strong: 0 0 40px rgba(0, 212, 255, 0.4);
-  --glow-accent2: 0 0 20px rgba(124, 58, 237, 0.25);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --glow-accent: 0 0 24px rgba(124, 211, 137, 0.2);
+  --glow-accent-strong: 0 0 42px rgba(124, 211, 137, 0.34);
+  --glow-accent2: 0 0 22px rgba(201, 122, 43, 0.24);
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.34);
+  --shadow-card-hover: 0 20px 48px rgba(0, 0, 0, 0.5);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -93,27 +93,51 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
+  background:
+    radial-gradient(circle at top, rgba(124, 211, 137, 0.1), transparent 30%),
+    radial-gradient(circle at 80% 12%, rgba(201, 122, 43, 0.09), transparent 24%),
+    linear-gradient(180deg, #09120e 0%, #08110d 48%, #060d0a 100%);
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.6;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
-/* Subtle scan-line overlay — very light, purely decorative */
+/* Subtle technical canopy overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
+  background:
+    linear-gradient(135deg, rgba(124, 211, 137, 0.045), transparent 32%),
+    radial-gradient(circle at 15% 20%, rgba(124, 211, 137, 0.06), transparent 14%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 0 42px,
+      rgba(124, 211, 137, 0.035) 42px 43px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at bottom right, rgba(201, 122, 43, 0.06), transparent 22%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 0 28px,
+      rgba(255, 255, 255, 0.012) 28px 29px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.55;
   pointer-events: none;
   z-index: 0;
 }
@@ -158,6 +182,7 @@ pre {
   border-radius: var(--radius-md);
   padding: var(--space-lg);
   overflow-x: auto;
+  box-shadow: var(--shadow-card);
 }
 
 /* --- Layout Utilities --- */
@@ -215,7 +240,9 @@ pre {
 
 /* --- Panel (borderless card variant) --- */
 .panel {
-  background: var(--color-bg-secondary);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 25%),
+    var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
@@ -229,11 +256,10 @@ pre {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border-top: 2px solid var(--color-accent);
-  border-left: 2px solid var(--color-accent);
-  border-radius: var(--radius-lg) 0 0 0;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, rgba(124, 211, 137, 0.28), transparent 64%);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
 /* --- Buttons --- */
@@ -257,12 +283,12 @@ pre {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #0a0e18;
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.3);
+  color: #08110d;
+  box-shadow: 0 0 16px rgba(124, 211, 137, 0.28);
 }
 .btn-primary:hover {
-  background: #33ddff;
-  color: #080d1a;
+  background: #91de9c;
+  color: #08110d;
   box-shadow: var(--glow-accent-strong);
   transform: translateY(-1px);
 }
@@ -287,6 +313,12 @@ pre {
 .btn-ghost:hover {
   color: var(--color-text);
   border-color: var(--color-border-strong);
+  background: rgba(124, 211, 137, 0.05);
+}
+
+.btn-sm {
+  font-size: 0.7rem;
+  padding: 0.4em 0.9em;
 }
 
 /* --- Badge / Tag --- */
@@ -305,14 +337,14 @@ pre {
 
 .badge-cyan {
   color: var(--color-accent);
-  border-color: rgba(0, 212, 255, 0.3);
-  background: rgba(0, 212, 255, 0.08);
+  border-color: rgba(124, 211, 137, 0.28);
+  background: rgba(124, 211, 137, 0.08);
 }
 
 .badge-purple {
-  color: #a78bfa;
-  border-color: rgba(167, 139, 250, 0.3);
-  background: rgba(167, 139, 250, 0.08);
+  color: #f0b36d;
+  border-color: rgba(201, 122, 43, 0.3);
+  background: rgba(201, 122, 43, 0.08);
 }
 
 .badge-green {
@@ -343,9 +375,9 @@ pre {
 /* --- Accent line (decorative horizontal rule) --- */
 .accent-line {
   display: block;
-  width: 60px;
+  width: 72px;
   height: 2px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent2), transparent);
   margin-bottom: var(--space-lg);
 }
 
@@ -359,6 +391,23 @@ pre {
   margin-bottom: var(--space-sm);
 }
 
+.prose p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  max-width: 70ch;
+  margin-bottom: var(--space-lg);
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
 /* --- Scrollbar --- */
 ::-webkit-scrollbar {
   width: 6px;
@@ -368,11 +417,11 @@ pre {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 255, 0.2);
+  background: rgba(124, 211, 137, 0.22);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 255, 0.4);
+  background: rgba(124, 211, 137, 0.38);
 }
 
 /* --- Focus Styles (Accessibility) --- */
@@ -415,8 +464,8 @@ pre {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 212, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(124, 211, 137, 0.28); }
+  50% { box-shadow: 0 0 20px rgba(124, 211, 137, 0.5); }
 }
 
 @keyframes blink {
