@@ -32,8 +32,8 @@ export const homePrinciples: HomePrinciple[] = [
 ];
 
 export const homeStats: HomeStat[] = [
-  { value: "8+", label: "Years military service" },
-  { value: "5K+", label: "Community members managed" },
+  { value: "15+", label: "Years military experience" },
+  { value: "10+", label: "Years in gaming industry" },
   { value: "40+", label: "Operations planned & executed" },
   { value: "12+", label: "Large-scale events run" },
 ];

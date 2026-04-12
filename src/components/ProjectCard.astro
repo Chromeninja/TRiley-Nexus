@@ -1,6 +1,11 @@
 ---
 // ProjectCard.astro — Reusable project card component
-import type { Project } from "../data/projects";
+import {
+  projectStatusColors,
+  projectStatusLabels,
+  type Project,
+} from "../data/projects";
+import { toBasePath } from "../utils/paths";
 
 interface Props {
   project: Project;
@@ -8,28 +13,13 @@ interface Props {
 }
 
 const { project, featured = false } = Astro.props;
-
-const statusColors: Record<Project["status"], string> = {
-  active: "badge-green",
-  completed: "badge-cyan",
-  archived: "badge-gray",
-  concept: "badge-yellow",
-};
-
-const statusLabels: Record<Project["status"], string> = {
-  active: "Active",
-  completed: "Completed",
-  archived: "Archived",
-  concept: "Concept",
-};
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const projectPath = `${base}/projects/${project.slug}`;
+const projectPath = toBasePath(`/projects/${project.slug}`);
 ---
 
 <a href={projectPath} class={`project-card ${featured ? "project-card--featured" : ""}`}>
   <div class="project-card__header">
     <div class="project-card__meta">
-      <span class={`badge ${statusColors[project.status]}`}>{statusLabels[project.status]}</span>
+      <span class={`badge ${projectStatusColors[project.status]}`}>{projectStatusLabels[project.status]}</span>
       {project.organization && (
         <span class="project-card__org text-mono text-muted">{project.organization}</span>
       )}
@@ -60,7 +50,9 @@ const projectPath = `${base}/projects/${project.slug}`;
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    background: var(--color-bg-card);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 28%),
+      var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
@@ -78,12 +70,12 @@ const projectPath = `${base}/projects/${project.slug}`;
     position: absolute;
     top: 0;
     right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 28px 28px 0;
-    border-color: transparent var(--color-border) transparent transparent;
-    transition: border-color var(--transition-base);
+    width: 88px;
+    height: 88px;
+    background: linear-gradient(135deg, rgba(201, 122, 43, 0.22), transparent 62%);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+    opacity: 0.65;
   }
 
   .project-card:hover {
@@ -94,11 +86,12 @@ const projectPath = `${base}/projects/${project.slug}`;
   }
 
   .project-card:hover::before {
-    border-color: transparent var(--color-accent) transparent transparent;
+    opacity: 1;
+    transform: scale(1.04);
   }
 
   .project-card--featured {
-    border-color: rgba(0, 212, 255, 0.2);
+    border-color: rgba(124, 211, 137, 0.24);
   }
 
   .project-card__header {
@@ -106,6 +99,8 @@ const projectPath = `${base}/projects/${project.slug}`;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-md);
+    position: relative;
+    z-index: 1;
   }
 
   .project-card__meta {
@@ -140,12 +135,16 @@ const projectPath = `${base}/projects/${project.slug}`;
     color: var(--color-text-heading);
     line-height: 1.3;
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
 
   .project-card__timeframe {
     font-size: 0.7rem;
     letter-spacing: 0.06em;
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
 
   .project-card__summary {
@@ -154,6 +153,8 @@ const projectPath = `${base}/projects/${project.slug}`;
     line-height: 1.65;
     margin: 0;
     flex: 1;
+    position: relative;
+    z-index: 1;
     /* Clamp to 3 lines */
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -166,5 +167,7 @@ const projectPath = `${base}/projects/${project.slug}`;
     flex-wrap: wrap;
     gap: var(--space-xs);
     margin-top: auto;
+    position: relative;
+    z-index: 1;
   }
 </style>

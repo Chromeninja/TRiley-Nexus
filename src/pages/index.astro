@@ -6,12 +6,9 @@ import ProjectCard from "../components/ProjectCard.astro";
 import { homePrinciples, homeStats } from "../data/homeContent";
 import { getFeaturedProjects } from "../data/projects";
 import { coreStrengths } from "../data/skills";
+import { toBasePath } from "../utils/paths";
 
 const featuredProjects = await getFeaturedProjects();
-const toBasePath = (path: string) => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-  return path === "/" ? `${base}/` : `${base}${path}`;
-};
 ---
 
 <Layout
@@ -25,16 +22,20 @@ const toBasePath = (path: string) => {
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content animate-fade-up">
-          <p class="hero__eyebrow section-label">// SYSTEMS ONLINE</p>
+          <p class="hero__eyebrow section-label">// OPERATING FIELD</p>
           <h1 class="hero__headline">
-            I build systems that make
-            <span class="hero__headline-accent"> complex operations</span>
-            actually work.
+            I lead programs that turn
+            <span class="hero__headline-accent"> complex ideas</span>
+            into repeatable systems.
           </h1>
           <p class="hero__subtext">
-            Technical Program Manager. Operations architect. Community engineer.
-            Military veteran. I work at the intersection of people, process, and
-            technology — turning ambiguity into structure and ideas into running systems.
+            Program manager. Operations architect. Systems-minded builder.
+            I work where innovation, process, and technical execution meet,
+            designing the structure that helps teams move from ambiguity to reliable delivery.
+          </p>
+          <p class="hero__supporting-text">
+            Code and automation are part of the toolkit, not the headline. The real work is
+            building aligned programs, durable processes, and teams that can scale under pressure.
           </p>
           <div class="hero__actions">
             <a href={toBasePath("/projects")} class="btn btn-primary">View Projects</a>
@@ -42,30 +43,39 @@ const toBasePath = (path: string) => {
           </div>
         </div>
 
-        <div class="hero__terminal animate-fade-up delay-200" aria-hidden="true">
-          <div class="terminal">
-            <div class="terminal__bar">
-              <span class="terminal__dot terminal__dot--red"></span>
-              <span class="terminal__dot terminal__dot--yellow"></span>
-              <span class="terminal__dot terminal__dot--green"></span>
-              <span class="terminal__title">triley@nexus:~</span>
+        <div class="hero__signal panel animate-fade-up delay-200" aria-label="Core operating zones">
+          <div class="hero__signal-head">
+            <p class="hero__signal-label text-mono">FIELD MAP // ECO-PUNK NETWORK</p>
+            <span class="hero__signal-status">Active</span>
+          </div>
+
+          <div class="hero__signal-core">
+            <div class="hero__signal-node hero__signal-node--center">
+              <span class="hero__signal-node-title">Innovation Programs</span>
+              <span class="hero__signal-node-text">Strategy, coordination, execution</span>
             </div>
-            <div class="terminal__body">
-              <p><span class="terminal__prompt">$</span> whoami</p>
-              <p class="terminal__output">T. Riley — Systems Builder</p>
-              <br />
-              <p><span class="terminal__prompt">$</span> ls skills/</p>
-              <p class="terminal__output">
-                program-management/<br />
-                operations-architecture/<br />
-                community-systems/<br />
-                automation-tooling/<br />
-                military-leadership/
-              </p>
-              <br />
-              <p><span class="terminal__prompt">$</span> cat status.txt</p>
-              <p class="terminal__output text-accent">Open to opportunities. Always building.</p>
-              <p class="terminal__cursor">█</p>
+            <div class="hero__signal-node hero__signal-node--left">
+              <span class="hero__signal-node-title">Process Design</span>
+              <span class="hero__signal-node-text">Clarity, cadence, accountability</span>
+            </div>
+            <div class="hero__signal-node hero__signal-node--right">
+              <span class="hero__signal-node-title">Technical Enablement</span>
+              <span class="hero__signal-node-text">Automation, tooling, operating leverage</span>
+            </div>
+          </div>
+
+          <div class="hero__signal-metrics" aria-hidden="true">
+            <div class="hero__signal-metric">
+              <span class="hero__signal-value">People</span>
+              <span class="hero__signal-caption">Cross-functional alignment</span>
+            </div>
+            <div class="hero__signal-metric">
+              <span class="hero__signal-value">Process</span>
+              <span class="hero__signal-caption">Operational repeatability</span>
+            </div>
+            <div class="hero__signal-metric">
+              <span class="hero__signal-value">Systems</span>
+              <span class="hero__signal-caption">Scaled execution infrastructure</span>
             </div>
           </div>
         </div>
@@ -154,7 +164,7 @@ const toBasePath = (path: string) => {
     <div class="container container--md">
       <div class="intro-grid">
         <div class="intro__text">
-          <p class="section-label">// SYSTEM OPERATOR</p>
+          <p class="section-label">// BACKGROUND</p>
           <span class="accent-line"></span>
           <h2>A bit about me</h2>
           <p>
@@ -192,12 +202,12 @@ const toBasePath = (path: string) => {
   <section class="section section--sm">
     <div class="container">
       <div class="cta-panel">
-        <p class="section-label">// OPEN CHANNEL</p>
+        <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
         <p>
           I'm open to roles in technical program management, operations leadership,
-          and platform/community engineering. If you're building something complex
-          and need someone who can hold the whole system in their head — reach out.
+          and innovation-focused systems work. If you're building something complex
+          and need someone who can align people, process, and execution — reach out.
         </p>
         <div class="cta-panel__actions">
           <a href={toBasePath("/contact")} class="btn btn-primary">Get in Touch</a>
@@ -221,7 +231,7 @@ const toBasePath = (path: string) => {
 
   .hero__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
     gap: var(--space-3xl);
     align-items: center;
   }
@@ -246,6 +256,13 @@ const toBasePath = (path: string) => {
     color: var(--color-text-muted);
     line-height: 1.7;
     max-width: 52ch;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__supporting-text {
+    color: var(--color-text);
+    max-width: 56ch;
+    line-height: 1.7;
     margin-bottom: var(--space-xl);
   }
 
@@ -255,78 +272,178 @@ const toBasePath = (path: string) => {
     flex-wrap: wrap;
   }
 
-  /* Terminal widget */
-  .terminal {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-card), var(--glow-accent);
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
+  .hero__signal {
+    min-height: 420px;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    position: relative;
+    background:
+      radial-gradient(circle at top, rgba(124, 211, 137, 0.18), transparent 35%),
+      radial-gradient(circle at 85% 20%, rgba(217, 119, 6, 0.18), transparent 28%),
+      linear-gradient(145deg, rgba(9, 18, 16, 0.94), rgba(13, 21, 40, 0.92));
   }
 
-  .terminal__bar {
-    background: rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-sm) var(--space-md);
+  .hero__signal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(124, 211, 137, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 211, 137, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero__signal-head {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__signal-label {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--color-text-muted);
+  }
+
+  .hero__signal-status {
+    display: inline-flex;
+    align-items: center;
     gap: var(--space-sm);
+    border: 1px solid rgba(124, 211, 137, 0.28);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-heading);
+    background: rgba(124, 211, 137, 0.08);
   }
 
-  .terminal__dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  .hero__signal-status::before {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: var(--color-success);
+    box-shadow: 0 0 14px rgba(124, 211, 137, 0.65);
   }
 
-  .terminal__dot--red { background: #ff5f57; }
-  .terminal__dot--yellow { background: #ffbd2e; }
-  .terminal__dot--green { background: #28c840; }
+  .hero__signal-core {
+    position: relative;
+    display: grid;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    z-index: 1;
+  }
 
-  .terminal__title {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+  .hero__signal-core::before,
+  .hero__signal-core::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(124, 211, 137, 0.55), transparent);
+  }
+
+  .hero__signal-core::before {
+    top: 24%;
+    height: 32%;
+  }
+
+  .hero__signal-core::after {
+    bottom: 18%;
+    height: 22%;
+  }
+
+  .hero__signal-node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: min(260px, 100%);
+    padding: var(--space-md);
+    border: 1px solid rgba(124, 211, 137, 0.16);
+    border-radius: var(--radius-md);
+    background: rgba(6, 13, 18, 0.68);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  }
+
+  .hero__signal-node--center {
+    justify-self: center;
+    width: min(290px, 100%);
+    border-color: rgba(124, 211, 137, 0.28);
+    box-shadow: 0 0 20px rgba(124, 211, 137, 0.12);
+  }
+
+  .hero__signal-node--left {
+    justify-self: start;
+  }
+
+  .hero__signal-node--right {
+    justify-self: end;
+  }
+
+  .hero__signal-node-title {
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-heading);
+  }
+
+  .hero__signal-node-text {
+    font-size: 0.8rem;
     color: var(--color-text-muted);
-    margin-left: auto;
-    letter-spacing: 0.06em;
+    line-height: 1.55;
   }
 
-  .terminal__body {
-    padding: var(--space-lg);
-    color: var(--color-text);
-    line-height: 1.6;
+  .hero__signal-metrics {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
   }
 
-  .terminal__prompt {
-    color: var(--color-accent);
-    margin-right: var(--space-sm);
-    user-select: none;
+  .hero__signal-metric {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(217, 119, 6, 0.28);
   }
 
-  .terminal__output {
+  .hero__signal-value {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-heading);
+  }
+
+  .hero__signal-caption {
+    font-size: 0.75rem;
     color: var(--color-text-muted);
-    padding-left: 1.2em;
-    margin-top: 2px;
+    line-height: 1.5;
   }
 
-  .terminal__cursor {
-    color: var(--color-accent);
-    animation: blink 1.2s step-end infinite;
-    line-height: 1;
-    margin-top: var(--space-sm);
-  }
-
-  /* Background grid pattern */
   .hero__bg-grid {
     position: absolute;
     inset: 0;
     z-index: -1;
     background-image:
-      linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+      linear-gradient(rgba(124, 211, 137, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(217, 119, 6, 0.03) 1px, transparent 1px);
     background-size: 48px 48px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   }
@@ -478,9 +595,8 @@ const toBasePath = (path: string) => {
       gap: var(--space-2xl);
     }
 
-    .hero__terminal {
-      order: -1;
-      max-width: 500px;
+    .hero__signal {
+      min-height: auto;
     }
 
     .hero {
@@ -494,6 +610,27 @@ const toBasePath = (path: string) => {
   }
 
   @media (max-width: 640px) {
+    .hero__signal {
+      padding: var(--space-lg);
+    }
+
+    .hero__signal-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero__signal-node,
+    .hero__signal-node--center,
+    .hero__signal-node--left,
+    .hero__signal-node--right {
+      justify-self: stretch;
+      width: 100%;
+    }
+
+    .hero__signal-metrics {
+      grid-template-columns: 1fr;
+    }
+
     .intro__stats {
       grid-template-columns: 1fr 1fr;
     }

@@ -6,6 +6,20 @@ export type Project = ProjectCollectionEntry["data"] & {
   slug: string;
 };
 
+export const projectStatusColors: Record<Project["status"], string> = {
+  active: "badge-green",
+  completed: "badge-cyan",
+  archived: "badge-gray",
+  concept: "badge-yellow",
+};
+
+export const projectStatusLabels: Record<Project["status"], string> = {
+  active: "Active",
+  completed: "Completed",
+  archived: "Archived",
+  concept: "Concept",
+};
+
 function toProject(entry: ProjectCollectionEntry): Project {
   return {
     ...entry.data,

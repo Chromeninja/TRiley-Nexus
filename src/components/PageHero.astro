@@ -1,0 +1,82 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  subtitle?: string;
+  meta?: string;
+}
+
+const { label, title, subtitle, meta } = Astro.props;
+const hasAside = Astro.slots.has("aside");
+const hasMetaSlot = Astro.slots.has("meta");
+---
+
+<section class="page-hero">
+  <div class="container">
+    <div class:list={["page-hero__layout", hasAside && "page-hero__layout--with-aside"]}>
+      <div class="page-hero__content">
+        <p class="section-label">{label}</p>
+        <span class="accent-line"></span>
+        <h1>{title}</h1>
+        {subtitle && <p class="page-hero__sub">{subtitle}</p>}
+        {hasMetaSlot ? (
+          <p class="page-hero__meta text-mono text-muted">
+            <slot name="meta" />
+          </p>
+        ) : (
+          meta && <p class="page-hero__meta text-mono text-muted">{meta}</p>
+        )}
+      </div>
+
+      {hasAside && (
+        <div class="page-hero__aside">
+          <slot name="aside" />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-3xl);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+  }
+
+  .page-hero__layout {
+    display: block;
+  }
+
+  .page-hero__layout--with-aside {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .page-hero__sub {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    max-width: 55ch;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .page-hero__meta {
+    font-size: 0.8rem;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 640px) {
+    .page-hero {
+      padding-block: var(--space-2xl);
+    }
+
+    .page-hero__layout--with-aside {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

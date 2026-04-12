@@ -1,8 +1,13 @@
 ---
 // projects/[slug].astro — Individual project detail page
 import Layout from "../../layouts/Layout.astro";
-import { getProjects } from "../../data/projects";
-import type { Project } from "../../data/projects";
+import {
+  getProjects,
+  projectStatusColors,
+  projectStatusLabels,
+  type Project,
+} from "../../data/projects";
+import { toBasePath } from "../../utils/paths";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -17,24 +22,6 @@ interface Props {
 }
 
 const { project } = Astro.props;
-
-const statusColors: Record<Project["status"], string> = {
-  active: "badge-green",
-  completed: "badge-cyan",
-  archived: "badge-gray",
-  concept: "badge-yellow",
-};
-
-const statusLabels: Record<Project["status"], string> = {
-  active: "Active",
-  completed: "Completed",
-  archived: "Archived",
-  concept: "Concept",
-};
-const toBasePath = (path: string) => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-  return path === "/" ? `${base}/` : `${base}${path}`;
-};
 ---
 
 <Layout
@@ -65,7 +52,7 @@ const toBasePath = (path: string) => {
           <!-- Header -->
           <header class="project-header">
             <div class="project-header__meta">
-              <span class={`badge ${statusColors[project.status]}`}>{statusLabels[project.status]}</span>
+              <span class={`badge ${projectStatusColors[project.status]}`}>{projectStatusLabels[project.status]}</span>
               <span class="badge badge-purple">{project.category}</span>
             </div>
             <h1 class="project-header__title">{project.title}</h1>
@@ -327,17 +314,6 @@ const toBasePath = (path: string) => {
     font-size: 0.4rem;
     margin-top: 5px;
     flex-shrink: 0;
-  }
-
-  .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-
-  .btn-sm {
-    font-size: 0.7rem;
-    padding: 0.4em 0.9em;
   }
 
   /* Responsive */

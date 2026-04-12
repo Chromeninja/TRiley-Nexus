@@ -1,8 +1,10 @@
 ---
 // now.astro — "Now" page (what I'm currently focused on)
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { getActiveProjects } from "../data/projects";
+import { toBasePath } from "../utils/paths";
 import {
   explorationItems,
   nowLastUpdated,
@@ -12,10 +14,6 @@ import {
 
 const activeProjects = await getActiveProjects();
 const lastUpdated = nowLastUpdated;
-const toBasePath = (path: string) => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-  return path === "/" ? `${base}/` : `${base}${path}`;
-};
 ---
 
 <Layout
@@ -23,16 +21,11 @@ const toBasePath = (path: string) => {
   description="What T.Riley is currently working on, exploring, and focused on right now."
 >
   <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="container">
-      <p class="section-label">// CURRENT STATUS</p>
-      <span class="accent-line"></span>
-      <h1>What I'm Doing Now</h1>
-      <p class="page-hero__meta text-mono text-muted">
-        Last updated: {lastUpdated} · Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">nownownow.com</a>
-      </p>
-    </div>
-  </section>
+  <PageHero label="// CURRENT FOCUS" title="What I'm Doing Now">
+    <span slot="meta">
+      Last updated: {lastUpdated} · Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">nownownow.com</a>
+    </span>
+  </PageHero>
 
   <!-- Status indicator -->
   <section class="status-banner">
@@ -40,10 +33,10 @@ const toBasePath = (path: string) => {
       <div class="status-display">
         <span class="status-dot" aria-hidden="true"></span>
         <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
-          SYSTEM STATUS: <span class="text-accent">OPERATIONAL</span>
+          CURRENT FOCUS: <span class="text-accent">OPEN TO OPPORTUNITIES</span>
         </span>
         <span class="text-mono text-muted" style="font-size: 0.75rem;">
-          // Open to opportunities · Actively building
+          Program work, systems improvement, and innovation tooling
         </span>
       </div>
     </div>
@@ -80,7 +73,7 @@ const toBasePath = (path: string) => {
   <!-- Areas of Exploration -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div class="container container--md">
-      <SectionHeader label="// SIGNAL SCAN" title="Areas I'm Exploring" />
+      <SectionHeader label="// EXPLORATION AREAS" title="Areas I'm Exploring" />
 
       <div class="exploration-grid">
         {explorationItems.map((item) => (
@@ -97,7 +90,7 @@ const toBasePath = (path: string) => {
   <!-- Current Priorities -->
   <section class="section">
     <div class="container container--sm">
-      <SectionHeader label="// PRIORITY QUEUE" title="Current Priorities" />
+      <SectionHeader label="// PRIORITIES" title="Current Priorities" />
 
       <div class="priority-list">
         {priorityItems.map((item) => (
@@ -113,7 +106,7 @@ const toBasePath = (path: string) => {
   <!-- What I'm Open To -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div class="container container--md">
-      <SectionHeader label="// OPEN CHANNEL" title="What I'm Open To" />
+      <SectionHeader label="// WHAT I'M OPEN TO" title="What I'm Open To" />
 
       <div class="open-to-grid">
         <div class="open-to-card open-to-card--yes">
@@ -146,19 +139,6 @@ const toBasePath = (path: string) => {
 </Layout>
 
 <style>
-  .page-hero {
-    padding-block: var(--space-3xl);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg-secondary);
-  }
-
-  .page-hero__meta {
-    font-size: 0.8rem;
-    margin-top: var(--space-md);
-    margin-bottom: 0;
-    letter-spacing: 0.04em;
-  }
-
   /* Status banner */
   .status-banner {
     background: rgba(16, 185, 129, 0.05);
@@ -377,6 +357,27 @@ const toBasePath = (path: string) => {
   }
 
   @media (max-width: 640px) {
+    .status-display {
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .active-project-card,
+    .explore-card,
+    .open-to-card {
+      padding: var(--space-lg);
+    }
+
+    .active-project-card__meta {
+      flex-wrap: wrap;
+    }
+
+    .priority-item {
+      align-items: start;
+      flex-direction: column;
+      padding: var(--space-md);
+    }
+
     .open-to-grid {
       grid-template-columns: 1fr;
     }

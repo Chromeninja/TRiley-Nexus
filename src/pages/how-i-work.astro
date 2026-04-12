@@ -1,6 +1,7 @@
 ---
 // how-i-work.astro — Methodology & operating style page
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import {
   aarIntro,
@@ -17,21 +18,16 @@ import {
   description="My operating principles, methodology, and approach to solving complex operational and technical problems."
 >
   <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="container">
-      <p class="section-label">// OPERATING MANUAL</p>
-      <span class="accent-line"></span>
-      <h1>How I Work</h1>
-      <p class="page-hero__sub">
-        A practitioner's guide to how I approach problems, build systems, and operate under pressure.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    label="// APPROACH"
+    title="How I Work"
+    subtitle="How I approach ambiguity, align teams, and turn hard problems into workable systems."
+  />
 
   <!-- Core Approach -->
   <section class="section">
     <div class="container container--md">
-      <SectionHeader label="// PRIMARY DIRECTIVE" title="The Core Approach" />
+      <SectionHeader label="// CORE APPROACH" title="The Core Approach" />
       <div class="prose">
         {coreApproachParagraphs.map((paragraph) => (
           <p>{paragraph}</p>
@@ -62,7 +58,7 @@ import {
   <!-- Working style -->
   <section class="section">
     <div class="container container--md">
-      <SectionHeader label="// EXECUTION PROFILE" title="Working Style" />
+      <SectionHeader label="// WORKING STYLE" title="Working Style" />
 
       <div class="style-cols">
         {workStyleGroups.map((group) => (
@@ -84,7 +80,7 @@ import {
   <!-- Tools I Use -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div class="container container--md">
-      <SectionHeader label="// TOOLCHAIN" title="Tools & Frameworks I Use" />
+      <SectionHeader label="// TOOLS & FRAMEWORKS" title="Tools & Frameworks I Use" />
 
       <div class="toolchain-grid">
         {toolchainGroups.map((group) => (
@@ -125,27 +121,6 @@ import {
 </Layout>
 
 <style>
-  .page-hero {
-    padding-block: var(--space-3xl);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg-secondary);
-  }
-
-  .page-hero__sub {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    max-width: 55ch;
-    margin-top: var(--space-md);
-    margin-bottom: 0;
-  }
-
-  .prose p {
-    color: var(--color-text-muted);
-    line-height: 1.8;
-    max-width: 70ch;
-    margin-bottom: var(--space-lg);
-  }
-
   /* Principles */
   .principles-grid {
     display: flex;
@@ -260,12 +235,6 @@ import {
     margin-bottom: var(--space-md);
   }
 
-  .tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-
   /* AAR */
   .aar-panel {
     background: var(--color-bg-card);
@@ -313,6 +282,22 @@ import {
   }
 
   @media (max-width: 640px) {
+    .principle-card,
+    .style-col,
+    .toolchain-group,
+    .aar-panel {
+      padding: var(--space-lg);
+    }
+
+    .principle-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+
+    .principle-card__num {
+      padding-top: 0;
+    }
+
     .aar-item {
       grid-template-columns: 1fr;
       gap: var(--space-xs);

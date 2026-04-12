@@ -1,8 +1,10 @@
 ---
 // about.astro — About page
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
+import { toBasePath } from "../utils/paths";
 import {
   aboutBackgroundParagraphs,
   aboutPersonalItems,
@@ -16,16 +18,22 @@ import {
   description="Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations."
 >
   <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="container">
-      <p class="section-label">// OPERATOR PROFILE</p>
-      <span class="accent-line"></span>
-      <h1>About Me</h1>
-      <p class="page-hero__sub">
-        A systems-minded builder at the intersection of people, process, and technology.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    label="// PROFILE"
+    title="About Me"
+    subtitle="A program leader and systems-minded builder working at the intersection of people, process, and technology."
+  >
+    <figure slot="aside" class="profile-photo panel" aria-label="Placeholder for profile photo">
+      <img
+        src={toBasePath("/images/placeholders/profile-headshot.svg")}
+        alt="Placeholder for a professional headshot"
+        loading="lazy"
+      />
+      <figcaption class="profile-photo__caption text-mono text-muted">
+        Placeholder: professional headshot
+      </figcaption>
+    </figure>
+  </PageHero>
 
   <!-- Background -->
   <section class="section">
@@ -59,7 +67,7 @@ import {
   <!-- Skills -->
   <section class="section">
     <div class="container">
-      <SectionHeader label="// CAPABILITY MATRIX" title="Skills & Expertise" />
+      <SectionHeader label="// CAPABILITIES" title="Skills & Expertise" />
 
       <div class="skills-grid">
         {skillGroups.map((group) => (
@@ -85,7 +93,7 @@ import {
   <!-- Personal -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div class="container container--md">
-      <SectionHeader label="// PERSONAL SYSTEMS" title="Beyond Work" />
+      <SectionHeader label="// LIFE OUTSIDE WORK" title="Beyond Work" />
 
       <div class="personal-grid">
         {aboutPersonalItems.map((item) => (
@@ -95,6 +103,27 @@ import {
             <p>{item.body}</p>
           </div>
         ))}
+      </div>
+
+      <div class="photo-strip" aria-label="Additional photo placeholders">
+        <figure class="photo-slot">
+          <img
+            src={toBasePath("/images/photos/speaking.JPG")}
+            onerror={`this.onerror=null;this.src='${toBasePath("/images/placeholders/in-action.svg")}'`}
+            alt="Speaking at an event"
+            loading="lazy"
+          />
+          <figcaption class="text-mono text-muted">Speaking / leadership in action</figcaption>
+        </figure>
+
+        <figure class="photo-slot">
+          <img
+            src={toBasePath("/images/placeholders/community-context.svg")}
+            alt="Placeholder for a community or event context photo"
+            loading="lazy"
+          />
+          <figcaption class="text-mono text-muted">Placeholder: community or event context photo</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -117,28 +146,29 @@ import {
 </Layout>
 
 <style>
-  .page-hero {
-    padding-block: var(--space-3xl);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg-secondary);
+  .profile-photo {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md);
   }
 
-  .page-hero__sub {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    max-width: 55ch;
-    margin-top: var(--space-md);
-    margin-bottom: 0;
+  .profile-photo img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-card);
   }
 
-  .prose p {
-    color: var(--color-text-muted);
-    line-height: 1.8;
-    max-width: 70ch;
-    margin-bottom: var(--space-lg);
+  .profile-photo__caption {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
   }
-
-  .prose p:last-child { margin-bottom: 0; }
 
   /* Think cards */
   .think-grid {
@@ -262,6 +292,40 @@ import {
     margin: 0;
   }
 
+  .photo-strip {
+    margin-top: var(--space-xl);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .photo-slot {
+    margin: 0;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .photo-slot img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+  }
+
+  .photo-slot figcaption {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
   /* Values */
   .values-list {
     display: flex;
@@ -290,5 +354,33 @@ import {
   .value-item__check {
     font-size: 0.875rem;
     flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .profile-photo {
+      max-width: 320px;
+    }
+
+    .think-grid,
+    .skills-grid,
+    .personal-grid {
+      gap: var(--space-lg);
+    }
+
+    .think-card,
+    .skill-group,
+    .personal-card {
+      padding: var(--space-lg);
+    }
+
+    .value-item {
+      align-items: start;
+      padding: var(--space-md);
+    }
+
+    .photo-strip {
+      grid-template-columns: 1fr;
+      margin-top: var(--space-lg);
+    }
   }
 </style>
