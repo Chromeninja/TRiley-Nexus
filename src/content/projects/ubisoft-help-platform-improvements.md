@@ -9,9 +9,9 @@ tags:
   - Process Improvement
 organization: Ubisoft
 timeframe: Past
-roleTitle: Support Operations Specialist
-startedAt: Mar 2013
-endedAt: Jun 2016
+roleTitle: Sernior Program Manager
+startedAt: Mar 2022
+endedAt: Apr 2024
 summary: Delivered improvements to Ubisoft Help platform workflows and support experience quality.
 problem: Support pathways and knowledge flow created friction for both players and support teams.
 approach: Identified high-friction points and implemented structured improvements to navigation, workflows, and support handoff quality.

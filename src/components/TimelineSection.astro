@@ -1,7 +1,6 @@
 ---
 import type { CareerAtlasData } from "../data/projects";
 import CompanyRow from "./CompanyRow.astro";
-import EraMarkers from "./EraMarkers.astro";
 
 interface Props {
   data: CareerAtlasData;
@@ -19,9 +18,6 @@ const { data } = Astro.props;
       ))}
     </div>
   </div>
-
-  <EraMarkers eras={data.eras} />
-
   <div class="timeline-section__rows" data-timeline-rows>
     <span
       class="timeline-section__now-marker"
@@ -41,7 +37,7 @@ const { data } = Astro.props;
 <style>
   .timeline-section {
     display: grid;
-    gap: var(--space-sm);
+    gap: 0.45rem;
     position: relative;
   }
 

@@ -11,11 +11,11 @@ organization: Happy Manic
 organizationUrl: https://happymanic.com/
 timeframe: Ongoing
 roleTitle: Technical Producer
-startedAt: Sep 2023
-summary: Producer role at Happy Manic for Nope Challenge on the Meta Quest platform, focused on post-launch prioritization, Unreal Engine production planning, mixed reality deployments, and community-driven quality feedback.
+startedAt: Oct 2025
+summary: Producer role at Happy Manic for Nope Challenge on the Meta Quest platform, focused on production planning, mixed reality support, hand-tracking coordination, and community-driven quality feedback.
 problem: After launch on Meta Quest, the project needed stronger production leadership to align development priorities, manage live issues, support mixed reality deployments, and turn public community feedback into actionable work while the team continued technical upgrades.
-approach: Managed the development team through Jira-based planning, roadmap alignment, prioritization, storyboarding, and release coordination while supporting mixed reality deployments, public beta testing through Discord, bug-report triage, hand-tracking work, Perforce-based change management, and the Unreal Engine migration from UE 5.4 to UE 5.6.
-outcome: Improved delivery alignment across the team, supported Meta Quest mixed reality deployment work, strengthened the public beta feedback loop, and helped guide post-launch feature and quality priorities including hand tracking and the UE 5.4 to UE 5.6 upgrade path.
+approach: Managed the development team through Jira-based planning, roadmap alignment, prioritization, storyboarding, and release coordination while supporting mixed reality deployments, Reality Breach and beta community testing, bug-report triage, hand-tracking work, Perforce-based change management, and ongoing production pipeline improvements tied to Nope Challenge.
+outcome: Improved delivery alignment across the team, strengthened the public beta feedback loop, supported mixed reality and hand-tracking priorities, and created a more dependable production structure around ongoing Nope Challenge development.
 skills:
   - Production
   - Roadmapping

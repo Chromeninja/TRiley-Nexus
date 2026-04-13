@@ -1,7 +1,6 @@
 ---
 import type { CareerAtlasData } from "../data/projects";
 import TimelineHeader from "./TimelineHeader.astro";
-import TimelineLegend from "./TimelineLegend.astro";
 import TimelineSection from "./TimelineSection.astro";
 import ViewControls from "./ViewControls.astro";
 
@@ -44,8 +43,6 @@ const activeProjectCount =
           <span>Rows start collapsed; expand to inspect details.</span>
         </p>
       </div>
-
-      <TimelineLegend />
       <TimelineSection data={data} />
     </>
   ) : (

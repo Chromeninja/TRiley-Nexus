@@ -55,25 +55,25 @@ export const companyProfiles: Record<string, CompanyProfile> = {
     ],
   },
   "Happy Manic": {
-    summary: "Production pipeline and community testing program work for game and XR initiatives.",
+    summary: "Technical production and operations work across Nope Challenge feature development, testing, and delivery systems.",
     companyInfo:
       "Happy Manic is a creative production environment focused on experimentation, rapid iteration, and community-facing game experiences.",
     myTimeInfo:
-      "Contributed to production pipeline management, Perforce migration, and structured community testing workflows.",
+      "Since October 2025, I have supported Nope Challenge through production pipeline management, Reality Breach and beta community testing, hand-tracking development, and Perforce workflow improvements.",
     longSummary:
-      "Hands-on operational leadership across process reliability and content delivery flow, balancing speed with quality.",
-    roleSummary: "Pipeline operations and community program systems",
+      "Hands-on technical production leadership across planning, testing, workflow reliability, and feature delivery for ongoing Nope Challenge development.",
+    roleSummary: "Technical production and delivery operations",
     achievements: [
-      "Modernized production handoff practices.",
-      "Improved testing signal quality through community program structure.",
+      "Strengthened delivery structure around ongoing Nope Challenge work.",
+      "Improved testing signal quality through community feedback workflows.",
     ],
     color: "#8be36d",
-    tenureStart: "2021",
+    tenureStart: "Oct 2025",
     tenureEnd: "Present",
     timelineRoles: [
       {
         label: "Technical Producer",
-        start: "2021",
+        start: "Oct 2025",
         end: "Present",
       },
     ],
@@ -187,18 +187,18 @@ export const companyProfiles: Record<string, CompanyProfile> = {
     ],
   },
   "VR Villa": {
-    summary: "XR-oriented project delivery and environment build support.",
-    companyInfo: "XR and immersive development context.",
-    myTimeInfo: "Contributed to delivery flow and immersive project operations.",
-    roleSummary: "XR project delivery",
+    summary: "Live event production and operations delivery across recurring VR community experiences.",
+    companyInfo: "VR Villa is a community-driven event environment centered on immersive experiences, programming, and live operations.",
+    myTimeInfo: "Since January 2024, I have managed event production across multiple VR Villa events and supported operational systems for recurring community experiences.",
+    roleSummary: "Event production and operations leadership",
     color: "#f5a65b",
-    tenureStart: "2020",
-    tenureEnd: "2022",
+    tenureStart: "2024",
+    tenureEnd: "Present",
     timelineRoles: [
       {
-        label: "XR Experience Designer",
-        start: "2020",
-        end: "2022",
+        label: "Producer",
+        start: "2024",
+        end: "Present",
       },
     ],
   },

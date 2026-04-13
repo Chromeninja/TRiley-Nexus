@@ -259,10 +259,17 @@ const { company } = Astro.props;
 
   :global(.career-atlas[data-view="overview"]) .company-row {
     grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 0.55rem;
+    margin-top: 0.55rem;
   }
 
   :global(.career-atlas[data-view="overview"]) .company-row__meta {
     display: none;
+  }
+
+  :global(.career-atlas[data-view="overview"]) .company-row:first-child {
+    margin-top: 0.2rem;
   }
 
   .company-row[data-expanded="false"] .company-row__projects [data-major="false"] {

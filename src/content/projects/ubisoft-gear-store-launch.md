@@ -9,7 +9,7 @@ tags:
   - Ubisoft
 organization: Ubisoft
 timeframe: Past
-roleTitle: Senior Program Manager
+roleTitle: Supervior, Customer Support Operations
 startedAt: Apr 2022
 endedAt: Nov 2022
 summary: Supported launch execution for Ubisoft Gear Store with focus on customer experience and operational readiness.

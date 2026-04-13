@@ -1,21 +1,22 @@
 ---
-title: Meta Quest Hand Tracking Deployment
-status: completed
+title: Meta Quest Hand Tracking and Interaction Development
+status: active
 category: VR & Experimental Tech
 tags:
   - Meta Quest
   - Hand Tracking
   - Deployment
   - XR
-organization: Independent
-timeframe: Past
-roleTitle: XR Developer
-startedAt: Mar 2022
-endedAt: Oct 2022
-summary: Deployed hand-tracking functionality on Meta Quest workflows for practical XR interaction use cases.
+  - Interaction Systems
+organization: Happy Manic
+organizationUrl: https://happymanic.com/
+roleTitle: Technical Producer
+timeframe: Ongoing
+startedAt: Jan 2026
+summary: Ongoing hand-tracking prototyping, interaction development, and deployment work for Happy Manic on Meta Quest as part of continued Nope Challenge feature development.
 problem: Hand-tracking implementation required balancing technical constraints with real-world usability.
-approach: Implemented and validated deployment patterns across test scenarios and interaction requirements.
-outcome: Achieved stable deployment patterns and informed future XR interaction decisions.
+approach: Coordinate hand-tracking priorities, support interaction prototyping, validate implementation needs across testing scenarios, and help shape practical rollout decisions around hand-tracking interactions on Meta Quest for Nope Challenge.
+outcome: Improved readiness for hand-tracking feature work, produced clearer direction for interaction design, and continues to inform future XR gameplay decisions within Nope Challenge.
 featured: false
 order: 25
 ---

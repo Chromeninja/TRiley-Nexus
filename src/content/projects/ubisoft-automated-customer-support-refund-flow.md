@@ -11,7 +11,7 @@ organization: Ubisoft
 timeframe: Past
 roleTitle: Senior Program Manager
 startedAt: May 2023
-endedAt: Feb 2024
+endedAt: Apr 2024
 summary: Helped design and improve an automated refund flow within customer support operations.
 problem: Manual refund handling increased response times and created inconsistent customer outcomes.
 approach: Defined process rules and automation touchpoints to standardize refund handling.
