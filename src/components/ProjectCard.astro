@@ -185,7 +185,8 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
       card.addEventListener("mouseleave", stopPreview);
       card.addEventListener("focusin", playPreview);
       card.addEventListener("focusout", (event) => {
-        if (card.contains(event.relatedTarget)) {
+        const focusEvent = event as FocusEvent;
+        if (focusEvent.relatedTarget instanceof Node && card.contains(focusEvent.relatedTarget)) {
           return;
         }
         stopPreview();
@@ -407,5 +408,27 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
 
   .project-card__actions .btn {
     text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .project-card {
+      padding: var(--space-lg);
+      gap: var(--space-md);
+    }
+
+    .project-card__title {
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .project-card__summary {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      -webkit-line-clamp: 4;
+    }
+
+    .project-card__actions {
+      gap: var(--space-xs);
+    }
   }
 </style>

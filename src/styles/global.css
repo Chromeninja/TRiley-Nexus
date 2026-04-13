@@ -439,6 +439,18 @@ pre {
   .section {
     padding-block: var(--space-3xl);
   }
+
+  .panel,
+  .card {
+    padding: var(--space-lg);
+  }
+
+  .btn {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    padding: 0.65rem 1rem;
+  }
+
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;
@@ -448,6 +460,15 @@ pre {
 @media (max-width: 480px) {
   .container {
     padding-inline: var(--space-md);
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
   }
 }
 

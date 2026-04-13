@@ -46,7 +46,7 @@ const toBasePath = (path: string) => {
     </div>
 
     <div class="footer__bottom">
-      <span class="text-mono text-muted" style="font-size: 0.7rem; letter-spacing: 0.06em;">
+      <span class="footer__bottom-text text-mono text-muted">
         // FOCUS: PROGRAMS, PROCESS, SYSTEMS — {new Date().getFullYear()} T.RILEY
       </span>
     </div>
@@ -129,6 +129,11 @@ const toBasePath = (path: string) => {
     text-align: center;
   }
 
+  .footer__bottom-text {
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+  }
+
   @media (max-width: 768px) {
     .footer__inner {
       grid-template-columns: 1fr;
@@ -144,6 +149,20 @@ const toBasePath = (path: string) => {
     .footer__social {
       flex-direction: row;
       gap: var(--space-lg);
+    }
+
+    .footer__tagline {
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .footer__links a {
+      font-size: 0.76rem;
+      letter-spacing: 0.07em;
+    }
+
+    .footer__bottom-text {
+      font-size: 0.7rem;
     }
   }
 </style>

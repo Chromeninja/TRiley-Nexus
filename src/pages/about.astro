@@ -442,9 +442,14 @@ const careerAtlasData = await getCareerAtlasData();
       max-width: 320px;
     }
 
+    .timeline-atlas-wrap {
+      padding-inline: 0;
+    }
+
     .think-grid,
     .skills-grid,
     .personal-grid {
+      grid-template-columns: 1fr;
       gap: var(--space-lg);
     }
 

@@ -142,6 +142,26 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
     text-align: center;
     padding: var(--space-4xl);
   }
+
+  @media (max-width: 640px) {
+    .filter-bar,
+    .status-legend {
+      gap: var(--space-xs);
+    }
+
+    .filter-btn,
+    .status-filter-btn {
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+      padding: 0.44rem 0.72rem;
+    }
+
+    .status-legend::before {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 0.3rem;
+    }
+  }
 </style>
 
 <script>

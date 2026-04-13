@@ -358,7 +358,34 @@ const projectDateRange = formatProjectDateRange(project);
 
     .project-sidebar {
       position: static;
-      order: -1;
+      order: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumb {
+      font-size: 0.72rem;
+      gap: 0.3rem;
+    }
+
+    .project-header {
+      margin-bottom: var(--space-2xl);
+      padding-bottom: var(--space-xl);
+    }
+
+    .project-header__summary {
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .detail-section__title {
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .detail-section p {
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
   }
 </style>

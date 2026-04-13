@@ -33,10 +33,10 @@ const lastUpdated = nowLastUpdated;
     <div class="container">
       <div class="status-display">
         <span class="status-dot" aria-hidden="true"></span>
-        <span class="text-mono" style="font-size: 0.8rem; letter-spacing: 0.06em;">
+        <span class="status-display__primary text-mono">
           {siteConfig.now.statusHeadline}: <span class="text-accent">{siteConfig.now.statusValue}</span>
         </span>
-        <span class="text-mono text-muted" style="font-size: 0.75rem;">
+        <span class="status-display__secondary text-mono text-muted">
           {siteConfig.now.statusSupport}
         </span>
       </div>
@@ -171,6 +171,15 @@ const lastUpdated = nowLastUpdated;
     background: var(--color-success);
     animation: pulse-glow 2s ease-in-out infinite;
     flex-shrink: 0;
+  }
+
+  .status-display__primary {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+  }
+
+  .status-display__secondary {
+    font-size: 0.75rem;
   }
 
   /* Active projects */
@@ -381,6 +390,15 @@ const lastUpdated = nowLastUpdated;
     .status-display {
       align-items: flex-start;
       gap: var(--space-sm);
+    }
+
+    .status-display__primary {
+      font-size: 0.76rem;
+    }
+
+    .status-display__secondary {
+      font-size: 0.72rem;
+      line-height: 1.5;
     }
 
     .active-project-card,

@@ -740,7 +740,14 @@ const {
       grid-template-columns: 1.5rem minmax(0, 1fr);
     }
 
-    .narrative-company__header,
+    .narrative-company__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: 1rem;
+    }
+
+    .narrative-company__header-main,
     .narrative-project__summary {
       grid-template-columns: 1fr;
     }
@@ -750,8 +757,35 @@ const {
       justify-items: start;
     }
 
+    .narrative-company__chips {
+      justify-content: flex-start;
+    }
+
     .narrative-company__identity {
-      align-items: center;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .narrative-company__logo {
+      width: 2.7rem;
+      height: 2.7rem;
+    }
+
+    .narrative-company__name {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+      line-height: 1.2;
+    }
+
+    .narrative-company__role {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .narrative-company__eyebrow,
+    .narrative-project__timeframe,
+    .narrative-project__hover-meta,
+    .narrative-chip {
+      font-size: 0.7rem;
     }
   }
 

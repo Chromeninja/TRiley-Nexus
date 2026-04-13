@@ -58,4 +58,24 @@ const { label, title, subtitle, centered = false } = Astro.props;
   .section-header--centered .section-header__subtitle {
     margin-inline: auto;
   }
+
+  @media (max-width: 640px) {
+    .section-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-header::after {
+      width: 96px;
+      transform: translateY(-1.1rem);
+    }
+
+    .section-header--centered::after {
+      transform: translate(-50%, -1.1rem);
+    }
+
+    .section-header__subtitle {
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+  }
 </style>
