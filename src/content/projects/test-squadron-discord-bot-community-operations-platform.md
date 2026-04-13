@@ -9,8 +9,8 @@ tags:
   - Governance
 organization: TEST Squadron
 timeframe: Ongoing
-roleTitle: Senior Program Manager
-startedAt: Jan 2024
+roleTitle: Platform Engineer
+startedAt: Aug 2020
 summary: Active open-source Discord bot and operations platform supporting TEST Squadron community workflows.
 problem: High-volume community operations required automation, governance consistency, and reduced manual overhead.
 approach: Implemented bot-driven moderation, onboarding, event operations, and admin workflow automation.

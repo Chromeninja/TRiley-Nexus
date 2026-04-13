@@ -3,6 +3,7 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import CompanyTimeline from "../../components/CompanyTimeline.astro";
 import {
   getProjects,
   getCategories,
@@ -59,6 +60,7 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
         {organizationGroups.map((group) => (
           <section class="organization-group" data-organization-group>
             <h2 class="organization-group__title text-mono">{group.organization}</h2>
+            {group.timeline && <CompanyTimeline timeline={group.timeline} />}
             {(group.companySummary || group.companyInfo || group.myTimeInfo || group.timeRangeLabel) && (
               <div class="organization-group__meta panel">
                 {group.companySummary && (

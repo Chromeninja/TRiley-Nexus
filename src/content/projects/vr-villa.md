@@ -1,6 +1,6 @@
 ---
 title: VR Villa
-status: active
+status: completed
 category: Events & Community Operations
 tags:
   - VR Activations
@@ -9,8 +9,9 @@ tags:
   - Check-in Systems
 organization: VR Villa
 timeframe: Ongoing
-roleTitle: Senior Program Manager
-startedAt: Jan 2024
+roleTitle: XR Experience Designer
+startedAt: Nov 2020
+endedAt: Apr 2022
 summary: Ongoing event, operations, and technical systems work supporting VR activations, convention presence, check-in systems, partnerships, and growth.
 problem: Scaling VR event operations across activations and conventions required clearer systems for attendees, staff, and partner coordination.
 approach: Designed repeatable operating workflows, improved check-in and attendee flows, and built partner-ready coordination playbooks.

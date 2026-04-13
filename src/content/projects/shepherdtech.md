@@ -9,8 +9,8 @@ tags:
   - Backend Modernization
 organization: ShepherdTech
 timeframe: Ongoing
-roleTitle: Senior Program Manager
-startedAt: Jan 2024
+roleTitle: Fractional CTO / Technical Advisor
+startedAt: Mar 2024
 summary: Active founder-led work focused on IT consulting, cloud solutions, infrastructure, backend modernization, and business development.
 problem: Small and growing organizations often run on fragile infrastructure and ad hoc processes that limit scale.
 approach: Delivered pragmatic modernization plans, cloud migration pathways, and backend reliability improvements tied to business outcomes.

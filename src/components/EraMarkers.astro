@@ -1,0 +1,54 @@
+---
+import type { CareerAtlasEra } from "../data/projects";
+
+interface Props {
+  eras: CareerAtlasEra[];
+}
+
+const { eras } = Astro.props;
+---
+
+<div class="era-markers" aria-hidden="true">
+  {eras.map((era) => (
+    <div class="era-markers__item">
+      <span class="era-markers__label" title={era.theme}>{era.label}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .era-markers {
+    position: relative;
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border), white 4%);
+    margin-bottom: var(--space-md);
+    padding-left: var(--atlas-axis-start);
+  }
+
+  .era-markers__item {
+    flex: none;
+    height: 1.45rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid color-mix(in srgb, var(--color-accent), transparent 70%);
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.04), rgba(124, 211, 137, 0.12));
+    overflow: hidden;
+  }
+
+  .era-markers__label {
+    display: inline-flex;
+    padding: 0.22rem 0.45rem;
+    color: color-mix(in srgb, var(--color-text), white 10%);
+    font-size: 0.64rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .era-markers {
+      display: none;
+    }
+  }
+</style>

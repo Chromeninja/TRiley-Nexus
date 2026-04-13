@@ -9,9 +9,9 @@ tags:
   - Platform Operations
 organization: Ubisoft
 timeframe: Past
-roleTitle: Senior Program Manager
-startedAt: Jan 2023
-endedAt: Dec 2023
+roleTitle: Program Manager
+startedAt: Jan 2018
+endedAt: Dec 2020
 summary: Supported GamePlan integration work to improve cross-platform coordination and execution consistency.
 problem: Fragmented tooling made cross-team coordination and execution tracking difficult.
 approach: Helped define integration requirements and process touchpoints across teams and systems.

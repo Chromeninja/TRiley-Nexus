@@ -1,0 +1,20 @@
+<div class="atlas-controls" role="group" aria-label="Timeline controls">
+  <button class="btn btn-ghost btn-sm" type="button" data-control="expand-all" aria-label="Expand all company rows">Expand All</button>
+  <button class="btn btn-ghost btn-sm" type="button" data-control="collapse-all" aria-label="Collapse all company rows">Collapse All</button>
+  <button class="btn btn-ghost btn-sm" type="button" data-control="toggle-major" aria-pressed="true" aria-label="Show only major projects">Major Projects Only</button>
+  <button class="btn btn-ghost btn-sm" type="button" data-control="toggle-now" aria-pressed="true" aria-label="Toggle current time marker">Current Marker</button>
+</div>
+
+<style>
+  .atlas-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .atlas-controls :global(button[aria-pressed="true"]) {
+    border-color: color-mix(in srgb, var(--color-accent), white 12%);
+    color: color-mix(in srgb, var(--color-accent), white 8%);
+    background: color-mix(in srgb, var(--color-accent), transparent 90%);
+  }
+</style>

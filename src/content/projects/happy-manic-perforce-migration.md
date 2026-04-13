@@ -9,9 +9,9 @@ tags:
   - Pipeline Modernization
 organization: Happy Manic
 timeframe: Past
-roleTitle: Senior Program Manager
-startedAt: Jan 2023
-endedAt: Dec 2023
+roleTitle: Technical Producer
+startedAt: Mar 2022
+endedAt: Sep 2022
 summary: Supported Perforce migration and workflow stabilization for production teams.
 problem: Legacy source control workflows constrained collaboration and increased operational risk.
 approach: Planned migration sequencing, process updates, and team onboarding for new source control patterns.
