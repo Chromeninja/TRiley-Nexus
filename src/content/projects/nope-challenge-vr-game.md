@@ -31,7 +31,7 @@ tools:
   - Discord
   - Meta Quest Platform
 cover:
-  src: /images/projects/nope/nope.webp
+  src: /media/projects/nope-cover.webp
   alt: Nope Challenge logo and project cover image
 links:
   - label: Meta Store
@@ -46,7 +46,7 @@ links:
     url: https://happymanic.com/
 media:
   - type: video
-    src: /media/projects/nope/nope-trailer.mp4
+    src: /media/projects/nope-trailer.mp4
     caption: Nope Challenge trailer
 featured: true
 order: 2

@@ -58,7 +58,7 @@ const careerAtlasData = await getCareerAtlasData();
 
   <!-- Background -->
   <section class="section">
-    <div class="container container--md">
+    <div class="container">
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
       <div class="prose">
@@ -74,31 +74,6 @@ const careerAtlasData = await getCareerAtlasData();
       <CareerAtlas data={careerAtlasData} />
     </div>
   </section>
-
-  {resumeConfig && resumePath && (
-    <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-      <div class="container container--sm">
-        <SectionHeader label="// RESUME" title={resumeConfig.title} />
-
-        <div class="resume-panel panel">
-          {resumeConfig.summary && <p class="resume-panel__summary">{resumeConfig.summary}</p>}
-
-          <p class="resume-panel__updated text-mono text-muted">
-            Last updated: <span>{resumeConfig.lastUpdated}</span>
-          </p>
-
-          <div class="resume-panel__actions">
-            <a href={resumePath} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              View Resume
-            </a>
-            <a href={resumePath} class="btn btn-outline" download>
-              Download Resume
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
 
   <!-- How I Think -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
@@ -189,6 +164,31 @@ const careerAtlasData = await getCareerAtlasData();
       </div>
     </div>
   </section>
+
+  {resumeConfig && resumePath && (
+    <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="container container--sm">
+        <SectionHeader label="// RESUME" title={resumeConfig.title} />
+
+        <div class="resume-panel panel">
+          {resumeConfig.summary && <p class="resume-panel__summary">{resumeConfig.summary}</p>}
+
+          <p class="resume-panel__updated text-mono text-muted">
+            Last updated: <span>{resumeConfig.lastUpdated}</span>
+          </p>
+
+          <div class="resume-panel__actions">
+            <a href={resumePath} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              View Resume
+            </a>
+            <a href={resumePath} class="btn btn-outline" download>
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 </Layout>
 
 <style>

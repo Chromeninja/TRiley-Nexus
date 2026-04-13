@@ -134,14 +134,12 @@
       "Not confusing busyness with progress",
       "Owning outcomes, not just activities"
     ],
-    "profileMedia": null,
-    "additionalMedia": [
-      {
-        "src": "/images/photos/speaking.JPG",
-        "alt": "Speaking at an event",
-        "caption": "Speaking and leadership in action"
-      }
-    ],
+    "profileMedia": {
+      "src": "/media/site/headshot.JPG",
+      "alt": "Headshot photo of T. Riley",
+      "caption": "Professional headshot"
+    },
+    "additionalMedia": [],
     "resume": {
       "title": "Resume",
       "filePath": "/documents/Timothy Garrett - Sep 25 Resume.pdf",

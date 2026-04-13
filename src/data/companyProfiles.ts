@@ -11,6 +11,10 @@ export interface CompanyProfile {
   longSummary?: string;
   roleSummary?: string;
   achievements?: string[];
+  logo?: {
+    src: string;
+    alt: string;
+  };
   color?: string;
   tenureStart?: string;
   tenureEnd?: string;
@@ -33,6 +37,10 @@ export const companyProfiles: Record<string, CompanyProfile> = {
       "Improved release readiness for support-facing platform launches.",
       "Aligned operations, support, and product stakeholders across multiple surfaces.",
     ],
+    logo: {
+      src: "/media/companies/ubisoft-logo.png",
+      alt: "Ubisoft logo",
+    },
     color: "#5cc8ff",
     tenureStart: "2013",
     tenureEnd: "2024",

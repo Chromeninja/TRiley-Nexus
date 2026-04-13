@@ -3,11 +3,9 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import CompanyTimeline from "../../components/CompanyTimeline.astro";
 import {
   getProjects,
   getCategories,
-  getProjectOrganizationGroups,
   projectStatusColors,
   projectStatusLabels,
   type Project,
@@ -15,11 +13,64 @@ import {
 
 const categories = await getCategories();
 const allProjects = await getProjects();
-const organizationGroups = await getProjectOrganizationGroups();
 const statusDisplayOrder: Project["status"][] = ["active", "concept", "completed", "archived"];
 const usedStatuses = statusDisplayOrder.filter((status) =>
   allProjects.some((project) => project.status === status),
 );
+
+function parseProjectDate(value: string | undefined, boundary: "start" | "end"): Date | undefined {
+  if (!value) return undefined;
+
+  const trimmed = value.trim();
+  const match = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
+  if (match) {
+    const monthLookup: Record<string, number> = {
+      jan: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      may: 4,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      nov: 10,
+      dec: 11,
+    };
+
+    const month = monthLookup[match[1].slice(0, 3).toLowerCase()];
+    if (month === undefined) return undefined;
+
+    const year = Number.parseInt(match[2], 10);
+    const day = boundary === "start" ? 1 : new Date(year, month + 1, 0).getDate();
+    return new Date(year, month, day);
+  }
+
+  const yearOnly = /^(\d{4})$/.exec(trimmed);
+  if (yearOnly) {
+    const year = Number.parseInt(yearOnly[1], 10);
+    return boundary === "start" ? new Date(year, 0, 1) : new Date(year, 11, 31);
+  }
+
+  return undefined;
+}
+
+function getProjectSortDate(project: Project): number {
+  const endedAt = parseProjectDate(project.endedAt, "end");
+  if (endedAt) return endedAt.getTime();
+
+  if (project.status === "active" || project.status === "concept") {
+    return Date.now();
+  }
+
+  const startedAt = parseProjectDate(project.startedAt, "start");
+  if (startedAt) return startedAt.getTime();
+
+  return 0;
+}
+
+const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - getProjectSortDate(a));
 ---
 
 <Layout
@@ -55,42 +106,11 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
         ))}
       </div>
 
-      <!-- Organization Groups -->
-      <div class="organization-groups" id="projects-grid">
-        {organizationGroups.map((group) => (
-          <section class="organization-group" data-organization-group>
-            <h2 class="organization-group__title text-mono">{group.organization}</h2>
-            {group.timeline && <CompanyTimeline timeline={group.timeline} />}
-            {(group.companySummary || group.companyInfo || group.myTimeInfo || group.timeRangeLabel) && (
-              <div class="organization-group__meta panel">
-                {group.companySummary && (
-                  <p class="organization-group__summary">{group.companySummary}</p>
-                )}
-                {group.companyInfo && (
-                  <p class="organization-group__description">
-                    <span class="text-mono text-accent">Company:</span> {group.companyInfo}
-                  </p>
-                )}
-                {group.myTimeInfo && (
-                  <p class="organization-group__description">
-                    <span class="text-mono text-accent">My time there:</span> {group.myTimeInfo}
-                  </p>
-                )}
-                {group.timeRangeLabel && (
-                  <p class="organization-group__time text-mono text-muted">
-                    Timeline: {group.timeRangeLabel}
-                  </p>
-                )}
-              </div>
-            )}
-            <div class="projects-grid">
-              {group.projects.map((project) => (
-                <div class="project-item" data-category={project.category} data-status={project.status}>
-                  <ProjectCard project={project} />
-                </div>
-              ))}
-            </div>
-          </section>
+      <div class="projects-grid" id="projects-grid">
+        {sortedProjects.map((project) => (
+          <div class="project-item" data-category={project.category} data-status={project.status}>
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
 
@@ -175,57 +195,6 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
     gap: var(--space-xl);
   }
 
-  .organization-groups {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3xl);
-  }
-
-  .organization-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .organization-group__title {
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  .organization-group__meta {
-    display: grid;
-    gap: var(--space-sm);
-    padding: var(--space-lg);
-    background: var(--color-bg-secondary);
-  }
-
-  .organization-group__summary {
-    margin: 0;
-    color: var(--color-text);
-    line-height: 1.65;
-  }
-
-  .organization-group__description {
-    margin: 0;
-    color: var(--color-text-muted);
-    line-height: 1.65;
-    font-size: 0.95rem;
-  }
-
-  .organization-group__time {
-    margin: 0;
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .organization-group--hidden {
-    display: none;
-  }
-
   .project-item {
     display: flex;
     flex-direction: column;
@@ -249,7 +218,6 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
   const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
   const statusFilterBtns = document.querySelectorAll<HTMLButtonElement>(".status-filter-btn");
   const projectItems = document.querySelectorAll<HTMLElement>(".project-item");
-  const organizationGroups = document.querySelectorAll<HTMLElement>(".organization-group");
   const emptyState = document.getElementById("empty-state");
   let activeCategoryFilter = "all";
   let activeStatusFilter = "all";
@@ -268,11 +236,6 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
       if (show) {
         visibleCount++;
       }
-    });
-
-    organizationGroups.forEach((group) => {
-      const visibleProjectsInGroup = group.querySelectorAll(".project-item:not(.project-item--hidden)").length;
-      group.classList.toggle("organization-group--hidden", visibleProjectsInGroup === 0);
     });
 
     if (emptyState) {

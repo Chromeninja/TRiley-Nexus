@@ -28,6 +28,16 @@ Use this one file to edit most personal/site content:
 
 Tip: Keep the JSON structure exactly the same. Replace only the text values.
 
+## Media Storage Convention
+
+Store all uploaded images and videos under `public/media/`.
+
+- Project assets: `/media/projects/`
+- Company logos: `/media/companies/`
+- Site/profile images and placeholders: `/media/site/`
+
+Use flat, descriptive filenames instead of nested per-item folders.
+
 ## 2) Projects: src/content/projects/
 
 Each project is one Markdown file.
@@ -91,7 +101,7 @@ This image does not appear in the project detail gallery.
 
 ```yaml
 cover:
-  src: /images/projects/my-project/cover.webp
+  src: /media/projects/my-project-cover.webp
   alt: My Project logo or cover image
 ```
 
@@ -102,7 +112,7 @@ Use `media` images for screenshots, product shots, or photos of real-world work 
 ```yaml
 media:
   - type: image
-    src: /images/projects/my-project/screenshot-01.webp
+    src: /media/projects/my-project-screenshot-01.webp
     alt: Screenshot of my project
     caption: Optional caption
 ```
@@ -112,17 +122,45 @@ media:
 ```yaml
 media:
   - type: video
-    src: /media/projects/my-project/trailer.mp4
+    src: /media/projects/my-project-trailer.mp4
     caption: Optional caption
 ```
 
 ## File Naming Best Practices
 
-- Cover image for project cards: `/images/projects/my-project/cover.webp`
-- Project screenshots: `/images/projects/my-project/screenshot-01.webp`
-- Product images: `/images/projects/my-project/product-01.webp`
-- Real-world or on-site photos: `/images/projects/my-project/photo-01.webp`
-- Trailer or demo video: `/media/projects/my-project/trailer.mp4` or `/media/projects/my-project/demo.mp4`
+- Store all project assets in `/media/projects/`
+- Cover image for project cards: `/media/projects/my-project-cover.webp`
+- Project screenshots: `/media/projects/my-project-screenshot-01.webp`
+- Product images: `/media/projects/my-project-product-01.webp`
+- Real-world or on-site photos: `/media/projects/my-project-photo-01.webp`
+- Trailer or demo video: `/media/projects/my-project-trailer.mp4` or `/media/projects/my-project-demo.mp4`
+- Use the project slug as the filename prefix so each project's assets stay grouped without subfolders
+
+## Other Image Examples
+
+Use `portfolio-config.json` for About page profile images.
+
+```json
+"profileMedia": {
+  "src": "/media/site/headshot.JPG",
+  "alt": "Professional headshot",
+  "caption": "Optional caption"
+}
+```
+
+Use `src/data/companyProfiles.ts` for company logos shown in the career atlas.
+
+```ts
+logo: {
+  src: "/media/companies/your-company-logo.png",
+  alt: "Your Company logo",
+},
+```
+
+- Company logo pattern: `/media/companies/your-company-logo.png`
+- Profile image pattern: `/media/site/headshot.JPG`
+- Placeholder/supporting site image pattern: `/media/site/profile-headshot-placeholder.svg`
+- Do not add new assets under `public/images/`; use `public/media/` only
 
 ## Format Guidance
 

@@ -100,6 +100,10 @@ export interface CareerAtlasCompanyNode {
   rangeLabel: string;
   roleSummary: string;
   roles: string[];
+  logo?: {
+    src: string;
+    alt: string;
+  };
   achievements: string[];
   projectCount: number;
   offsetPct: number;
@@ -765,6 +769,7 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
         rangeLabel: group.timeline.rangeLabel,
         roleSummary,
         roles,
+        logo: profile?.logo,
         achievements: profile?.achievements || [],
         projectCount: projects.length,
         offsetPct: companyPosition.offsetPct,
