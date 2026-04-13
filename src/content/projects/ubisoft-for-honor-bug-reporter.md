@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - For Honor Bug Reporter
+title: For Honor Bug Reporter
 status: completed
 category: Ubisoft Platform Work
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - Automated Customer Support Refund Flow
+title: Automated Customer Support Refund Flow
 status: completed
 category: Ubisoft Platform Work
 tags:

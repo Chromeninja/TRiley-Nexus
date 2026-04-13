@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - GamePlan Integration
+title: GamePlan Integration
 status: completed
 category: Ubisoft Platform Work
 tags:

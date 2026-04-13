@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - Ubisoft+ Launch Support
+title: Ubisoft+ Launch Support
 status: completed
 category: Ubisoft Platform Work
 tags:

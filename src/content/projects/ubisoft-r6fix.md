@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - R6Fix
+title: R6Fix
 status: completed
 category: Ubisoft Platform Work
 tags:

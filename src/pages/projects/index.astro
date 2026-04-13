@@ -1,10 +1,10 @@
 ---
 // projects/index.astro — Projects listing page
 import Layout from "../../layouts/Layout.astro";
+import CareerNarrativeExplorer from "../../components/CareerNarrativeExplorer.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
-import ProjectCard from "../../components/ProjectCard.astro";
 import {
-  getProjects,
+  getCareerNarrativeData,
   getCategories,
   projectStatusColors,
   projectStatusLabels,
@@ -12,65 +12,11 @@ import {
 } from "../../data/projects";
 
 const categories = await getCategories();
-const allProjects = await getProjects();
+const careerNarrativeData = await getCareerNarrativeData();
 const statusDisplayOrder: Project["status"][] = ["active", "concept", "completed", "archived"];
 const usedStatuses = statusDisplayOrder.filter((status) =>
-  allProjects.some((project) => project.status === status),
+  careerNarrativeData.companies.some((company) => company.projects.some((project) => project.status === status)),
 );
-
-function parseProjectDate(value: string | undefined, boundary: "start" | "end"): Date | undefined {
-  if (!value) return undefined;
-
-  const trimmed = value.trim();
-  const match = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
-  if (match) {
-    const monthLookup: Record<string, number> = {
-      jan: 0,
-      feb: 1,
-      mar: 2,
-      apr: 3,
-      may: 4,
-      jun: 5,
-      jul: 6,
-      aug: 7,
-      sep: 8,
-      oct: 9,
-      nov: 10,
-      dec: 11,
-    };
-
-    const month = monthLookup[match[1].slice(0, 3).toLowerCase()];
-    if (month === undefined) return undefined;
-
-    const year = Number.parseInt(match[2], 10);
-    const day = boundary === "start" ? 1 : new Date(year, month + 1, 0).getDate();
-    return new Date(year, month, day);
-  }
-
-  const yearOnly = /^(\d{4})$/.exec(trimmed);
-  if (yearOnly) {
-    const year = Number.parseInt(yearOnly[1], 10);
-    return boundary === "start" ? new Date(year, 0, 1) : new Date(year, 11, 31);
-  }
-
-  return undefined;
-}
-
-function getProjectSortDate(project: Project): number {
-  const endedAt = parseProjectDate(project.endedAt, "end");
-  if (endedAt) return endedAt.getTime();
-
-  if (project.status === "active" || project.status === "concept") {
-    return Date.now();
-  }
-
-  const startedAt = parseProjectDate(project.startedAt, "start");
-  if (startedAt) return startedAt.getTime();
-
-  return 0;
-}
-
-const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - getProjectSortDate(a));
 ---
 
 <Layout
@@ -82,7 +28,7 @@ const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - g
       <SectionHeader
         label="// PROJECT ARCHIVE"
         title="Projects"
-        subtitle="Systems I've built, programs I've run, and operations I've led — across community, tech, events, and the military."
+        subtitle="Browse the archive the same way the work actually happened: by company, with projects nested inline and filters layered on top."
       />
 
       <!-- Filter Bar -->
@@ -106,12 +52,15 @@ const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - g
         ))}
       </div>
 
-      <div class="projects-grid" id="projects-grid">
-        {sortedProjects.map((project) => (
-          <div class="project-item" data-category={project.category} data-status={project.status}>
-            <ProjectCard project={project} />
-          </div>
-        ))}
+      <div id="projects-grid">
+        <CareerNarrativeExplorer
+          data={careerNarrativeData}
+          label="// ARCHIVE VIEW"
+          title="Company-first archive"
+          subtitle="Use filters to narrow the view, but keep the chronology and company context intact while exploring."
+          showControls={false}
+          compact
+        />
       </div>
 
       <!-- Empty state (hidden unless all filtered out) -->
@@ -189,25 +138,6 @@ const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - g
     background: var(--color-accent-dim);
   }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-xl);
-  }
-
-  .project-item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .project-item > * {
-    height: 100%;
-  }
-
-  .project-item--hidden {
-    display: none;
-  }
-
   .empty-state {
     text-align: center;
     padding: var(--space-4xl);
@@ -217,7 +147,8 @@ const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - g
 <script>
   const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
   const statusFilterBtns = document.querySelectorAll<HTMLButtonElement>(".status-filter-btn");
-  const projectItems = document.querySelectorAll<HTMLElement>(".project-item");
+  const projectItems = document.querySelectorAll<HTMLElement>(".narrative-project");
+  const companyItems = document.querySelectorAll<HTMLElement>(".narrative-company");
   const emptyState = document.getElementById("empty-state");
   let activeCategoryFilter = "all";
   let activeStatusFilter = "all";
@@ -232,10 +163,15 @@ const sortedProjects = [...allProjects].sort((a, b) => getProjectSortDate(b) - g
       const matchesStatus = activeStatusFilter === "all" || status === activeStatusFilter;
       const show = matchesCategory && matchesStatus;
 
-      item.classList.toggle("project-item--hidden", !show);
+      item.classList.toggle("narrative-project--hidden", !show);
       if (show) {
         visibleCount++;
       }
+    });
+
+    companyItems.forEach((company) => {
+      const visibleProjects = company.querySelectorAll(".narrative-project:not(.narrative-project--hidden)");
+      company.classList.toggle("narrative-company--hidden", visibleProjects.length === 0);
     });
 
     if (emptyState) {

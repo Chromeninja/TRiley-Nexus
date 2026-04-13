@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - Ubisoft Help Platform Improvements
+title: Ubisoft Help Platform Improvements
 status: completed
 category: Ubisoft Platform Work
 tags:

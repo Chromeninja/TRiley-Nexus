@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - Ubisoft Gear Store Launch
+title: Gear Store Launch
 status: completed
 category: Ubisoft Platform Work
 tags:
