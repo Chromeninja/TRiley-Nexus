@@ -1,0 +1,781 @@
+---
+import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
+import { projectStatusColors, type CareerNarrativeData } from "../data/projects";
+import { toBasePath } from "../utils/paths";
+
+interface Props {
+  data: CareerNarrativeData;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+  initialOpenCompanyCount?: number;
+  showControls?: boolean;
+  compact?: boolean;
+}
+
+const {
+  data,
+  label = "// CAREER SYSTEM",
+  title = "Explore the career timeline",
+  subtitle = "Expand companies to inspect projects, operating context, and execution depth in-place.",
+  initialOpenCompanyCount = 0,
+  showControls = true,
+  compact = false,
+} = Astro.props;
+---
+
+<section
+  class={`career-narrative panel ${compact ? "career-narrative--compact" : ""}`}
+  data-career-narrative
+  data-initial-open-count={String(initialOpenCompanyCount)}
+>
+  <div class="career-narrative__header">
+    <div class="career-narrative__header-copy">
+      <p class="career-narrative__label section-label">{label}</p>
+      <h2 class="career-narrative__title">{title}</h2>
+      <p class="career-narrative__subtitle">{subtitle}</p>
+    </div>
+
+    <div class="career-narrative__summary" aria-label="Career narrative summary">
+      <div class="career-narrative__metric">
+        <span class="career-narrative__metric-value">{data.companyCount}</span>
+        <span class="career-narrative__metric-label">Companies</span>
+      </div>
+      <div class="career-narrative__metric">
+        <span class="career-narrative__metric-value">{data.projectCount}</span>
+        <span class="career-narrative__metric-label">Projects</span>
+      </div>
+      <div class="career-narrative__metric">
+        <span class="career-narrative__metric-value">{data.rangeLabel}</span>
+        <span class="career-narrative__metric-label">Coverage</span>
+      </div>
+    </div>
+  </div>
+
+  {showControls && (
+    <div class="career-narrative__controls" role="group" aria-label="Career narrative controls">
+      <button type="button" class="btn btn-ghost btn-sm" data-narrative-control="expand-all">Expand all</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-narrative-control="collapse-all">Collapse all</button>
+    </div>
+  )}
+
+  <div class="career-narrative__rail" aria-hidden="true"></div>
+
+  <div class="career-narrative__companies">
+    {data.companies.map((company, companyIndex) => (
+      <article
+        id={company.id}
+        class="narrative-company"
+        data-narrative-company
+        data-company-id={company.id}
+        data-expanded="false"
+        style={`--company-color: ${company.color};`}
+      >
+        <div class="narrative-company__node" aria-hidden="true">
+          <span class="narrative-company__node-index text-mono">{String(companyIndex + 1).padStart(2, "0")}</span>
+          <span class="narrative-company__node-dot"></span>
+        </div>
+
+        <button
+          type="button"
+          class="narrative-company__header"
+          data-narrative-company-toggle
+          aria-expanded="false"
+          aria-controls={`${company.id}-panel`}
+        >
+          <div class="narrative-company__header-main">
+            <div class="narrative-company__identity">
+              {company.logo && (
+                <img
+                  class="narrative-company__logo"
+                  src={toBasePath(company.logo.src)}
+                  alt={company.logo.alt}
+                  loading="lazy"
+                />
+              )}
+              <div class="narrative-company__identity-copy">
+                <span class="narrative-company__eyebrow text-mono">{company.rangeLabel}</span>
+                <h3 class="narrative-company__name">{company.organization}</h3>
+              </div>
+            </div>
+            <p class="narrative-company__role">{company.roleSummary}</p>
+          </div>
+
+          <div class="narrative-company__header-meta">
+            <div class="narrative-company__chips">
+              <span class="narrative-chip">{company.projectCount} projects</span>
+              {company.featuredProjectCount > 0 && <span class="narrative-chip">{company.featuredProjectCount} featured</span>}
+              {company.isActive && <span class="narrative-chip narrative-chip--live">active</span>}
+            </div>
+            <span class="narrative-company__chevron" aria-hidden="true">↘</span>
+          </div>
+        </button>
+
+        <ExpandableDetailPanel id={`${company.id}-panel`} title={`${company.organization} details`}>
+          <div class="narrative-company__panel-top">
+            <div class="narrative-company__story">
+              <p>{company.longSummary || company.summary}</p>
+              {company.myTimeInfo && <p>{company.myTimeInfo}</p>}
+            </div>
+
+            <div class="narrative-company__facts">
+              {company.roles.length > 0 && (
+                <div class="narrative-fact-block">
+                  <span class="narrative-fact-label text-mono">Roles</span>
+                  <p>{company.roles.join(" / ")}</p>
+                </div>
+              )}
+              {company.achievements.length > 0 && (
+                <div class="narrative-fact-block">
+                  <span class="narrative-fact-label text-mono">Highlights</span>
+                  <p>{company.achievements.join(" ")}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div class="narrative-projects" aria-label={`${company.organization} projects`}>
+            {company.projects.map((project) => (
+              <article
+                id={project.id}
+                class="narrative-project"
+                data-narrative-project
+                data-category={project.category}
+                data-status={project.status}
+                data-expanded="false"
+              >
+                <button
+                  type="button"
+                  class="narrative-project__summary"
+                  data-narrative-project-toggle
+                  aria-expanded="false"
+                  aria-controls={`${project.id}-panel`}
+                >
+                  <div class="narrative-project__summary-main">
+                    <div>
+                      <span class="narrative-project__timeframe text-mono">{project.timeframeLabel}</span>
+                      <h4 class="narrative-project__title">{project.title}</h4>
+                    </div>
+                    <p class="narrative-project__role">{project.roleTitle}</p>
+                  </div>
+
+                  <div class="narrative-project__summary-meta">
+                    <span class={`badge ${projectStatusColors[project.status]}`}>{project.statusLabel}</span>
+                    <span class="narrative-project__chevron" aria-hidden="true">+</span>
+                  </div>
+
+                  <div class="narrative-project__hover">
+                    <div class="narrative-project__hover-meta text-mono">
+                      <span>{project.category}</span>
+                      {project.mediaCount > 0 && <span>{project.mediaCount} media</span>}
+                      {project.isFeatured && <span>featured</span>}
+                    </div>
+                    <div class="narrative-project__hover-tags">
+                      {project.tags.map((tag) => (
+                        <span class="narrative-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </button>
+
+                <ExpandableDetailPanel id={`${project.id}-panel`} title={`${project.title} details`}>
+                  <div class="narrative-project__detail-grid">
+                    <div class="narrative-project__detail-copy">
+                      <p>{project.detailSummary}</p>
+                      {project.tools.length > 0 && (
+                        <p>
+                          <span class="text-accent">Tools:</span> {project.tools.join(" • ")}
+                        </p>
+                      )}
+                    </div>
+
+                    <div class="narrative-project__detail-actions">
+                      <a href={toBasePath(`/projects/${project.slug}`)} class="btn btn-outline btn-sm">Open case study</a>
+                      {project.links.slice(0, 2).map((link) => (
+                        <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+                          {link.label} ↗
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </ExpandableDetailPanel>
+              </article>
+            ))}
+          </div>
+        </ExpandableDetailPanel>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  const roots = document.querySelectorAll("[data-career-narrative]");
+
+  roots.forEach((root) => {
+    const initialOpenCount = Number.parseInt(root.getAttribute("data-initial-open-count") || "0", 10);
+
+    const setCompanyExpanded = (company: HTMLElement, expanded: boolean) => {
+      company.dataset.expanded = expanded ? "true" : "false";
+      const toggle = company.querySelector("[data-narrative-company-toggle]");
+      const panel = company.querySelector(".expandable-detail");
+
+      if (toggle instanceof HTMLButtonElement) {
+        toggle.setAttribute("aria-expanded", String(expanded));
+      }
+
+      if (panel) {
+        panel.classList.toggle("expandable-detail--open", expanded);
+      }
+    };
+
+    const setProjectExpanded = (project: HTMLElement, expanded: boolean) => {
+      project.dataset.expanded = expanded ? "true" : "false";
+      const toggle = project.querySelector("[data-narrative-project-toggle]");
+      const panel = project.querySelector(".expandable-detail");
+
+      if (toggle instanceof HTMLButtonElement) {
+        toggle.setAttribute("aria-expanded", String(expanded));
+      }
+
+      if (panel) {
+        panel.classList.toggle("expandable-detail--open", expanded);
+      }
+    };
+
+    root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company, index) => {
+      if (index < initialOpenCount) {
+        setCompanyExpanded(company, true);
+      }
+    });
+
+    root.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const control = target.closest("[data-narrative-control]");
+      if (control instanceof HTMLButtonElement) {
+        const action = control.dataset.narrativeControl;
+        if (action === "expand-all") {
+          root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company) => {
+            setCompanyExpanded(company, true);
+          });
+        }
+
+        if (action === "collapse-all") {
+          root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company) => {
+            setCompanyExpanded(company, false);
+          });
+          root.querySelectorAll<HTMLElement>("[data-narrative-project]").forEach((project) => {
+            setProjectExpanded(project, false);
+          });
+        }
+        return;
+      }
+
+      const companyToggle = target.closest("[data-narrative-company-toggle]");
+      if (companyToggle instanceof HTMLButtonElement) {
+        const company = companyToggle.closest("[data-narrative-company]");
+        if (!(company instanceof HTMLElement)) {
+          return;
+        }
+
+        setCompanyExpanded(company, company.dataset.expanded !== "true");
+        return;
+      }
+
+      const projectToggle = target.closest("[data-narrative-project-toggle]");
+      if (projectToggle instanceof HTMLButtonElement) {
+        const project = projectToggle.closest("[data-narrative-project]");
+        if (!(project instanceof HTMLElement)) {
+          return;
+        }
+
+        const company = project.closest("[data-narrative-company]");
+        if (company instanceof HTMLElement) {
+          setCompanyExpanded(company, true);
+        }
+
+        setProjectExpanded(project, project.dataset.expanded !== "true");
+      }
+    });
+  });
+</script>
+
+<style>
+  .career-narrative {
+    position: relative;
+    display: grid;
+    gap: var(--space-lg);
+    overflow: hidden;
+  }
+
+  .career-narrative__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .career-narrative__header-copy {
+    max-width: 46rem;
+  }
+
+  .career-narrative__label {
+    margin-bottom: var(--space-sm);
+  }
+
+  .career-narrative__title {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.8vw, 2.8rem);
+    line-height: 1.05;
+  }
+
+  .career-narrative__subtitle {
+    margin: var(--space-sm) 0 0;
+    max-width: 42rem;
+    color: var(--color-text-muted);
+  }
+
+  .career-narrative__summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(7rem, 1fr));
+    gap: 0.75rem;
+    width: min(28rem, 100%);
+  }
+
+  .career-narrative__metric {
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+  }
+
+  .career-narrative__metric-value {
+    display: block;
+    color: var(--color-text-heading);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+  }
+
+  .career-narrative__metric-label {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--color-text-dim);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .career-narrative__controls {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .career-narrative__rail {
+    position: absolute;
+    left: calc(var(--space-xl) + 1.25rem);
+    top: calc(var(--space-4xl) + 1.2rem);
+    bottom: var(--space-xl);
+    width: 1px;
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.24), rgba(6, 182, 212, 0.02));
+    pointer-events: none;
+  }
+
+  .career-narrative__companies {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .narrative-company {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+
+  .narrative-company--hidden {
+    display: none;
+  }
+
+  .narrative-company__node {
+    display: grid;
+    justify-items: center;
+    gap: 0.55rem;
+    padding-top: 1.15rem;
+  }
+
+  .narrative-company__node-index {
+    font-size: 0.66rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .narrative-company__node-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--company-color), white 30%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--company-color), white 8%), color-mix(in srgb, var(--company-color), black 24%));
+    box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--company-color), transparent 86%);
+  }
+
+  .narrative-company__header {
+    grid-column: 2 / -1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    align-items: start;
+    text-align: left;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+    padding: 1.15rem 1.2rem;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+  }
+
+  .narrative-company__header:hover,
+  .narrative-company[data-expanded="true"] .narrative-company__header {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--company-color), white 18%);
+    box-shadow: 0 22px 40px rgba(2, 8, 20, 0.24);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--company-color), transparent 94%), rgba(255, 255, 255, 0.02));
+  }
+
+  .narrative-company__header:focus-visible,
+  .narrative-project__summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .narrative-company__header-main {
+    display: grid;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .narrative-company__identity {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .narrative-company__identity-copy {
+    min-width: 0;
+  }
+
+  .narrative-company__eyebrow {
+    display: block;
+    color: var(--color-text-dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-company__name {
+    margin: 0.25rem 0 0;
+    font-size: clamp(1.1rem, 2vw, 1.55rem);
+  }
+
+  .narrative-company__logo {
+    width: 3.4rem;
+    height: 3.4rem;
+    object-fit: contain;
+    opacity: 0.92;
+    flex-shrink: 0;
+    padding: 0.3rem;
+    border-radius: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 10%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  }
+
+  .narrative-company__role {
+    margin: 0;
+    color: var(--color-text-muted);
+    max-width: 44rem;
+  }
+
+  .narrative-company__header-meta {
+    display: grid;
+    justify-items: end;
+    gap: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .narrative-company__chips {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .narrative-chip {
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 10%);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.32rem 0.6rem;
+  }
+
+  .narrative-chip--live {
+    color: var(--color-accent);
+    border-color: color-mix(in srgb, var(--color-accent), transparent 58%);
+    background: color-mix(in srgb, var(--color-accent), transparent 88%);
+  }
+
+  .narrative-company__chevron {
+    color: color-mix(in srgb, var(--company-color), white 22%);
+    font-size: 1.05rem;
+    transition: transform var(--transition-base);
+  }
+
+  .narrative-company[data-expanded="true"] .narrative-company__chevron {
+    transform: rotate(45deg);
+  }
+
+  .narrative-company > :global(.expandable-detail) {
+    grid-column: 2 / -1;
+  }
+
+  .narrative-company__panel-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .narrative-company__story,
+  .narrative-company__facts {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .narrative-fact-block {
+    border-left: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    padding-left: 0.9rem;
+  }
+
+  .narrative-fact-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .narrative-projects {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .narrative-project--hidden {
+    display: none;
+  }
+
+  .narrative-project__summary {
+    width: 100%;
+    text-align: left;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 85%);
+    color: inherit;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-fast);
+  }
+
+  .narrative-project__summary:hover,
+  .narrative-project[data-expanded="true"] .narrative-project__summary {
+    border-color: color-mix(in srgb, var(--color-accent), transparent 52%);
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.09), rgba(255, 255, 255, 0.02));
+    transform: translateY(-1px);
+  }
+
+  .narrative-project__summary-main {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .narrative-project__timeframe {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--color-text-dim);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-project__title {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .narrative-project__role {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .narrative-project__summary-meta {
+    display: grid;
+    justify-items: end;
+    align-content: start;
+    gap: 0.8rem;
+  }
+
+  .narrative-project__chevron {
+    color: var(--color-text-dim);
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: transform var(--transition-base), color var(--transition-base);
+  }
+
+  .narrative-project[data-expanded="true"] .narrative-project__chevron {
+    transform: rotate(45deg);
+    color: var(--color-accent);
+  }
+
+  .narrative-project__hover {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 0.5rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity var(--transition-base), max-height var(--transition-base);
+  }
+
+  .narrative-project__summary:hover .narrative-project__hover,
+  .narrative-project[data-expanded="true"] .narrative-project__hover {
+    opacity: 1;
+    max-height: 8rem;
+  }
+
+  .narrative-project__hover-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    color: var(--color-text-dim);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-project__hover-tags {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+
+  .narrative-tag {
+    padding: 0.26rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+  }
+
+  .narrative-project__detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .narrative-project__detail-copy {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .narrative-project__detail-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .career-narrative--compact .career-narrative__summary {
+    width: auto;
+  }
+
+  @media (max-width: 900px) {
+    .narrative-company__panel-top,
+    .narrative-project__detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-project__detail-actions {
+      justify-content: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .career-narrative__summary {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .career-narrative__rail {
+      left: calc(var(--space-lg) + 0.65rem);
+      top: 13rem;
+    }
+
+    .narrative-company {
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+    }
+
+    .narrative-company__header,
+    .narrative-project__summary {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-company__header-meta,
+    .narrative-project__summary-meta {
+      justify-items: start;
+    }
+
+    .narrative-company__identity {
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .career-narrative {
+      padding: var(--space-lg);
+    }
+
+    .career-narrative__rail,
+    .narrative-company__node-index {
+      display: none;
+    }
+
+    .narrative-company {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-company__header,
+    .narrative-company > :global(.expandable-detail) {
+      grid-column: 1 / -1;
+    }
+
+    .narrative-company__node {
+      display: none;
+    }
+  }
+</style>

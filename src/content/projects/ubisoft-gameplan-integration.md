@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - GamePlan Integration
+title: GamePlan Integration
 status: completed
 category: Ubisoft Platform Work
 tags:
@@ -9,6 +9,9 @@ tags:
   - Platform Operations
 organization: Ubisoft
 timeframe: Past
+roleTitle: Program Manager
+startedAt: Jan 2018
+endedAt: Dec 2020
 summary: Supported GamePlan integration work to improve cross-platform coordination and execution consistency.
 problem: Fragmented tooling made cross-team coordination and execution tracking difficult.
 approach: Helped define integration requirements and process touchpoints across teams and systems.

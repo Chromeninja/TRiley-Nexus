@@ -1,0 +1,193 @@
+---
+import type { CompanyTimeline } from "../data/projects";
+
+interface Props {
+  timeline: CompanyTimeline;
+}
+
+const { timeline } = Astro.props;
+const visibleProjectSegments = timeline.projectSegments.slice(0, 8);
+const hiddenProjectCount = timeline.projectSegments.length - visibleProjectSegments.length;
+---
+
+<div class="company-timeline panel" aria-label={`${timeline.organization} timeline`}>
+  <div class="company-timeline__header text-mono text-muted">
+    <span>Timeline: {timeline.rangeLabel}</span>
+  </div>
+
+  <div class="company-timeline__axis" aria-hidden="true">
+    {timeline.axisYears.map((year) => (
+      <span>{year}</span>
+    ))}
+  </div>
+
+  <div class="company-timeline__lane-group">
+    <p class="company-timeline__lane-title text-mono text-accent">Roles</p>
+    <div class="company-timeline__rows">
+      {timeline.roleSegments.map((segment) => (
+        <div class="company-timeline__row">
+          <span class="company-timeline__label">{segment.label}</span>
+          <div class="company-timeline__track">
+            <span
+              class="company-timeline__bar company-timeline__bar--role"
+              style={`left: ${segment.offsetPct}%; width: ${segment.widthPct}%;`}
+            >
+              <span class="company-timeline__bar-label text-mono">{segment.startLabel} - {segment.endLabel}</span>
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {visibleProjectSegments.length > 0 && (
+    <div class="company-timeline__lane-group">
+      <p class="company-timeline__lane-title text-mono text-accent">Projects</p>
+      <div class="company-timeline__rows">
+        {visibleProjectSegments.map((segment) => (
+          <div class="company-timeline__row">
+            <span class="company-timeline__label">{segment.label}</span>
+            <div class="company-timeline__track">
+              <span
+                class={`company-timeline__bar company-timeline__bar--project company-timeline__bar--${segment.status ?? "completed"}`}
+                style={`left: ${segment.offsetPct}%; width: ${segment.widthPct}%;`}
+              >
+                <span class="company-timeline__bar-label text-mono">{segment.startLabel} - {segment.endLabel}</span>
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+      {hiddenProjectCount > 0 && (
+        <p class="company-timeline__overflow-note text-mono text-muted">
+          +{hiddenProjectCount} more project timeline entries
+        </p>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .company-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    overflow-x: auto;
+  }
+
+  .company-timeline__header {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .company-timeline__axis {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    color: var(--color-text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+
+  .company-timeline__lane-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .company-timeline__lane-title {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .company-timeline__rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .company-timeline__row {
+    display: grid;
+    grid-template-columns: minmax(150px, 220px) minmax(420px, 1fr);
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .company-timeline__label {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  .company-timeline__track {
+    position: relative;
+    height: 1.15rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-bg-card), transparent 35%);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .company-timeline__bar {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    min-width: 6px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 0.35rem;
+  }
+
+  .company-timeline__bar--role {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent), black 15%), var(--color-accent2));
+  }
+
+  .company-timeline__bar--project {
+    background: color-mix(in srgb, var(--color-accent), black 20%);
+  }
+
+  .company-timeline__bar--active {
+    background: color-mix(in srgb, var(--color-success), black 22%);
+  }
+
+  .company-timeline__bar--concept {
+    background: color-mix(in srgb, var(--color-warning), black 22%);
+  }
+
+  .company-timeline__bar--archived {
+    background: color-mix(in srgb, var(--color-text-dim), black 12%);
+  }
+
+  .company-timeline__bar-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+    white-space: nowrap;
+    mix-blend-mode: screen;
+  }
+
+  .company-timeline__overflow-note {
+    margin: 0;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 800px) {
+    .company-timeline__row {
+      grid-template-columns: minmax(130px, 180px) minmax(380px, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .company-timeline__label {
+      font-size: 0.74rem;
+    }
+  }
+</style>

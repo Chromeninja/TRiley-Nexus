@@ -1,6 +1,6 @@
 ---
 title: TEST Squadron Discord Bot / Community Operations Platform
-status: completed
+status: active
 category: Community Systems
 tags:
   - Discord Bot
@@ -8,11 +8,18 @@ tags:
   - Automation
   - Governance
 organization: TEST Squadron
-timeframe: Past
-summary: Built and operated a Discord bot and community operations platform for large-scale TEST Squadron workflows.
+timeframe: Ongoing
+roleTitle: Platform Engineer
+startedAt: Oct 2024
+summary: Active open-source Discord bot and operations platform supporting TEST Squadron community workflows, built after several years of hands-on community support.
 problem: High-volume community operations required automation, governance consistency, and reduced manual overhead.
-approach: Implemented bot-driven moderation, onboarding, event operations, and admin workflow automation.
+approach: After first helping support the TEST Squadron community in October 2020, began development of the Discord bot in October 2024 to implement bot-driven moderation, onboarding, event operations, and admin workflow automation.
 outcome: Improved consistency, reduced admin burden, and enabled scalable community management.
+links:
+  - label: GitHub Repository
+    url: https://github.com/Chromeninja/test_squadron_discord_bot
+  - label: TEST Squadron Website
+    url: https://testsquadron.com/
 featured: false
 order: 17
 ---

@@ -3,6 +3,7 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import { siteConfig } from "../data/siteConfig";
 import {
   aarIntro,
   aarQuestions,
@@ -15,7 +16,7 @@ import {
 
 <Layout
   title="How I Work"
-  description="My operating principles, methodology, and approach to solving complex operational and technical problems."
+  description={siteConfig.howIWork.metaDescription}
 >
   <!-- Page Hero -->
   <PageHero

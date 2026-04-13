@@ -1,0 +1,278 @@
+---
+import type { CareerAtlasData } from "../data/projects";
+import TimelineHeader from "./TimelineHeader.astro";
+import TimelineSection from "./TimelineSection.astro";
+import ViewControls from "./ViewControls.astro";
+
+interface Props {
+  data?: CareerAtlasData;
+}
+
+const { data } = Astro.props;
+const companyCount = data?.companies.length ?? 0;
+const projectCount = data?.companies.reduce((total, company) => total + company.projectCount, 0) ?? 0;
+const activeCompanyCount = data?.companies.filter((company) => company.isActive).length ?? 0;
+const activeProjectCount =
+  data?.companies.reduce(
+    (total, company) => total + company.projects.filter((project) => project.isLive).length,
+    0,
+  ) ?? 0;
+---
+
+<div class="career-atlas panel" data-career-atlas data-major-only="true" data-view="overview">
+  {data ? (
+    <>
+      <div class="career-atlas__top">
+        <TimelineHeader
+          title="Career Timeline"
+          subtitle="A chronological view of companies and project spans on a shared axis. Expand rows to explore role progression, outcomes, and live work in-place."
+        />
+        <ViewControls />
+      </div>
+
+      <div class="career-atlas__overview" aria-label="Career atlas summary">
+        <p>
+          <span class="text-accent">{companyCount}</span> companies across <span class="text-accent">{data.rangeLabel}</span> with
+          <span class="text-accent"> {projectCount}</span> projects total.
+        </p>
+        <p class="text-muted text-mono">
+          <span>{activeCompanyCount} active companies</span>
+          <span aria-hidden="true"> • </span>
+          <span>{activeProjectCount} live projects</span>
+          <span aria-hidden="true"> • </span>
+          <span>Rows start collapsed; expand to inspect details.</span>
+        </p>
+      </div>
+      <TimelineSection data={data} />
+    </>
+  ) : (
+    <p class="text-muted">Atlas data appears once dated company and project entries are available.</p>
+  )}
+</div>
+
+<script>
+  const root = document.querySelector("[data-career-atlas]");
+
+  if (root) {
+    const timelineSection = root.querySelector(".timeline-section");
+    const majorToggle = root.querySelector('[data-control="toggle-major"]');
+    const nowToggle = root.querySelector('[data-control="toggle-now"]');
+
+    const syncViewMode = () => {
+      const hasExpandedRow = Array.from(root.querySelectorAll("[data-company-row]")).some(
+        (row) => row.getAttribute("data-expanded") === "true",
+      );
+      root.dataset.view = hasExpandedRow ? "detail" : "overview";
+    };
+
+    const setCompanyExpanded = (companyRow, expanded) => {
+      companyRow.dataset.expanded = expanded ? "true" : "false";
+      const panel = companyRow.querySelector(`#${CSS.escape(companyRow.id)}-panel`);
+      if (panel) {
+        panel.classList.toggle("expandable-detail--open", expanded);
+      }
+
+      companyRow.querySelectorAll("[data-company-toggle]").forEach((toggleButton) => {
+        toggleButton.setAttribute("aria-expanded", String(expanded));
+      });
+
+      syncViewMode();
+    };
+
+    const setProjectExpanded = (projectItem, expanded) => {
+      projectItem.dataset.expanded = expanded ? "true" : "false";
+      const toggleButton = projectItem.querySelector("[data-project-toggle]");
+      if (toggleButton) {
+        toggleButton.setAttribute("aria-expanded", String(expanded));
+      }
+      const panel = projectItem.querySelector(`#${CSS.escape(projectItem.id)}-panel`);
+      if (panel) {
+        panel.classList.toggle("expandable-detail--open", expanded);
+      }
+    };
+
+    const focusTarget = (element) => {
+      element.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    };
+
+    const openByHash = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) {
+        return;
+      }
+
+      const target = root.querySelector(`#${CSS.escape(hash)}`);
+      if (!target) {
+        return;
+      }
+
+      if (target.matches("[data-company-row]")) {
+        setCompanyExpanded(target, true);
+        focusTarget(target);
+        return;
+      }
+
+      if (target.matches("[data-project-item]")) {
+        const companyRow = target.closest("[data-company-row]");
+        if (companyRow) {
+          setCompanyExpanded(companyRow, true);
+        }
+        setProjectExpanded(target, true);
+        focusTarget(target);
+      }
+    };
+
+    const updateHash = (id) => {
+      const nextHash = `#${id}`;
+      if (window.location.hash !== nextHash) {
+        history.replaceState({}, "", `${window.location.pathname}${window.location.search}${nextHash}`);
+      }
+    };
+
+    root.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return;
+      }
+
+      const controlButton = target.closest("[data-control]");
+      if (controlButton instanceof HTMLButtonElement) {
+        const action = controlButton.dataset.control;
+
+        if (action === "expand-all") {
+          root.querySelectorAll("[data-company-row]").forEach((row) => {
+            setCompanyExpanded(row, true);
+          });
+          syncViewMode();
+          return;
+        }
+
+        if (action === "collapse-all") {
+          root.querySelectorAll("[data-company-row]").forEach((row) => {
+            setCompanyExpanded(row, false);
+          });
+          root.querySelectorAll("[data-project-item]").forEach((item) => {
+            setProjectExpanded(item, false);
+          });
+          syncViewMode();
+          if (window.location.hash) {
+            history.replaceState({}, "", `${window.location.pathname}${window.location.search}`);
+          }
+          return;
+        }
+
+        if (action === "toggle-major") {
+          const isMajorOnly = root.dataset.majorOnly !== "true";
+          root.dataset.majorOnly = isMajorOnly ? "true" : "false";
+          controlButton.setAttribute("aria-pressed", String(isMajorOnly));
+          return;
+        }
+
+        if (action === "toggle-now") {
+          const showNow = timelineSection?.dataset.showNow !== "true";
+          if (timelineSection) {
+            timelineSection.dataset.showNow = showNow ? "true" : "false";
+          }
+          controlButton.setAttribute("aria-pressed", String(showNow));
+        }
+
+        return;
+      }
+
+      const companyToggle = target.closest("[data-company-toggle]");
+      if (companyToggle instanceof HTMLButtonElement) {
+        const row = companyToggle.closest("[data-company-row]");
+        if (!row) {
+          return;
+        }
+
+        const expanded = row.dataset.expanded !== "true";
+        setCompanyExpanded(row, expanded);
+
+        if (expanded && row.id) {
+          updateHash(row.id);
+        }
+
+        return;
+      }
+
+      const projectToggle = target.closest("[data-project-toggle]");
+      if (projectToggle instanceof HTMLButtonElement) {
+        const projectItem = projectToggle.closest("[data-project-item]");
+        if (!projectItem) {
+          return;
+        }
+
+        const companyRow = projectItem.closest("[data-company-row]");
+        if (companyRow) {
+          setCompanyExpanded(companyRow, true);
+        }
+
+        const expanded = projectItem.dataset.expanded !== "true";
+        setProjectExpanded(projectItem, expanded);
+
+        if (expanded && projectItem.id) {
+          updateHash(projectItem.id);
+          focusTarget(projectItem);
+        }
+      }
+    });
+
+    window.addEventListener("hashchange", openByHash);
+    openByHash();
+    syncViewMode();
+  }
+</script>
+
+<style>
+  .career-atlas {
+    --atlas-meta-col: clamp(11rem, 22vw, 15rem);
+    --atlas-grid-gap: var(--space-md);
+    --atlas-canvas-min: min(22rem, 100%);
+    --atlas-axis-start: calc(var(--atlas-meta-col) + var(--atlas-grid-gap));
+    display: grid;
+    gap: var(--space-md);
+    border-color: color-mix(in srgb, var(--color-border), white 14%);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%),
+      linear-gradient(90deg, rgba(124, 211, 137, 0.03), transparent 44%),
+      color-mix(in srgb, var(--color-bg-secondary), black 10%);
+  }
+
+  .career-atlas__top {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .career-atlas__overview {
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.08), rgba(92, 200, 255, 0.06));
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .career-atlas__overview p {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  .career-atlas[data-major-only="true"] [data-project-item][data-major="false"] {
+    display: none;
+  }
+
+  .career-atlas[data-view="overview"] {
+    --atlas-axis-start: 0px;
+  }
+
+  @media (max-width: 640px) {
+    .career-atlas {
+      padding: var(--space-md);
+      gap: var(--space-sm);
+    }
+  }
+</style>

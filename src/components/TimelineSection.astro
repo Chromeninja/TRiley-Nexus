@@ -1,0 +1,143 @@
+---
+import type { CareerAtlasData } from "../data/projects";
+import CompanyRow from "./CompanyRow.astro";
+
+interface Props {
+  data: CareerAtlasData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="timeline-section" aria-label="Career atlas timeline canvas" data-show-now="true">
+  <div class="timeline-section__axis text-mono text-muted" aria-hidden="true">
+    <span class="timeline-section__axis-spacer">Meta</span>
+    <div class="timeline-section__axis-years">
+      {data.axisYears.map((year) => (
+        <span>{year}</span>
+      ))}
+    </div>
+  </div>
+  <div class="timeline-section__rows" data-timeline-rows>
+    <span
+      class="timeline-section__now-marker"
+      style={`left: calc(var(--atlas-axis-start) + ((100% - var(--atlas-axis-start)) * ${data.currentOffsetPct / 100}));`}
+      aria-hidden="true"
+    >
+      <i></i>
+      <em class="text-mono">Now</em>
+    </span>
+
+    {data.companies.map((company) => (
+      <CompanyRow company={company} />
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline-section {
+    display: grid;
+    gap: 0.45rem;
+    position: relative;
+  }
+
+  .timeline-section__axis {
+    display: block;
+    padding-left: var(--atlas-axis-start);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .timeline-section__axis-spacer {
+    display: none;
+  }
+
+  .timeline-section__axis-years {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .timeline-section__axis-years span {
+    flex: 1 1 0;
+  }
+
+  .timeline-section__axis-years span:first-child {
+    text-align: left;
+  }
+
+  .timeline-section__axis-years span:last-child {
+    text-align: right;
+  }
+
+  .timeline-section__rows {
+    position: relative;
+  }
+
+  .timeline-section__now-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(74, 222, 128, 0.75), rgba(74, 222, 128, 0.08));
+    pointer-events: none;
+    z-index: 2;
+    transform: translateX(-0.5px);
+  }
+
+  .timeline-section__now-marker i {
+    position: absolute;
+    top: -0.2rem;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(74, 222, 128, 0.95);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.45);
+    animation: atlas-now-pulse 2.1s ease-out infinite;
+  }
+
+  .timeline-section__now-marker em {
+    position: absolute;
+    top: -1.4rem;
+    left: 0.35rem;
+    font-style: normal;
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-success), white 10%);
+  }
+
+  .timeline-section[data-show-now="false"] .timeline-section__now-marker {
+    display: none;
+  }
+
+  @keyframes atlas-now-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 12px rgba(74, 222, 128, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-section__now-marker i {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .timeline-section__axis {
+      display: none;
+    }
+
+    .timeline-section__now-marker {
+      display: none;
+    }
+  }
+</style>

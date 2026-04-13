@@ -1,19 +1,20 @@
 ---
 // index.astro — Homepage
 import Layout from "../layouts/Layout.astro";
+import CareerNarrativeExplorer from "../components/CareerNarrativeExplorer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import { homePrinciples, homeStats } from "../data/homeContent";
-import { getFeaturedProjects } from "../data/projects";
+import { getCareerNarrativeData } from "../data/projects";
 import { coreStrengths } from "../data/skills";
 import { toBasePath } from "../utils/paths";
+import { siteConfig } from "../data/siteConfig";
 
-const featuredProjects = await getFeaturedProjects();
+const careerNarrativeData = await getCareerNarrativeData();
 ---
 
 <Layout
-  title="T.Riley"
-  description="Systems builder. Technical Program Manager. Operations architect. I build the infrastructure — technical and human — that makes complex work actually work."
+  title={siteConfig.site.baseTitle}
+  description={siteConfig.home.metaDescription}
 >
   <!-- ═══════════════════════════════════════════
        HERO
@@ -22,30 +23,27 @@ const featuredProjects = await getFeaturedProjects();
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content animate-fade-up">
-          <p class="hero__eyebrow section-label">// OPERATING FIELD</p>
+          <p class="hero__eyebrow section-label">{siteConfig.home.hero.eyebrow}</p>
           <h1 class="hero__headline">
-            I lead programs that turn
-            <span class="hero__headline-accent"> complex ideas</span>
-            into repeatable systems.
+            {siteConfig.home.hero.headlineLead}
+            <span class="hero__headline-accent"> {siteConfig.home.hero.headlineAccent}</span>
+            {siteConfig.home.hero.headlineTail}
           </h1>
           <p class="hero__subtext">
-            Program manager. Operations architect. Systems-minded builder.
-            I work where innovation, process, and technical execution meet,
-            designing the structure that helps teams move from ambiguity to reliable delivery.
+            {siteConfig.home.hero.subtext}
           </p>
           <p class="hero__supporting-text">
-            Code and automation are part of the toolkit, not the headline. The real work is
-            building aligned programs, durable processes, and teams that can scale under pressure.
+            {siteConfig.home.hero.supportingText}
           </p>
           <div class="hero__actions">
-            <a href={toBasePath("/projects")} class="btn btn-primary">View Projects</a>
-            <a href={toBasePath("/about")} class="btn btn-outline">About Me</a>
+            <a href={toBasePath(siteConfig.home.hero.primaryAction.href)} class="btn btn-primary">{siteConfig.home.hero.primaryAction.label}</a>
+            <a href={toBasePath(siteConfig.home.hero.secondaryAction.href)} class="btn btn-outline">{siteConfig.home.hero.secondaryAction.label}</a>
           </div>
         </div>
 
         <div class="hero__signal panel animate-fade-up delay-200" aria-label="Core operating zones">
           <div class="hero__signal-head">
-            <p class="hero__signal-label text-mono">FIELD MAP // ECO-PUNK NETWORK</p>
+            <p class="hero__signal-label text-mono">FIELD MAP // ORBITAL SYSTEM</p>
             <span class="hero__signal-status">Active</span>
           </div>
 
@@ -110,24 +108,21 @@ const featuredProjects = await getFeaturedProjects();
   </section>
 
   <!-- ═══════════════════════════════════════════
-       FEATURED PROJECTS
+       CAREER NARRATIVE
   ═══════════════════════════════════════════ -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
     <div class="container">
-      <SectionHeader
-        label="// SELECTED WORK"
-        title="Featured Projects"
-        subtitle="A cross-section of the systems I've built, led, and shipped."
+      <CareerNarrativeExplorer
+        data={careerNarrativeData}
+        label="// CAREER SYSTEM"
+        title="Explore the companies, systems, and programs behind the work"
+        subtitle="This is the main map. Expand each company to inspect the projects, roles, and execution contexts that shaped how I build."
+        initialOpenCompanyCount={1}
       />
 
-      <div class="grid-2">
-        {featuredProjects.map((project) => (
-          <ProjectCard project={project} featured />
-        ))}
-      </div>
-
-      <div style="text-align: center; margin-top: var(--space-2xl);">
-        <a href={toBasePath("/projects")} class="btn btn-outline">View All Projects →</a>
+      <div class="narrative-section__footer">
+        <p class="text-muted">Prefer a filtered archive view instead of the guided timeline? The projects page keeps the same company-first structure with category and status controls.</p>
+        <a href={toBasePath("/projects")} class="btn btn-outline">Open Project Archive</a>
       </div>
     </div>
   </section>
@@ -173,7 +168,7 @@ const featuredProjects = await getFeaturedProjects();
             and automation infrastructure.
           </p>
           <p>
-            When I'm not building operational systems, I'm a husband and father,
+            When I'm not building operational systems, I'm a father,
             a competitive Star Citizen player and community leader, and someone who
             thinks deeply about how organizations actually function at scale.
           </p>
@@ -281,9 +276,9 @@ const featuredProjects = await getFeaturedProjects();
     gap: var(--space-xl);
     position: relative;
     background:
-      radial-gradient(circle at top, rgba(124, 211, 137, 0.18), transparent 35%),
-      radial-gradient(circle at 85% 20%, rgba(217, 119, 6, 0.18), transparent 28%),
-      linear-gradient(145deg, rgba(9, 18, 16, 0.94), rgba(13, 21, 40, 0.92));
+      radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
+      radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.14), transparent 28%),
+      linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
   }
 
   .hero__signal::after {
@@ -291,8 +286,8 @@ const featuredProjects = await getFeaturedProjects();
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(rgba(124, 211, 137, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124, 211, 137, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(87, 166, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(87, 166, 255, 0.05) 1px, transparent 1px);
     background-size: 30px 30px;
     mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
     pointer-events: none;
@@ -318,14 +313,14 @@ const featuredProjects = await getFeaturedProjects();
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
-    border: 1px solid rgba(124, 211, 137, 0.28);
+    border: 1px solid rgba(87, 166, 255, 0.28);
     border-radius: 999px;
     padding: 0.35rem 0.75rem;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-heading);
-    background: rgba(124, 211, 137, 0.08);
+    background: rgba(87, 166, 255, 0.08);
   }
 
   .hero__signal-status::before {
@@ -334,7 +329,7 @@ const featuredProjects = await getFeaturedProjects();
     height: 0.55rem;
     border-radius: 999px;
     background: var(--color-success);
-    box-shadow: 0 0 14px rgba(124, 211, 137, 0.65);
+    box-shadow: 0 0 14px rgba(87, 166, 255, 0.55);
   }
 
   .hero__signal-core {
@@ -352,7 +347,7 @@ const featuredProjects = await getFeaturedProjects();
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(124, 211, 137, 0.55), transparent);
+    background: linear-gradient(180deg, transparent, rgba(87, 166, 255, 0.55), transparent);
   }
 
   .hero__signal-core::before {
@@ -373,7 +368,7 @@ const featuredProjects = await getFeaturedProjects();
     gap: var(--space-xs);
     width: min(260px, 100%);
     padding: var(--space-md);
-    border: 1px solid rgba(124, 211, 137, 0.16);
+    border: 1px solid rgba(87, 166, 255, 0.16);
     border-radius: var(--radius-md);
     background: rgba(6, 13, 18, 0.68);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
@@ -382,8 +377,8 @@ const featuredProjects = await getFeaturedProjects();
   .hero__signal-node--center {
     justify-self: center;
     width: min(290px, 100%);
-    border-color: rgba(124, 211, 137, 0.28);
-    box-shadow: 0 0 20px rgba(124, 211, 137, 0.12);
+    border-color: rgba(87, 166, 255, 0.28);
+    box-shadow: 0 0 20px rgba(87, 166, 255, 0.12);
   }
 
   .hero__signal-node--left {
@@ -442,8 +437,8 @@ const featuredProjects = await getFeaturedProjects();
     inset: 0;
     z-index: -1;
     background-image:
-      linear-gradient(rgba(124, 211, 137, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(217, 119, 6, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(87, 166, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
     background-size: 48px 48px;
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   }
@@ -554,6 +549,20 @@ const featuredProjects = await getFeaturedProjects();
     font-size: 0.75rem;
     color: var(--color-text-muted);
     line-height: 1.4;
+  }
+
+  .narrative-section__footer {
+    margin-top: var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .narrative-section__footer p {
+    margin: 0;
+    max-width: 44rem;
   }
 
   /* ── CTA ── */

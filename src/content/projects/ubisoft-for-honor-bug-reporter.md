@@ -1,5 +1,5 @@
 ---
-title: Ubisoft - For Honor Bug Reporter
+title: For Honor Bug Reporter
 status: completed
 category: Ubisoft Platform Work
 tags:
@@ -9,6 +9,9 @@ tags:
   - Support Operations
 organization: Ubisoft
 timeframe: Past
+roleTitle: Program Manager
+startedAt: Sep 2017
+endedAt: Mar 2019
 summary: Supported bug reporter process improvements for For Honor with focus on clearer intake and reproducible issue data.
 problem: Inconsistent bug submission structure created extra effort for support and engineering triage.
 approach: Improved intake expectations and reporting pathways to increase actionable submissions.

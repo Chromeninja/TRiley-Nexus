@@ -1,0 +1,47 @@
+---
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+---
+
+<section id={id} class="expandable-detail" role="region" aria-label={title}>
+  <div class="expandable-detail__inner">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .expandable-detail {
+    max-height: 0;
+    opacity: 0;
+    overflow: clip;
+    pointer-events: none;
+    transition: max-height var(--transition-slow), opacity var(--transition-base);
+  }
+
+  .expandable-detail--open {
+    max-height: 60rem;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .expandable-detail__inner {
+    margin-top: var(--space-sm);
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-bg-card), black 10%);
+    padding: 0.85rem 0.95rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .expandable-detail__inner p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+</style>

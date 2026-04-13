@@ -1,6 +1,7 @@
 ---
 // ProjectCard.astro — Reusable project card component
 import {
+  formatProjectDateRange,
   projectStatusColors,
   projectStatusLabels,
   type Project,
@@ -14,54 +15,218 @@ interface Props {
 
 const { project, featured = false } = Astro.props;
 const projectPath = toBasePath(`/projects/${project.slug}`);
+const actionLinks = project.links?.slice(0, 2) ?? [];
+const projectDateRange = formatProjectDateRange(project);
+
+function resolveSrc(src: string): string {
+  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
+    return src;
+  }
+
+  return toBasePath(src.startsWith("/") ? src : `/${src}`);
+}
+
+const firstVideo = project.media?.find((item) => item.type === "video");
+const firstImage = project.media?.find((item) => item.type === "image");
+const coverMedia = project.cover
+  ? {
+      src: resolveSrc(project.cover.src),
+      alt: project.cover.alt,
+    }
+  : firstVideo?.poster
+    ? {
+        src: resolveSrc(firstVideo.poster),
+        alt: `${project.title} video preview`,
+      }
+    : firstImage
+      ? {
+          src: resolveSrc(firstImage.src),
+          alt: firstImage.alt,
+        }
+      : undefined;
+
+const previewVideo = firstVideo
+  ? {
+      src: resolveSrc(firstVideo.src),
+      poster: firstVideo.poster ? resolveSrc(firstVideo.poster) : undefined,
+    }
+  : undefined;
+
+const hasHoverPreview = Boolean(project.cover && previewVideo);
 ---
 
-<a href={projectPath} class={`project-card ${featured ? "project-card--featured" : ""}`}>
+<article class={`project-card ${featured ? "project-card--featured" : ""}`}>
   <div class="project-card__header">
     <div class="project-card__meta">
       <span class={`badge ${projectStatusColors[project.status]}`}>{projectStatusLabels[project.status]}</span>
       {project.organization && (
-        <span class="project-card__org text-mono text-muted">{project.organization}</span>
+        project.organizationUrl ? (
+          <a
+            href={project.organizationUrl}
+            class="project-card__org text-mono text-muted"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.organization} website`}
+          >
+            {project.organization}
+          </a>
+        ) : (
+          <span class="project-card__org text-mono text-muted">{project.organization}</span>
+        )
       )}
     </div>
-    <span class="project-card__arrow" aria-hidden="true">→</span>
+    <a href={projectPath} class="project-card__arrow-link" aria-label={`View project: ${project.title}`}>
+      <span class="project-card__arrow" aria-hidden="true">→</span>
+    </a>
   </div>
 
-  <h3 class="project-card__title">{project.title}</h3>
+  <a href={projectPath} class="project-card__main-link" aria-label={`View project: ${project.title}`}>
 
-  {project.timeframe && (
-    <p class="project-card__timeframe text-mono text-muted">{project.timeframe}</p>
-  )}
+    {(coverMedia || previewVideo) && (
+      <div
+        class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""}`}
+        data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
+      >
+        {coverMedia && (
+          <img
+            class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
+            src={coverMedia.src}
+            alt={coverMedia.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {previewVideo && (
+          <video
+            class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
+            src={previewVideo.src}
+            poster={previewVideo.poster}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label={`${project.title} video preview`}
+            autoplay={!hasHoverPreview}
+          ></video>
+        )}
+      </div>
+    )}
 
-  <p class="project-card__summary">{project.summary}</p>
+    <h3 class="project-card__title">{project.title}</h3>
 
-  <div class="project-card__tags">
-    {project.tags.slice(0, 4).map((tag) => (
-      <span class="badge badge-purple">{tag}</span>
-    ))}
-    {project.tags.length > 4 && (
-      <span class="badge badge-gray">+{project.tags.length - 4}</span>
+    {project.roleTitle && (
+      <p class="project-card__role text-mono text-muted">{project.roleTitle}</p>
+    )}
+
+    {projectDateRange && (
+      <p class="project-card__timeframe text-mono text-muted">{projectDateRange}</p>
+    )}
+
+    <p class="project-card__summary">{project.summary}</p>
+
+    <div class="project-card__tags">
+      {project.tags.slice(0, 4).map((tag) => (
+        <span class="badge badge-purple">{tag}</span>
+      ))}
+      {project.tags.length > 4 && (
+        <span class="badge badge-gray">+{project.tags.length - 4}</span>
+      )}
+    </div>
+  </a>
+
+  <div class="project-card__actions">
+    {actionLinks.length > 0 ? (
+      actionLinks.map((link) => (
+        <a
+          href={link.url}
+          class="btn btn-outline btn-sm"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {link.label} ↗
+        </a>
+      ))
+    ) : (
+      <a href={projectPath} class="btn btn-ghost btn-sm">View Details</a>
     )}
   </div>
-</a>
+</article>
+
+<script>
+  const supportsHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (supportsHoverPreview) {
+    const mediaCards = document.querySelectorAll("[data-project-card-media='hover-preview']");
+
+    mediaCards.forEach((mediaCard) => {
+      const container = mediaCard;
+      const card = mediaCard.closest(".project-card");
+      const video = mediaCard.querySelector("video");
+
+      if (!card || !video) {
+        return;
+      }
+
+      const playPreview = () => {
+        container.classList.add("is-previewing");
+        video.currentTime = 0;
+        void video.play().catch(() => {
+          container.classList.remove("is-previewing");
+        });
+      };
+
+      const stopPreview = () => {
+        container.classList.remove("is-previewing");
+        video.pause();
+        video.currentTime = 0;
+      };
+
+      card.addEventListener("mouseenter", playPreview);
+      card.addEventListener("mouseleave", stopPreview);
+      card.addEventListener("focusin", playPreview);
+      card.addEventListener("focusout", (event) => {
+        if (card.contains(event.relatedTarget)) {
+          return;
+        }
+        stopPreview();
+      });
+    });
+  }
+</script>
 
 <style>
   .project-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 28%),
       var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
-    text-decoration: none;
-    color: var(--color-text);
     transition: border-color var(--transition-base), box-shadow var(--transition-base),
       background var(--transition-base), transform var(--transition-base);
     position: relative;
     overflow: hidden;
+    height: 100%;
+  }
+
+  .project-card__main-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    color: var(--color-text);
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card__arrow-link {
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
   }
 
   /* Corner accent */
@@ -113,6 +278,12 @@ const projectPath = toBasePath(`/projects/${project.slug}`);
   .project-card__org {
     font-size: 0.7rem;
     letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  a.project-card__org:hover,
+  a.project-card__org:focus-visible {
+    color: var(--color-accent);
   }
 
   .project-card__arrow {
@@ -139,7 +310,61 @@ const projectPath = toBasePath(`/projects/${project.slug}`);
     z-index: 1;
   }
 
+  .project-card__media {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+
+  .project-card__media img,
+  .project-card__media video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .project-card__media--hover-preview {
+    isolation: isolate;
+  }
+
+  .project-card__media-image--cover,
+  .project-card__media-video--preview {
+    transition: opacity var(--transition-base);
+  }
+
+  .project-card__media-video--preview {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .project-card__media.is-previewing .project-card__media-image--cover {
+    opacity: 0;
+  }
+
+  .project-card__media.is-previewing .project-card__media-video--preview {
+    opacity: 1;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .project-card__media-video--preview {
+      display: none;
+    }
+  }
+
   .project-card__timeframe {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card__role {
     font-size: 0.7rem;
     letter-spacing: 0.06em;
     margin: 0;
@@ -169,5 +394,18 @@ const projectPath = toBasePath(`/projects/${project.slug}`);
     margin-top: auto;
     position: relative;
     z-index: 1;
+  }
+
+  .project-card__actions {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card__actions .btn {
+    text-decoration: none;
   }
 </style>

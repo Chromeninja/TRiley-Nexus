@@ -1,44 +1,44 @@
 /* ============================================================
   GLOBAL STYLES & DESIGN SYSTEM
-  TRiley Nexus — Eco-Punk Systems Theme
+  TRiley Nexus — Electric Orbital Systems Theme
   ============================================================ */
 
 /* --- Google Fonts --- */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* --- CSS Custom Properties (Design Tokens) --- */
 :root {
   /* Colors */
-  --color-bg: #08110d;
-  --color-bg-secondary: #101a16;
-  --color-bg-card: #15231d;
-  --color-bg-card-hover: #1b2d25;
-  --color-border: rgba(124, 211, 137, 0.14);
-  --color-border-strong: rgba(124, 211, 137, 0.34);
+  --color-bg: #040b19;
+  --color-bg-secondary: #091327;
+  --color-bg-card: #0c1830;
+  --color-bg-card-hover: #12203b;
+  --color-border: rgba(87, 166, 255, 0.16);
+  --color-border-strong: rgba(87, 166, 255, 0.34);
 
-  /* Primary accent — bioluminescent green */
-  --color-accent: #7cd389;
-  --color-accent-dim: rgba(124, 211, 137, 0.14);
-  --color-accent-glow: rgba(124, 211, 137, 0.32);
+  /* Primary accent — electric blue */
+  --color-accent: #57a6ff;
+  --color-accent-dim: rgba(87, 166, 255, 0.14);
+  --color-accent-glow: rgba(87, 166, 255, 0.28);
 
-  /* Secondary accent — warm industrial amber */
-  --color-accent2: #c97a2b;
-  --color-accent2-dim: rgba(201, 122, 43, 0.14);
-  --color-accent2-glow: rgba(201, 122, 43, 0.3);
+  /* Secondary accent — cyan signal */
+  --color-accent2: #22d3ee;
+  --color-accent2-dim: rgba(34, 211, 238, 0.14);
+  --color-accent2-glow: rgba(34, 211, 238, 0.26);
 
   /* Status colors */
   --color-success: #4ade80;
-  --color-warning: #f4b860;
+  --color-warning: #fbbf24;
   --color-danger: #ef4444;
 
   /* Text */
-  --color-text: #dbe7df;
-  --color-text-muted: #94a89b;
-  --color-text-dim: #5d6f65;
-  --color-text-heading: #f3f6ef;
+  --color-text: #d9e7ff;
+  --color-text-muted: #91a4c7;
+  --color-text-dim: #5d7398;
+  --color-text-heading: #f4f8ff;
 
   /* Typography */
-  --font-heading: "Orbitron", "Space Grotesk", sans-serif;
+  --font-heading: "Sora", "Space Grotesk", sans-serif;
   --font-body: "Manrope", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 
@@ -65,11 +65,11 @@
   --radius-xl: 16px;
 
   /* Shadows / Glows */
-  --glow-accent: 0 0 24px rgba(124, 211, 137, 0.2);
-  --glow-accent-strong: 0 0 42px rgba(124, 211, 137, 0.34);
-  --glow-accent2: 0 0 22px rgba(201, 122, 43, 0.24);
-  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.34);
-  --shadow-card-hover: 0 20px 48px rgba(0, 0, 0, 0.5);
+  --glow-accent: 0 10px 30px rgba(87, 166, 255, 0.14);
+  --glow-accent-strong: 0 18px 44px rgba(87, 166, 255, 0.18);
+  --glow-accent2: 0 10px 28px rgba(34, 211, 238, 0.12);
+  --shadow-card: 0 14px 34px rgba(1, 8, 22, 0.34);
+  --shadow-card-hover: 0 24px 58px rgba(1, 8, 22, 0.46);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -94,9 +94,9 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top, rgba(124, 211, 137, 0.1), transparent 30%),
-    radial-gradient(circle at 80% 12%, rgba(201, 122, 43, 0.09), transparent 24%),
-    linear-gradient(180deg, #09120e 0%, #08110d 48%, #060d0a 100%);
+    radial-gradient(circle at top, rgba(87, 166, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 12%, rgba(34, 211, 238, 0.08), transparent 24%),
+    linear-gradient(180deg, #07101e 0%, #040b19 48%, #020611 100%);
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.6;
@@ -112,13 +112,13 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(124, 211, 137, 0.045), transparent 32%),
-    radial-gradient(circle at 15% 20%, rgba(124, 211, 137, 0.06), transparent 14%),
+    linear-gradient(135deg, rgba(87, 166, 255, 0.05), transparent 32%),
+    radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.06), transparent 14%),
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 0 42px,
-      rgba(124, 211, 137, 0.035) 42px 43px
+      rgba(87, 166, 255, 0.03) 42px 43px
     );
   pointer-events: none;
   z-index: 0;
@@ -129,7 +129,7 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at bottom right, rgba(201, 122, 43, 0.06), transparent 22%),
+    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.06), transparent 22%),
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -258,7 +258,7 @@ pre {
   left: 0;
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, rgba(124, 211, 137, 0.28), transparent 64%);
+  background: linear-gradient(135deg, rgba(87, 166, 255, 0.2), transparent 64%);
   clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
@@ -283,12 +283,12 @@ pre {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #08110d;
-  box-shadow: 0 0 16px rgba(124, 211, 137, 0.28);
+  color: #06101f;
+  box-shadow: 0 8px 24px rgba(87, 166, 255, 0.2);
 }
 .btn-primary:hover {
-  background: #91de9c;
-  color: #08110d;
+  background: #7db8ff;
+  color: #06101f;
   box-shadow: var(--glow-accent-strong);
   transform: translateY(-1px);
 }
@@ -313,7 +313,7 @@ pre {
 .btn-ghost:hover {
   color: var(--color-text);
   border-color: var(--color-border-strong);
-  background: rgba(124, 211, 137, 0.05);
+  background: rgba(87, 166, 255, 0.05);
 }
 
 .btn-sm {
@@ -337,14 +337,14 @@ pre {
 
 .badge-cyan {
   color: var(--color-accent);
-  border-color: rgba(124, 211, 137, 0.28);
-  background: rgba(124, 211, 137, 0.08);
+  border-color: rgba(87, 166, 255, 0.28);
+  background: rgba(87, 166, 255, 0.08);
 }
 
 .badge-purple {
-  color: #f0b36d;
-  border-color: rgba(201, 122, 43, 0.3);
-  background: rgba(201, 122, 43, 0.08);
+  color: var(--color-accent2);
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(34, 211, 238, 0.08);
 }
 
 .badge-green {
@@ -417,11 +417,11 @@ pre {
   background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(124, 211, 137, 0.22);
+  background: rgba(87, 166, 255, 0.22);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(124, 211, 137, 0.38);
+  background: rgba(87, 166, 255, 0.38);
 }
 
 /* --- Focus Styles (Accessibility) --- */
@@ -464,8 +464,8 @@ pre {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(124, 211, 137, 0.28); }
-  50% { box-shadow: 0 0 20px rgba(124, 211, 137, 0.5); }
+  0%, 100% { box-shadow: 0 0 8px rgba(87, 166, 255, 0.22); }
+  50% { box-shadow: 0 0 18px rgba(87, 166, 255, 0.38); }
 }
 
 @keyframes blink {
