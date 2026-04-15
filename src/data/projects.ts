@@ -188,6 +188,17 @@ export interface CareerNarrativeData {
   liveProjectCount: number;
 }
 
+export interface ProjectsCategoryGroup {
+  category: string;
+  projects: Project[];
+}
+
+export interface ProjectsPageData {
+  featuredProjects: Project[];
+  categoryGroups: ProjectsCategoryGroup[];
+  totalProjectCount: number;
+}
+
 const monthLookup: Record<string, number> = {
   jan: 0,
   feb: 1,
@@ -283,6 +294,77 @@ function sortByOrder(a: Project, b: Project): number {
 export async function getProjects(): Promise<Project[]> {
   const entries = await getCollection("projects");
   return entries.map(toProject).sort(sortByOrder);
+}
+
+function resolveProjectRecencyDate(project: Project): Date {
+  if (project.status === "active" || project.status === "concept") {
+    return new Date();
+  }
+
+  const endedAt = project.endedAt?.trim();
+  if (endedAt) {
+    const parsedEnd = parseDateValue(endedAt, "end");
+    if (parsedEnd) {
+      return parsedEnd;
+    }
+  }
+
+  const startedAt = project.startedAt?.trim();
+  if (startedAt) {
+    const parsedStart = parseDateValue(startedAt, "start");
+    if (parsedStart) {
+      return parsedStart;
+    }
+  }
+
+  return new Date(0);
+}
+
+function sortByRecencyThenOrder(a: Project, b: Project): number {
+  const recencyDiff = resolveProjectRecencyDate(b).getTime() - resolveProjectRecencyDate(a).getTime();
+
+  if (recencyDiff !== 0) {
+    return recencyDiff;
+  }
+
+  return (a.order ?? 99) - (b.order ?? 99);
+}
+
+export async function getProjectsPageData(featuredLimit = 6): Promise<ProjectsPageData> {
+  const projects = await getProjects();
+
+  const explicitFeatured = projects.filter((project) => project.featured).sort(sortByRecencyThenOrder);
+  const nonFeatured = projects.filter((project) => !project.featured).sort(sortByRecencyThenOrder);
+  const featuredProjects = [...explicitFeatured, ...nonFeatured].slice(0, featuredLimit);
+  const featuredSlugs = new Set(featuredProjects.map((project) => project.slug));
+
+  const groupedByCategory = new Map<string, Project[]>();
+
+  for (const project of projects.filter((entry) => !featuredSlugs.has(entry.slug))) {
+    const category = project.category.trim() || "Other";
+    const existing = groupedByCategory.get(category) ?? [];
+    existing.push(project);
+    groupedByCategory.set(category, existing);
+  }
+
+  const categoryGroups = [...groupedByCategory.entries()]
+    .map(([category, categoryProjects]) => ({
+      category,
+      projects: categoryProjects.sort(sortByRecencyThenOrder),
+    }))
+    .sort((a, b) => {
+      if (b.projects.length !== a.projects.length) {
+        return b.projects.length - a.projects.length;
+      }
+
+      return a.category.localeCompare(b.category);
+    });
+
+  return {
+    featuredProjects,
+    categoryGroups,
+    totalProjectCount: projects.length,
+  };
 }
 
 export function formatProjectDateRange(

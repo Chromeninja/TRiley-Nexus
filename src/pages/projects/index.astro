@@ -1,22 +1,11 @@
 ---
 // projects/index.astro — Projects listing page
 import Layout from "../../layouts/Layout.astro";
-import CareerNarrativeExplorer from "../../components/CareerNarrativeExplorer.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
-import {
-  getCareerNarrativeData,
-  getCategories,
-  projectStatusColors,
-  projectStatusLabels,
-  type Project,
-} from "../../data/projects";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getProjectsPageData } from "../../data/projects";
 
-const categories = await getCategories();
-const careerNarrativeData = await getCareerNarrativeData();
-const statusDisplayOrder: Project["status"][] = ["active", "concept", "completed", "archived"];
-const usedStatuses = statusDisplayOrder.filter((status) =>
-  careerNarrativeData.companies.some((company) => company.projects.some((project) => project.status === status)),
-);
+const projectsPageData = await getProjectsPageData(6);
 ---
 
 <Layout
@@ -26,200 +15,146 @@ const usedStatuses = statusDisplayOrder.filter((status) =>
   <section class="section">
     <div class="container">
       <SectionHeader
-        label="// PROJECT ARCHIVE"
+        label="// PROJECTS"
         title="Projects"
-        subtitle="Browse the archive the same way the work actually happened: by company, with projects nested inline and filters layered on top."
+        subtitle="Featured work first, then the full catalog grouped by category so you can scan quickly and dive deeper where needed."
       />
 
-      <!-- Filter Bar -->
-      <div class="filter-bar" role="group" aria-label="Filter projects by category">
-        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
-        {categories.map((cat) => (
-          <button class="filter-btn" data-filter={cat}>{cat}</button>
-        ))}
+      <div class="projects-topline panel" aria-label="Projects summary">
+        <p class="projects-topline__intro">
+          {projectsPageData.totalProjectCount} total projects. Start with the featured set, then browse the full list by category.
+        </p>
+        <div class="projects-topline__chips" aria-label="Project categories">
+          {projectsPageData.categoryGroups.map((group) => (
+            <a href={`#category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} class="projects-chip">
+              {group.category} <span>{group.projects.length}</span>
+            </a>
+          ))}
+        </div>
       </div>
 
-      <!-- Status filter -->
-      <div class="status-legend" role="group" aria-label="Filter projects by status">
-        <button class="status-filter-btn status-filter-btn--active" data-status-filter="all">All statuses</button>
-        {usedStatuses.map((status) => (
-          <button
-            class={`status-filter-btn ${projectStatusColors[status]}`}
-            data-status-filter={status}
-          >
-            {projectStatusLabels[status]}
-          </button>
-        ))}
-      </div>
+      <section class="projects-section" aria-labelledby="featured-projects-heading">
+        <div class="projects-section__header">
+          <p class="projects-section__label text-mono">01 // Featured</p>
+          <h2 id="featured-projects-heading" class="projects-section__title">Most relevant recent work</h2>
+        </div>
 
-      <div id="projects-grid">
-        <CareerNarrativeExplorer
-          data={careerNarrativeData}
-          label="// ARCHIVE VIEW"
-          title="Company-first archive"
-          subtitle="Use filters to narrow the view, but keep the chronology and company context intact while exploring."
-          showControls={false}
-          compact
-        />
-      </div>
+        <div class="projects-grid">
+          {projectsPageData.featuredProjects.map((project) => (
+            <ProjectCard project={project} featured />
+          ))}
+        </div>
+      </section>
 
-      <!-- Empty state (hidden unless all filtered out) -->
-      <div class="empty-state" id="empty-state" hidden>
-        <p class="text-muted">No projects found in this category.</p>
-      </div>
+      {projectsPageData.categoryGroups.map((group, index) => {
+        const sectionId = `category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
+        return (
+          <section class="projects-section" aria-labelledby={sectionId}>
+            <div class="projects-section__header">
+              <p class="projects-section__label text-mono">{String(index + 2).padStart(2, "0")} // {group.category}</p>
+              <h2 id={sectionId} class="projects-section__title">{group.category}</h2>
+            </div>
+
+            <div class="projects-grid">
+              {group.projects.map((project) => (
+                <ProjectCard project={project} />
+              ))}
+            </div>
+          </section>
+        );
+      })}
     </div>
   </section>
 </Layout>
 
 <style>
-  .filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
-
-  .filter-btn {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.3em 0.9em;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background: transparent;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-  }
-
-  .filter-btn:hover,
-  .filter-btn--active {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: var(--color-accent-dim);
-  }
-
-  .status-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+  .projects-topline {
     margin-bottom: var(--space-2xl);
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .projects-topline__intro {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .projects-topline__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .projects-chip {
+    display: inline-flex;
     align-items: center;
-  }
-
-  .status-legend::before {
-    content: "Status:";
+    gap: 0.4rem;
+    text-decoration: none;
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: var(--color-text-dim);
-    letter-spacing: 0.06em;
-    margin-right: var(--space-xs);
-  }
-
-  .status-filter-btn {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 0.3em 0.9em;
+    padding: 0.38rem 0.74rem;
     border-radius: var(--radius-sm);
     border: 1px solid var(--color-border);
     background: transparent;
     color: var(--color-text-muted);
-    cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
   }
 
-  .status-filter-btn:hover,
-  .status-filter-btn--active {
+  .projects-chip:hover,
+  .projects-chip:focus-visible {
     border-color: var(--color-accent);
     color: var(--color-accent);
     background: var(--color-accent-dim);
   }
 
-  .empty-state {
-    text-align: center;
-    padding: var(--space-4xl);
+  .projects-chip span {
+    color: var(--color-text-dim);
+  }
+
+  .projects-section {
+    margin-top: var(--space-3xl);
+  }
+
+  .projects-section__header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .projects-section__label {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text-dim);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .projects-section__title {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: var(--space-lg);
   }
 
   @media (max-width: 640px) {
-    .filter-bar,
-    .status-legend {
-      gap: var(--space-xs);
+    .projects-topline {
+      margin-bottom: var(--space-xl);
+      padding: var(--space-lg);
     }
 
-    .filter-btn,
-    .status-filter-btn {
-      font-size: 0.74rem;
-      letter-spacing: 0.05em;
-      padding: 0.44rem 0.72rem;
+    .projects-section {
+      margin-top: var(--space-2xl);
     }
 
-    .status-legend::before {
-      width: 100%;
-      margin-right: 0;
-      margin-bottom: 0.3rem;
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
     }
   }
 </style>
-
-<script>
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
-  const statusFilterBtns = document.querySelectorAll<HTMLButtonElement>(".status-filter-btn");
-  const projectItems = document.querySelectorAll<HTMLElement>(".narrative-project");
-  const companyItems = document.querySelectorAll<HTMLElement>(".narrative-company");
-  const emptyState = document.getElementById("empty-state");
-  let activeCategoryFilter = "all";
-  let activeStatusFilter = "all";
-
-  const updateProjectVisibility = () => {
-    let visibleCount = 0;
-
-    projectItems.forEach((item) => {
-      const category = item.dataset.category ?? "";
-      const status = item.dataset.status ?? "";
-      const matchesCategory = activeCategoryFilter === "all" || category === activeCategoryFilter;
-      const matchesStatus = activeStatusFilter === "all" || status === activeStatusFilter;
-      const show = matchesCategory && matchesStatus;
-
-      item.classList.toggle("narrative-project--hidden", !show);
-      if (show) {
-        visibleCount++;
-      }
-    });
-
-    companyItems.forEach((company) => {
-      const visibleProjects = company.querySelectorAll(".narrative-project:not(.narrative-project--hidden)");
-      company.classList.toggle("narrative-company--hidden", visibleProjects.length === 0);
-    });
-
-    if (emptyState) {
-      emptyState.hidden = visibleCount > 0;
-    }
-  };
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      activeCategoryFilter = btn.dataset.filter ?? "all";
-
-      filterBtns.forEach((b) => b.classList.remove("filter-btn--active"));
-      btn.classList.add("filter-btn--active");
-
-      updateProjectVisibility();
-    });
-  });
-
-  statusFilterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      activeStatusFilter = btn.dataset.statusFilter ?? "all";
-
-      statusFilterBtns.forEach((button) => button.classList.remove("status-filter-btn--active"));
-      btn.classList.add("status-filter-btn--active");
-
-      updateProjectVisibility();
-    });
-  });
-
-  updateProjectVisibility();
-</script>

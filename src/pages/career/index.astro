@@ -1,0 +1,149 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import CareerScrollTimeline from "../../components/CareerScrollTimeline.astro";
+import { getProjects, type Project } from "../../data/projects";
+
+interface TimelineMonthGroup {
+  key: string;
+  month: number;
+  monthLabel: string;
+  projects: Project[];
+}
+
+interface TimelineYearGroup {
+  year: number;
+  key: string;
+  months: TimelineMonthGroup[];
+}
+
+const monthLookup: Record<string, number> = {
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
+};
+
+const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" });
+
+function parseDateValue(value?: string): Date | undefined {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const monthYearMatch = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
+  if (monthYearMatch) {
+    const monthValue = monthLookup[monthYearMatch[1].slice(0, 3).toLowerCase()];
+    if (monthValue === undefined) {
+      return undefined;
+    }
+
+    const yearValue = Number.parseInt(monthYearMatch[2], 10);
+    return new Date(yearValue, monthValue, 1);
+  }
+
+  const yearOnlyMatch = /^(\d{4})$/.exec(trimmed);
+  if (yearOnlyMatch) {
+    const yearValue = Number.parseInt(yearOnlyMatch[1], 10);
+    return new Date(yearValue, 0, 1);
+  }
+
+  return undefined;
+}
+
+function sortByOrderThenDate(a: Project, b: Project): number {
+  const orderDelta = (a.order ?? 99) - (b.order ?? 99);
+  if (orderDelta !== 0) {
+    return orderDelta;
+  }
+
+  const aDate = parseDateValue(a.startedAt)?.getTime() ?? 0;
+  const bDate = parseDateValue(b.startedAt)?.getTime() ?? 0;
+  return bDate - aDate;
+}
+
+const projects = await getProjects();
+const activeStatuses = new Set(["active", "concept"]);
+
+const currentProjects = projects
+  .filter((project) => activeStatuses.has(project.status))
+  .sort(sortByOrderThenDate);
+
+const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
+
+const yearBucket = new Map<number, Map<number, Project[]>>();
+
+for (const project of historicalProjects) {
+  const parsedStart = parseDateValue(project.startedAt);
+  if (!parsedStart) {
+    continue;
+  }
+
+  const year = parsedStart.getFullYear();
+  const month = parsedStart.getMonth();
+
+  if (!yearBucket.has(year)) {
+    yearBucket.set(year, new Map<number, Project[]>());
+  }
+
+  const monthBucket = yearBucket.get(year);
+  if (!monthBucket) {
+    continue;
+  }
+
+  if (!monthBucket.has(month)) {
+    monthBucket.set(month, []);
+  }
+
+  monthBucket.get(month)?.push(project);
+}
+
+const yearGroups: TimelineYearGroup[] = [...yearBucket.entries()]
+  .sort(([yearA], [yearB]) => yearB - yearA)
+  .map(([year, monthMap]) => {
+    const months: TimelineMonthGroup[] = [...monthMap.entries()]
+      .sort(([monthA], [monthB]) => monthB - monthA)
+      .map(([month, monthProjects]) => ({
+        key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
+        month,
+        monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
+        projects: monthProjects.sort(sortByOrderThenDate),
+      }));
+
+    return {
+      year,
+      key: `year-${year}`,
+      months,
+    };
+  });
+---
+
+<Layout
+  title="My Career"
+  description="Scrollable career timeline starting at the present, with clickable year, month, and project navigation."
+>
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        label="// MY CAREER"
+        title="My Career"
+        subtitle="Start at the present, then scroll backward through years. You can also click year, month, or project in the timeline rail to jump directly."
+      />
+
+      <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
+    </div>
+  </section>
+</Layout>

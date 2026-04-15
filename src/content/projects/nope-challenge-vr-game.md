@@ -13,6 +13,11 @@ timeframe: Ongoing
 roleTitle: Technical Producer
 startedAt: Oct 2025
 summary: Producer role at Happy Manic for Nope Challenge on the Meta Quest platform, focused on production planning, mixed reality support, hand-tracking coordination, and community-driven quality feedback.
+cardSummary: Technical producer for Nope Challenge, coordinating live roadmap execution across VR, MR, and community feedback loops.
+highlights:
+  - Owned Jira planning, release coordination, and cross-team priority alignment.
+  - Integrated community testing feedback into live development decisions.
+  - Supported mixed reality and hand-tracking feature delivery on Meta Quest.
 problem: After launch on Meta Quest, the project needed stronger production leadership to align development priorities, manage live issues, support mixed reality deployments, and turn public community feedback into actionable work while the team continued technical upgrades.
 approach: Managed the development team through Jira-based planning, roadmap alignment, prioritization, storyboarding, and release coordination while supporting mixed reality deployments, Reality Breach and beta community testing, bug-report triage, hand-tracking work, Perforce-based change management, and ongoing production pipeline improvements tied to Nope Challenge.
 outcome: Improved delivery alignment across the team, strengthened the public beta feedback loop, supported mixed reality and hand-tracking priorities, and created a more dependable production structure around ongoing Nope Challenge development.
