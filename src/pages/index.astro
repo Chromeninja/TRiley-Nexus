@@ -1,15 +1,11 @@
 ---
 // index.astro — Homepage
 import Layout from "../layouts/Layout.astro";
-import CareerNarrativeExplorer from "../components/CareerNarrativeExplorer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { homePrinciples, homeStats } from "../data/homeContent";
-import { getCareerNarrativeData } from "../data/projects";
 import { coreStrengths } from "../data/skills";
 import { toBasePath } from "../utils/paths";
 import { siteConfig } from "../data/siteConfig";
-
-const careerNarrativeData = await getCareerNarrativeData();
 ---
 
 <Layout
@@ -108,21 +104,25 @@ const careerNarrativeData = await getCareerNarrativeData();
   </section>
 
   <!-- ═══════════════════════════════════════════
-       CAREER NARRATIVE
+       CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
   <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-    <div class="container">
-      <CareerNarrativeExplorer
-        data={careerNarrativeData}
-        label="// CAREER SYSTEM"
-        title="Explore the companies, systems, and programs behind the work"
-        subtitle="This is the main map. Expand each company to inspect the projects, roles, and execution contexts that shaped how I build."
-        initialOpenCompanyCount={1}
+    <div class="container container--md">
+      <SectionHeader
+        label="// CAREER TIMELINE"
+        title="Timeline views now live on the career page"
+        subtitle="Choose narrative, gantt, scroll, company, or life timeline mode from one unified selector."
       />
 
-      <div class="narrative-section__footer">
-        <p class="text-muted">Prefer a filtered archive view instead of the guided timeline? The projects page keeps the same company-first structure with category and status controls.</p>
-        <a href={toBasePath("/projects")} class="btn btn-outline">Open Project Archive</a>
+      <div class="career-hub-card panel">
+        <p class="career-hub-card__copy text-muted">
+          The full timeline system has moved to a single hub so you can switch views without leaving context.
+        </p>
+        <div class="career-hub-card__actions">
+          <a href={toBasePath("/career?view=narrative")} class="btn btn-primary">Open Narrative View</a>
+          <a href={toBasePath("/career?view=gantt")} class="btn btn-outline">Open Gantt View</a>
+          <a href={toBasePath("/career?view=scroll")} class="btn btn-ghost">Open Scroll View</a>
+        </div>
       </div>
     </div>
   </section>
@@ -551,18 +551,19 @@ const careerNarrativeData = await getCareerNarrativeData();
     line-height: 1.4;
   }
 
-  .narrative-section__footer {
-    margin-top: var(--space-xl);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .career-hub-card {
+    display: grid;
     gap: var(--space-md);
-    flex-wrap: wrap;
   }
 
-  .narrative-section__footer p {
+  .career-hub-card__copy {
     margin: 0;
-    max-width: 44rem;
+  }
+
+  .career-hub-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
   }
 
   /* ── CTA ── */

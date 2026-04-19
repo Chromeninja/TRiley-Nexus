@@ -1,8 +1,21 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
+import CareerAtlas from "../../components/CareerAtlas.astro";
+import CareerNarrativeExplorer from "../../components/CareerNarrativeExplorer.astro";
 import CareerScrollTimeline from "../../components/CareerScrollTimeline.astro";
-import { getProjects, type Project } from "../../data/projects";
+import CompanyTimeline from "../../components/CompanyTimeline.astro";
+import LifeTimeline from "../../components/LifeTimeline.astro";
+import TimelineViewSelector, { type TimelineViewMode } from "../../components/TimelineViewSelector.astro";
+import {
+  getCareerAtlasData,
+  getCareerNarrativeData,
+  getLifeTimelineEntries,
+  getProjectOrganizationGroups,
+  getProjects,
+  type Project,
+  type ProjectOrganizationGroup,
+} from "../../data/projects";
 
 interface TimelineMonthGroup {
   key: string;
@@ -16,6 +29,21 @@ interface TimelineYearGroup {
   key: string;
   months: TimelineMonthGroup[];
 }
+
+const timelineViewModes: TimelineViewMode[] = ["gantt", "narrative", "scroll", "company", "life"];
+
+function resolveTimelineViewMode(value: string | null): TimelineViewMode {
+  if (!value) {
+    return "narrative";
+  }
+
+  const lowered = value.toLowerCase();
+  return timelineViewModes.includes(lowered as TimelineViewMode)
+    ? (lowered as TimelineViewMode)
+    : "narrative";
+}
+
+const timelineView = resolveTimelineViewMode(Astro.url.searchParams.get("view"));
 
 const monthLookup: Record<string, number> = {
   jan: 0,
@@ -75,75 +103,203 @@ function sortByOrderThenDate(a: Project, b: Project): number {
   return bDate - aDate;
 }
 
-const projects = await getProjects();
-const activeStatuses = new Set(["active", "concept"]);
+const shouldShowGantt = timelineView === "gantt";
+const shouldShowNarrative = timelineView === "narrative";
+const shouldShowScroll = timelineView === "scroll";
+const shouldShowCompany = timelineView === "company";
+const shouldShowLife = timelineView === "life";
 
-const currentProjects = projects
-  .filter((project) => activeStatuses.has(project.status))
-  .sort(sortByOrderThenDate);
+const atlasData = shouldShowGantt ? await getCareerAtlasData() : undefined;
+const narrativeData = shouldShowNarrative ? await getCareerNarrativeData() : undefined;
 
-const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
+let currentProjects: Project[] = [];
+let yearGroups: TimelineYearGroup[] = [];
 
-const yearBucket = new Map<number, Map<number, Project[]>>();
+if (shouldShowScroll) {
+  const projects = await getProjects();
+  const activeStatuses = new Set(["active", "concept"]);
 
-for (const project of historicalProjects) {
-  const parsedStart = parseDateValue(project.startedAt);
-  if (!parsedStart) {
-    continue;
+  currentProjects = projects
+    .filter((project) => activeStatuses.has(project.status))
+    .sort(sortByOrderThenDate);
+
+  const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
+  const yearBucket = new Map<number, Map<number, Project[]>>();
+
+  for (const project of historicalProjects) {
+    const parsedStart = parseDateValue(project.startedAt);
+    if (!parsedStart) {
+      continue;
+    }
+
+    const year = parsedStart.getFullYear();
+    const month = parsedStart.getMonth();
+
+    if (!yearBucket.has(year)) {
+      yearBucket.set(year, new Map<number, Project[]>());
+    }
+
+    const monthBucket = yearBucket.get(year);
+    if (!monthBucket) {
+      continue;
+    }
+
+    if (!monthBucket.has(month)) {
+      monthBucket.set(month, []);
+    }
+
+    monthBucket.get(month)?.push(project);
   }
 
-  const year = parsedStart.getFullYear();
-  const month = parsedStart.getMonth();
+  yearGroups = [...yearBucket.entries()]
+    .sort(([yearA], [yearB]) => yearB - yearA)
+    .map(([year, monthMap]) => {
+      const months: TimelineMonthGroup[] = [...monthMap.entries()]
+        .sort(([monthA], [monthB]) => monthB - monthA)
+        .map(([month, monthProjects]) => ({
+          key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
+          month,
+          monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
+          projects: monthProjects.sort(sortByOrderThenDate),
+        }));
 
-  if (!yearBucket.has(year)) {
-    yearBucket.set(year, new Map<number, Project[]>());
-  }
-
-  const monthBucket = yearBucket.get(year);
-  if (!monthBucket) {
-    continue;
-  }
-
-  if (!monthBucket.has(month)) {
-    monthBucket.set(month, []);
-  }
-
-  monthBucket.get(month)?.push(project);
+      return {
+        year,
+        key: `year-${year}`,
+        months,
+      };
+    });
 }
 
-const yearGroups: TimelineYearGroup[] = [...yearBucket.entries()]
-  .sort(([yearA], [yearB]) => yearB - yearA)
-  .map(([year, monthMap]) => {
-    const months: TimelineMonthGroup[] = [...monthMap.entries()]
-      .sort(([monthA], [monthB]) => monthB - monthA)
-      .map(([month, monthProjects]) => ({
-        key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
-        month,
-        monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
-        projects: monthProjects.sort(sortByOrderThenDate),
-      }));
+const organizationGroups = shouldShowCompany ? await getProjectOrganizationGroups() : [];
+const companyTimelineGroups = organizationGroups
+  .filter((group): group is ProjectOrganizationGroup & { timeline: NonNullable<ProjectOrganizationGroup["timeline"]> } =>
+    Boolean(group.timeline),
+  )
+  .sort((groupA, groupB) => groupA.timeline.rangeStart.getTime() - groupB.timeline.rangeStart.getTime());
 
-    return {
-      year,
-      key: `year-${year}`,
-      months,
-    };
-  });
+const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : [];
 ---
 
 <Layout
   title="My Career"
-  description="Scrollable career timeline starting at the present, with clickable year, month, and project navigation."
+  description="Unified career timeline hub with selectable narrative, gantt, scroll, company, and life timeline views."
 >
   <section class="section">
     <div class="container">
       <SectionHeader
         label="// MY CAREER"
         title="My Career"
-        subtitle="Start at the present, then scroll backward through years. You can also click year, month, or project in the timeline rail to jump directly."
+        subtitle="Use the selector to switch between narrative, gantt, scroll, company, and life timeline views."
       />
 
-      <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
+      <TimelineViewSelector currentView={timelineView} />
+
+      {shouldShowNarrative && narrativeData && (
+        <div class="career-view-panel">
+          <CareerNarrativeExplorer
+            data={narrativeData}
+            label="// CAREER SYSTEM"
+            title="Explore the companies, systems, and programs behind the work"
+            subtitle="Expand each company to inspect projects, roles, and execution context in-place."
+            initialOpenCompanyCount={1}
+          />
+        </div>
+      )}
+
+      {shouldShowGantt && (
+        <div class="career-view-panel">
+          {atlasData ? (
+            <CareerAtlas data={atlasData} />
+          ) : (
+            <div class="panel career-view-empty">
+              <p class="text-muted">Gantt atlas data appears once dated company and project entries are available.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {shouldShowScroll && (
+        <div class="career-view-panel">
+          <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
+        </div>
+      )}
+
+      {shouldShowCompany && (
+        <div class="career-view-panel career-company-view">
+          {companyTimelineGroups.length > 0 ? (
+            companyTimelineGroups.map((group) => (
+              <article class="panel career-company-view__item">
+                <header class="career-company-view__header">
+                  <p class="text-mono text-accent career-company-view__label">{group.timeRangeLabel ?? group.timeline.rangeLabel}</p>
+                  <h2>{group.organization}</h2>
+                  {group.companySummary && <p class="text-muted">{group.companySummary}</p>}
+                </header>
+                <CompanyTimeline timeline={group.timeline} />
+              </article>
+            ))
+          ) : (
+            <div class="panel career-view-empty">
+              <p class="text-muted">Company timelines appear once organization timeline data is available.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {shouldShowLife && (
+        <div class="career-view-panel">
+          <LifeTimeline entries={lifeTimelineEntries} />
+        </div>
+      )}
+
+      <p class="career-view-helper text-muted text-mono">Shareable links use query mode: /career?view=narrative, /career?view=gantt, /career?view=scroll, /career?view=company, /career?view=life</p>
     </div>
   </section>
 </Layout>
+
+<style>
+  .career-view-panel {
+    margin-top: var(--space-lg);
+  }
+
+  .career-view-helper {
+    margin: var(--space-md) 0 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .career-view-empty {
+    margin-top: var(--space-lg);
+  }
+
+  .career-view-empty p {
+    margin: 0;
+  }
+
+  .career-company-view {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .career-company-view__item {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .career-company-view__header {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .career-company-view__header h2,
+  .career-company-view__header p {
+    margin: 0;
+  }
+
+  .career-company-view__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+</style>
