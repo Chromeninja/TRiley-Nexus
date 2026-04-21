@@ -1,5 +1,10 @@
 ---
-import { formatProjectDateRange, projectStatusLabels, type Project } from "../data/projects";
+import {
+  formatProjectDateRange,
+  parseProjectDateValue,
+  projectStatusLabels,
+  type Project,
+} from "../data/projects";
 import { toBasePath } from "../utils/paths";
 
 interface TimelineMonthGroup {
@@ -37,7 +42,13 @@ function sortByOrderThenDate(a: Project, b: Project): number {
     return orderDelta;
   }
 
-  return (b.startedAt ?? "").localeCompare(a.startedAt ?? "");
+  const aDate = a.startedAt ? parseProjectDateValue(a.startedAt, "start")?.getTime() ?? 0 : 0;
+  const bDate = b.startedAt ? parseProjectDateValue(b.startedAt, "start")?.getTime() ?? 0 : 0;
+  if (aDate !== bDate) {
+    return bDate - aDate;
+  }
+
+  return a.title.localeCompare(b.title);
 }
 
 const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);

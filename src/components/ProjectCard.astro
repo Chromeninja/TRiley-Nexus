@@ -32,7 +32,7 @@ const summaryText = (project.cardSummary ?? project.summary).trim();
 const fallbackHighlights = [project.problem, project.approach, project.outcome]
   .filter((entry): entry is string => Boolean(entry && entry.trim()))
   .map((entry) => firstSentence(entry));
-const cardHighlights = (project.highlights?.map((entry) => toHighlightLine(entry)).filter(Boolean)
+const cardHighlights = (project.highlights?.map((entry) => toHighlightLine(entry))?.filter(Boolean)
   ?? fallbackHighlights).slice(0, 3);
 
 function resolveSrc(src: string): string {

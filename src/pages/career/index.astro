@@ -11,6 +11,7 @@ import {
   getCareerAtlasData,
   getCareerNarrativeData,
   getLifeTimelineEntries,
+  parseProjectDateValue,
   getProjectOrganizationGroups,
   getProjects,
   type Project,
@@ -45,21 +46,6 @@ function resolveTimelineViewMode(value: string | null): TimelineViewMode {
 
 const timelineView = resolveTimelineViewMode(Astro.url.searchParams.get("view"));
 
-const monthLookup: Record<string, number> = {
-  jan: 0,
-  feb: 1,
-  mar: 2,
-  apr: 3,
-  may: 4,
-  jun: 5,
-  jul: 6,
-  aug: 7,
-  sep: 8,
-  oct: 9,
-  nov: 10,
-  dec: 11,
-};
-
 const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" });
 
 function parseDateValue(value?: string): Date | undefined {
@@ -72,24 +58,7 @@ function parseDateValue(value?: string): Date | undefined {
     return undefined;
   }
 
-  const monthYearMatch = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
-  if (monthYearMatch) {
-    const monthValue = monthLookup[monthYearMatch[1].slice(0, 3).toLowerCase()];
-    if (monthValue === undefined) {
-      return undefined;
-    }
-
-    const yearValue = Number.parseInt(monthYearMatch[2], 10);
-    return new Date(yearValue, monthValue, 1);
-  }
-
-  const yearOnlyMatch = /^(\d{4})$/.exec(trimmed);
-  if (yearOnlyMatch) {
-    const yearValue = Number.parseInt(yearOnlyMatch[1], 10);
-    return new Date(yearValue, 0, 1);
-  }
-
-  return undefined;
+  return parseProjectDateValue(trimmed, "start");
 }
 
 function sortByOrderThenDate(a: Project, b: Project): number {
