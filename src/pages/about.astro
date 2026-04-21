@@ -44,11 +44,6 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
           alt={aboutProfileMedia.alt}
           loading="lazy"
         />
-        {aboutProfileMedia.caption && (
-          <figcaption class="profile-photo__caption text-mono text-muted">
-            {aboutProfileMedia.caption}
-          </figcaption>
-        )}
       </figure>
     )}
   </PageHero>
@@ -198,13 +193,6 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     background: var(--color-bg-card);
-  }
-
-  .profile-photo__caption {
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 0;
   }
 
   .resume-panel {
