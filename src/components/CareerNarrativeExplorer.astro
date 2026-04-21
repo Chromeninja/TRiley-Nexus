@@ -45,7 +45,7 @@ const {
         <span class="career-narrative__metric-value">{data.projectCount}</span>
         <span class="career-narrative__metric-label">Projects</span>
       </div>
-      <div class="career-narrative__metric">
+      <div class="career-narrative__metric career-narrative__metric--coverage">
         <span class="career-narrative__metric-value">{data.rangeLabel}</span>
         <span class="career-narrative__metric-label">Coverage</span>
       </div>
@@ -727,8 +727,28 @@ const {
 
   @media (max-width: 720px) {
     .career-narrative__summary {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       width: 100%;
+      gap: 0.55rem;
+    }
+
+    .career-narrative__metric {
+      padding: 0.68rem 0.75rem;
+      min-height: 4.25rem;
+    }
+
+    .career-narrative__metric-value {
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .career-narrative__metric-label {
+      margin-top: 0.2rem;
+      font-size: 0.66rem;
+    }
+
+    .career-narrative__metric--coverage {
+      display: none;
     }
 
     .career-narrative__rail {
@@ -797,6 +817,11 @@ const {
     .career-narrative__rail,
     .narrative-company__node-index {
       display: none;
+    }
+
+    .career-narrative__summary {
+      grid-template-columns: 1fr;
+      max-width: 13rem;
     }
 
     .narrative-company {

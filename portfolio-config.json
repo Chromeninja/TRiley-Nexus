@@ -16,6 +16,7 @@
     { "href": "/", "label": "Home", "enabled": true },
     { "href": "/about", "label": "About", "enabled": true },
     { "href": "/projects", "label": "Projects", "enabled": true },
+    { "href": "/career", "label": "My Career", "enabled": true },
     { "href": "/how-i-work", "label": "How I Work", "enabled": true },
     { "href": "/now", "label": "Now", "enabled": true },
     { "href": "/contact", "label": "Contact", "enabled": true }

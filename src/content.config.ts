@@ -14,6 +14,8 @@ const projectsCollection = defineCollection({
     endedAt: z.string().optional(),
     timeframe: z.string().optional(),
     summary: z.string(),
+    cardSummary: z.string().optional(),
+    highlights: z.array(z.string()).max(3).optional(),
     problem: z.string().optional(),
     approach: z.string().optional(),
     outcome: z.string().optional(),

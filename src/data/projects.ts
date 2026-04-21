@@ -188,6 +188,17 @@ export interface CareerNarrativeData {
   liveProjectCount: number;
 }
 
+export interface ProjectsCategoryGroup {
+  category: string;
+  projects: Project[];
+}
+
+export interface ProjectsPageData {
+  featuredProjects: Project[];
+  categoryGroups: ProjectsCategoryGroup[];
+  totalProjectCount: number;
+}
+
 const monthLookup: Record<string, number> = {
   jan: 0,
   feb: 1,
@@ -285,6 +296,82 @@ export async function getProjects(): Promise<Project[]> {
   return entries.map(toProject).sort(sortByOrder);
 }
 
+function resolveProjectRecencyDate(project: Project, referenceNow: Date): Date {
+  if (project.status === "active" || project.status === "concept") {
+    return referenceNow;
+  }
+
+  const endedAt = project.endedAt?.trim();
+  if (endedAt) {
+    const parsedEnd = parseProjectDateValue(endedAt, "end");
+    if (parsedEnd) {
+      return parsedEnd;
+    }
+  }
+
+  const startedAt = project.startedAt?.trim();
+  if (startedAt) {
+    const parsedStart = parseProjectDateValue(startedAt, "start");
+    if (parsedStart) {
+      return parsedStart;
+    }
+  }
+
+  return new Date(0);
+}
+
+function sortByRecencyThenOrder(a: Project, b: Project, referenceNow: Date): number {
+  const recencyDiff =
+    resolveProjectRecencyDate(b, referenceNow).getTime() -
+    resolveProjectRecencyDate(a, referenceNow).getTime();
+
+  if (recencyDiff !== 0) {
+    return recencyDiff;
+  }
+
+  return (a.order ?? 99) - (b.order ?? 99);
+}
+
+export async function getProjectsPageData(featuredLimit = 6): Promise<ProjectsPageData> {
+  const projects = await getProjects();
+  const referenceNow = new Date();
+  const sortByRecency = (a: Project, b: Project): number =>
+    sortByRecencyThenOrder(a, b, referenceNow);
+
+  const explicitFeatured = projects.filter((project) => project.featured).sort(sortByRecency);
+  const nonFeatured = projects.filter((project) => !project.featured).sort(sortByRecency);
+  const featuredProjects = [...explicitFeatured, ...nonFeatured].slice(0, featuredLimit);
+  const featuredSlugs = new Set(featuredProjects.map((project) => project.slug));
+
+  const groupedByCategory = new Map<string, Project[]>();
+
+  for (const project of projects.filter((entry) => !featuredSlugs.has(entry.slug))) {
+    const category = project.category.trim() || "Other";
+    const existing = groupedByCategory.get(category) ?? [];
+    existing.push(project);
+    groupedByCategory.set(category, existing);
+  }
+
+  const categoryGroups = [...groupedByCategory.entries()]
+    .map(([category, categoryProjects]) => ({
+      category,
+      projects: categoryProjects.sort(sortByRecency),
+    }))
+    .sort((a, b) => {
+      if (b.projects.length !== a.projects.length) {
+        return b.projects.length - a.projects.length;
+      }
+
+      return a.category.localeCompare(b.category);
+    });
+
+  return {
+    featuredProjects,
+    categoryGroups,
+    totalProjectCount: projects.length,
+  };
+}
+
 export function formatProjectDateRange(
   project: Pick<Project, "startedAt" | "endedAt" | "timeframe">,
 ): string | undefined {
@@ -302,7 +389,10 @@ export function formatProjectDateRange(
   return project.timeframe?.trim();
 }
 
-function parseDateValue(value: string, boundary: "start" | "end"): Date | undefined {
+export function parseProjectDateValue(
+  value: string,
+  boundary: "start" | "end" = "start",
+): Date | undefined {
   const trimmed = value.trim();
 
   const monthYearMatch = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
@@ -334,7 +424,7 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
     .map((project) => project.startedAt?.trim())
     .filter(Boolean) as string[];
   const parsedStarts = startCandidates
-    .map((value) => ({ value, parsed: parseDateValue(value, "start") }))
+    .map((value) => ({ value, parsed: parseProjectDateValue(value, "start") }))
     .filter((entry): entry is { value: string; parsed: Date } => Boolean(entry.parsed));
 
   if (parsedStarts.length === 0) {
@@ -348,7 +438,7 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
   const parsedEnds = projects
     .map((project) => {
       if (project.endedAt?.trim()) {
-        const parsed = parseDateValue(project.endedAt, "end");
+        const parsed = parseProjectDateValue(project.endedAt, "end");
         return parsed ? { value: project.endedAt.trim(), parsed, isPresent: false } : undefined;
       }
 
@@ -387,8 +477,8 @@ function getCompanyDateRange(organization: string): DateRange | undefined {
   }
 
   const tenureEnd = profile.tenureEnd?.trim() || "Present";
-  const parsedStart = parseDateValue(tenureStart, "start");
-  const parsedEnd = tenureEnd === "Present" ? new Date() : parseDateValue(tenureEnd, "end");
+  const parsedStart = parseProjectDateValue(tenureStart, "start");
+  const parsedEnd = tenureEnd === "Present" ? new Date() : parseProjectDateValue(tenureEnd, "end");
 
   if (!parsedStart || !parsedEnd) {
     return undefined;
@@ -453,7 +543,7 @@ function getProjectTimelineSegment(project: Project): ParsedTimelineSegment | un
     return undefined;
   }
 
-  const start = parseDateValue(startLabel, "start");
+  const start = parseProjectDateValue(startLabel, "start");
   if (!start) {
     return undefined;
   }
@@ -464,7 +554,7 @@ function getProjectTimelineSegment(project: Project): ParsedTimelineSegment | un
     return undefined;
   }
 
-  const end = endLabel === "Present" ? new Date() : parseDateValue(endLabel, "end");
+  const end = endLabel === "Present" ? new Date() : parseProjectDateValue(endLabel, "end");
   if (!end) {
     return undefined;
   }
@@ -491,8 +581,8 @@ function getRoleSegmentsFromProfile(organization: string): ParsedTimelineSegment
     .map((role) => {
       const startLabel = role.start.trim();
       const endLabel = role.end?.trim() || profile.tenureEnd?.trim() || "Present";
-      const start = parseDateValue(startLabel, "start");
-      const end = endLabel === "Present" ? new Date() : parseDateValue(endLabel, "end");
+      const start = parseProjectDateValue(startLabel, "start");
+      const end = endLabel === "Present" ? new Date() : parseProjectDateValue(endLabel, "end");
 
       if (!start || !end) {
         return undefined;
@@ -839,8 +929,8 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
     .sort((a, b) => a.offsetPct - b.offsetPct);
 
   const eras = careerAtlasEras.map((era) => {
-    const eraStart = parseDateValue(era.start, "start") || atlasRange.start;
-    const eraEnd = parseDateValue(era.end, "end") || atlasRange.end;
+    const eraStart = parseProjectDateValue(era.start, "start") || atlasRange.start;
+    const eraEnd = parseProjectDateValue(era.end, "end") || atlasRange.end;
     const boundedStart = eraStart < atlasRange.start ? atlasRange.start : eraStart;
     const boundedEnd = eraEnd > atlasRange.end ? atlasRange.end : eraEnd;
     const position = toPositioning(boundedStart, boundedEnd, atlasRange);

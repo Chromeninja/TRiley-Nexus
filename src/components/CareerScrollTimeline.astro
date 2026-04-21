@@ -1,0 +1,516 @@
+---
+import {
+  formatProjectDateRange,
+  parseProjectDateValue,
+  projectStatusLabels,
+  type Project,
+} from "../data/projects";
+import { toBasePath } from "../utils/paths";
+
+interface TimelineMonthGroup {
+  key: string;
+  month: number;
+  monthLabel: string;
+  projects: Project[];
+}
+
+interface TimelineYearGroup {
+  year: number;
+  key: string;
+  months: TimelineMonthGroup[];
+}
+
+interface Props {
+  currentProjects: Project[];
+  yearGroups: TimelineYearGroup[];
+}
+
+const { currentProjects, yearGroups } = Astro.props;
+const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" });
+
+function resolveProjectHref(slug: string): string {
+  return toBasePath(`/projects/${slug}`);
+}
+
+function compactSummary(value: string): string {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+function sortByOrderThenDate(a: Project, b: Project): number {
+  const orderDelta = (a.order ?? 99) - (b.order ?? 99);
+  if (orderDelta !== 0) {
+    return orderDelta;
+  }
+
+  const aDate = a.startedAt ? parseProjectDateValue(a.startedAt, "start")?.getTime() ?? 0 : 0;
+  const bDate = b.startedAt ? parseProjectDateValue(b.startedAt, "start")?.getTime() ?? 0 : 0;
+  if (aDate !== bDate) {
+    return bDate - aDate;
+  }
+
+  return a.title.localeCompare(b.title);
+}
+
+const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
+---
+
+<div class="career-scroll" data-career-scroll>
+  <div class="career-scroll__layout">
+    <aside class="career-scroll__rail panel" aria-label="Career timeline controls">
+      <div class="career-scroll__rail-head">
+        <p class="text-mono career-scroll__eyebrow">Timeline Control</p>
+        <p class="career-scroll__rail-copy">Click year, month, or project to jump. Scrolling also updates the active marker.</p>
+      </div>
+
+      <button
+        class="career-scroll__jump career-scroll__jump--year"
+        type="button"
+        data-link-type="year"
+        data-link-target="career-present"
+      >
+        Present
+      </button>
+
+      {yearGroups.map((yearGroup) => (
+        <div class="career-scroll__year-block">
+          <button
+            class="career-scroll__jump career-scroll__jump--year"
+            type="button"
+            data-link-type="year"
+            data-link-target={yearGroup.key}
+          >
+            {yearGroup.year}
+          </button>
+
+          <ul class="career-scroll__month-list" role="list">
+            {yearGroup.months.map((monthGroup) => (
+              <li>
+                <button
+                  class="career-scroll__jump career-scroll__jump--month"
+                  type="button"
+                  data-link-type="month"
+                  data-link-target={monthGroup.key}
+                >
+                  {monthGroup.monthLabel}
+                </button>
+                <ul class="career-scroll__project-list" role="list">
+                  {monthGroup.projects.map((project) => (
+                    <li>
+                      <button
+                        class="career-scroll__jump career-scroll__jump--project"
+                        type="button"
+                        data-link-type="project"
+                        data-link-target={`project-${project.slug}`}
+                      >
+                        {project.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </aside>
+
+    <div class="career-scroll__content">
+      <section id="career-present" class="career-scroll__section panel" data-observe-year>
+        <header class="career-scroll__section-head">
+          <p class="text-mono career-scroll__section-label">NOW</p>
+          <h2>Current Projects</h2>
+          <p>Current role and projects are pinned first. Continue scrolling to move backward in time.</p>
+        </header>
+
+        {sortedCurrentProjects.length === 0 ? (
+          <p class="career-scroll__empty">No active projects are currently tagged.</p>
+        ) : (
+          <ul class="career-scroll__cards" role="list">
+            {sortedCurrentProjects.map((project) => (
+              <li id={`project-${project.slug}`} class="career-scroll__card" data-observe-project>
+                <div class="career-scroll__card-top">
+                  <span class="badge badge-green">{projectStatusLabels[project.status]}</span>
+                  {project.organization && <span class="text-mono">{project.organization}</span>}
+                </div>
+                <h3>
+                  <a href={resolveProjectHref(project.slug)}>{project.title}</a>
+                </h3>
+                {project.roleTitle && <p class="career-scroll__card-role">{project.roleTitle}</p>}
+                {formatProjectDateRange(project) && <p class="career-scroll__card-range text-mono">{formatProjectDateRange(project)}</p>}
+                <p>{compactSummary(project.summary)}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {yearGroups.map((yearGroup) => (
+        <section id={yearGroup.key} class="career-scroll__section panel" data-observe-year>
+          <header class="career-scroll__section-head">
+            <p class="text-mono career-scroll__section-label">{yearGroup.year}</p>
+            <h2>{yearGroup.year}</h2>
+            <p>{yearGroup.months.reduce((sum, month) => sum + month.projects.length, 0)} project entries</p>
+          </header>
+
+          <div class="career-scroll__months">
+            {yearGroup.months.map((monthGroup) => (
+              <section id={monthGroup.key} class="career-scroll__month" data-observe-month>
+                <header class="career-scroll__month-head">
+                  <h3>{monthGroup.monthLabel}</h3>
+                  <span class="text-mono">{monthGroup.projects.length} projects</span>
+                </header>
+
+                <ul class="career-scroll__cards" role="list">
+                  {monthGroup.projects.map((project) => (
+                    <li id={`project-${project.slug}`} class="career-scroll__card" data-observe-project>
+                      <div class="career-scroll__card-top">
+                        <span class="badge badge-cyan">{projectStatusLabels[project.status]}</span>
+                        {project.organization && <span class="text-mono">{project.organization}</span>}
+                      </div>
+                      <h4>
+                        <a href={resolveProjectHref(project.slug)}>{project.title}</a>
+                      </h4>
+                      {project.roleTitle && <p class="career-scroll__card-role">{project.roleTitle}</p>}
+                      {formatProjectDateRange(project) && <p class="career-scroll__card-range text-mono">{formatProjectDateRange(project)}</p>}
+                      <p>{compactSummary(project.summary)}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector("[data-career-scroll]");
+
+  if (root) {
+    const jumpButtons = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-link-target]"));
+
+    const clearType = (type: string) => {
+      jumpButtons
+        .filter((button) => button.dataset.linkType === type)
+        .forEach((button) => button.classList.remove("is-active"));
+    };
+
+    const activateForType = (type: string, targetId: string) => {
+      clearType(type);
+      jumpButtons
+        .filter((button) => button.dataset.linkType === type && button.dataset.linkTarget === targetId)
+        .forEach((button) => button.classList.add("is-active"));
+    };
+
+    jumpButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetId = button.dataset.linkTarget;
+        if (!targetId) {
+          return;
+        }
+
+        const target = document.getElementById(targetId);
+        if (!target) {
+          return;
+        }
+
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const type = button.dataset.linkType;
+        if (type) {
+          activateForType(type, targetId);
+        }
+      });
+    });
+
+    const yearObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+          activateForType("year", entry.target.id);
+        }
+      },
+      {
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: 0.1,
+      },
+    );
+
+    const monthObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+          activateForType("month", entry.target.id);
+        }
+      },
+      {
+        rootMargin: "-40% 0px -45% 0px",
+        threshold: 0.1,
+      },
+    );
+
+    const projectObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+          activateForType("project", entry.target.id);
+        }
+      },
+      {
+        rootMargin: "-45% 0px -40% 0px",
+        threshold: 0.1,
+      },
+    );
+
+    root.querySelectorAll("[data-observe-year]").forEach((el) => yearObserver.observe(el));
+    root.querySelectorAll("[data-observe-month]").forEach((el) => monthObserver.observe(el));
+    root.querySelectorAll("[data-observe-project]").forEach((el) => projectObserver.observe(el));
+
+    activateForType("year", "career-present");
+  }
+</script>
+
+<style>
+  .career-scroll__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .career-scroll__rail {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-md));
+    max-height: calc(100vh - var(--nav-height) - var(--space-xl));
+    overflow: auto;
+    padding-right: var(--space-sm);
+  }
+
+  .career-scroll__rail-head {
+    margin-bottom: var(--space-md);
+  }
+
+  .career-scroll__eyebrow {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__rail-copy {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+
+  .career-scroll__year-block {
+    margin-top: var(--space-sm);
+    padding-left: var(--space-sm);
+    border-left: 1px solid rgba(87, 166, 255, 0.2);
+  }
+
+  .career-scroll__month-list,
+  .career-scroll__project-list,
+  .career-scroll__cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .career-scroll__month-list {
+    margin-top: var(--space-xs);
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .career-scroll__project-list {
+    margin-top: 0.2rem;
+    display: grid;
+    gap: 0.15rem;
+    padding-left: var(--space-sm);
+  }
+
+  .career-scroll__jump {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-dim);
+    text-align: left;
+    width: 100%;
+    padding: 0.26rem 0.4rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .career-scroll__jump:hover,
+  .career-scroll__jump:focus-visible,
+  .career-scroll__jump.is-active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .career-scroll__jump--year {
+    font-family: var(--font-heading);
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: var(--space-xs);
+  }
+
+  .career-scroll__jump--month {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .career-scroll__jump--project {
+    font-size: 0.74rem;
+    color: var(--color-text-dim);
+    line-height: 1.35;
+  }
+
+  .career-scroll__content {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .career-scroll__section {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+  }
+
+  .career-scroll__section-head h2 {
+    margin: 0;
+  }
+
+  .career-scroll__section-head p {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-text-muted);
+  }
+
+  .career-scroll__section-label {
+    margin: 0;
+    color: var(--color-text-dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__months {
+    margin-top: var(--space-lg);
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .career-scroll__month {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+    border-top: 1px solid rgba(87, 166, 255, 0.18);
+    padding-top: var(--space-md);
+  }
+
+  .career-scroll__month-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .career-scroll__month-head h3 {
+    margin: 0;
+  }
+
+  .career-scroll__month-head span {
+    color: var(--color-text-dim);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__cards {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .career-scroll__card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    background: rgba(16, 26, 22, 0.45);
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+  }
+
+  .career-scroll__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .career-scroll__card h3,
+  .career-scroll__card h4 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .career-scroll__card a {
+    color: var(--color-text-heading);
+    text-decoration: none;
+  }
+
+  .career-scroll__card a:hover,
+  .career-scroll__card a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .career-scroll__card-role,
+  .career-scroll__card-range {
+    margin: 0;
+    color: var(--color-text-dim);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__card p {
+    margin: var(--space-xs) 0 0;
+  }
+
+  .career-scroll__empty {
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 980px) {
+    .career-scroll__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .career-scroll__rail {
+      position: static;
+      max-height: none;
+    }
+
+    .career-scroll__year-block {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .career-scroll__month-list {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .career-scroll__project-list {
+      padding-left: 0;
+    }
+  }
+</style>

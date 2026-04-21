@@ -12,6 +12,11 @@ timeframe: Ongoing
 roleTitle: Producer
 startedAt: Jan 2024
 summary: Active producer role for VR Villa focused on managing multiple events, coordinating delivery, and improving how live community experiences are planned and operated.
+cardSummary: Producer for VR Villa, improving repeatable event execution across concurrent community experiences.
+highlights:
+  - Coordinated multi-event planning and partner delivery workflows.
+  - Standardized event operations for smoother attendee and staff experiences.
+  - Built stronger operational systems for recurring community programs.
 problem: Running multiple events across a growing community requires stronger production coordination, clearer operational ownership, and more dependable attendee-facing systems.
 approach: Manage event production across concurrent initiatives, coordinate planning and execution needs, support partner and community-facing event delivery, and improve the operational structure behind recurring VR Villa events.
 outcome: Increased consistency across event execution, improved coordination for live experiences, and created a stronger operational foundation for ongoing community programming.

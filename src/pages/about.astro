@@ -1,11 +1,9 @@
 ---
 // about.astro — About page
 import Layout from "../layouts/Layout.astro";
-import CareerAtlas from "../components/CareerAtlas.astro";
 import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
-import { getCareerAtlasData } from "../data/projects";
 import { toBasePath } from "../utils/paths";
 import { siteConfig } from "../data/siteConfig";
 import {
@@ -27,7 +25,6 @@ function resolveMediaSrc(src: string): string {
 
 const resumeConfig = siteConfig.about.resume;
 const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undefined;
-const careerAtlasData = await getCareerAtlasData();
 ---
 
 <Layout
@@ -66,12 +63,6 @@ const careerAtlasData = await getCareerAtlasData();
           <p>{paragraph}</p>
         ))}
       </div>
-    </div>
-  </section>
-
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-    <div class="container timeline-atlas-wrap">
-      <CareerAtlas data={careerAtlasData} />
     </div>
   </section>
 
@@ -214,11 +205,6 @@ const careerAtlasData = await getCareerAtlasData();
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin: 0;
-  }
-
-  .timeline-atlas-wrap {
-    max-width: min(100%, 1700px);
-    padding-inline: clamp(0.9rem, 2vw, var(--space-xl));
   }
 
   .resume-panel {
@@ -440,10 +426,6 @@ const careerAtlasData = await getCareerAtlasData();
   @media (max-width: 640px) {
     .profile-photo {
       max-width: 320px;
-    }
-
-    .timeline-atlas-wrap {
-      padding-inline: 0;
     }
 
     .think-grid,

@@ -1,0 +1,120 @@
+---
+import { toBasePath } from "../utils/paths";
+
+export type TimelineViewMode = "gantt" | "narrative" | "scroll" | "company" | "life";
+
+interface ModeOption {
+  key: TimelineViewMode;
+  label: string;
+  shortLabel: string;
+}
+
+interface Props {
+  currentView: TimelineViewMode;
+  baseHref?: string;
+}
+
+const { currentView, baseHref = "/career" } = Astro.props;
+
+const options: ModeOption[] = [
+  { key: "narrative", label: "Narrative", shortLabel: "Narrative" },
+  { key: "gantt", label: "Gantt Atlas", shortLabel: "Gantt" },
+  { key: "scroll", label: "Scroll Timeline", shortLabel: "Scroll" },
+  { key: "company", label: "Company Timelines", shortLabel: "Company" },
+  { key: "life", label: "Life Timeline", shortLabel: "Life" },
+];
+
+function buildViewHref(mode: TimelineViewMode): string {
+  const params = new URLSearchParams({ view: mode });
+  return `${toBasePath(baseHref)}?${params.toString()}`;
+}
+---
+
+<nav class="timeline-view-selector panel" aria-label="Career timeline views">
+  <p class="timeline-view-selector__label text-mono">View Selector</p>
+  <div class="timeline-view-selector__controls" role="tablist" aria-label="Timeline view modes">
+    {options.map((option) => {
+      const isActive = option.key === currentView;
+
+      return (
+        <a
+          href={buildViewHref(option.key)}
+          class={`btn btn-ghost btn-sm timeline-view-selector__option ${isActive ? "is-active" : ""}`}
+          role="tab"
+          aria-selected={isActive ? "true" : "false"}
+          aria-current={isActive ? "page" : undefined}
+          data-active={isActive ? "true" : "false"}
+        >
+          <span class="timeline-view-selector__option-full">{option.label}</span>
+          <span class="timeline-view-selector__option-short">{option.shortLabel}</span>
+        </a>
+      );
+    })}
+  </div>
+</nav>
+
+<style>
+  .timeline-view-selector {
+    display: grid;
+    gap: var(--space-sm);
+    border-color: color-mix(in srgb, var(--color-border), white 12%);
+    background: linear-gradient(90deg, rgba(124, 211, 137, 0.08), rgba(92, 200, 255, 0.05));
+  }
+
+  .timeline-view-selector__label {
+    margin: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .timeline-view-selector__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .timeline-view-selector__option {
+    text-decoration: none;
+    border-color: color-mix(in srgb, var(--color-border), white 8%);
+    color: var(--color-text-muted);
+    min-width: 8.2rem;
+    justify-content: center;
+  }
+
+  .timeline-view-selector__option:hover,
+  .timeline-view-selector__option:focus-visible,
+  .timeline-view-selector__option.is-active,
+  .timeline-view-selector__option[data-active="true"] {
+    border-color: color-mix(in srgb, var(--color-accent), white 12%);
+    color: color-mix(in srgb, var(--color-accent), white 8%);
+    background: color-mix(in srgb, var(--color-accent), transparent 90%);
+  }
+
+  .timeline-view-selector__option-short {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-view-selector__controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xs);
+    }
+
+    .timeline-view-selector__option {
+      min-width: 0;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .timeline-view-selector__option-full {
+      display: none;
+    }
+
+    .timeline-view-selector__option-short {
+      display: inline;
+    }
+  }
+</style>
