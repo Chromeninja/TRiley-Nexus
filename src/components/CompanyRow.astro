@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { company } = Astro.props;
+const hasLongBarLabel = company.organization.length > 28;
 
 function resolveLogoSrc(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
@@ -52,11 +53,13 @@ function resolveLogoSrc(src: string): string {
         class="company-row__bar"
         data-company-toggle
         data-company-id={company.id}
+        data-long-name={hasLongBarLabel ? "true" : "false"}
         aria-controls={`${company.id}-panel`}
         aria-expanded="false"
         style={`left: ${company.offsetPct}%; width: ${company.widthPct}%;`}
       >
-        <span>{company.organization}</span>
+        <span class="company-row__bar-label" title={company.organization}>{company.organization}</span>
+        {hasLongBarLabel && <span class="company-row__bar-overflow-cue" aria-hidden="true">...</span>}
         {company.isActive && <span class="company-row__bar-live text-mono">Present</span>}
         <span class="company-row__preview" aria-hidden="true">
           <strong>{company.organization}</strong>
@@ -179,6 +182,7 @@ function resolveLogoSrc(src: string): string {
     position: absolute;
     top: 2px;
     bottom: 2px;
+    z-index: 2;
     min-width: 10px;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--company-color), black 15%);
@@ -198,17 +202,56 @@ function resolveLogoSrc(src: string): string {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: box-shadow var(--transition-base), transform var(--transition-fast);
+    transition: box-shadow var(--transition-base), transform var(--transition-fast), max-width var(--transition-fast);
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
     text-shadow: 0 0 8px color-mix(in srgb, var(--company-color), black 45%);
   }
 
-  .company-row__bar > span:first-child {
+  .company-row__bar-label {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #050505;
     font-weight: 800;
     text-shadow: none;
+  }
+
+  .company-row__bar-overflow-cue {
+    flex: 0 0 auto;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+    color: #050505;
+    opacity: 0.88;
+  }
+
+  .company-row__bar[data-long-name="true"]:hover .company-row__bar-overflow-cue,
+  .company-row__bar[data-long-name="true"]:focus-visible .company-row__bar-overflow-cue {
+    display: none;
+  }
+
+  .company-row__bar[data-long-name="true"]:hover,
+  .company-row__bar[data-long-name="true"]:focus-visible {
+    width: max-content !important;
+    max-width: min(34rem, 78vw);
+    overflow: visible;
+    z-index: 12;
+  }
+
+  .company-row__bar[data-long-name="true"]:hover .company-row__bar-label,
+  .company-row__bar[data-long-name="true"]:focus-visible .company-row__bar-label {
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .company-row__bar-live {
+    flex: 0 0 auto;
+    color: color-mix(in srgb, var(--color-success), white 16%);
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
+    font-size: 0.54rem;
+    font-weight: 700;
   }
 
   .company-row__bar:focus-visible {
@@ -221,13 +264,6 @@ function resolveLogoSrc(src: string): string {
     box-shadow: 0 0 20px color-mix(in srgb, var(--company-color), transparent 55%);
     transform: translateY(-1px);
     filter: saturate(1.12) brightness(1.04);
-  }
-
-  .company-row__bar-live {
-    color: color-mix(in srgb, var(--color-success), white 16%);
-    text-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
-    font-size: 0.54rem;
-    font-weight: 700;
   }
 
   .company-row__preview {

@@ -44,6 +44,7 @@ function buildViewHref(mode: TimelineViewMode): string {
           aria-selected={isActive ? "true" : "false"}
           aria-current={isActive ? "page" : undefined}
           data-active={isActive ? "true" : "false"}
+          data-view-mode={option.key}
         >
           <span class="timeline-view-selector__option-full">{option.label}</span>
           <span class="timeline-view-selector__option-short">{option.shortLabel}</span>

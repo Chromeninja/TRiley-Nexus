@@ -78,76 +78,74 @@ const shouldShowScroll = timelineView === "scroll";
 const shouldShowCompany = timelineView === "company";
 const shouldShowLife = timelineView === "life";
 
-const atlasData = shouldShowGantt ? await getCareerAtlasData() : undefined;
-const narrativeData = shouldShowNarrative ? await getCareerNarrativeData() : undefined;
+const atlasData = await getCareerAtlasData();
+const narrativeData = await getCareerNarrativeData();
 
 let currentProjects: Project[] = [];
 let yearGroups: TimelineYearGroup[] = [];
 
-if (shouldShowScroll) {
-  const projects = await getProjects();
-  const activeStatuses = new Set(["active", "concept"]);
+const projects = await getProjects();
+const activeStatuses = new Set(["active", "concept"]);
 
-  currentProjects = projects
-    .filter((project) => activeStatuses.has(project.status))
-    .sort(sortByOrderThenDate);
+currentProjects = projects
+  .filter((project) => activeStatuses.has(project.status))
+  .sort(sortByOrderThenDate);
 
-  const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
-  const yearBucket = new Map<number, Map<number, Project[]>>();
+const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
+const yearBucket = new Map<number, Map<number, Project[]>>();
 
-  for (const project of historicalProjects) {
-    const parsedStart = parseDateValue(project.startedAt);
-    if (!parsedStart) {
-      continue;
-    }
-
-    const year = parsedStart.getFullYear();
-    const month = parsedStart.getMonth();
-
-    if (!yearBucket.has(year)) {
-      yearBucket.set(year, new Map<number, Project[]>());
-    }
-
-    const monthBucket = yearBucket.get(year);
-    if (!monthBucket) {
-      continue;
-    }
-
-    if (!monthBucket.has(month)) {
-      monthBucket.set(month, []);
-    }
-
-    monthBucket.get(month)?.push(project);
+for (const project of historicalProjects) {
+  const parsedStart = parseDateValue(project.startedAt);
+  if (!parsedStart) {
+    continue;
   }
 
-  yearGroups = [...yearBucket.entries()]
-    .sort(([yearA], [yearB]) => yearB - yearA)
-    .map(([year, monthMap]) => {
-      const months: TimelineMonthGroup[] = [...monthMap.entries()]
-        .sort(([monthA], [monthB]) => monthB - monthA)
-        .map(([month, monthProjects]) => ({
-          key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
-          month,
-          monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
-          projects: monthProjects.sort(sortByOrderThenDate),
-        }));
+  const year = parsedStart.getFullYear();
+  const month = parsedStart.getMonth();
 
-      return {
-        year,
-        key: `year-${year}`,
-        months,
-      };
-    });
+  if (!yearBucket.has(year)) {
+    yearBucket.set(year, new Map<number, Project[]>());
+  }
+
+  const monthBucket = yearBucket.get(year);
+  if (!monthBucket) {
+    continue;
+  }
+
+  if (!monthBucket.has(month)) {
+    monthBucket.set(month, []);
+  }
+
+  monthBucket.get(month)?.push(project);
 }
 
-const organizationGroups = shouldShowCompany ? await getProjectOrganizationGroups() : [];
+yearGroups = [...yearBucket.entries()]
+  .sort(([yearA], [yearB]) => yearB - yearA)
+  .map(([year, monthMap]) => {
+    const months: TimelineMonthGroup[] = [...monthMap.entries()]
+      .sort(([monthA], [monthB]) => monthB - monthA)
+      .map(([month, monthProjects]) => ({
+        key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
+        month,
+        monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
+        projects: monthProjects.sort(sortByOrderThenDate),
+      }));
+
+    return {
+      year,
+      key: `year-${year}`,
+      months,
+    };
+  });
+
+const organizationGroups = await getProjectOrganizationGroups();
 const companyTimelineGroups = organizationGroups
   .filter((group): group is ProjectOrganizationGroup & { timeline: NonNullable<ProjectOrganizationGroup["timeline"]> } =>
     Boolean(group.timeline),
   )
   .sort((groupA, groupB) => groupA.timeline.rangeStart.getTime() - groupB.timeline.rangeStart.getTime());
 
-const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : [];
+const lifeTimelineEntries = await getLifeTimelineEntries();
 ---
 
 <Layout
@@ -164,8 +162,8 @@ const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : []
 
       <TimelineViewSelector currentView={timelineView} />
 
-      {shouldShowNarrative && narrativeData && (
-        <div class="career-view-panel">
+      {narrativeData && (
+        <div class={`career-view-panel ${shouldShowNarrative ? "" : "is-hidden"}`} data-career-view-panel="narrative">
           <CareerNarrativeExplorer
             data={narrativeData}
             label="// CAREER SYSTEM"
@@ -176,8 +174,7 @@ const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : []
         </div>
       )}
 
-      {shouldShowGantt && (
-        <div class="career-view-panel">
+      <div class={`career-view-panel ${shouldShowGantt ? "" : "is-hidden"}`} data-career-view-panel="gantt">
           {atlasData ? (
             <CareerAtlas data={atlasData} />
           ) : (
@@ -185,17 +182,13 @@ const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : []
               <p class="text-muted">Gantt atlas data appears once dated company and project entries are available.</p>
             </div>
           )}
-        </div>
-      )}
+      </div>
 
-      {shouldShowScroll && (
-        <div class="career-view-panel">
-          <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
-        </div>
-      )}
+      <div class={`career-view-panel ${shouldShowScroll ? "" : "is-hidden"}`} data-career-view-panel="scroll">
+        <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
+      </div>
 
-      {shouldShowCompany && (
-        <div class="career-view-panel career-company-view">
+      <div class={`career-view-panel career-company-view ${shouldShowCompany ? "" : "is-hidden"}`} data-career-view-panel="company">
           {companyTimelineGroups.length > 0 ? (
             companyTimelineGroups.map((group) => (
               <article class="panel career-company-view__item">
@@ -212,23 +205,105 @@ const lifeTimelineEntries = shouldShowLife ? await getLifeTimelineEntries() : []
               <p class="text-muted">Company timelines appear once organization timeline data is available.</p>
             </div>
           )}
-        </div>
-      )}
+      </div>
 
-      {shouldShowLife && (
-        <div class="career-view-panel">
-          <LifeTimeline entries={lifeTimelineEntries} />
-        </div>
-      )}
+      <div class={`career-view-panel ${shouldShowLife ? "" : "is-hidden"}`} data-career-view-panel="life">
+        <LifeTimeline entries={lifeTimelineEntries} />
+      </div>
 
       <p class="career-view-helper text-muted text-mono">Shareable links use query mode: /career?view=narrative, /career?view=gantt, /career?view=scroll, /career?view=company, /career?view=life</p>
     </div>
   </section>
+
+  <script>
+    (() => {
+      const validModes = new Set(["gantt", "narrative", "scroll", "company", "life"]);
+      const selectorOptions = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>('.timeline-view-selector__option[data-view-mode]'),
+      );
+      const viewPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-career-view-panel]'));
+
+      if (selectorOptions.length === 0 || viewPanels.length === 0) {
+        return;
+      }
+
+      const resolveMode = (value: string | null): string => {
+        if (!value) {
+          return "narrative";
+        }
+
+        const lowered = value.toLowerCase();
+        return validModes.has(lowered) ? lowered : "narrative";
+      };
+
+      const setActiveMode = (mode: string | null): string => {
+        const resolvedMode = resolveMode(mode);
+
+        viewPanels.forEach((panel) => {
+          const panelMode = panel.getAttribute("data-career-view-panel");
+          const isActive = panelMode === resolvedMode;
+          panel.classList.toggle("is-hidden", !isActive);
+          panel.toggleAttribute("hidden", !isActive);
+        });
+
+        selectorOptions.forEach((option) => {
+          const optionMode = option.getAttribute("data-view-mode");
+          const isActive = optionMode === resolvedMode;
+          option.classList.toggle("is-active", isActive);
+          option.setAttribute("data-active", isActive ? "true" : "false");
+          option.setAttribute("aria-selected", isActive ? "true" : "false");
+          if (isActive) {
+            option.setAttribute("aria-current", "page");
+          } else {
+            option.removeAttribute("aria-current");
+          }
+        });
+
+        return resolvedMode;
+      };
+
+      const applyModeFromUrl = () => {
+        const mode = new URL(window.location.href).searchParams.get("view");
+        setActiveMode(mode);
+      };
+
+      selectorOptions.forEach((option) => {
+        option.addEventListener("click", (event) => {
+          if (event.defaultPrevented) {
+            return;
+          }
+
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+            return;
+          }
+
+          const target = event.currentTarget;
+          if (!(target instanceof HTMLAnchorElement)) {
+            return;
+          }
+
+          const targetMode = target.getAttribute("data-view-mode");
+          const resolvedMode = setActiveMode(targetMode);
+          const nextUrl = new URL(target.href, window.location.origin);
+          nextUrl.searchParams.set("view", resolvedMode);
+          window.history.pushState({}, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+          event.preventDefault();
+        });
+      });
+
+      window.addEventListener("popstate", applyModeFromUrl);
+      applyModeFromUrl();
+    })();
+  </script>
 </Layout>
 
 <style>
   .career-view-panel {
     margin-top: var(--space-lg);
+  }
+
+  .career-view-panel.is-hidden {
+    display: none;
   }
 
   .career-view-helper {
