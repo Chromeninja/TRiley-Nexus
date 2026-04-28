@@ -32,8 +32,10 @@ const summaryText = (project.cardSummary ?? project.summary).trim();
 const fallbackHighlights = [project.problem, project.approach, project.outcome]
   .filter((entry): entry is string => Boolean(entry && entry.trim()))
   .map((entry) => firstSentence(entry));
-const cardHighlights = (project.highlights?.map((entry) => toHighlightLine(entry))?.filter(Boolean)
-  ?? fallbackHighlights).slice(0, 3);
+const cardHighlights = (
+  project.highlights?.map((entry) => toHighlightLine(entry))?.filter(Boolean) ??
+  fallbackHighlights
+).slice(0, 3);
 
 function resolveSrc(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
@@ -75,113 +77,154 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
 <article class={`project-card ${featured ? "project-card--featured" : ""}`}>
   <div class="project-card__header">
     <div class="project-card__meta">
-      <span class={`badge ${projectStatusColors[project.status]}`}>{projectStatusLabels[project.status]}</span>
-      {project.organization && (
-        project.organizationUrl ? (
-          <a
-            href={project.organizationUrl}
-            class="project-card__org text-mono text-muted"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${project.organization} website`}
-          >
-            {project.organization}
-          </a>
-        ) : (
-          <span class="project-card__org text-mono text-muted">{project.organization}</span>
-        )
-      )}
+      <span class={`badge ${projectStatusColors[project.status]}`}
+        >{projectStatusLabels[project.status]}</span
+      >
+      {
+        project.organization &&
+          (project.organizationUrl ? (
+            <a
+              href={project.organizationUrl}
+              class="project-card__org text-mono text-muted"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.organization} website`}
+            >
+              {project.organization}
+            </a>
+          ) : (
+            <span class="project-card__org text-mono text-muted">
+              {project.organization}
+            </span>
+          ))
+      }
     </div>
-    <a href={projectPath} class="project-card__arrow-link" aria-label={`View project: ${project.title}`}>
+    <a
+      href={projectPath}
+      class="project-card__arrow-link"
+      aria-label={`View project: ${project.title}`}
+    >
       <span class="project-card__arrow" aria-hidden="true">→</span>
     </a>
   </div>
 
-  <a href={projectPath} class="project-card__main-link" aria-label={`View project: ${project.title}`}>
-
-    {(coverMedia || previewVideo) && (
-      <div
-        class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""}`}
-        data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
-      >
-        {coverMedia && (
-          <img
-            class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
-            src={coverMedia.src}
-            alt={coverMedia.alt}
-            loading="lazy"
-            decoding="async"
-          />
-        )}
-        {previewVideo && (
-          <video
-            class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
-            src={previewVideo.src}
-            poster={previewVideo.poster}
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label={`${project.title} video preview`}
-            autoplay={!hasHoverPreview}
-          ></video>
-        )}
-      </div>
-    )}
+  <a
+    href={projectPath}
+    class="project-card__main-link"
+    aria-label={`View project: ${project.title}`}
+  >
+    {
+      (coverMedia || previewVideo) && (
+        <div
+          class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""}`}
+          data-project-card-media={
+            hasHoverPreview ? "hover-preview" : undefined
+          }
+        >
+          {coverMedia && (
+            <img
+              class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
+              src={coverMedia.src}
+              alt={coverMedia.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          {previewVideo && (
+            <video
+              class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
+              src={previewVideo.src}
+              poster={previewVideo.poster}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label={`${project.title} video preview`}
+              autoplay={!hasHoverPreview}
+            />
+          )}
+        </div>
+      )
+    }
 
     <h3 class="project-card__title">{project.title}</h3>
 
-    {project.roleTitle && (
-      <p class="project-card__role text-mono text-muted">{project.roleTitle}</p>
-    )}
+    {
+      project.roleTitle && (
+        <p class="project-card__role text-mono text-muted">
+          {project.roleTitle}
+        </p>
+      )
+    }
 
-    {projectDateRange && (
-      <p class="project-card__timeframe text-mono text-muted">{projectDateRange}</p>
-    )}
+    {
+      projectDateRange && (
+        <p class="project-card__timeframe text-mono text-muted">
+          {projectDateRange}
+        </p>
+      )
+    }
 
     <p class="project-card__summary">{summaryText}</p>
 
-    {cardHighlights.length > 0 && (
-      <ul class="project-card__highlights" aria-label={`${project.title} highlights`}>
-        {cardHighlights.map((highlight) => (
-          <li>{highlight}</li>
-        ))}
-      </ul>
-    )}
+    {
+      cardHighlights.length > 0 && (
+        <ul
+          class="project-card__highlights"
+          aria-label={`${project.title} highlights`}
+        >
+          {cardHighlights.map((highlight) => (
+            <li>{highlight}</li>
+          ))}
+        </ul>
+      )
+    }
 
     <div class="project-card__tags">
-      {project.tags.slice(0, 4).map((tag) => (
-        <span class="badge badge-purple">{tag}</span>
-      ))}
-      {project.tags.length > 4 && (
-        <span class="badge badge-gray">+{project.tags.length - 4}</span>
-      )}
+      {
+        project.tags
+          .slice(0, 4)
+          .map((tag) => <span class="badge badge-purple">{tag}</span>)
+      }
+      {
+        project.tags.length > 4 && (
+          <span class="badge badge-gray">+{project.tags.length - 4}</span>
+        )
+      }
     </div>
   </a>
 
   <div class="project-card__actions">
-    {actionLinks.length > 0 ? (
-      actionLinks.map((link) => (
-        <a
-          href={link.url}
-          class="btn btn-outline btn-sm"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {link.label} ↗
+    {
+      actionLinks.length > 0 ? (
+        actionLinks.map((link) => (
+          <a
+            href={link.url}
+            class="btn btn-outline btn-sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label} ↗
+          </a>
+        ))
+      ) : (
+        <a href={projectPath} class="btn btn-ghost btn-sm">
+          View Details
         </a>
-      ))
-    ) : (
-      <a href={projectPath} class="btn btn-ghost btn-sm">View Details</a>
-    )}
+      )
+    }
   </div>
 </article>
 
 <script>
-  const supportsHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const supportsHoverPreview = window.matchMedia(
+    "(hover: hover) and (pointer: fine)",
+  ).matches;
 
   if (supportsHoverPreview) {
-    const mediaCards = document.querySelectorAll("[data-project-card-media='hover-preview']");
+    const mediaCards = document.querySelectorAll(
+      "[data-project-card-media='hover-preview']",
+    );
 
     mediaCards.forEach((mediaCard) => {
       const container = mediaCard;
@@ -211,7 +254,10 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
       card.addEventListener("focusin", playPreview);
       card.addEventListener("focusout", (event) => {
         const focusEvent = event as FocusEvent;
-        if (focusEvent.relatedTarget instanceof Node && card.contains(focusEvent.relatedTarget)) {
+        if (
+          focusEvent.relatedTarget instanceof Node &&
+          card.contains(focusEvent.relatedTarget)
+        ) {
           return;
         }
         stopPreview();
@@ -231,8 +277,11 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
-    transition: border-color var(--transition-base), box-shadow var(--transition-base),
-      background var(--transition-base), transform var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      background var(--transition-base),
+      transform var(--transition-base);
     position: relative;
     overflow: hidden;
     height: 100%;
@@ -263,9 +312,15 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     right: 0;
     width: 88px;
     height: 88px;
-    background: linear-gradient(135deg, rgba(201, 122, 43, 0.22), transparent 62%);
+    background: linear-gradient(
+      135deg,
+      rgba(201, 122, 43, 0.22),
+      transparent 62%
+    );
     clip-path: polygon(100% 0, 0 0, 100% 100%);
-    transition: opacity var(--transition-base), transform var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
     opacity: 0.65;
   }
 
@@ -317,7 +372,9 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     font-size: 1rem;
     opacity: 0;
     transform: translateX(-4px);
-    transition: opacity var(--transition-base), transform var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
     flex-shrink: 0;
   }
 

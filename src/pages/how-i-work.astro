@@ -14,10 +14,7 @@ import {
 } from "../data/howIWorkContent";
 ---
 
-<Layout
-  title="How I Work"
-  description={siteConfig.howIWork.metaDescription}
->
+<Layout title="How I Work" description={siteConfig.howIWork.metaDescription}>
   <!-- Page Hero -->
   <PageHero
     label="// APPROACH"
@@ -30,28 +27,36 @@ import {
     <div class="container container--md">
       <SectionHeader label="// CORE APPROACH" title="The Core Approach" />
       <div class="prose">
-        {coreApproachParagraphs.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+        {coreApproachParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
   </section>
 
   <!-- Principles -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container">
-      <SectionHeader label="// OPERATING PRINCIPLES" title="How I Think About Problems" />
+      <SectionHeader
+        label="// OPERATING PRINCIPLES"
+        title="How I Think About Problems"
+      />
 
       <div class="principles-grid">
-        {workPrinciples.map((p) => (
-          <div class="principle-card">
-            <span class="principle-card__num text-mono text-accent">{p.num}</span>
-            <div>
-              <h3 class="principle-card__title">{p.title}</h3>
-              <p class="principle-card__body">{p.body}</p>
+        {
+          workPrinciples.map((p) => (
+            <div class="principle-card">
+              <span class="principle-card__num text-mono text-accent">
+                {p.num}
+              </span>
+              <div>
+                <h3 class="principle-card__title">{p.title}</h3>
+                <p class="principle-card__body">{p.body}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -62,38 +67,48 @@ import {
       <SectionHeader label="// WORKING STYLE" title="Working Style" />
 
       <div class="style-cols">
-        {workStyleGroups.map((group) => (
-          <div class="style-col">
-            <h3 class="style-col__title">
-              <span class="text-accent">{group.icon}</span> {group.title}
-            </h3>
-            <ul class="style-list">
-              {group.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {
+          workStyleGroups.map((group) => (
+            <div class="style-col">
+              <h3 class="style-col__title">
+                <span class="text-accent">{group.icon}</span> {group.title}
+              </h3>
+              <ul class="style-list">
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Tools I Use -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
-      <SectionHeader label="// TOOLS & FRAMEWORKS" title="Tools & Frameworks I Use" />
+      <SectionHeader
+        label="// TOOLS & FRAMEWORKS"
+        title="Tools & Frameworks I Use"
+      />
 
       <div class="toolchain-grid">
-        {toolchainGroups.map((group) => (
-          <div class="toolchain-group">
-            <h4 class="toolchain-group__label">{group.category}</h4>
-            <div class="tag-cloud">
-              {group.tools.map((tool) => (
-                <span class="badge badge-cyan">{tool}</span>
-              ))}
+        {
+          toolchainGroups.map((group) => (
+            <div class="toolchain-group">
+              <h4 class="toolchain-group__label">{group.category}</h4>
+              <div class="tag-cloud">
+                {group.tools.map((tool) => (
+                  <span class="badge badge-cyan">{tool}</span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -101,7 +116,11 @@ import {
   <!-- After Action Review philosophy -->
   <section class="section">
     <div class="container container--sm">
-      <SectionHeader label="// CONTINUOUS IMPROVEMENT" title="The After Action Review" centered />
+      <SectionHeader
+        label="// CONTINUOUS IMPROVEMENT"
+        title="The After Action Review"
+        centered
+      />
 
       <div class="aar-panel">
         <p class="aar-panel__intro">
@@ -109,12 +128,14 @@ import {
         </p>
 
         <div class="aar-questions">
-          {aarQuestions.map((item) => (
-            <div class="aar-item">
-              <p class="aar-item__q">{item.q}</p>
-              <p class="aar-item__sub">{item.sub}</p>
-            </div>
-          ))}
+          {
+            aarQuestions.map((item) => (
+              <div class="aar-item">
+                <p class="aar-item__q">{item.q}</p>
+                <p class="aar-item__sub">{item.sub}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -266,7 +287,9 @@ import {
     align-items: center;
   }
 
-  .aar-item:last-child { border-bottom: none; }
+  .aar-item:last-child {
+    border-bottom: none;
+  }
 
   .aar-item__q {
     font-family: var(--font-heading);

@@ -9,11 +9,15 @@ const { eras } = Astro.props;
 ---
 
 <div class="era-markers" aria-hidden="true">
-  {eras.map((era) => (
-    <div class="era-markers__item">
-      <span class="era-markers__label" title={era.theme}>{era.label}</span>
-    </div>
-  ))}
+  {
+    eras.map((era) => (
+      <div class="era-markers__item">
+        <span class="era-markers__label" title={era.theme}>
+          {era.label}
+        </span>
+      </div>
+    ))
+  }
 </div>
 
 <style>
@@ -31,7 +35,11 @@ const { eras } = Astro.props;
     height: 1.45rem;
     border-radius: var(--radius-sm);
     border: 1px solid color-mix(in srgb, var(--color-accent), transparent 70%);
-    background: linear-gradient(90deg, rgba(124, 211, 137, 0.04), rgba(124, 211, 137, 0.12));
+    background: linear-gradient(
+      90deg,
+      var(--color-era-accent),
+      var(--color-era-accent-strong)
+    );
     overflow: hidden;
   }
 

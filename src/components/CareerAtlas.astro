@@ -10,44 +10,58 @@ interface Props {
 
 const { data } = Astro.props;
 const companyCount = data?.companies.length ?? 0;
-const projectCount = data?.companies.reduce((total, company) => total + company.projectCount, 0) ?? 0;
-const activeCompanyCount = data?.companies.filter((company) => company.isActive).length ?? 0;
+const projectCount =
+  data?.companies.reduce((total, company) => total + company.projectCount, 0) ??
+  0;
+const activeCompanyCount =
+  data?.companies.filter((company) => company.isActive).length ?? 0;
 const activeProjectCount =
   data?.companies.reduce(
-    (total, company) => total + company.projects.filter((project) => project.isLive).length,
+    (total, company) =>
+      total + company.projects.filter((project) => project.isLive).length,
     0,
   ) ?? 0;
 ---
 
-<div class="career-atlas panel" data-career-atlas data-major-only="true" data-view="overview">
-  {data ? (
-    <>
-      <div class="career-atlas__top">
-        <TimelineHeader
-          title="Career Timeline"
-          subtitle="A chronological view of companies and project spans on a shared axis. Expand rows to explore role progression, outcomes, and live work in-place."
-        />
-        <ViewControls />
-      </div>
+<div
+  class="career-atlas panel"
+  data-career-atlas
+  data-major-only="true"
+  data-view="overview"
+>
+  {
+    data ? (
+      <>
+        <div class="career-atlas__top">
+          <TimelineHeader
+            title="Career Timeline"
+            subtitle="A chronological view of companies and project spans on a shared axis. Expand rows to explore role progression, outcomes, and live work in-place."
+          />
+          <ViewControls />
+        </div>
 
-      <div class="career-atlas__overview" aria-label="Career atlas summary">
-        <p>
-          <span class="text-accent">{companyCount}</span> companies across <span class="text-accent">{data.rangeLabel}</span> with
-          <span class="text-accent"> {projectCount}</span> projects total.
-        </p>
-        <p class="text-muted text-mono">
-          <span>{activeCompanyCount} active companies</span>
-          <span aria-hidden="true"> • </span>
-          <span>{activeProjectCount} live projects</span>
-          <span aria-hidden="true"> • </span>
-          <span>Rows start collapsed; expand to inspect details.</span>
-        </p>
-      </div>
-      <TimelineSection data={data} />
-    </>
-  ) : (
-    <p class="text-muted">Atlas data appears once dated company and project entries are available.</p>
-  )}
+        <div class="career-atlas__overview" aria-label="Career atlas summary">
+          <p>
+            <span class="text-accent">{companyCount}</span> companies across{" "}
+            <span class="text-accent">{data.rangeLabel}</span> with
+            <span class="text-accent"> {projectCount}</span> projects total.
+          </p>
+          <p class="text-muted text-mono">
+            <span>{activeCompanyCount} active companies</span>
+            <span aria-hidden="true"> • </span>
+            <span>{activeProjectCount} live projects</span>
+            <span aria-hidden="true"> • </span>
+            <span>Rows start collapsed; expand to inspect details.</span>
+          </p>
+        </div>
+        <TimelineSection data={data} />
+      </>
+    ) : (
+      <p class="text-muted">
+        Atlas data appears once dated company and project entries are available.
+      </p>
+    )
+  }
 </div>
 
 <script>
@@ -55,44 +69,60 @@ const activeProjectCount =
 
   if (root) {
     const timelineSection = root.querySelector(".timeline-section");
-    const majorToggle = root.querySelector('[data-control="toggle-major"]');
-    const nowToggle = root.querySelector('[data-control="toggle-now"]');
+    // const majorToggle = root.querySelector('[data-control="toggle-major"]'); // unused
+    // const nowToggle = root.querySelector('[data-control="toggle-now"]'); // unused
 
     const syncViewMode = () => {
-      const hasExpandedRow = Array.from(root.querySelectorAll("[data-company-row]")).some(
-        (row) => row.getAttribute("data-expanded") === "true",
-      );
-      root.dataset.view = hasExpandedRow ? "detail" : "overview";
+      const hasExpandedRow = Array.from(
+        root.querySelectorAll("[data-company-row]"),
+      ).some((row) => row.getAttribute("data-expanded") === "true");
+      (root as HTMLElement).dataset.view = hasExpandedRow
+        ? "detail"
+        : "overview";
     };
 
-    const setCompanyExpanded = (companyRow, expanded) => {
-      companyRow.dataset.expanded = expanded ? "true" : "false";
-      const panel = companyRow.querySelector(`#${CSS.escape(companyRow.id)}-panel`);
+    const setCompanyExpanded = (companyRow: Element, expanded: boolean) => {
+      (companyRow as HTMLElement).dataset.expanded = expanded
+        ? "true"
+        : "false";
+      const panel = companyRow.querySelector(
+        `#${CSS.escape((companyRow as HTMLElement).id)}-panel`,
+      );
       if (panel) {
         panel.classList.toggle("expandable-detail--open", expanded);
       }
 
-      companyRow.querySelectorAll("[data-company-toggle]").forEach((toggleButton) => {
-        toggleButton.setAttribute("aria-expanded", String(expanded));
-      });
+      companyRow
+        .querySelectorAll("[data-company-toggle]")
+        .forEach((toggleButton: Element) => {
+          toggleButton.setAttribute("aria-expanded", String(expanded));
+        });
 
       syncViewMode();
     };
 
-    const setProjectExpanded = (projectItem, expanded) => {
-      projectItem.dataset.expanded = expanded ? "true" : "false";
+    const setProjectExpanded = (projectItem: Element, expanded: boolean) => {
+      (projectItem as HTMLElement).dataset.expanded = expanded
+        ? "true"
+        : "false";
       const toggleButton = projectItem.querySelector("[data-project-toggle]");
       if (toggleButton) {
         toggleButton.setAttribute("aria-expanded", String(expanded));
       }
-      const panel = projectItem.querySelector(`#${CSS.escape(projectItem.id)}-panel`);
+      const panel = projectItem.querySelector(
+        `#${CSS.escape((projectItem as HTMLElement).id)}-panel`,
+      );
       if (panel) {
         panel.classList.toggle("expandable-detail--open", expanded);
       }
     };
 
-    const focusTarget = (element) => {
-      element.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+    const focusTarget = (element: Element) => {
+      (element as HTMLElement).scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
     };
 
     const openByHash = () => {
@@ -122,10 +152,14 @@ const activeProjectCount =
       }
     };
 
-    const updateHash = (id) => {
+    const updateHash = (id: string) => {
       const nextHash = `#${id}`;
       if (window.location.hash !== nextHash) {
-        history.replaceState({}, "", `${window.location.pathname}${window.location.search}${nextHash}`);
+        history.replaceState(
+          {},
+          "",
+          `${window.location.pathname}${window.location.search}${nextHash}`,
+        );
       }
     };
 
@@ -156,22 +190,32 @@ const activeProjectCount =
           });
           syncViewMode();
           if (window.location.hash) {
-            history.replaceState({}, "", `${window.location.pathname}${window.location.search}`);
+            history.replaceState(
+              {},
+              "",
+              `${window.location.pathname}${window.location.search}`,
+            );
           }
           return;
         }
 
         if (action === "toggle-major") {
-          const isMajorOnly = root.dataset.majorOnly !== "true";
-          root.dataset.majorOnly = isMajorOnly ? "true" : "false";
+          const isMajorOnly =
+            (root as HTMLElement).dataset.majorOnly !== "true";
+          (root as HTMLElement).dataset.majorOnly = isMajorOnly
+            ? "true"
+            : "false";
           controlButton.setAttribute("aria-pressed", String(isMajorOnly));
           return;
         }
 
         if (action === "toggle-now") {
-          const showNow = timelineSection?.dataset.showNow !== "true";
+          const showNow =
+            (timelineSection as HTMLElement)?.dataset?.showNow !== "true";
           if (timelineSection) {
-            timelineSection.dataset.showNow = showNow ? "true" : "false";
+            (timelineSection as HTMLElement).dataset.showNow = showNow
+              ? "true"
+              : "false";
           }
           controlButton.setAttribute("aria-pressed", String(showNow));
         }
@@ -186,7 +230,7 @@ const activeProjectCount =
           return;
         }
 
-        const expanded = row.dataset.expanded !== "true";
+        const expanded = (row as HTMLElement).dataset.expanded !== "true";
         setCompanyExpanded(row, expanded);
 
         if (expanded && row.id) {
@@ -208,7 +252,8 @@ const activeProjectCount =
           setCompanyExpanded(companyRow, true);
         }
 
-        const expanded = projectItem.dataset.expanded !== "true";
+        const expanded =
+          (projectItem as HTMLElement).dataset.expanded !== "true";
         setProjectExpanded(projectItem, expanded);
 
         if (expanded && projectItem.id) {
@@ -251,7 +296,11 @@ const activeProjectCount =
     border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
-    background: linear-gradient(90deg, rgba(124, 211, 137, 0.08), rgba(92, 200, 255, 0.06));
+    background: linear-gradient(
+      90deg,
+      rgba(124, 211, 137, 0.08),
+      rgba(92, 200, 255, 0.06)
+    );
     display: grid;
     gap: 0.35rem;
   }
@@ -261,7 +310,8 @@ const activeProjectCount =
     font-size: 0.85rem;
   }
 
-  .career-atlas[data-major-only="true"] [data-project-item][data-major="false"] {
+  .career-atlas[data-major-only="true"]
+    [data-project-item][data-major="false"] {
     display: none;
   }
 

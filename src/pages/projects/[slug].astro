@@ -27,10 +27,7 @@ const { project } = Astro.props;
 const projectDateRange = formatProjectDateRange(project);
 ---
 
-<Layout
-  title={project.title}
-  description={project.summary}
->
+<Layout title={project.title} description={project.summary}>
   <!-- Breadcrumb -->
   <div class="breadcrumb-bar">
     <div class="container">
@@ -49,129 +46,175 @@ const projectDateRange = formatProjectDateRange(project);
   <article class="section">
     <div class="container">
       <div class="project-layout">
-
         <!-- Main content -->
         <main class="project-main">
           <!-- Header -->
           <header class="project-header">
             <div class="project-header__meta">
-              <span class={`badge ${projectStatusColors[project.status]}`}>{projectStatusLabels[project.status]}</span>
+              <span class={`badge ${projectStatusColors[project.status]}`}
+                >{projectStatusLabels[project.status]}</span
+              >
               <span class="badge badge-purple">{project.category}</span>
             </div>
             <h1 class="project-header__title">{project.title}</h1>
-            {projectDateRange && (
-              <p class="project-header__timeframe text-mono text-muted">{projectDateRange}</p>
-            )}
-            {project.organization && (
-              project.organizationUrl ? (
-                <p class="project-header__org text-muted">
-                  <a href={project.organizationUrl} target="_blank" rel="noopener noreferrer">
-                    {project.organization}
-                  </a>
+            {
+              projectDateRange && (
+                <p class="project-header__timeframe text-mono text-muted">
+                  {projectDateRange}
                 </p>
-              ) : (
-                <p class="project-header__org text-muted">{project.organization}</p>
               )
-            )}
-            {project.roleTitle && (
-              <p class="project-header__role text-mono text-muted">{project.roleTitle}</p>
-            )}
+            }
+            {
+              project.organization &&
+                (project.organizationUrl ? (
+                  <p class="project-header__org text-muted">
+                    <a
+                      href={project.organizationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {project.organization}
+                    </a>
+                  </p>
+                ) : (
+                  <p class="project-header__org text-muted">
+                    {project.organization}
+                  </p>
+                ))
+            }
+            {
+              project.roleTitle && (
+                <p class="project-header__role text-mono text-muted">
+                  {project.roleTitle}
+                </p>
+              )
+            }
             <p class="project-header__summary">{project.summary}</p>
           </header>
 
-          {project.media && project.media.length > 0 && (
-            <ProjectMediaGallery media={project.media} />
-          )}
+          {
+            project.media && project.media.length > 0 && (
+              <ProjectMediaGallery media={project.media} />
+            )
+          }
 
           <!-- Problem -->
-          {project.problem && (
-            <section class="detail-section">
-              <h2 class="detail-section__title">
-                <span class="text-accent text-mono">01 //</span> The Problem
-              </h2>
-              <p>{project.problem}</p>
-            </section>
-          )}
+          {
+            project.problem && (
+              <section class="detail-section">
+                <h2 class="detail-section__title">
+                  <span class="text-accent text-mono">01 //</span> The Problem
+                </h2>
+                <p>{project.problem}</p>
+              </section>
+            )
+          }
 
           <!-- Approach -->
-          {project.approach && (
-            <section class="detail-section">
-              <h2 class="detail-section__title">
-                <span class="text-accent text-mono">02 //</span> Approach
-              </h2>
-              <p>{project.approach}</p>
-            </section>
-          )}
+          {
+            project.approach && (
+              <section class="detail-section">
+                <h2 class="detail-section__title">
+                  <span class="text-accent text-mono">02 //</span> Approach
+                </h2>
+                <p>{project.approach}</p>
+              </section>
+            )
+          }
 
           <!-- Outcome -->
-          {project.outcome && (
-            <section class="detail-section">
-              <h2 class="detail-section__title">
-                <span class="text-accent text-mono">03 //</span> Outcome
-              </h2>
-              <p>{project.outcome}</p>
-            </section>
-          )}
+          {
+            project.outcome && (
+              <section class="detail-section">
+                <h2 class="detail-section__title">
+                  <span class="text-accent text-mono">03 //</span> Outcome
+                </h2>
+                <p>{project.outcome}</p>
+              </section>
+            )
+          }
 
           <!-- Links -->
-          {project.links && project.links.length > 0 && (
-            <section class="detail-section">
-              <h2 class="detail-section__title">Links</h2>
-              <div class="project-links">
-                {project.links.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                    {link.label} ↗
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
+          {
+            project.links && project.links.length > 0 && (
+              <section class="detail-section">
+                <h2 class="detail-section__title">Links</h2>
+                <div class="project-links">
+                  {project.links.map((link) => (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-outline btn-sm"
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )
+          }
         </main>
 
         <!-- Sidebar -->
         <aside class="project-sidebar">
           <!-- Skills -->
-          {project.skills && project.skills.length > 0 && (
-            <div class="sidebar-card">
-              <h3 class="sidebar-card__title">Skills</h3>
-              <ul class="sidebar-list">
-                {project.skills.map((skill) => (
-                  <li class="sidebar-list__item">
-                    <span class="sidebar-list__dot text-accent" aria-hidden="true">◆</span>
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {
+            project.skills && project.skills.length > 0 && (
+              <div class="sidebar-card">
+                <h3 class="sidebar-card__title">Skills</h3>
+                <ul class="sidebar-list">
+                  {project.skills.map((skill) => (
+                    <li class="sidebar-list__item">
+                      <span
+                        class="sidebar-list__dot text-accent"
+                        aria-hidden="true"
+                      >
+                        ◆
+                      </span>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
 
           <!-- Tools -->
-          {project.tools && project.tools.length > 0 && (
-            <div class="sidebar-card">
-              <h3 class="sidebar-card__title">Tools & Stack</h3>
-              <div class="tag-cloud">
-                {project.tools.map((tool) => (
-                  <span class="badge badge-cyan">{tool}</span>
-                ))}
+          {
+            project.tools && project.tools.length > 0 && (
+              <div class="sidebar-card">
+                <h3 class="sidebar-card__title">Tools & Stack</h3>
+                <div class="tag-cloud">
+                  {project.tools.map((tool) => (
+                    <span class="badge badge-cyan">{tool}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )
+          }
 
           <!-- Tags -->
-          {project.tags && project.tags.length > 0 && (
-            <div class="sidebar-card">
-              <h3 class="sidebar-card__title">Tags</h3>
-              <div class="tag-cloud">
-                {project.tags.map((tag) => (
-                  <span class="badge badge-purple">{tag}</span>
-                ))}
+          {
+            project.tags && project.tags.length > 0 && (
+              <div class="sidebar-card">
+                <h3 class="sidebar-card__title">Tags</h3>
+                <div class="tag-cloud">
+                  {project.tags.map((tag) => (
+                    <span class="badge badge-purple">{tag}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )
+          }
 
           <!-- Back link -->
           <div>
-            <a href={toBasePath("/projects")} class="btn btn-ghost" style="width: 100%; justify-content: center;">
+            <a
+              href={toBasePath("/projects")}
+              class="btn btn-ghost"
+              style="width: 100%; justify-content: center;"
+            >
               ← All Projects
             </a>
           </div>
@@ -206,8 +249,12 @@ const projectDateRange = formatProjectDateRange(project);
     transition: color var(--transition-fast);
   }
 
-  .breadcrumb a:hover { color: var(--color-accent); }
-  .breadcrumb [aria-current="page"] { color: var(--color-text); }
+  .breadcrumb a:hover {
+    color: var(--color-accent);
+  }
+  .breadcrumb [aria-current="page"] {
+    color: var(--color-text);
+  }
 
   /* Layout */
   .project-layout {

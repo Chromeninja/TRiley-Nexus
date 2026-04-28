@@ -9,13 +9,15 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="timeline-section" aria-label="Career atlas timeline canvas" data-show-now="true">
+<section
+  class="timeline-section"
+  aria-label="Career atlas timeline canvas"
+  data-show-now="true"
+>
   <div class="timeline-section__axis text-mono text-muted" aria-hidden="true">
     <span class="timeline-section__axis-spacer">Meta</span>
     <div class="timeline-section__axis-years">
-      {data.axisYears.map((year) => (
-        <span>{year}</span>
-      ))}
+      {data.axisYears.map((year) => <span>{year}</span>)}
     </div>
   </div>
   <div class="timeline-section__rows" data-timeline-rows>
@@ -28,9 +30,7 @@ const { data } = Astro.props;
       <em class="text-mono">Now</em>
     </span>
 
-    {data.companies.map((company) => (
-      <CompanyRow company={company} />
-    ))}
+    {data.companies.map((company) => <CompanyRow company={company} />)}
   </div>
 </section>
 
@@ -80,7 +80,11 @@ const { data } = Astro.props;
     top: 0;
     bottom: 0;
     width: 1px;
-    background: linear-gradient(180deg, rgba(74, 222, 128, 0.75), rgba(74, 222, 128, 0.08));
+    background: linear-gradient(
+      180deg,
+      var(--color-timeline-success-bright),
+      var(--color-timeline-success-dim)
+    );
     pointer-events: none;
     z-index: 2;
     transform: translateX(-0.5px);
@@ -94,7 +98,7 @@ const { data } = Astro.props;
     height: 8px;
     border-radius: 50%;
     background: rgba(74, 222, 128, 0.95);
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.45);
+    box-shadow: 0 0 0 0 var(--color-timeline-success-medium);
     animation: atlas-now-pulse 2.1s ease-out infinite;
   }
 

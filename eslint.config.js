@@ -11,6 +11,19 @@ export default [
   {
     ignores: ["dist/**", "node_modules/**", ".astro/**"],
   },
+  {
+    files: ["**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        process: "readonly",
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+    },
+  },
   js.configs.recommended,
   {
     files: ["**/*.ts"],

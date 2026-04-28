@@ -13,6 +13,47 @@ export interface SocialConfig {
   email: string;
 }
 
+export interface CompanyTimelineRoleEntry {
+  label: string;
+  start: string;
+  end?: string;
+}
+
+export interface CompanyProfile {
+  summary: string;
+  companyInfo: string;
+  myTimeInfo: string;
+  longSummary?: string;
+  roleSummary?: string;
+  achievements?: string[];
+  logo?: {
+    src: string;
+    alt: string;
+  };
+  color?: string;
+  tenureStart?: string;
+  tenureEnd?: string;
+  timelineRoles?: CompanyTimelineRoleEntry[];
+}
+
+export interface CareerAtlasEraDefinition {
+  label: string;
+  start: string;
+  end: string;
+  theme: string;
+}
+
+export interface ThemeConfig {
+  colors: {
+    [key: string]: string;
+  };
+  fonts: {
+    heading: string;
+    body: string;
+    mono: string;
+  };
+}
+
 export interface SiteConfig {
   site: {
     name: string;
@@ -100,6 +141,9 @@ export interface SiteConfig {
     status: string;
     statusNote: string;
   };
+  companies: Record<string, CompanyProfile>;
+  careerEras: CareerAtlasEraDefinition[];
+  theme: ThemeConfig;
 }
 
 function getDefaultConfigPath(): string {
@@ -112,16 +156,29 @@ function assertConfigShape(config: unknown): asserts config is SiteConfig {
   }
 
   const candidate = config as Partial<SiteConfig>;
-  if (!candidate.site?.name || !candidate.site?.repository?.name || !candidate.site?.repository?.owner) {
-    throw new Error("portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.");
+  if (
+    !candidate.site?.name ||
+    !candidate.site?.repository?.name ||
+    !candidate.site?.repository?.owner
+  ) {
+    throw new Error(
+      "portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.",
+    );
   }
 
-  if (!Array.isArray(candidate.navigation) || candidate.navigation.length === 0) {
-    throw new Error("portfolio-config.json must include at least one navigation item.");
+  if (
+    !Array.isArray(candidate.navigation) ||
+    candidate.navigation.length === 0
+  ) {
+    throw new Error(
+      "portfolio-config.json must include at least one navigation item.",
+    );
   }
 }
 
-export function loadSiteConfig(configPath = getDefaultConfigPath()): SiteConfig {
+export function loadSiteConfig(
+  configPath = getDefaultConfigPath(),
+): SiteConfig {
   const raw = fs.readFileSync(configPath, "utf-8");
   const parsed = JSON.parse(raw) as unknown;
   assertConfigShape(parsed);
@@ -130,4 +187,6 @@ export function loadSiteConfig(configPath = getDefaultConfigPath()): SiteConfig 
 
 export const siteConfig = loadSiteConfig();
 
-export const enabledNavItems = siteConfig.navigation.filter((item) => item.enabled !== false);
+export const enabledNavItems = siteConfig.navigation.filter(
+  (item) => item.enabled !== false,
+);

@@ -1,18 +1,35 @@
 /* ============================================================
   GLOBAL STYLES & DESIGN SYSTEM
   TRiley Nexus — Electric Orbital Systems Theme
+  ============================================================
+  NOTE: Color values sync with portfolio-config.json theme.colors
+  To customize colors and fonts, edit portfolio-config.json
+  theme section, then rebuild (npm run build).
   ============================================================ */
 
 /* --- Google Fonts --- */
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 /* --- CSS Custom Properties (Design Tokens) --- */
+/* These values are sourced from portfolio-config.json theme section */
 :root {
-  /* Colors */
+  /* Primary Colors */
+  --color-primary: #57a6ff;
+  --color-secondary: #22d3ee;
+
+  /* Background Colors */
   --color-bg: #040b19;
   --color-bg-secondary: #091327;
   --color-bg-card: #0c1830;
   --color-bg-card-hover: #12203b;
+
+  /* Text Colors */
+  --color-text: #d9e7ff;
+  --color-text-muted: #91a4c7;
+  --color-text-dim: #5d7398;
+  --color-text-heading: #f4f8ff;
+
+  /* Borders */
   --color-border: rgba(87, 166, 255, 0.16);
   --color-border-strong: rgba(87, 166, 255, 0.34);
 
@@ -30,6 +47,17 @@
   --color-success: #4ade80;
   --color-warning: #fbbf24;
   --color-danger: #ef4444;
+
+  /* Timeline & Dynamic Colors */
+  /* These are used for timeline animations and status indicators */
+  --color-timeline-success: #4ade80;
+  --color-timeline-success-dim: rgba(74, 222, 128, 0.08);
+  --color-timeline-success-medium: rgba(74, 222, 128, 0.45);
+  --color-timeline-success-bright: rgba(74, 222, 128, 0.75);
+
+  /* Era marker accent (green-tinted) */
+  --color-era-accent: rgba(124, 211, 137, 0.04);
+  --color-era-accent-strong: rgba(124, 211, 137, 0.12);
 
   /* Text */
   --color-text: #d9e7ff;
@@ -95,7 +123,11 @@ html {
 body {
   background:
     radial-gradient(circle at top, rgba(87, 166, 255, 0.12), transparent 30%),
-    radial-gradient(circle at 80% 12%, rgba(34, 211, 238, 0.08), transparent 24%),
+    radial-gradient(
+      circle at 80% 12%,
+      rgba(34, 211, 238, 0.08),
+      transparent 24%
+    ),
     linear-gradient(180deg, #07101e 0%, #040b19 48%, #020611 100%);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -113,7 +145,11 @@ body::before {
   inset: 0;
   background:
     linear-gradient(135deg, rgba(87, 166, 255, 0.05), transparent 32%),
-    radial-gradient(circle at 15% 20%, rgba(34, 211, 238, 0.06), transparent 14%),
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(34, 211, 238, 0.06),
+      transparent 14%
+    ),
     repeating-linear-gradient(
       90deg,
       transparent,
@@ -129,7 +165,11 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.06), transparent 22%),
+    radial-gradient(
+      circle at bottom right,
+      rgba(34, 211, 238, 0.06),
+      transparent 22%
+    ),
     repeating-linear-gradient(
       0deg,
       transparent,
@@ -155,20 +195,38 @@ h6 {
   letter-spacing: 0.02em;
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; }
-h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; }
-h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 500; }
-h4 { font-size: 1.125rem; font-weight: 500; }
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+}
+h3 {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 500;
+}
+h4 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
 
-p { margin-bottom: var(--space-md); }
-p:last-child { margin-bottom: 0; }
+p {
+  margin-bottom: var(--space-md);
+}
+p:last-child {
+  margin-bottom: 0;
+}
 
 a {
   color: var(--color-accent);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
-a:hover { color: #fff; }
+a:hover {
+  color: #fff;
+}
 
 code,
 pre {
@@ -228,7 +286,9 @@ pre {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
-  transition: border-color var(--transition-base), box-shadow var(--transition-base),
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
     background var(--transition-base);
 }
 
@@ -377,7 +437,12 @@ pre {
   display: block;
   width: 72px;
   height: 2px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-accent2), transparent);
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent2),
+    transparent
+  );
   margin-bottom: var(--space-lg);
 }
 
@@ -485,13 +550,23 @@ pre {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(87, 166, 255, 0.22); }
-  50% { box-shadow: 0 0 18px rgba(87, 166, 255, 0.38); }
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(87, 166, 255, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(87, 166, 255, 0.38);
+  }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-fade-up {
@@ -499,16 +574,32 @@ pre {
 }
 
 /* Stagger helpers */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
 
 /* --- Utility --- */
-.text-accent { color: var(--color-accent); }
-.text-muted { color: var(--color-text-muted); }
-.text-mono { font-family: var(--font-mono); }
-.text-center { text-align: center; }
+.text-accent {
+  color: var(--color-accent);
+}
+.text-muted {
+  color: var(--color-text-muted);
+}
+.text-mono {
+  font-family: var(--font-mono);
+}
+.text-center {
+  text-align: center;
+}
 .sr-only {
   position: absolute;
   width: 1px;

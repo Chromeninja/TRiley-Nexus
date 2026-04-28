@@ -17,14 +17,15 @@ const activeProjects = await getActiveProjects();
 const lastUpdated = nowLastUpdated;
 ---
 
-<Layout
-  title="Now"
-  description={siteConfig.now.metaDescription}
->
+<Layout title="Now" description={siteConfig.now.metaDescription}>
   <!-- Page Hero -->
   <PageHero label="// CURRENT FOCUS" title="What I'm Doing Now">
     <span slot="meta">
-      Last updated: {lastUpdated} · Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">nownownow.com</a>
+      Last updated: {lastUpdated} · Inspired by <a
+        href="https://nownownow.com/about"
+        target="_blank"
+        rel="noopener noreferrer">nownownow.com</a
+      >
     </span>
   </PageHero>
 
@@ -34,7 +35,9 @@ const lastUpdated = nowLastUpdated;
       <div class="status-display">
         <span class="status-dot" aria-hidden="true"></span>
         <span class="status-display__primary text-mono">
-          {siteConfig.now.statusHeadline}: <span class="text-accent">{siteConfig.now.statusValue}</span>
+          {siteConfig.now.statusHeadline}: <span class="text-accent"
+            >{siteConfig.now.statusValue}</span
+          >
         </span>
         <span class="status-display__secondary text-mono text-muted">
           {siteConfig.now.statusSupport}
@@ -49,51 +52,72 @@ const lastUpdated = nowLastUpdated;
       <SectionHeader label="// ACTIVE WORKSTREAMS" title="Current Projects" />
 
       <div class="active-projects">
-        {activeProjects.map((project) => (
-          <div class="active-project-card">
-            <div class="active-project-card__header">
-              <div>
-                <span class="badge badge-green" style="margin-bottom: var(--space-sm); display: inline-flex;">Active</span>
-                <h3 class="active-project-card__title">
-                  <a href={`${toBasePath("/projects")}/${project.slug}`}>{project.title}</a>
-                </h3>
-              </div>
-              <span class="badge badge-purple">{project.category}</span>
-            </div>
-            <p class="active-project-card__summary">{project.summary}</p>
-            <div class="active-project-card__meta text-mono text-muted">
-              {project.timeframe && <span>{project.timeframe}</span>}
-              {project.organization && (
-                <span>
-                  · {project.organizationUrl ? (
-                    <a href={project.organizationUrl} target="_blank" rel="noopener noreferrer">
-                      {project.organization}
+        {
+          activeProjects.map((project) => (
+            <div class="active-project-card">
+              <div class="active-project-card__header">
+                <div>
+                  <span
+                    class="badge badge-green"
+                    style="margin-bottom: var(--space-sm); display: inline-flex;"
+                  >
+                    Active
+                  </span>
+                  <h3 class="active-project-card__title">
+                    <a href={`${toBasePath("/projects")}/${project.slug}`}>
+                      {project.title}
                     </a>
-                  ) : (
-                    project.organization
-                  )}
-                </span>
-              )}
+                  </h3>
+                </div>
+                <span class="badge badge-purple">{project.category}</span>
+              </div>
+              <p class="active-project-card__summary">{project.summary}</p>
+              <div class="active-project-card__meta text-mono text-muted">
+                {project.timeframe && <span>{project.timeframe}</span>}
+                {project.organization && (
+                  <span>
+                    ·{" "}
+                    {project.organizationUrl ? (
+                      <a
+                        href={project.organizationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.organization}
+                      </a>
+                    ) : (
+                      project.organization
+                    )}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Areas of Exploration -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// EXPLORATION AREAS" title="Areas I'm Exploring" />
 
       <div class="exploration-grid">
-        {explorationItems.map((item) => (
-          <div class="explore-card">
-            <span class="explore-card__icon text-accent" aria-hidden="true">{item.icon}</span>
-            <h3 class="explore-card__title">{item.title}</h3>
-            <p class="explore-card__body">{item.body}</p>
-          </div>
-        ))}
+        {
+          explorationItems.map((item) => (
+            <div class="explore-card">
+              <span class="explore-card__icon text-accent" aria-hidden="true">
+                {item.icon}
+              </span>
+              <h3 class="explore-card__title">{item.title}</h3>
+              <p class="explore-card__body">{item.body}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -104,18 +128,28 @@ const lastUpdated = nowLastUpdated;
       <SectionHeader label="// PRIORITIES" title="Current Priorities" />
 
       <div class="priority-list">
-        {priorityItems.map((item) => (
-          <div class="priority-item">
-            <span class={`badge ${item.color}`} style="flex-shrink: 0; min-width: 50px; justify-content: center;">{item.label}</span>
-            <p>{item.text}</p>
-          </div>
-        ))}
+        {
+          priorityItems.map((item) => (
+            <div class="priority-item">
+              <span
+                class={`badge ${item.color}`}
+                style="flex-shrink: 0; min-width: 50px; justify-content: center;"
+              >
+                {item.label}
+              </span>
+              <p>{item.text}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- What I'm Open To -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// WHAT I'M OPEN TO" title="What I'm Open To" />
 
@@ -123,25 +157,26 @@ const lastUpdated = nowLastUpdated;
         <div class="open-to-card open-to-card--yes">
           <h3>Yes, please</h3>
           <ul>
-            {openToItems.yes.map((item) => (
-              <li>{item}</li>
-            ))}
+            {openToItems.yes.map((item) => <li>{item}</li>)}
           </ul>
         </div>
 
         <div class="open-to-card open-to-card--no">
           <h3>Not the right fit</h3>
           <ul>
-            {openToItems.no.map((item) => (
-              <li>{item}</li>
-            ))}
+            {openToItems.no.map((item) => <li>{item}</li>)}
           </ul>
         </div>
       </div>
 
       <p class="open-to-cta">
-        If any of this sounds like what you're looking for, I'd like to hear from you.
-        <a href={toBasePath("/contact")} class="btn btn-primary" style="margin-top: var(--space-md); display: inline-flex;">
+        If any of this sounds like what you're looking for, I'd like to hear
+        from you.
+        <a
+          href={toBasePath("/contact")}
+          class="btn btn-primary"
+          style="margin-top: var(--space-md); display: inline-flex;"
+        >
           Get in Touch
         </a>
       </p>
@@ -343,8 +378,12 @@ const lastUpdated = nowLastUpdated;
     border-bottom: 1px solid var(--color-border);
   }
 
-  .open-to-card--yes h3 { color: var(--color-success); }
-  .open-to-card--no h3 { color: var(--color-text-muted); }
+  .open-to-card--yes h3 {
+    color: var(--color-success);
+  }
+  .open-to-card--no h3 {
+    color: var(--color-text-muted);
+  }
 
   .open-to-card ul {
     list-style: none;

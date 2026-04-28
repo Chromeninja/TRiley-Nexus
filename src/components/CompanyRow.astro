@@ -20,7 +20,13 @@ function resolveLogoSrc(src: string): string {
 }
 ---
 
-<article id={company.id} class="company-row" data-company-row data-expanded="false" style={`--company-color: ${company.color};`}>
+<article
+  id={company.id}
+  class="company-row"
+  data-company-row
+  data-expanded="false"
+  style={`--company-color: ${company.color};`}
+>
   <div class="company-row__meta">
     <button
       type="button"
@@ -34,16 +40,18 @@ function resolveLogoSrc(src: string): string {
       <span class="company-row__years text-mono">{company.rangeLabel}</span>
     </button>
     <p class="company-row__summary">{company.roleSummary}</p>
-    {company.logo && (
-      <div class="company-row__meta-logo-wrap">
-        <img
-          class="company-row__meta-logo"
-          src={resolveLogoSrc(company.logo.src)}
-          alt={company.logo.alt}
-          loading="lazy"
-        />
-      </div>
-    )}
+    {
+      company.logo && (
+        <div class="company-row__meta-logo-wrap">
+          <img
+            class="company-row__meta-logo"
+            src={resolveLogoSrc(company.logo.src)}
+            alt={company.logo.alt}
+            loading="lazy"
+          />
+        </div>
+      )
+    }
   </div>
 
   <div class="company-row__canvas">
@@ -58,9 +66,21 @@ function resolveLogoSrc(src: string): string {
         aria-expanded="false"
         style={`left: ${company.offsetPct}%; width: ${company.widthPct}%;`}
       >
-        <span class="company-row__bar-label" title={company.organization}>{company.organization}</span>
-        {hasLongBarLabel && <span class="company-row__bar-overflow-cue" aria-hidden="true">...</span>}
-        {company.isActive && <span class="company-row__bar-live text-mono">Present</span>}
+        <span class="company-row__bar-label" title={company.organization}
+          >{company.organization}</span
+        >
+        {
+          hasLongBarLabel && (
+            <span class="company-row__bar-overflow-cue" aria-hidden="true">
+              ...
+            </span>
+          )
+        }
+        {
+          company.isActive && (
+            <span class="company-row__bar-live text-mono">Present</span>
+          )
+        }
         <span class="company-row__preview" aria-hidden="true">
           <strong>{company.organization}</strong>
           <span>{company.rangeLabel} • {company.projectCount} projects</span>
@@ -69,21 +89,38 @@ function resolveLogoSrc(src: string): string {
       </button>
     </div>
 
-    <ExpandableDetailPanel id={`${company.id}-panel`} title={`${company.organization} details`}>
+    <ExpandableDetailPanel
+      id={`${company.id}-panel`}
+      title={`${company.organization} details`}
+    >
       <p>{company.longSummary || company.summary}</p>
-      {company.roles.length > 0 && (
-        <p><span class="text-accent">Roles:</span> {company.roles.join(" / ")}</p>
-      )}
-      {company.achievements.length > 0 && (
-        <p><span class="text-accent">Achievements:</span> {company.achievements.join(" ")}</p>
-      )}
+      {
+        company.roles.length > 0 && (
+          <p>
+            <span class="text-accent">Roles:</span> {company.roles.join(" / ")}
+          </p>
+        )
+      }
+      {
+        company.achievements.length > 0 && (
+          <p>
+            <span class="text-accent">Achievements:</span>{" "}
+            {company.achievements.join(" ")}
+          </p>
+        )
+      }
       <p><span class="text-accent">Projects:</span> {company.projectCount}</p>
     </ExpandableDetailPanel>
 
-    <ul class="company-row__projects" aria-label={`${company.organization} projects`}>
-      {company.projects.map((project) => (
-        <ProjectBar project={project} color={company.color} />
-      ))}
+    <ul
+      class="company-row__projects"
+      aria-label={`${company.organization} projects`}
+    >
+      {
+        company.projects.map((project) => (
+          <ProjectBar project={project} color={company.color} />
+        ))
+      }
     </ul>
   </div>
 </article>
@@ -91,7 +128,10 @@ function resolveLogoSrc(src: string): string {
 <style>
   .company-row {
     display: grid;
-    grid-template-columns: minmax(10rem, var(--atlas-meta-col)) minmax(var(--atlas-canvas-min), 1fr);
+    grid-template-columns: minmax(10rem, var(--atlas-meta-col)) minmax(
+        var(--atlas-canvas-min),
+        1fr
+      );
     gap: var(--atlas-grid-gap);
     align-items: start;
     border-top: 1px solid color-mix(in srgb, var(--color-border), white 5%);
@@ -103,7 +143,12 @@ function resolveLogoSrc(src: string): string {
     position: sticky;
     left: 0;
     z-index: 3;
-    background: linear-gradient(90deg, rgba(12, 20, 17, 0.95), rgba(12, 20, 17, 0.7), transparent);
+    background: linear-gradient(
+      90deg,
+      rgba(12, 20, 17, 0.95),
+      rgba(12, 20, 17, 0.7),
+      transparent
+    );
     padding-right: var(--space-sm);
   }
 
@@ -202,7 +247,10 @@ function resolveLogoSrc(src: string): string {
     letter-spacing: 0.04em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: box-shadow var(--transition-base), transform var(--transition-fast), max-width var(--transition-fast);
+    transition:
+      box-shadow var(--transition-base),
+      transform var(--transition-fast),
+      max-width var(--transition-fast);
     overflow: hidden;
     white-space: nowrap;
     text-shadow: 0 0 8px color-mix(in srgb, var(--company-color), black 45%);
@@ -228,7 +276,8 @@ function resolveLogoSrc(src: string): string {
   }
 
   .company-row__bar[data-long-name="true"]:hover .company-row__bar-overflow-cue,
-  .company-row__bar[data-long-name="true"]:focus-visible .company-row__bar-overflow-cue {
+  .company-row__bar[data-long-name="true"]:focus-visible
+    .company-row__bar-overflow-cue {
     display: none;
   }
 
@@ -241,7 +290,8 @@ function resolveLogoSrc(src: string): string {
   }
 
   .company-row__bar[data-long-name="true"]:hover .company-row__bar-label,
-  .company-row__bar[data-long-name="true"]:focus-visible .company-row__bar-label {
+  .company-row__bar[data-long-name="true"]:focus-visible
+    .company-row__bar-label {
     overflow: visible;
     text-overflow: clip;
   }
@@ -261,7 +311,8 @@ function resolveLogoSrc(src: string): string {
 
   .company-row__bar:hover,
   .company-row[data-expanded="true"] .company-row__bar {
-    box-shadow: 0 0 20px color-mix(in srgb, var(--company-color), transparent 55%);
+    box-shadow: 0 0 20px
+      color-mix(in srgb, var(--company-color), transparent 55%);
     transform: translateY(-1px);
     filter: saturate(1.12) brightness(1.04);
   }
@@ -284,7 +335,10 @@ function resolveLogoSrc(src: string): string {
     padding: 0.5rem 0.65rem;
     opacity: 0;
     transform: translate(-50%, 4px);
-    transition: opacity var(--transition-fast), transform var(--transition-fast), filter var(--transition-fast);
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast),
+      filter var(--transition-fast);
     filter: saturate(0.95);
   }
 
@@ -339,7 +393,9 @@ function resolveLogoSrc(src: string): string {
     margin-top: 0.2rem;
   }
 
-  .company-row[data-expanded="false"] .company-row__projects [data-major="false"] {
+  .company-row[data-expanded="false"]
+    .company-row__projects
+    [data-major="false"] {
     display: none;
   }
 

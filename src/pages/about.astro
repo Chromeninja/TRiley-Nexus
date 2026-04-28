@@ -24,28 +24,33 @@ function resolveMediaSrc(src: string): string {
 }
 
 const resumeConfig = siteConfig.about.resume;
-const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undefined;
+const resumePath = resumeConfig
+  ? resolveMediaSrc(resumeConfig.filePath)
+  : undefined;
 ---
 
-<Layout
-  title="About"
-  description={siteConfig.about.metaDescription}
->
+<Layout title="About" description={siteConfig.about.metaDescription}>
   <!-- Page Hero -->
   <PageHero
     label="// PROFILE"
     title="About Me"
     subtitle="A program leader and systems-minded builder working at the intersection of people, process, and technology."
   >
-    {aboutProfileMedia && (
-      <figure slot="aside" class="profile-photo panel" aria-label="Profile photo">
-        <img
-          src={resolveMediaSrc(aboutProfileMedia.src)}
-          alt={aboutProfileMedia.alt}
-          loading="lazy"
-        />
-      </figure>
-    )}
+    {
+      aboutProfileMedia && (
+        <figure
+          slot="aside"
+          class="profile-photo panel"
+          aria-label="Profile photo"
+        >
+          <img
+            src={resolveMediaSrc(aboutProfileMedia.src)}
+            alt={aboutProfileMedia.alt}
+            loading="lazy"
+          />
+        </figure>
+      )
+    }
   </PageHero>
 
   <!-- Background -->
@@ -54,25 +59,28 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
       <div class="prose">
-        {aboutBackgroundParagraphs.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+        {aboutBackgroundParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
   </section>
 
   <!-- How I Think -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// MENTAL MODELS" title="How I Think" />
 
       <div class="think-grid">
-        {aboutThinkItems.map((item) => (
-          <div class="think-card">
-            <h3 class="think-card__title">{item.title}</h3>
-            <p class="think-card__text">{item.text}</p>
-          </div>
-        ))}
+        {
+          aboutThinkItems.map((item) => (
+            <div class="think-card">
+              <h3 class="think-card__title">{item.title}</h3>
+              <p class="think-card__text">{item.text}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -83,98 +91,135 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
       <SectionHeader label="// CAPABILITIES" title="Skills & Expertise" />
 
       <div class="skills-grid">
-        {skillGroups.map((group) => (
-          <div class="skill-group">
-            <div class="skill-group__header">
-              <span class="skill-group__icon text-accent" aria-hidden="true">{group.icon}</span>
-              <h3 class="skill-group__label">{group.label}</h3>
+        {
+          skillGroups.map((group) => (
+            <div class="skill-group">
+              <div class="skill-group__header">
+                <span class="skill-group__icon text-accent" aria-hidden="true">
+                  {group.icon}
+                </span>
+                <h3 class="skill-group__label">{group.label}</h3>
+              </div>
+              <ul class="skill-list">
+                {group.skills.map((skill) => (
+                  <li class="skill-item">
+                    <span class="skill-item__dot" aria-hidden="true">
+                      ▸
+                    </span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="skill-list">
-              {group.skills.map((skill) => (
-                <li class="skill-item">
-                  <span class="skill-item__dot" aria-hidden="true">▸</span>
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Personal -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// LIFE OUTSIDE WORK" title="Beyond Work" />
 
       <div class="personal-grid">
-        {aboutPersonalItems.map((item) => (
-          <div class="personal-card">
-            <span class="personal-card__icon">{item.icon}</span>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-          </div>
-        ))}
+        {
+          aboutPersonalItems.map((item) => (
+            <div class="personal-card">
+              <span class="personal-card__icon">{item.icon}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
       </div>
 
-      {aboutAdditionalMedia.length > 0 && (
-        <div class="photo-strip" aria-label="Additional photos">
-          {aboutAdditionalMedia.map((item) => (
-            <figure class="photo-slot">
-              <img
-                src={resolveMediaSrc(item.src)}
-                alt={item.alt}
-                loading="lazy"
-              />
-              {item.caption && <figcaption class="text-mono text-muted">{item.caption}</figcaption>}
-            </figure>
-          ))}
-        </div>
-      )}
+      {
+        aboutAdditionalMedia.length > 0 && (
+          <div class="photo-strip" aria-label="Additional photos">
+            {aboutAdditionalMedia.map((item) => (
+              <figure class="photo-slot">
+                <img
+                  src={resolveMediaSrc(item.src)}
+                  alt={item.alt}
+                  loading="lazy"
+                />
+                {item.caption && (
+                  <figcaption class="text-mono text-muted">
+                    {item.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 
   <!-- What Matters -->
   <section class="section">
     <div class="container container--sm">
-      <SectionHeader label="// CORE VALUES" title="What Matters to Me" centered />
+      <SectionHeader
+        label="// CORE VALUES"
+        title="What Matters to Me"
+        centered
+      />
 
       <div class="values-list">
-        {aboutValues.map((value) => (
-          <div class="value-item">
-            <span class="value-item__check text-accent" aria-hidden="true">✓</span>
-            <span>{value}</span>
-          </div>
-        ))}
+        {
+          aboutValues.map((value) => (
+            <div class="value-item">
+              <span class="value-item__check text-accent" aria-hidden="true">
+                ✓
+              </span>
+              <span>{value}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  {resumeConfig && resumePath && (
-    <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-      <div class="container container--sm">
-        <SectionHeader label="// RESUME" title={resumeConfig.title} />
+  {
+    resumeConfig && resumePath && (
+      <section
+        class="section"
+        style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+      >
+        <div class="container container--sm">
+          <SectionHeader label="// RESUME" title={resumeConfig.title} />
 
-        <div class="resume-panel panel">
-          {resumeConfig.summary && <p class="resume-panel__summary">{resumeConfig.summary}</p>}
+          <div class="resume-panel panel">
+            {resumeConfig.summary && (
+              <p class="resume-panel__summary">{resumeConfig.summary}</p>
+            )}
 
-          <p class="resume-panel__updated text-mono text-muted">
-            Last updated: <span>{resumeConfig.lastUpdated}</span>
-          </p>
+            <p class="resume-panel__updated text-mono text-muted">
+              Last updated: <span>{resumeConfig.lastUpdated}</span>
+            </p>
 
-          <div class="resume-panel__actions">
-            <a href={resumePath} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              View Resume
-            </a>
-            <a href={resumePath} class="btn btn-outline" download>
-              Download Resume
-            </a>
+            <div class="resume-panel__actions">
+              <a
+                href={resumePath}
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </a>
+              <a href={resumePath} class="btn btn-outline" download>
+                Download Resume
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 </Layout>
 
 <style>

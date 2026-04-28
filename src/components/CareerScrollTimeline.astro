@@ -26,7 +26,7 @@ interface Props {
 }
 
 const { currentProjects, yearGroups } = Astro.props;
-const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" });
+// const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" }); // unused
 
 function resolveProjectHref(slug: string): string {
   return toBasePath(`/projects/${slug}`);
@@ -42,8 +42,12 @@ function sortByOrderThenDate(a: Project, b: Project): number {
     return orderDelta;
   }
 
-  const aDate = a.startedAt ? parseProjectDateValue(a.startedAt, "start")?.getTime() ?? 0 : 0;
-  const bDate = b.startedAt ? parseProjectDateValue(b.startedAt, "start")?.getTime() ?? 0 : 0;
+  const aDate = a.startedAt
+    ? (parseProjectDateValue(a.startedAt, "start")?.getTime() ?? 0)
+    : 0;
+  const bDate = b.startedAt
+    ? (parseProjectDateValue(b.startedAt, "start")?.getTime() ?? 0)
+    : 0;
   if (aDate !== bDate) {
     return bDate - aDate;
   }
@@ -56,10 +60,16 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
 
 <div class="career-scroll" data-career-scroll>
   <div class="career-scroll__layout">
-    <aside class="career-scroll__rail panel" aria-label="Career timeline controls">
+    <aside
+      class="career-scroll__rail panel"
+      aria-label="Career timeline controls"
+    >
       <div class="career-scroll__rail-head">
         <p class="text-mono career-scroll__eyebrow">Timeline Control</p>
-        <p class="career-scroll__rail-copy">Click year, month, or project to jump. Scrolling also updates the active marker.</p>
+        <p class="career-scroll__rail-copy">
+          Click year, month, or project to jump. Scrolling also updates the
+          active marker.
+        </p>
       </div>
 
       <button
@@ -71,116 +81,185 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
         Present
       </button>
 
-      {yearGroups.map((yearGroup) => (
-        <div class="career-scroll__year-block">
-          <button
-            class="career-scroll__jump career-scroll__jump--year"
-            type="button"
-            data-link-type="year"
-            data-link-target={yearGroup.key}
-          >
-            {yearGroup.year}
-          </button>
+      {
+        yearGroups.map((yearGroup) => (
+          <div class="career-scroll__year-block">
+            <button
+              class="career-scroll__jump career-scroll__jump--year"
+              type="button"
+              data-link-type="year"
+              data-link-target={yearGroup.key}
+            >
+              {yearGroup.year}
+            </button>
 
-          <ul class="career-scroll__month-list" role="list">
-            {yearGroup.months.map((monthGroup) => (
-              <li>
-                <button
-                  class="career-scroll__jump career-scroll__jump--month"
-                  type="button"
-                  data-link-type="month"
-                  data-link-target={monthGroup.key}
-                >
-                  {monthGroup.monthLabel}
-                </button>
-                <ul class="career-scroll__project-list" role="list">
-                  {monthGroup.projects.map((project) => (
-                    <li>
-                      <button
-                        class="career-scroll__jump career-scroll__jump--project"
-                        type="button"
-                        data-link-type="project"
-                        data-link-target={`project-${project.slug}`}
-                      >
-                        {project.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+            <ul class="career-scroll__month-list" role="list">
+              {yearGroup.months.map((monthGroup) => (
+                <li>
+                  <button
+                    class="career-scroll__jump career-scroll__jump--month"
+                    type="button"
+                    data-link-type="month"
+                    data-link-target={monthGroup.key}
+                  >
+                    {monthGroup.monthLabel}
+                  </button>
+                  <ul class="career-scroll__project-list" role="list">
+                    {monthGroup.projects.map((project) => (
+                      <li>
+                        <button
+                          class="career-scroll__jump career-scroll__jump--project"
+                          type="button"
+                          data-link-type="project"
+                          data-link-target={`project-${project.slug}`}
+                        >
+                          {project.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </aside>
 
     <div class="career-scroll__content">
-      <section id="career-present" class="career-scroll__section panel" data-observe-year>
+      <section
+        id="career-present"
+        class="career-scroll__section panel"
+        data-observe-year
+      >
         <header class="career-scroll__section-head">
           <p class="text-mono career-scroll__section-label">NOW</p>
           <h2>Current Projects</h2>
-          <p>Current role and projects are pinned first. Continue scrolling to move backward in time.</p>
+          <p>
+            Current role and projects are pinned first. Continue scrolling to
+            move backward in time.
+          </p>
         </header>
 
-        {sortedCurrentProjects.length === 0 ? (
-          <p class="career-scroll__empty">No active projects are currently tagged.</p>
-        ) : (
-          <ul class="career-scroll__cards" role="list">
-            {sortedCurrentProjects.map((project) => (
-              <li id={`project-${project.slug}`} class="career-scroll__card" data-observe-project>
-                <div class="career-scroll__card-top">
-                  <span class="badge badge-green">{projectStatusLabels[project.status]}</span>
-                  {project.organization && <span class="text-mono">{project.organization}</span>}
-                </div>
-                <h3>
-                  <a href={resolveProjectHref(project.slug)}>{project.title}</a>
-                </h3>
-                {project.roleTitle && <p class="career-scroll__card-role">{project.roleTitle}</p>}
-                {formatProjectDateRange(project) && <p class="career-scroll__card-range text-mono">{formatProjectDateRange(project)}</p>}
-                <p>{compactSummary(project.summary)}</p>
-              </li>
-            ))}
-          </ul>
-        )}
+        {
+          sortedCurrentProjects.length === 0 ? (
+            <p class="career-scroll__empty">
+              No active projects are currently tagged.
+            </p>
+          ) : (
+            <ul class="career-scroll__cards" role="list">
+              {sortedCurrentProjects.map((project) => (
+                <li
+                  id={`project-${project.slug}`}
+                  class="career-scroll__card"
+                  data-observe-project
+                >
+                  <div class="career-scroll__card-top">
+                    <span class="badge badge-green">
+                      {projectStatusLabels[project.status]}
+                    </span>
+                    {project.organization && (
+                      <span class="text-mono">{project.organization}</span>
+                    )}
+                  </div>
+                  <h3>
+                    <a href={resolveProjectHref(project.slug)}>
+                      {project.title}
+                    </a>
+                  </h3>
+                  {project.roleTitle && (
+                    <p class="career-scroll__card-role">{project.roleTitle}</p>
+                  )}
+                  {formatProjectDateRange(project) && (
+                    <p class="career-scroll__card-range text-mono">
+                      {formatProjectDateRange(project)}
+                    </p>
+                  )}
+                  <p>{compactSummary(project.summary)}</p>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </section>
 
-      {yearGroups.map((yearGroup) => (
-        <section id={yearGroup.key} class="career-scroll__section panel" data-observe-year>
-          <header class="career-scroll__section-head">
-            <p class="text-mono career-scroll__section-label">{yearGroup.year}</p>
-            <h2>{yearGroup.year}</h2>
-            <p>{yearGroup.months.reduce((sum, month) => sum + month.projects.length, 0)} project entries</p>
-          </header>
+      {
+        yearGroups.map((yearGroup) => (
+          <section
+            id={yearGroup.key}
+            class="career-scroll__section panel"
+            data-observe-year
+          >
+            <header class="career-scroll__section-head">
+              <p class="text-mono career-scroll__section-label">
+                {yearGroup.year}
+              </p>
+              <h2>{yearGroup.year}</h2>
+              <p>
+                {yearGroup.months.reduce(
+                  (sum, month) => sum + month.projects.length,
+                  0,
+                )}{" "}
+                project entries
+              </p>
+            </header>
 
-          <div class="career-scroll__months">
-            {yearGroup.months.map((monthGroup) => (
-              <section id={monthGroup.key} class="career-scroll__month" data-observe-month>
-                <header class="career-scroll__month-head">
-                  <h3>{monthGroup.monthLabel}</h3>
-                  <span class="text-mono">{monthGroup.projects.length} projects</span>
-                </header>
+            <div class="career-scroll__months">
+              {yearGroup.months.map((monthGroup) => (
+                <section
+                  id={monthGroup.key}
+                  class="career-scroll__month"
+                  data-observe-month
+                >
+                  <header class="career-scroll__month-head">
+                    <h3>{monthGroup.monthLabel}</h3>
+                    <span class="text-mono">
+                      {monthGroup.projects.length} projects
+                    </span>
+                  </header>
 
-                <ul class="career-scroll__cards" role="list">
-                  {monthGroup.projects.map((project) => (
-                    <li id={`project-${project.slug}`} class="career-scroll__card" data-observe-project>
-                      <div class="career-scroll__card-top">
-                        <span class="badge badge-cyan">{projectStatusLabels[project.status]}</span>
-                        {project.organization && <span class="text-mono">{project.organization}</span>}
-                      </div>
-                      <h4>
-                        <a href={resolveProjectHref(project.slug)}>{project.title}</a>
-                      </h4>
-                      {project.roleTitle && <p class="career-scroll__card-role">{project.roleTitle}</p>}
-                      {formatProjectDateRange(project) && <p class="career-scroll__card-range text-mono">{formatProjectDateRange(project)}</p>}
-                      <p>{compactSummary(project.summary)}</p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-          </div>
-        </section>
-      ))}
+                  <ul class="career-scroll__cards" role="list">
+                    {monthGroup.projects.map((project) => (
+                      <li
+                        id={`project-${project.slug}`}
+                        class="career-scroll__card"
+                        data-observe-project
+                      >
+                        <div class="career-scroll__card-top">
+                          <span class="badge badge-cyan">
+                            {projectStatusLabels[project.status]}
+                          </span>
+                          {project.organization && (
+                            <span class="text-mono">
+                              {project.organization}
+                            </span>
+                          )}
+                        </div>
+                        <h4>
+                          <a href={resolveProjectHref(project.slug)}>
+                            {project.title}
+                          </a>
+                        </h4>
+                        {project.roleTitle && (
+                          <p class="career-scroll__card-role">
+                            {project.roleTitle}
+                          </p>
+                        )}
+                        {formatProjectDateRange(project) && (
+                          <p class="career-scroll__card-range text-mono">
+                            {formatProjectDateRange(project)}
+                          </p>
+                        )}
+                        <p>{compactSummary(project.summary)}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
   </div>
 </div>
@@ -189,7 +268,9 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
   const root = document.querySelector("[data-career-scroll]");
 
   if (root) {
-    const jumpButtons = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-link-target]"));
+    const jumpButtons = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-link-target]"),
+    );
 
     const clearType = (type: string) => {
       jumpButtons
@@ -200,7 +281,11 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
     const activateForType = (type: string, targetId: string) => {
       clearType(type);
       jumpButtons
-        .filter((button) => button.dataset.linkType === type && button.dataset.linkTarget === targetId)
+        .filter(
+          (button) =>
+            button.dataset.linkType === type &&
+            button.dataset.linkTarget === targetId,
+        )
         .forEach((button) => button.classList.add("is-active"));
     };
 
@@ -269,9 +354,15 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
       },
     );
 
-    root.querySelectorAll("[data-observe-year]").forEach((el) => yearObserver.observe(el));
-    root.querySelectorAll("[data-observe-month]").forEach((el) => monthObserver.observe(el));
-    root.querySelectorAll("[data-observe-project]").forEach((el) => projectObserver.observe(el));
+    root
+      .querySelectorAll("[data-observe-year]")
+      .forEach((el) => yearObserver.observe(el));
+    root
+      .querySelectorAll("[data-observe-month]")
+      .forEach((el) => monthObserver.observe(el));
+    root
+      .querySelectorAll("[data-observe-project]")
+      .forEach((el) => projectObserver.observe(el));
 
     activateForType("year", "career-present");
   }
@@ -348,7 +439,10 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
     padding: 0.26rem 0.4rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast);
   }
 
   .career-scroll__jump:hover,

@@ -13,7 +13,9 @@ export function stripBasePath(pathname: string): string {
   if (!base) {
     return normalized;
   }
-  return normalized.startsWith(base) ? normalized.slice(base.length) || "/" : normalized;
+  return normalized.startsWith(base)
+    ? normalized.slice(base.length) || "/"
+    : normalized;
 }
 
 export function isActivePath(currentPath: string, href: string): boolean {

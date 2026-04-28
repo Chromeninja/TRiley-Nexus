@@ -43,6 +43,7 @@ Projects are Markdown files in:
 - src/content/projects/
 
 You can:
+
 - Edit an existing project file
 - Duplicate one file and rename it for a new project
 - Remove projects you do not want to show
