@@ -1,5 +1,5 @@
 ---
-title: VR Villa
+title: VR Villa Event Operations Program
 status: active
 category: Events & Community Operations
 tags:
@@ -7,29 +7,36 @@ tags:
   - Event Operations
   - Multi-Event Management
   - Community Experiences
+  - Staffing & Payroll Operations
+  - Event Analytics
 organization: VR Villa
-timeframe: Ongoing
-roleTitle: Producer
+timeframe: 2024 - Present
+roleTitle: Event Operations Manager / Producer
 startedAt: Jan 2024
-summary: Active producer role for VR Villa focused on managing multiple events, coordinating delivery, and improving how live community experiences are planned and operated.
-cardSummary: Producer for VR Villa, improving repeatable event execution across concurrent community experiences.
+summary: Bucket project for VR Villa event operations covering event management, scheduling, staff coordination, payout operations, and live community experience delivery.
+cardSummary: Led VR Villa event operations with systems for staffing, scheduling, payouts, and repeatable delivery.
 highlights:
-  - Coordinated multi-event planning and partner delivery workflows.
-  - Standardized event operations for smoother attendee and staff experiences.
-  - Built stronger operational systems for recurring community programs.
-problem: Running multiple events across a growing community requires stronger production coordination, clearer operational ownership, and more dependable attendee-facing systems.
-approach: Manage event production across concurrent initiatives, coordinate planning and execution needs, support partner and community-facing event delivery, and improve the operational structure behind recurring VR Villa events.
-outcome: Increased consistency across event execution, improved coordination for live experiences, and created a stronger operational foundation for ongoing community programming.
+  - Managed end-to-end event delivery including staff scheduling, pay tracking, and event-day coordination.
+  - Built repeatable operating systems for running multi-event programs with consistent execution quality.
+  - Established performance baselines to track scale, attendance, and engagement across recurring events.
+problem: As event volume grew, running multiple VR events required stronger management systems for schedules, staffing, payouts, and cross-team coordination.
+approach: Centralized event operations under a single program model, coordinated staff and partners through structured workflows, and implemented tooling for check-in, scheduling, and operational visibility across recurring events.
+outcome: In 2024, supported 19,216 players across 23,321 sessions with 12,541 gameplay hours and 27.1% first-time VR participants. Running averages used for ongoing planning across 2024-2026 include 2,726 sqft room size, 25 VR systems deployed, 17,652 average attendance, and 703 sessions per event. Audience profile tracking includes 65.5% male, 29% female, with key age bands 10-18 (29.2%), 19-25 (28.2%), 26-34 (24.7%), and 35-59 (16.5%).
 skills:
   - Live Event Operations
   - Production Management
+  - Staff Coordination
+  - Scheduling Systems
+  - Pay Operations
+  - Event Analytics
   - Community Leadership
-  - Operational Planning
 tools:
   - Airtable
+  - Google Sheets
   - Notion
   - Discord
   - Event Ops Tooling
+  - Event Ops Manager
 links:
   - label: Website
     url: https://vrvilla.org/
