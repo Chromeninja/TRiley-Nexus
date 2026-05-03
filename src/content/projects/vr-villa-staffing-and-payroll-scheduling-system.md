@@ -10,7 +10,7 @@ tags:
 organization: VR Villa
 timeframe: Ongoing
 roleTitle: Operations Systems Manager
-startedAt: 2025
+startedAt: "2025"
 summary: Built a Google Sheets operations system to manage staff schedules, role assignments, event hours, individual pay calculations, and expense tracking in one place.
 cardSummary: Built a Google Sheets system for staffing schedules, role management, and accurate event pay operations.
 highlights:

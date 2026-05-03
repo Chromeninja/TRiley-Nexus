@@ -10,7 +10,7 @@ tags:
 organization: VR Villa
 timeframe: Ongoing
 roleTitle: Community Manager
-startedAt: 2025
+startedAt: "2025"
 summary: Supported VR Villa community operations as a Discord CM by improving server layout, strengthening moderation workflows, and implementing selective automation where it reduced manual overhead.
 cardSummary: Improved VR Villa Discord structure and moderation operations with practical automation.
 highlights:

@@ -503,6 +503,7 @@
         "Strengthened delivery structure around ongoing Nope Challenge work.",
         "Improved testing signal quality through community feedback workflows."
       ],
+      "logo": { "src": "/media/companies/happymanic-logo.png", "alt": "Happy Manic logo" },
       "color": "#8be36d",
       "tenureStart": "Oct 2025",
       "tenureEnd": "Present",
@@ -551,16 +552,33 @@
         { "label": "Community Operations Lead", "start": "2019", "end": "2022" }
       ]
     },
-    "Military / Internal Operations": {
-      "summary": "Operational modernization and digital process improvements.",
-      "companyInfo": "Internal operations and safety-oriented systems contexts.",
-      "myTimeInfo": "Worked on modernization efforts and safer operational workflows.",
-      "roleSummary": "Operations modernization",
+    "North Carolina Army National Guard": {
+      "summary": "Army National Guard engineering service with the 878th Engineer Company, supporting field readiness, engineering operations, and joint training.",
+      "companyInfo": "The 878th Engineer Company is a North Carolina Army National Guard unit providing combat engineering support. Personnel perform field engineering tasks, infrastructure support, and training in support of both state and federal missions.",
+      "myTimeInfo": "Served from February 2011 to October 2013 as a 12K (Plumber / Engineering Specialist), completing Army basic training and 12K Advanced Individual Training before supporting unit readiness through hands-on engineering work, field support tasks, and joint training exercises. Transitioned to the Air National Guard in October 2013.",
+      "roleSummary": "12K Plumber / Engineering Specialist",
       "color": "#f38ba8",
-      "tenureStart": "2010",
+      "tenureStart": "2011",
       "tenureEnd": "2013",
       "timelineRoles": [
-        { "label": "IT Operations Manager", "start": "2010", "end": "2013" }
+        { "label": "12K Plumber / Engineering Specialist", "start": "2011", "end": "2013" }
+      ]
+    },
+    "North Carolina Air National Guard": {
+      "summary": "Long-term Air National Guard service spanning forward air control, air traffic control, expeditionary airfield ops, landing zone safety, air advising, and combat airspace operations.",
+      "companyInfo": "The North Carolina Air National Guard supports federal and state missions across a range of specialties. Service spanned two units: the 118th Air Support Operations Squadron (TACP) and the 235th Combat Airfield Operations Squadron (formerly 235th ATCS), which provides air traffic control, expeditionary airfield operations, and combat support capabilities.",
+      "myTimeInfo": "Served continuously since October 2013 — first as a TACP embedded with Army ground forces directing close air support, then transferring in April 2015 to the 235th as a qualified Air Traffic Controller with additional certifications as a Landing Zone Safety Officer, Air Advisor, and Combat Airspace operator. Also serves as the unit's informal IT specialist managing SharePoint and Microsoft Teams infrastructure.",
+      "roleSummary": "Air Traffic Controller / TACP / Multi-role ANG Specialist",
+      "logo": {
+        "src": "/media/companies/235-CAOS-logo.png",
+        "alt": "235th Combat Airfield Operations Squadron logo"
+      },
+      "color": "#86efac",
+      "tenureStart": "2013",
+      "tenureEnd": "Present",
+      "timelineRoles": [
+        { "label": "TACP (118th ASOS)", "start": "2013", "end": "2015" },
+        { "label": "Air Traffic Controller (235th CAOS)", "start": "2015", "end": "Present" }
       ]
     },
     "Quantum Vegas": {
@@ -580,6 +598,7 @@
       "companyInfo": "Applied technology partner for systems and process improvements.",
       "myTimeInfo": "Delivered tooling and process outcomes for operational contexts.",
       "roleSummary": "Applied systems delivery",
+      "logo": { "src": "/media/companies/ShepherdTech-logo.jpeg", "alt": "ShepherdTech logo" },
       "color": "#22d3ee",
       "tenureStart": "2024",
       "tenureEnd": "Present",
@@ -596,6 +615,7 @@
       "companyInfo": "VR Villa is a community-driven event environment centered on immersive experiences, programming, and live operations.",
       "myTimeInfo": "Since January 2024, I have managed event production across multiple VR Villa events and supported operational systems for recurring community experiences.",
       "roleSummary": "Event production and operations leadership",
+      "logo": { "src": "/media/companies/VRVilla-logo.jpg", "alt": "VR Villa logo" },
       "color": "#f5a65b",
       "tenureStart": "2024",
       "tenureEnd": "Present",
