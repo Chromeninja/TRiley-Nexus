@@ -91,13 +91,10 @@ const shouldShowLife = timelineView === "life";
 const atlasData = await getCareerAtlasData();
 const narrativeData = await getCareerNarrativeData();
 
-let currentProjects: Project[] = [];
-let yearGroups: TimelineYearGroup[] = [];
-
 const projects = await getProjects();
 const activeStatuses = new Set(["active", "concept"]);
 
-currentProjects = projects
+const currentProjects = projects
   .filter((project) => activeStatuses.has(project.status))
   .sort(sortByOrderThenDate);
 
@@ -131,7 +128,7 @@ for (const project of historicalProjects) {
   monthBucket.get(month)?.push(project);
 }
 
-yearGroups = [...yearBucket.entries()]
+const yearGroups: TimelineYearGroup[] = [...yearBucket.entries()]
   .sort(([yearA], [yearB]) => yearB - yearA)
   .map(([year, monthMap]) => {
     const months: TimelineMonthGroup[] = [...monthMap.entries()]

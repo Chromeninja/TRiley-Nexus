@@ -1,6 +1,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import { companyProfiles } from "./companyProfiles";
 import { careerAtlasEras } from "./careerAtlas";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 type ProjectCollectionEntry = CollectionEntry<"projects">;
 
@@ -451,7 +452,7 @@ export function parseProjectDateValue(
 function getProjectDateRange(projects: Project[]): DateRange | undefined {
   const startCandidates = projects
     .map((project) => project.startedAt?.trim())
-    .filter(Boolean) as string[];
+    .filter((value): value is string => Boolean(value));
   const parsedStarts = startCandidates
     .map((value) => ({ value, parsed: parseProjectDateValue(value, "start") }))
     .filter((entry): entry is { value: string; parsed: Date } =>
@@ -984,7 +985,9 @@ export async function getCareerAtlasData(): Promise<
         profile?.roleSummary ||
         roles.slice(0, 2).join(" / ") ||
         "Cross-functional contributor";
-      const color = profile?.color || getFallbackColor(group.organization);
+      const color = sanitizeCssColor(
+        profile?.color || getFallbackColor(group.organization),
+      );
 
       const projects = group.projects
         .map((project) => {
@@ -1149,7 +1152,9 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
       const activeProjectCount = narrativeProjects.filter(
         (project) => project.isLive,
       ).length;
-      const color = profile?.color || getFallbackColor(group.organization);
+      const color = sanitizeCssColor(
+        profile?.color || getFallbackColor(group.organization),
+      );
 
       return {
         id: `company-${toSlugId(group.organization)}`,

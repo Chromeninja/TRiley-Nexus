@@ -1,7 +1,12 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro:schema";
+import { glob } from "astro/loaders";
 
 const projectsCollection = defineCollection({
-  type: "content",
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/projects",
+  }),
   schema: z.object({
     title: z.string(),
     status: z.enum(["active", "completed", "archived", "concept"]),

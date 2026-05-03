@@ -2,6 +2,7 @@
 import type { CareerAtlasProjectNode } from "../data/projects";
 import { toBasePath } from "../utils/paths";
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
   project: CareerAtlasProjectNode;
@@ -10,6 +11,7 @@ interface Props {
 
 const { project, color } = Astro.props;
 const projectHref = toBasePath(`/projects/${project.slug}`);
+const safeProjectColor = sanitizeCssColor(color);
 ---
 
 <li
@@ -26,7 +28,7 @@ const projectHref = toBasePath(`/projects/${project.slug}`);
     data-project-id={project.id}
     aria-controls={`${project.id}-panel`}
     aria-expanded="false"
-    style={`left: ${project.offsetPct}%; width: ${project.widthPct}%; --project-color: ${color};`}
+    style={`left: ${project.offsetPct}%; width: ${project.widthPct}%; --project-color: ${safeProjectColor};`}
   >
     <span class="project-item__title">{project.title}</span>
     <span class="project-item__meta text-mono"

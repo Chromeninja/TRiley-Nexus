@@ -3,6 +3,7 @@ import type { CareerAtlasCompanyNode } from "../data/projects";
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
 import ProjectBar from "./ProjectBar.astro";
 import { toBasePath } from "../utils/paths";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
   company: CareerAtlasCompanyNode;
@@ -10,6 +11,7 @@ interface Props {
 
 const { company } = Astro.props;
 const hasLongBarLabel = company.organization.length > 28;
+const safeCompanyColor = sanitizeCssColor(company.color);
 
 function resolveLogoSrc(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
@@ -25,7 +27,7 @@ function resolveLogoSrc(src: string): string {
   class="company-row"
   data-company-row
   data-expanded="false"
-  style={`--company-color: ${company.color};`}
+  style={`--company-color: ${safeCompanyColor};`}
 >
   <div class="company-row__meta">
     <button
@@ -118,7 +120,7 @@ function resolveLogoSrc(src: string): string {
     >
       {
         company.projects.map((project) => (
-          <ProjectBar project={project} color={company.color} />
+          <ProjectBar project={project} color={safeCompanyColor} />
         ))
       }
     </ul>

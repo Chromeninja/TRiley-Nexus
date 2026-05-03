@@ -5,6 +5,7 @@ import {
   type CareerNarrativeData,
 } from "../data/projects";
 import { toBasePath } from "../utils/paths";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
   data: CareerNarrativeData;
@@ -94,7 +95,7 @@ const {
           data-narrative-company
           data-company-id={company.id}
           data-expanded="false"
-          style={`--company-color: ${company.color};`}
+          style={`--company-color: ${sanitizeCssColor(company.color)};`}
         >
           <div class="narrative-company__node" aria-hidden="true">
             <span class="narrative-company__node-index text-mono">
