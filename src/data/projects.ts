@@ -1,7 +1,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { companyProfiles } from "./companyProfiles";
+import { getCompanyProfiles } from "./companyProfiles";
 import { careerAtlasEras } from "./careerAtlas";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
+import type { CompanyProfile } from "./siteConfig";
 
 type ProjectCollectionEntry = CollectionEntry<"projects">;
 
@@ -247,6 +248,8 @@ const atlasFallbackColors = [
   "#facc15",
   "#22d3ee",
 ];
+
+let currentCompanyProfiles: Record<string, CompanyProfile> = {};
 
 function toSlugId(value: string): string {
   return value
@@ -505,13 +508,18 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
 }
 
 function getCompanyDateRange(organization: string): DateRange | undefined {
-  const profile = companyProfiles[organization];
+  const profile = currentCompanyProfiles[organization] as
+    | {
+        tenureStart?: string;
+        tenureEnd?: string;
+      }
+    | undefined;
   const tenureStart = profile?.tenureStart?.trim();
   if (!tenureStart) {
     return undefined;
   }
 
-  const tenureEnd = profile.tenureEnd?.trim() || "Present";
+  const tenureEnd = profile?.tenureEnd?.trim() || "Present";
   const parsedStart = parseProjectDateValue(tenureStart, "start");
   const parsedEnd =
     tenureEnd === "Present"
@@ -626,7 +634,12 @@ function getProjectTimelineSegment(
 function getRoleSegmentsFromProfile(
   organization: string,
 ): ParsedTimelineSegment[] {
-  const profile = companyProfiles[organization];
+  const profile = currentCompanyProfiles[organization] as
+    | {
+        timelineRoles?: Array<{ label: string; start: string; end?: string }>;
+        tenureEnd?: string;
+      }
+    | undefined;
   if (!profile?.timelineRoles?.length) {
     return [];
   }
@@ -849,6 +862,7 @@ export async function getProjectsByOrganization(
 export async function getProjectOrganizationGroups(): Promise<
   ProjectOrganizationGroup[]
 > {
+  currentCompanyProfiles = await getCompanyProfiles();
   const projects = await getProjects();
   const grouped = new Map<string, Project[]>();
 
@@ -865,7 +879,13 @@ export async function getProjectOrganizationGroups(): Promise<
   return [...grouped.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([organization, groupedProjects]) => {
-      const profile = companyProfiles[organization];
+      const profile = currentCompanyProfiles[organization] as
+        | {
+            summary?: string;
+            companyInfo?: string;
+            myTimeInfo?: string;
+          }
+        | undefined;
       const timeline = buildCompanyTimeline(organization, groupedProjects);
       const companyRange = getCompanyDateRange(organization);
       const projectRange = getProjectDateRange(groupedProjects);
@@ -914,6 +934,7 @@ export async function getLifeTimelineEntries(): Promise<LifeTimelineEntry[]> {
 export async function getCareerAtlasData(): Promise<
   CareerAtlasData | undefined
 > {
+  currentCompanyProfiles = await getCompanyProfiles();
   const groups = await getProjectOrganizationGroups();
   const timelineGroups = groups.filter(
     (
@@ -969,7 +990,17 @@ export async function getCareerAtlasData(): Promise<
   const currentPosition = toPositioning(new Date(), new Date(), atlasRange);
   const companies = timelineGroups
     .map((group) => {
-      const profile = companyProfiles[group.organization];
+      const profile = currentCompanyProfiles[group.organization] as
+        | {
+            roleSummary?: string;
+            color?: string;
+            summary?: string;
+            longSummary?: string;
+            myTimeInfo?: string;
+            logo?: { src: string; alt: string };
+            achievements?: string[];
+          }
+        | undefined;
       const companyPosition = toPositioning(
         group.timeline.rangeStart,
         group.timeline.rangeEnd,
@@ -1132,11 +1163,23 @@ function buildNarrativeProjectNode(
 }
 
 export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
+  currentCompanyProfiles = await getCompanyProfiles();
   const groups = await getProjectOrganizationGroups();
 
   const companies = groups
     .map((group) => {
-      const profile = companyProfiles[group.organization];
+      const profile = currentCompanyProfiles[group.organization] as
+        | {
+            summary?: string;
+            longSummary?: string;
+            companyInfo?: string;
+            myTimeInfo?: string;
+            roleSummary?: string;
+            achievements?: string[];
+            color?: string;
+            logo?: { src: string; alt: string };
+          }
+        | undefined;
       const parsedRoles = getRoleSegmentsFromProfile(group.organization);
       const roleSegments =
         parsedRoles.length > 0

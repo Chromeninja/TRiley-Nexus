@@ -1,6 +1,6 @@
 # Customization Guide for TRiley-Nexus
 
-Welcome! This portfolio is designed to be forked and customized without touching code. Everything you need to personalize it lives in **`portfolio-config.json`**.
+Welcome! This portfolio is designed to be forked and customized without touching code. Most day-to-day content updates now live in markdown files under `src/content/`.
 
 ---
 
@@ -8,17 +8,23 @@ Welcome! This portfolio is designed to be forked and customized without touching
 
 1. **Fork this repository** on GitHub
 2. **Clone your fork** locally
-3. **Open `portfolio-config.json`** in your editor
-4. Edit these sections (in order):
-   - `site.name` → Your name
-   - `site.description` → Your tagline
-   - `social.email` → Your email
-   - `social.githubUrl` → Your GitHub
-   - `social.linkedinUrl` → Your LinkedIn
-5. **Run `npm run build`** to test locally
-6. **Deploy to GitHub Pages** (see [SETUP-GITHUB-PAGES.md](./SETUP-GITHUB-PAGES.md))
+3. **Start the local editor**: `npm run content-editor`
+4. Open `http://127.0.0.1:4387`
+5. Select a markdown file from `src/content/`
+6. Validate and preview changes, then save
+7. Upload logos/screenshots/videos/documents from the Upload Media panel
+8. Stop the editor with `Ctrl+C`
+9. **Optional:** open markdown files directly in your editor
+10. Edit these sections (in order):
+  - `src/content/projects/*.md` → Project details
+  - `src/content/about/about.md` → About me page
+  - `src/content/companies/companies.md` → Company profiles
+11. **Run `npm run build`** to test locally
+12. **Deploy to GitHub Pages** (see [SETUP-GITHUB-PAGES.md](./SETUP-GITHUB-PAGES.md))
 
 Done! Your portfolio is live with your information.
+
+Each save requires preview confirmation and creates a backup snapshot in `.content-editor-backups/`.
 
 ---
 
@@ -26,14 +32,13 @@ Done! Your portfolio is live with your information.
 
 | What                                            | Difficulty | How                                          | Notes                                     |
 | ----------------------------------------------- | ---------- | -------------------------------------------- | ----------------------------------------- |
-| **Site name, description, branding**            | ✅ Easy    | Edit `site.*` in JSON                        | 15 seconds                                |
-| **Navigation links**                            | ✅ Easy    | Edit `navigation.*` in JSON                  | Enable/disable with `enabled: true/false` |
-| **Social links (email, GitHub, LinkedIn)**      | ✅ Easy    | Edit `social.*` in JSON                      | 1 minute                                  |
-| **All page content (About, Now, Contact, etc)** | ✅ Easy    | Edit page sections in JSON                   | Supports plain text and markdown          |
-| **Home page hero, principles, stats**           | ✅ Easy    | Edit `home.*` in JSON                        | 5 minutes                                 |
+| **Project content**                             | ✅ Easy    | Edit `src/content/projects/*.md`             | 5-10 min per project                      |
+| **About page content**                          | ✅ Easy    | Edit `src/content/about/about.md`            | 10 min                                    |
+| **Company profile content**                     | ✅ Easy    | Edit `src/content/companies/companies.md`    | 10 min                                    |
 | **Colors and fonts**                            | ✅ Easy    | Edit `theme.*` in JSON                       | See [Styling](#styling) section           |
 | **Add new project**                             | ⚠️ Medium  | Create `.md` file in `src/content/projects/` | See [Adding Projects](#adding-projects)   |
-| **Add new company**                             | ⚠️ Medium  | Add to `companies` section in JSON           | See [Adding Companies](#adding-companies) |
+| **Add or override company data**                | ⚠️ Medium  | Add profile entries in `companies.md`        | See [Adding Companies](#adding-companies) |
+| **Upload logos/screenshots/videos/docs**        | ✅ Easy    | Use the local editor Upload Media panel      | Stored in `public/media` and `public/documents` |
 | **Customize timeline eras**                     | ⚠️ Medium  | Edit `careerEras` in JSON                    | See [Career Timeline](#career-timeline)   |
 | **Component layout, page structure**            | ❌ Hard    | Requires code changes                        | Beyond this guide                         |
 
@@ -159,41 +164,34 @@ What were the measurable outcomes?
 
 ### Adding Companies
 
-1. Open `portfolio-config.json`
-2. Find the `companies` section
+1. Open `src/content/companies/companies.md`
+2. Find the frontmatter `profiles` map
 3. Add a new company:
 
-```json
-"Company Name": {
-  "summary": "Short one-liner about the company or your role",
-  "companyInfo": "What does this company/org do?",
-  "myTimeInfo": "What did you do there during your tenure?",
-  "longSummary": "More detailed description of your impact",
-  "roleSummary": "Your role trajectory (e.g., 'Support ops to senior PM')",
-  "achievements": [
-    "Major achievement 1",
-    "Major achievement 2"
-  ],
-  "color": "#57a6ff",
-  "tenureStart": "2020",
-  "tenureEnd": "Present",
-  "logo": {
-    "src": "/media/companies/company-logo.png",
-    "alt": "Company Name logo"
-  },
-  "timelineRoles": [
-    {
-      "label": "Role Title 1",
-      "start": "2020",
-      "end": "2021"
-    },
-    {
-      "label": "Role Title 2",
-      "start": "2022",
-      "end": "Present"
-    }
-  ]
-}
+```yaml
+profiles:
+  "Company Name":
+    summary: "Short one-liner about the company or your role"
+    companyInfo: "What does this company/org do?"
+    myTimeInfo: "What did you do there during your tenure?"
+    longSummary: "More detailed description of your impact"
+    roleSummary: "Your role trajectory (e.g., Support ops to senior PM)"
+    achievements:
+      - "Major achievement 1"
+      - "Major achievement 2"
+    color: "#57a6ff"
+    tenureStart: "2020"
+    tenureEnd: "Present"
+    logo:
+      src: "/media/companies/company-logo.png"
+      alt: "Company Name logo"
+    timelineRoles:
+      - label: "Role Title 1"
+        start: "2020"
+        end: "2021"
+      - label: "Role Title 2"
+        start: "2022"
+        end: "Present"
 ```
 
 Then reference this company in your projects using the exact `organization` name.

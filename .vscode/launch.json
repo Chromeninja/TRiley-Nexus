@@ -7,6 +7,13 @@
       "request": "launch",
       "command": "npm run dev:node22 -- --host localhost --port 4321",
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Content Editor: Start Local",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run content-editor",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "dev:node22": "npx -y node@22 ./node_modules/astro/bin/astro.mjs dev",
     "content:check:node22": "npx -y node@22 ./node_modules/astro/bin/astro.mjs sync",
+    "content-editor": "node tools/content-editor/server.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",

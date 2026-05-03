@@ -15,22 +15,57 @@ export interface AboutMediaItem {
   caption?: string;
 }
 
+export interface AboutResumeItem {
+  title: string;
+  filePath: string;
+  lastUpdated: string;
+  summary?: string;
+}
+
+export interface AboutContentData {
+  metaDescription: string;
+  backgroundParagraphs: string[];
+  thinkItems: AboutThinkItem[];
+  personalItems: AboutPersonalItem[];
+  values: string[];
+  profileMedia: AboutMediaItem | null;
+  additionalMedia: AboutMediaItem[];
+  resume?: AboutResumeItem;
+}
+
+import { getCollection } from "astro:content";
 import { siteConfig } from "./siteConfig";
 
-export const aboutBackgroundParagraphs: string[] =
-  siteConfig.about.backgroundParagraphs;
+const fallbackAboutContent: AboutContentData = {
+  metaDescription: siteConfig.about.metaDescription,
+  backgroundParagraphs: siteConfig.about.backgroundParagraphs,
+  thinkItems: siteConfig.about.thinkItems,
+  personalItems: siteConfig.about.personalItems,
+  values: siteConfig.about.values,
+  profileMedia: siteConfig.about.profileMedia,
+  additionalMedia: siteConfig.about.additionalMedia,
+  resume: siteConfig.about.resume,
+};
 
-export const aboutThinkItems: AboutThinkItem[] = siteConfig.about.thinkItems;
+export async function getAboutContentData(): Promise<AboutContentData> {
+  try {
+    const entries = await getCollection("about");
+    const entry = entries[0];
 
-export const aboutPersonalItems: AboutPersonalItem[] =
-  siteConfig.about.personalItems;
+    if (!entry) {
+      return fallbackAboutContent;
+    }
 
-export const aboutValues: string[] = siteConfig.about.values;
-
-// Optional hero photo on the About page; set to null in config to hide.
-export const aboutProfileMedia: AboutMediaItem | undefined =
-  siteConfig.about.profileMedia ?? undefined;
-
-// Additional About media strip. Empty array means nothing is rendered.
-export const aboutAdditionalMedia: AboutMediaItem[] =
-  siteConfig.about.additionalMedia;
+    return {
+      ...fallbackAboutContent,
+      ...entry.data,
+      additionalMedia: entry.data.additionalMedia ?? [],
+      profileMedia:
+        entry.data.profileMedia === undefined
+          ? fallbackAboutContent.profileMedia
+          : entry.data.profileMedia,
+    };
+  } catch {
+    return fallbackAboutContent;
+  }
+}

@@ -21,6 +21,13 @@ Most site content is configurable in one file:
 
 - portfolio-config.json
 
+You can also use the local content editor for guided updates:
+
+- Run `npm run content-editor`
+- Open `http://127.0.0.1:4387`
+- Edit markdown content files, preview changes, then save
+- Upload media files for projects, company logos, and site assets
+
 This includes:
 
 - Name, branding text, and social links
@@ -46,7 +53,8 @@ This template is designed to be forked and customized **without writing code**. 
 
 1. **Fork this repository** on GitHub
 2. **Clone your fork** locally
-3. **Open `portfolio-config.json`** in your editor
+3. **Edit your markdown content files** in `src/content/`
+   - Or run `npm run content-editor` and use the local UI
 4. **Edit these fields**:
    - `site.name` → Your name
    - `site.description` → Your tagline
@@ -59,10 +67,10 @@ This template is designed to be forked and customized **without writing code**. 
 
 | Item                 | How                                        | Time               |
 | -------------------- | ------------------------------------------ | ------------------ |
-| **All text content** | Edit `portfolio-config.json`               | 15 min             |
+| **Project content**  | Edit `.md` files in `src/content/projects` | 10 min per project |
 | **Colors & fonts**   | Edit `theme` section in JSON               | 5 min              |
-| **Projects**         | Add `.md` files to `src/content/projects/` | 10 min per project |
-| **Companies/orgs**   | Add to `companies` section in JSON         | 5 min each         |
+| **About content**    | Edit `src/content/about/about.md`          | 10 min             |
+| **Companies/orgs**   | Edit `src/content/companies/companies.md`  | 10 min             |
 | **Navigation links** | Edit `navigation` array in JSON            | 2 min              |
 | **Career timeline**  | Edit `careerEras` array in JSON            | 5 min              |
 

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Editor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <h1>Content Editor</h1>
+        <p class="muted">Projects nested by company. Markdown editing with live preview.</p>
+        <div id="file-tree" class="file-tree"></div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="panel-header">
+          <div>
+            <h2 id="active-label">Select a content file</h2>
+            <p id="active-path" class="muted"></p>
+          </div>
+          <button id="toggle-create-button" type="button" class="panel-header__action">
+            Add New
+          </button>
+        </header>
+
+        <section id="quick-create-panel" class="panel-block quick-create hidden" aria-hidden="true">
+          <h3>Quick Create</h3>
+          <div class="create-grid">
+            <form id="create-project-form" class="create-card">
+              <h4>New Project</h4>
+              <input id="new-project-title" placeholder="Project title" required />
+              <input id="new-project-organization" placeholder="Organization" />
+              <input id="new-project-summary" placeholder="One-line summary" required />
+              <button type="submit">Create Project File</button>
+            </form>
+
+            <form id="create-company-form" class="create-card">
+              <h4>New Company Profile</h4>
+              <input id="new-company-name" placeholder="Company name" required />
+              <input id="new-company-summary" placeholder="Short summary" />
+              <button type="submit">Create Company File</button>
+            </form>
+
+            <form id="create-about-form" class="create-card">
+              <h4>Add About Info</h4>
+              <select id="about-section">
+                <option value="backgroundParagraphs">Background paragraph</option>
+                <option value="values">Core value</option>
+              </select>
+              <textarea id="about-text" placeholder="Text to add" rows="3" required></textarea>
+              <button type="submit">Append to About</button>
+            </form>
+          </div>
+          <p id="create-result" class="muted"></p>
+        </section>
+
+        <section class="panel-block editor-panel">
+          <div class="editor-toolbar" id="editor-toolbar">
+            <button data-action="bold" type="button">Bold</button>
+            <button data-action="italic" type="button">Italic</button>
+            <button data-action="h2" type="button">H2</button>
+            <button data-action="list" type="button">List</button>
+            <button data-action="link" type="button">Link</button>
+            <button data-action="code" type="button">Code</button>
+            <button data-action="html" type="button">HTML</button>
+          </div>
+
+          <div class="editor-grid">
+            <div>
+              <h3>Markdown <span class="editor-hint" title="The --- blocks are YAML frontmatter required by the site. Fields like title, organization, summary etc. live there. Any free text below the second --- is the markdown body.">?</span></h3>
+              <textarea id="markdown-editor" spellcheck="false"></textarea>
+            </div>
+            <div>
+              <h3>Formatted Preview</h3>
+              <div id="rendered-preview" class="rendered-preview"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="messages">
+          <div>
+            <h3>Errors</h3>
+            <ul id="error-list"></ul>
+          </div>
+          <div>
+            <h3>Warnings</h3>
+            <ul id="warning-list"></ul>
+          </div>
+        </section>
+
+        <section class="actions">
+          <button id="validate-button" type="button">Validate</button>
+          <button id="preview-button" type="button">Preview Changes</button>
+          <button id="save-button" type="button" disabled>Save</button>
+        </section>
+
+        <section id="preview" class="preview hidden">
+          <h3>Change Summary</h3>
+          <p id="preview-count"></p>
+          <ul id="preview-list"></ul>
+        </section>
+
+        <section class="panel-block upload-panel">
+          <h3>Upload Media</h3>
+          <div class="upload-grid">
+            <label>
+              Target folder
+              <select id="upload-target"></select>
+            </label>
+            <label>
+              File
+              <input id="upload-file" type="file" />
+            </label>
+          </div>
+          <button id="upload-button" type="button">Upload File</button>
+          <p id="upload-result" class="upload-result muted"></p>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

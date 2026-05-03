@@ -5,14 +5,9 @@ import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { toBasePath } from "../utils/paths";
-import { siteConfig } from "../data/siteConfig";
 import {
-  aboutAdditionalMedia,
-  aboutBackgroundParagraphs,
-  aboutProfileMedia,
-  aboutPersonalItems,
-  aboutThinkItems,
-  aboutValues,
+  getAboutContentData,
+  type AboutMediaItem,
 } from "../data/aboutContent";
 
 function resolveMediaSrc(src: string): string {
@@ -23,13 +18,20 @@ function resolveMediaSrc(src: string): string {
   return toBasePath(src.startsWith("/") ? src : `/${src}`);
 }
 
-const resumeConfig = siteConfig.about.resume;
+const aboutContent = await getAboutContentData();
+const aboutAdditionalMedia = aboutContent.additionalMedia;
+const aboutBackgroundParagraphs = aboutContent.backgroundParagraphs;
+const aboutProfileMedia: AboutMediaItem | null = aboutContent.profileMedia;
+const aboutPersonalItems = aboutContent.personalItems;
+const aboutThinkItems = aboutContent.thinkItems;
+const aboutValues = aboutContent.values;
+const resumeConfig = aboutContent.resume;
 const resumePath = resumeConfig
   ? resolveMediaSrc(resumeConfig.filePath)
   : undefined;
 ---
 
-<Layout title="About" description={siteConfig.about.metaDescription}>
+<Layout title="About" description={aboutContent.metaDescription}>
   <!-- Page Hero -->
   <PageHero
     label="// PROFILE"
