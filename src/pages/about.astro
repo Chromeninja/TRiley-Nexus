@@ -5,14 +5,9 @@ import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { toBasePath } from "../utils/paths";
-import { siteConfig } from "../data/siteConfig";
 import {
-  aboutAdditionalMedia,
-  aboutBackgroundParagraphs,
-  aboutProfileMedia,
-  aboutPersonalItems,
-  aboutThinkItems,
-  aboutValues,
+  getAboutContentData,
+  type AboutMediaItem,
 } from "../data/aboutContent";
 
 function resolveMediaSrc(src: string): string {
@@ -23,34 +18,41 @@ function resolveMediaSrc(src: string): string {
   return toBasePath(src.startsWith("/") ? src : `/${src}`);
 }
 
-const resumeConfig = siteConfig.about.resume;
-const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undefined;
+const aboutContent = await getAboutContentData();
+const aboutAdditionalMedia = aboutContent.additionalMedia;
+const aboutBackgroundParagraphs = aboutContent.backgroundParagraphs;
+const aboutProfileMedia: AboutMediaItem | null = aboutContent.profileMedia;
+const aboutPersonalItems = aboutContent.personalItems;
+const aboutThinkItems = aboutContent.thinkItems;
+const aboutValues = aboutContent.values;
+const resumeConfig = aboutContent.resume;
+const resumePath = resumeConfig
+  ? resolveMediaSrc(resumeConfig.filePath)
+  : undefined;
 ---
 
-<Layout
-  title="About"
-  description={siteConfig.about.metaDescription}
->
+<Layout title="About" description={aboutContent.metaDescription}>
   <!-- Page Hero -->
   <PageHero
     label="// PROFILE"
     title="About Me"
     subtitle="A program leader and systems-minded builder working at the intersection of people, process, and technology."
   >
-    {aboutProfileMedia && (
-      <figure slot="aside" class="profile-photo panel" aria-label="Profile photo">
-        <img
-          src={resolveMediaSrc(aboutProfileMedia.src)}
-          alt={aboutProfileMedia.alt}
-          loading="lazy"
-        />
-        {aboutProfileMedia.caption && (
-          <figcaption class="profile-photo__caption text-mono text-muted">
-            {aboutProfileMedia.caption}
-          </figcaption>
-        )}
-      </figure>
-    )}
+    {
+      aboutProfileMedia && (
+        <figure
+          slot="aside"
+          class="profile-photo panel"
+          aria-label="Profile photo"
+        >
+          <img
+            src={resolveMediaSrc(aboutProfileMedia.src)}
+            alt={aboutProfileMedia.alt}
+            loading="lazy"
+          />
+        </figure>
+      )
+    }
   </PageHero>
 
   <!-- Background -->
@@ -59,25 +61,28 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
       <div class="prose">
-        {aboutBackgroundParagraphs.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+        {aboutBackgroundParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
   </section>
 
   <!-- How I Think -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// MENTAL MODELS" title="How I Think" />
 
       <div class="think-grid">
-        {aboutThinkItems.map((item) => (
-          <div class="think-card">
-            <h3 class="think-card__title">{item.title}</h3>
-            <p class="think-card__text">{item.text}</p>
-          </div>
-        ))}
+        {
+          aboutThinkItems.map((item) => (
+            <div class="think-card">
+              <h3 class="think-card__title">{item.title}</h3>
+              <p class="think-card__text">{item.text}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -88,98 +93,135 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
       <SectionHeader label="// CAPABILITIES" title="Skills & Expertise" />
 
       <div class="skills-grid">
-        {skillGroups.map((group) => (
-          <div class="skill-group">
-            <div class="skill-group__header">
-              <span class="skill-group__icon text-accent" aria-hidden="true">{group.icon}</span>
-              <h3 class="skill-group__label">{group.label}</h3>
+        {
+          skillGroups.map((group) => (
+            <div class="skill-group">
+              <div class="skill-group__header">
+                <span class="skill-group__icon text-accent" aria-hidden="true">
+                  {group.icon}
+                </span>
+                <h3 class="skill-group__label">{group.label}</h3>
+              </div>
+              <ul class="skill-list">
+                {group.skills.map((skill) => (
+                  <li class="skill-item">
+                    <span class="skill-item__dot" aria-hidden="true">
+                      ▸
+                    </span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="skill-list">
-              {group.skills.map((skill) => (
-                <li class="skill-item">
-                  <span class="skill-item__dot" aria-hidden="true">▸</span>
-                  {skill}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Personal -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader label="// LIFE OUTSIDE WORK" title="Beyond Work" />
 
       <div class="personal-grid">
-        {aboutPersonalItems.map((item) => (
-          <div class="personal-card">
-            <span class="personal-card__icon">{item.icon}</span>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-          </div>
-        ))}
+        {
+          aboutPersonalItems.map((item) => (
+            <div class="personal-card">
+              <span class="personal-card__icon">{item.icon}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          ))
+        }
       </div>
 
-      {aboutAdditionalMedia.length > 0 && (
-        <div class="photo-strip" aria-label="Additional photos">
-          {aboutAdditionalMedia.map((item) => (
-            <figure class="photo-slot">
-              <img
-                src={resolveMediaSrc(item.src)}
-                alt={item.alt}
-                loading="lazy"
-              />
-              {item.caption && <figcaption class="text-mono text-muted">{item.caption}</figcaption>}
-            </figure>
-          ))}
-        </div>
-      )}
+      {
+        aboutAdditionalMedia.length > 0 && (
+          <div class="photo-strip" aria-label="Additional photos">
+            {aboutAdditionalMedia.map((item) => (
+              <figure class="photo-slot">
+                <img
+                  src={resolveMediaSrc(item.src)}
+                  alt={item.alt}
+                  loading="lazy"
+                />
+                {item.caption && (
+                  <figcaption class="text-mono text-muted">
+                    {item.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 
   <!-- What Matters -->
   <section class="section">
     <div class="container container--sm">
-      <SectionHeader label="// CORE VALUES" title="What Matters to Me" centered />
+      <SectionHeader
+        label="// CORE VALUES"
+        title="What Matters to Me"
+        centered
+      />
 
       <div class="values-list">
-        {aboutValues.map((value) => (
-          <div class="value-item">
-            <span class="value-item__check text-accent" aria-hidden="true">✓</span>
-            <span>{value}</span>
-          </div>
-        ))}
+        {
+          aboutValues.map((value) => (
+            <div class="value-item">
+              <span class="value-item__check text-accent" aria-hidden="true">
+                ✓
+              </span>
+              <span>{value}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  {resumeConfig && resumePath && (
-    <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
-      <div class="container container--sm">
-        <SectionHeader label="// RESUME" title={resumeConfig.title} />
+  {
+    resumeConfig && resumePath && (
+      <section
+        class="section"
+        style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+      >
+        <div class="container container--sm">
+          <SectionHeader label="// RESUME" title={resumeConfig.title} />
 
-        <div class="resume-panel panel">
-          {resumeConfig.summary && <p class="resume-panel__summary">{resumeConfig.summary}</p>}
+          <div class="resume-panel panel">
+            {resumeConfig.summary && (
+              <p class="resume-panel__summary">{resumeConfig.summary}</p>
+            )}
 
-          <p class="resume-panel__updated text-mono text-muted">
-            Last updated: <span>{resumeConfig.lastUpdated}</span>
-          </p>
+            <p class="resume-panel__updated text-mono text-muted">
+              Last updated: <span>{resumeConfig.lastUpdated}</span>
+            </p>
 
-          <div class="resume-panel__actions">
-            <a href={resumePath} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              View Resume
-            </a>
-            <a href={resumePath} class="btn btn-outline" download>
-              Download Resume
-            </a>
+            <div class="resume-panel__actions">
+              <a
+                href={resumePath}
+                class="btn btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </a>
+              <a href={resumePath} class="btn btn-outline" download>
+                Download Resume
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 </Layout>
 
 <style>
@@ -198,13 +240,6 @@ const resumePath = resumeConfig ? resolveMediaSrc(resumeConfig.filePath) : undef
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     background: var(--color-bg-card);
-  }
-
-  .profile-photo__caption {
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 0;
   }
 
   .resume-panel {

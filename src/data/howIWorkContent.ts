@@ -22,13 +22,17 @@ export interface AARQuestion {
 
 import { siteConfig } from "./siteConfig";
 
-export const coreApproachParagraphs: string[] = siteConfig.howIWork.coreApproachParagraphs;
+export const coreApproachParagraphs: string[] =
+  siteConfig.howIWork.coreApproachParagraphs;
 
-export const workPrinciples: WorkPrinciple[] = siteConfig.howIWork.workPrinciples;
+export const workPrinciples: WorkPrinciple[] =
+  siteConfig.howIWork.workPrinciples;
 
-export const workStyleGroups: WorkStyleGroup[] = siteConfig.howIWork.workStyleGroups;
+export const workStyleGroups: WorkStyleGroup[] =
+  siteConfig.howIWork.workStyleGroups;
 
-export const toolchainGroups: ToolchainGroup[] = siteConfig.howIWork.toolchainGroups;
+export const toolchainGroups: ToolchainGroup[] =
+  siteConfig.howIWork.toolchainGroups;
 
 export const aarIntro = siteConfig.howIWork.aar.intro;
 

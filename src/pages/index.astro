@@ -19,10 +19,14 @@ import { siteConfig } from "../data/siteConfig";
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content animate-fade-up">
-          <p class="hero__eyebrow section-label">{siteConfig.home.hero.eyebrow}</p>
+          <p class="hero__eyebrow section-label">
+            {siteConfig.home.hero.eyebrow}
+          </p>
           <h1 class="hero__headline">
             {siteConfig.home.hero.headlineLead}
-            <span class="hero__headline-accent"> {siteConfig.home.hero.headlineAccent}</span>
+            <span class="hero__headline-accent">
+              {siteConfig.home.hero.headlineAccent}</span
+            >
             {siteConfig.home.hero.headlineTail}
           </h1>
           <p class="hero__subtext">
@@ -32,44 +36,68 @@ import { siteConfig } from "../data/siteConfig";
             {siteConfig.home.hero.supportingText}
           </p>
           <div class="hero__actions">
-            <a href={toBasePath(siteConfig.home.hero.primaryAction.href)} class="btn btn-primary">{siteConfig.home.hero.primaryAction.label}</a>
-            <a href={toBasePath(siteConfig.home.hero.secondaryAction.href)} class="btn btn-outline">{siteConfig.home.hero.secondaryAction.label}</a>
+            <a
+              href={toBasePath(siteConfig.home.hero.primaryAction.href)}
+              class="btn btn-primary"
+              >{siteConfig.home.hero.primaryAction.label}</a
+            >
+            <a
+              href={toBasePath(siteConfig.home.hero.secondaryAction.href)}
+              class="btn btn-outline"
+              >{siteConfig.home.hero.secondaryAction.label}</a
+            >
           </div>
         </div>
 
-        <div class="hero__signal panel animate-fade-up delay-200" aria-label="Core operating zones">
+        <div
+          class="hero__signal panel animate-fade-up delay-200"
+          aria-label="Core operating zones"
+        >
           <div class="hero__signal-head">
-            <p class="hero__signal-label text-mono">FIELD MAP // ORBITAL SYSTEM</p>
+            <p class="hero__signal-label text-mono">
+              FIELD MAP // ORBITAL SYSTEM
+            </p>
             <span class="hero__signal-status">Active</span>
           </div>
 
           <div class="hero__signal-core">
             <div class="hero__signal-node hero__signal-node--center">
               <span class="hero__signal-node-title">Innovation Programs</span>
-              <span class="hero__signal-node-text">Strategy, coordination, execution</span>
+              <span class="hero__signal-node-text"
+                >Strategy, coordination, execution</span
+              >
             </div>
             <div class="hero__signal-node hero__signal-node--left">
               <span class="hero__signal-node-title">Process Design</span>
-              <span class="hero__signal-node-text">Clarity, cadence, accountability</span>
+              <span class="hero__signal-node-text"
+                >Clarity, cadence, accountability</span
+              >
             </div>
             <div class="hero__signal-node hero__signal-node--right">
               <span class="hero__signal-node-title">Technical Enablement</span>
-              <span class="hero__signal-node-text">Automation, tooling, operating leverage</span>
+              <span class="hero__signal-node-text"
+                >Automation, tooling, operating leverage</span
+              >
             </div>
           </div>
 
           <div class="hero__signal-metrics" aria-hidden="true">
             <div class="hero__signal-metric">
               <span class="hero__signal-value">People</span>
-              <span class="hero__signal-caption">Cross-functional alignment</span>
+              <span class="hero__signal-caption"
+                >Cross-functional alignment</span
+              >
             </div>
             <div class="hero__signal-metric">
               <span class="hero__signal-value">Process</span>
-              <span class="hero__signal-caption">Operational repeatability</span>
+              <span class="hero__signal-caption">Operational repeatability</span
+              >
             </div>
             <div class="hero__signal-metric">
               <span class="hero__signal-value">Systems</span>
-              <span class="hero__signal-caption">Scaled execution infrastructure</span>
+              <span class="hero__signal-caption"
+                >Scaled execution infrastructure</span
+              >
             </div>
           </div>
         </div>
@@ -92,13 +120,19 @@ import { siteConfig } from "../data/siteConfig";
       />
 
       <div class="grid-3 strengths-grid">
-        {coreStrengths.map((strength, i) => (
-          <div class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}>
-            <span class="strength-card__icon" aria-hidden="true">{strength.icon}</span>
-            <h3 class="strength-card__title">{strength.title}</h3>
-            <p class="strength-card__desc">{strength.description}</p>
-          </div>
-        ))}
+        {
+          coreStrengths.map((strength, i) => (
+            <div
+              class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            >
+              <span class="strength-card__icon" aria-hidden="true">
+                {strength.icon}
+              </span>
+              <h3 class="strength-card__title">{strength.title}</h3>
+              <p class="strength-card__desc">{strength.description}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -106,7 +140,10 @@ import { siteConfig } from "../data/siteConfig";
   <!-- ═══════════════════════════════════════════
        CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <SectionHeader
         label="// CAREER TIMELINE"
@@ -116,12 +153,19 @@ import { siteConfig } from "../data/siteConfig";
 
       <div class="career-hub-card panel">
         <p class="career-hub-card__copy text-muted">
-          The full timeline system has moved to a single hub so you can switch views without leaving context.
+          The full timeline system has moved to a single hub so you can switch
+          views without leaving context.
         </p>
         <div class="career-hub-card__actions">
-          <a href={toBasePath("/career?view=narrative")} class="btn btn-primary">Open Narrative View</a>
-          <a href={toBasePath("/career?view=gantt")} class="btn btn-outline">Open Gantt View</a>
-          <a href={toBasePath("/career?view=scroll")} class="btn btn-ghost">Open Scroll View</a>
+          <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
+            >Open Narrative View</a
+          >
+          <a href={toBasePath("/career?view=gantt")} class="btn btn-outline"
+            >Open Gantt View</a
+          >
+          <a href={toBasePath("/career?view=scroll")} class="btn btn-ghost"
+            >Open Scroll View</a
+          >
         </div>
       </div>
     </div>
@@ -132,22 +176,25 @@ import { siteConfig } from "../data/siteConfig";
   ═══════════════════════════════════════════ -->
   <section class="section">
     <div class="container container--md">
-      <SectionHeader
-        label="// OPERATING PRINCIPLES"
-        title="How I Work"
-      />
+      <SectionHeader label="// OPERATING PRINCIPLES" title="How I Work" />
 
       <div class="principles-list">
-        {homePrinciples.map((principle) => (
-          <div class="principle">
-            <span class="principle__num text-mono text-accent">{principle.num}</span>
-            <p class="principle__text">{principle.text}</p>
-          </div>
-        ))}
+        {
+          homePrinciples.map((principle) => (
+            <div class="principle">
+              <span class="principle__num text-mono text-accent">
+                {principle.num}
+              </span>
+              <p class="principle__text">{principle.text}</p>
+            </div>
+          ))
+        }
       </div>
 
       <div style="margin-top: var(--space-2xl);">
-        <a href={toBasePath("/how-i-work")} class="btn btn-outline">Read More →</a>
+        <a href={toBasePath("/how-i-work")} class="btn btn-outline"
+          >Read More →</a
+        >
       </div>
     </div>
   </section>
@@ -155,7 +202,10 @@ import { siteConfig } from "../data/siteConfig";
   <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
-  <section class="section" style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
       <div class="intro-grid">
         <div class="intro__text">
@@ -163,29 +213,36 @@ import { siteConfig } from "../data/siteConfig";
           <span class="accent-line"></span>
           <h2>A bit about me</h2>
           <p>
-            I'm a systems-minded builder with a background spanning U.S. military service,
-            technical program management, large-scale community operations, live events,
-            and automation infrastructure.
+            I'm a systems-minded builder with a background spanning U.S.
+            military service, technical program management, large-scale
+            community operations, live events, and automation infrastructure.
           </p>
           <p>
-            When I'm not building operational systems, I'm a father,
-            a competitive Star Citizen player and community leader, and someone who
-            thinks deeply about how organizations actually function at scale.
+            When I'm not building operational systems, I'm a father, a
+            competitive Star Citizen player and community leader, and someone
+            who thinks deeply about how organizations actually function at
+            scale.
           </p>
           <p>
-            I care about building things that work — not just on paper, but in the
-            messy reality of people, pressure, and imperfect information.
+            I care about building things that work — not just on paper, but in
+            the messy reality of people, pressure, and imperfect information.
           </p>
-          <a href={toBasePath("/about")} class="btn btn-outline" style="margin-top: var(--space-md);">Full Background →</a>
+          <a
+            href={toBasePath("/about")}
+            class="btn btn-outline"
+            style="margin-top: var(--space-md);">Full Background →</a
+          >
         </div>
 
         <div class="intro__stats">
-          {homeStats.map((stat) => (
-            <div class="stat-card">
-              <span class="stat-card__value">{stat.value}</span>
-              <span class="stat-card__label">{stat.label}</span>
-            </div>
-          ))}
+          {
+            homeStats.map((stat) => (
+              <div class="stat-card">
+                <span class="stat-card__value">{stat.value}</span>
+                <span class="stat-card__label">{stat.label}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -200,13 +257,18 @@ import { siteConfig } from "../data/siteConfig";
         <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
         <p>
-          I'm open to roles in technical program management, operations leadership,
-          and innovation-focused systems work. If you're building something complex
-          and need someone who can align people, process, and execution — reach out.
+          I'm open to roles in technical program management, operations
+          leadership, and innovation-focused systems work. If you're building
+          something complex and need someone who can align people, process, and
+          execution — reach out.
         </p>
         <div class="cta-panel__actions">
-          <a href={toBasePath("/contact")} class="btn btn-primary">Get in Touch</a>
-          <a href={toBasePath("/now")} class="btn btn-ghost">What I'm Working On</a>
+          <a href={toBasePath("/contact")} class="btn btn-primary"
+            >Get in Touch</a
+          >
+          <a href={toBasePath("/now")} class="btn btn-ghost"
+            >What I'm Working On</a
+          >
         </div>
       </div>
     </div>
@@ -277,7 +339,11 @@ import { siteConfig } from "../data/siteConfig";
     position: relative;
     background:
       radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
-      radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.14), transparent 28%),
+      radial-gradient(
+        circle at 85% 20%,
+        rgba(34, 211, 238, 0.14),
+        transparent 28%
+      ),
       linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
   }
 
@@ -347,7 +413,12 @@ import { siteConfig } from "../data/siteConfig";
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(87, 166, 255, 0.55), transparent);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(87, 166, 255, 0.55),
+      transparent
+    );
   }
 
   .hero__signal-core::before {
@@ -440,7 +511,11 @@ import { siteConfig } from "../data/siteConfig";
       linear-gradient(rgba(87, 166, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
     background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    mask-image: radial-gradient(
+      ellipse 80% 80% at 50% 50%,
+      black 40%,
+      transparent 100%
+    );
   }
 
   /* ── Strengths ── */
@@ -449,7 +524,9 @@ import { siteConfig } from "../data/siteConfig";
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
   }
 
   .strength-card:hover {
@@ -494,7 +571,9 @@ import { siteConfig } from "../data/siteConfig";
     border-bottom: 1px solid var(--color-border);
   }
 
-  .principle:last-child { border-bottom: none; }
+  .principle:last-child {
+    border-bottom: none;
+  }
 
   .principle__num {
     font-size: 0.75rem;

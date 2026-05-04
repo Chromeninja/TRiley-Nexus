@@ -22,48 +22,67 @@ const projectsPageData = await getProjectsPageData(6);
 
       <div class="projects-topline panel" aria-label="Projects summary">
         <p class="projects-topline__intro">
-          {projectsPageData.totalProjectCount} total projects. Start with the featured set, then browse the full list by category.
+          {projectsPageData.totalProjectCount} total projects. Start with the featured
+          set, then browse the full list by category.
         </p>
         <div class="projects-topline__chips" aria-label="Project categories">
-          {projectsPageData.categoryGroups.map((group) => (
-            <a href={`#category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} class="projects-chip">
-              {group.category} <span>{group.projects.length}</span>
-            </a>
-          ))}
+          {
+            projectsPageData.categoryGroups.map((group) => (
+              <a
+                href={`#category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                class="projects-chip"
+              >
+                {group.category} <span>{group.projects.length}</span>
+              </a>
+            ))
+          }
         </div>
       </div>
 
-      <section class="projects-section" aria-labelledby="featured-projects-heading">
+      <section
+        class="projects-section"
+        aria-labelledby="featured-projects-heading"
+      >
         <div class="projects-section__header">
           <p class="projects-section__label text-mono">01 // Featured</p>
-          <h2 id="featured-projects-heading" class="projects-section__title">Most relevant recent work</h2>
+          <h2 id="featured-projects-heading" class="projects-section__title">
+            Most relevant recent work
+          </h2>
         </div>
 
         <div class="projects-grid">
-          {projectsPageData.featuredProjects.map((project) => (
-            <ProjectCard project={project} featured />
-          ))}
+          {
+            projectsPageData.featuredProjects.map((project) => (
+              <ProjectCard project={project} featured />
+            ))
+          }
         </div>
       </section>
 
-      {projectsPageData.categoryGroups.map((group, index) => {
-        const sectionId = `category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+      {
+        projectsPageData.categoryGroups.map((group, index) => {
+          const sectionId = `category-${group.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
-        return (
-          <section class="projects-section" aria-labelledby={sectionId}>
-            <div class="projects-section__header">
-              <p class="projects-section__label text-mono">{String(index + 2).padStart(2, "0")} // {group.category}</p>
-              <h2 id={sectionId} class="projects-section__title">{group.category}</h2>
-            </div>
+          return (
+            <section class="projects-section" aria-labelledby={sectionId}>
+              <div class="projects-section__header">
+                <p class="projects-section__label text-mono">
+                  {String(index + 2).padStart(2, "0")} // {group.category}
+                </p>
+                <h2 id={sectionId} class="projects-section__title">
+                  {group.category}
+                </h2>
+              </div>
 
-            <div class="projects-grid">
-              {group.projects.map((project) => (
-                <ProjectCard project={project} />
-              ))}
-            </div>
-          </section>
-        );
-      })}
+              <div class="projects-grid">
+                {group.projects.map((project) => (
+                  <ProjectCard project={project} />
+                ))}
+              </div>
+            </section>
+          );
+        })
+      }
     </div>
   </section>
 </Layout>
@@ -101,7 +120,10 @@ const projectsPageData = await getProjectsPageData(6);
     border: 1px solid var(--color-border);
     background: transparent;
     color: var(--color-text-muted);
-    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      background var(--transition-fast);
   }
 
   .projects-chip:hover,

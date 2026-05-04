@@ -13,6 +13,47 @@ export interface SocialConfig {
   email: string;
 }
 
+export interface CompanyTimelineRoleEntry {
+  label: string;
+  start: string;
+  end?: string;
+}
+
+export interface CompanyProfile {
+  summary: string;
+  companyInfo: string;
+  myTimeInfo: string;
+  longSummary?: string;
+  roleSummary?: string;
+  achievements?: string[];
+  logo?: {
+    src: string;
+    alt: string;
+  };
+  color?: string;
+  tenureStart?: string;
+  tenureEnd?: string;
+  timelineRoles?: CompanyTimelineRoleEntry[];
+}
+
+export interface CareerAtlasEraDefinition {
+  label: string;
+  start: string;
+  end: string;
+  theme: string;
+}
+
+export interface ThemeConfig {
+  colors: {
+    [key: string]: string;
+  };
+  fonts: {
+    heading: string;
+    body: string;
+    mono: string;
+  };
+}
+
 export interface SiteConfig {
   site: {
     name: string;
@@ -100,34 +141,73 @@ export interface SiteConfig {
     status: string;
     statusNote: string;
   };
+  companies: Record<string, CompanyProfile>;
+  careerEras: CareerAtlasEraDefinition[];
+  theme: ThemeConfig;
 }
 
 function getDefaultConfigPath(): string {
   return path.resolve(process.cwd(), "portfolio-config.json");
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function hasNonEmptyString(
+  value: Record<string, unknown>,
+  key: string,
+): boolean {
+  return typeof value[key] === "string" && value[key].trim().length > 0;
+}
+
 function assertConfigShape(config: unknown): asserts config is SiteConfig {
-  if (!config || typeof config !== "object") {
+  if (!isRecord(config)) {
     throw new Error("portfolio-config.json must be a JSON object.");
   }
 
-  const candidate = config as Partial<SiteConfig>;
-  if (!candidate.site?.name || !candidate.site?.repository?.name || !candidate.site?.repository?.owner) {
-    throw new Error("portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.");
+  const siteValue = config.site;
+  if (!isRecord(siteValue)) {
+    throw new Error(
+      "portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.",
+    );
   }
 
-  if (!Array.isArray(candidate.navigation) || candidate.navigation.length === 0) {
-    throw new Error("portfolio-config.json must include at least one navigation item.");
+  const repositoryValue = siteValue.repository;
+  if (!isRecord(repositoryValue)) {
+    throw new Error(
+      "portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.",
+    );
+  }
+
+  if (
+    !hasNonEmptyString(siteValue, "name") ||
+    !hasNonEmptyString(repositoryValue, "name") ||
+    !hasNonEmptyString(repositoryValue, "owner")
+  ) {
+    throw new Error(
+      "portfolio-config.json is missing required site fields: site.name and site.repository.{owner,name}.",
+    );
+  }
+
+  if (!Array.isArray(config.navigation) || config.navigation.length === 0) {
+    throw new Error(
+      "portfolio-config.json must include at least one navigation item.",
+    );
   }
 }
 
-export function loadSiteConfig(configPath = getDefaultConfigPath()): SiteConfig {
+export function loadSiteConfig(
+  configPath = getDefaultConfigPath(),
+): SiteConfig {
   const raw = fs.readFileSync(configPath, "utf-8");
-  const parsed = JSON.parse(raw) as unknown;
+  const parsed: unknown = JSON.parse(raw);
   assertConfigShape(parsed);
   return parsed;
 }
 
 export const siteConfig = loadSiteConfig();
 
-export const enabledNavItems = siteConfig.navigation.filter((item) => item.enabled !== false);
+export const enabledNavItems = siteConfig.navigation.filter(
+  (item) => item.enabled !== false,
+);

@@ -1,6 +1,7 @@
 ---
 import { toBasePath } from "../utils/paths";
 
+// prettier-ignore
 export type TimelineViewMode = "gantt" | "narrative" | "scroll" | "company" | "life";
 
 interface ModeOption {
@@ -32,25 +33,35 @@ function buildViewHref(mode: TimelineViewMode): string {
 
 <nav class="timeline-view-selector panel" aria-label="Career timeline views">
   <p class="timeline-view-selector__label text-mono">View Selector</p>
-  <div class="timeline-view-selector__controls" role="tablist" aria-label="Timeline view modes">
-    {options.map((option) => {
-      const isActive = option.key === currentView;
+  <div
+    class="timeline-view-selector__controls"
+    role="tablist"
+    aria-label="Timeline view modes"
+  >
+    {
+      options.map((option) => {
+        const isActive = option.key === currentView;
 
-      return (
-        <a
-          href={buildViewHref(option.key)}
-          class={`btn btn-ghost btn-sm timeline-view-selector__option ${isActive ? "is-active" : ""}`}
-          role="tab"
-          aria-selected={isActive ? "true" : "false"}
-          aria-current={isActive ? "page" : undefined}
-          data-active={isActive ? "true" : "false"}
-          data-view-mode={option.key}
-        >
-          <span class="timeline-view-selector__option-full">{option.label}</span>
-          <span class="timeline-view-selector__option-short">{option.shortLabel}</span>
-        </a>
-      );
-    })}
+        return (
+          <a
+            href={buildViewHref(option.key)}
+            class={`btn btn-ghost btn-sm timeline-view-selector__option ${isActive ? "is-active" : ""}`}
+            role="tab"
+            aria-selected={isActive ? "true" : "false"}
+            aria-current={isActive ? "page" : undefined}
+            data-active={isActive ? "true" : "false"}
+            data-view-mode={option.key}
+          >
+            <span class="timeline-view-selector__option-full">
+              {option.label}
+            </span>
+            <span class="timeline-view-selector__option-short">
+              {option.shortLabel}
+            </span>
+          </a>
+        );
+      })
+    }
   </div>
 </nav>
 
@@ -59,7 +70,11 @@ function buildViewHref(mode: TimelineViewMode): string {
     display: grid;
     gap: var(--space-sm);
     border-color: color-mix(in srgb, var(--color-border), white 12%);
-    background: linear-gradient(90deg, rgba(124, 211, 137, 0.08), rgba(92, 200, 255, 0.05));
+    background: linear-gradient(
+      90deg,
+      rgba(124, 211, 137, 0.08),
+      rgba(92, 200, 255, 0.05)
+    );
   }
 
   .timeline-view-selector__label {

@@ -11,6 +11,42 @@ export default [
   {
     ignores: ["dist/**", "node_modules/**", ".astro/**"],
   },
+  {
+    files: ["**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        process: "readonly",
+        Buffer: "readonly",
+        URL: "readonly",
+        console: "readonly",
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+    },
+  },
+  {
+    files: ["tools/content-editor/public/**/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        document: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
+        structuredClone: "readonly",
+        HTMLSelectElement: "readonly",
+        FileReader: "readonly",
+        File: "readonly",
+        window: "readonly",
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+    },
+  },
   js.configs.recommended,
   {
     files: ["**/*.ts"],

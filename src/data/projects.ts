@@ -1,6 +1,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { companyProfiles } from "./companyProfiles";
+import { getCompanyProfiles } from "./companyProfiles";
 import { careerAtlasEras } from "./careerAtlas";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
+import type { CompanyProfile } from "./siteConfig";
 
 type ProjectCollectionEntry = CollectionEntry<"projects">;
 
@@ -247,6 +249,8 @@ const atlasFallbackColors = [
   "#22d3ee",
 ];
 
+let currentCompanyProfiles: Record<string, CompanyProfile> = {};
+
 function toSlugId(value: string): string {
   return value
     .toLowerCase()
@@ -264,9 +268,17 @@ function getFallbackColor(label: string): string {
   return atlasFallbackColors[hash % atlasFallbackColors.length];
 }
 
-function toPositioning(start: Date, end: Date, range: DateRange): { offsetPct: number; widthPct: number } {
-  const totalDurationMs = Math.max(range.end.getTime() - range.start.getTime(), 1);
-  const rawOffset = ((start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
+function toPositioning(
+  start: Date,
+  end: Date,
+  range: DateRange,
+): { offsetPct: number; widthPct: number } {
+  const totalDurationMs = Math.max(
+    range.end.getTime() - range.start.getTime(),
+    1,
+  );
+  const rawOffset =
+    ((start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
   const rawWidth = ((end.getTime() - start.getTime()) / totalDurationMs) * 100;
   const offsetPct = Math.min(Math.max(rawOffset, 0), 100);
   const widthPct = Math.min(Math.max(rawWidth, 1.5), 100 - offsetPct);
@@ -282,7 +294,8 @@ function toProject(entry: ProjectCollectionEntry): Project {
 }
 
 function sortByOrder(a: Project, b: Project): number {
-  const statusDifference = projectStatusSortOrder[a.status] - projectStatusSortOrder[b.status];
+  const statusDifference =
+    projectStatusSortOrder[a.status] - projectStatusSortOrder[b.status];
 
   if (statusDifference !== 0) {
     return statusDifference;
@@ -320,7 +333,11 @@ function resolveProjectRecencyDate(project: Project, referenceNow: Date): Date {
   return new Date(0);
 }
 
-function sortByRecencyThenOrder(a: Project, b: Project, referenceNow: Date): number {
+function sortByRecencyThenOrder(
+  a: Project,
+  b: Project,
+  referenceNow: Date,
+): number {
   const recencyDiff =
     resolveProjectRecencyDate(b, referenceNow).getTime() -
     resolveProjectRecencyDate(a, referenceNow).getTime();
@@ -332,20 +349,33 @@ function sortByRecencyThenOrder(a: Project, b: Project, referenceNow: Date): num
   return (a.order ?? 99) - (b.order ?? 99);
 }
 
-export async function getProjectsPageData(featuredLimit = 6): Promise<ProjectsPageData> {
+export async function getProjectsPageData(
+  featuredLimit = 6,
+): Promise<ProjectsPageData> {
   const projects = await getProjects();
   const referenceNow = new Date();
   const sortByRecency = (a: Project, b: Project): number =>
     sortByRecencyThenOrder(a, b, referenceNow);
 
-  const explicitFeatured = projects.filter((project) => project.featured).sort(sortByRecency);
-  const nonFeatured = projects.filter((project) => !project.featured).sort(sortByRecency);
-  const featuredProjects = [...explicitFeatured, ...nonFeatured].slice(0, featuredLimit);
-  const featuredSlugs = new Set(featuredProjects.map((project) => project.slug));
+  const explicitFeatured = projects
+    .filter((project) => project.featured)
+    .sort(sortByRecency);
+  const nonFeatured = projects
+    .filter((project) => !project.featured)
+    .sort(sortByRecency);
+  const featuredProjects = [...explicitFeatured, ...nonFeatured].slice(
+    0,
+    featuredLimit,
+  );
+  const featuredSlugs = new Set(
+    featuredProjects.map((project) => project.slug),
+  );
 
   const groupedByCategory = new Map<string, Project[]>();
 
-  for (const project of projects.filter((entry) => !featuredSlugs.has(entry.slug))) {
+  for (const project of projects.filter(
+    (entry) => !featuredSlugs.has(entry.slug),
+  )) {
     const category = project.category.trim() || "Other";
     const existing = groupedByCategory.get(category) ?? [];
     existing.push(project);
@@ -403,7 +433,10 @@ export function parseProjectDateValue(
     }
 
     const yearValue = Number.parseInt(monthYearMatch[2], 10);
-    const dayValue = boundary === "start" ? 1 : new Date(yearValue, monthValue + 1, 0).getDate();
+    const dayValue =
+      boundary === "start"
+        ? 1
+        : new Date(yearValue, monthValue + 1, 0).getDate();
     return new Date(yearValue, monthValue, dayValue);
   }
 
@@ -422,10 +455,12 @@ export function parseProjectDateValue(
 function getProjectDateRange(projects: Project[]): DateRange | undefined {
   const startCandidates = projects
     .map((project) => project.startedAt?.trim())
-    .filter(Boolean) as string[];
+    .filter((value): value is string => Boolean(value));
   const parsedStarts = startCandidates
     .map((value) => ({ value, parsed: parseProjectDateValue(value, "start") }))
-    .filter((entry): entry is { value: string; parsed: Date } => Boolean(entry.parsed));
+    .filter((entry): entry is { value: string; parsed: Date } =>
+      Boolean(entry.parsed),
+    );
 
   if (parsedStarts.length === 0) {
     return undefined;
@@ -439,7 +474,9 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
     .map((project) => {
       if (project.endedAt?.trim()) {
         const parsed = parseProjectDateValue(project.endedAt, "end");
-        return parsed ? { value: project.endedAt.trim(), parsed, isPresent: false } : undefined;
+        return parsed
+          ? { value: project.endedAt.trim(), parsed, isPresent: false }
+          : undefined;
       }
 
       if (project.status === "active" || project.status === "concept") {
@@ -449,7 +486,8 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
       return undefined;
     })
     .filter(
-      (entry): entry is { value: string; parsed: Date; isPresent: boolean } => Boolean(entry),
+      (entry): entry is { value: string; parsed: Date; isPresent: boolean } =>
+        Boolean(entry),
     );
 
   if (parsedEnds.length === 0) {
@@ -470,15 +508,23 @@ function getProjectDateRange(projects: Project[]): DateRange | undefined {
 }
 
 function getCompanyDateRange(organization: string): DateRange | undefined {
-  const profile = companyProfiles[organization];
+  const profile = currentCompanyProfiles[organization] as
+    | {
+        tenureStart?: string;
+        tenureEnd?: string;
+      }
+    | undefined;
   const tenureStart = profile?.tenureStart?.trim();
   if (!tenureStart) {
     return undefined;
   }
 
-  const tenureEnd = profile.tenureEnd?.trim() || "Present";
+  const tenureEnd = profile?.tenureEnd?.trim() || "Present";
   const parsedStart = parseProjectDateValue(tenureStart, "start");
-  const parsedEnd = tenureEnd === "Present" ? new Date() : parseProjectDateValue(tenureEnd, "end");
+  const parsedEnd =
+    tenureEnd === "Present"
+      ? new Date()
+      : parseProjectDateValue(tenureEnd, "end");
 
   if (!parsedStart || !parsedEnd) {
     return undefined;
@@ -493,7 +539,9 @@ function getCompanyDateRange(organization: string): DateRange | undefined {
   };
 }
 
-function getDateRangeFromSegments(segments: ParsedTimelineSegment[]): DateRange | undefined {
+function getDateRangeFromSegments(
+  segments: ParsedTimelineSegment[],
+): DateRange | undefined {
   if (segments.length === 0) {
     return undefined;
   }
@@ -514,8 +562,12 @@ function getDateRangeFromSegments(segments: ParsedTimelineSegment[]): DateRange 
   };
 }
 
-function mergeTimelineRanges(ranges: Array<DateRange | undefined>): DateRange | undefined {
-  const validRanges = ranges.filter((range): range is DateRange => Boolean(range));
+function mergeTimelineRanges(
+  ranges: Array<DateRange | undefined>,
+): DateRange | undefined {
+  const validRanges = ranges.filter((range): range is DateRange =>
+    Boolean(range),
+  );
 
   if (validRanges.length === 0) {
     return undefined;
@@ -537,7 +589,9 @@ function mergeTimelineRanges(ranges: Array<DateRange | undefined>): DateRange | 
   };
 }
 
-function getProjectTimelineSegment(project: Project): ParsedTimelineSegment | undefined {
+function getProjectTimelineSegment(
+  project: Project,
+): ParsedTimelineSegment | undefined {
   const startLabel = project.startedAt?.trim();
   if (!startLabel) {
     return undefined;
@@ -548,13 +602,19 @@ function getProjectTimelineSegment(project: Project): ParsedTimelineSegment | un
     return undefined;
   }
 
-  const endLabel = project.endedAt?.trim()
-    || (project.status === "active" || project.status === "concept" ? "Present" : undefined);
+  const endLabel =
+    project.endedAt?.trim() ||
+    (project.status === "active" || project.status === "concept"
+      ? "Present"
+      : undefined);
   if (!endLabel) {
     return undefined;
   }
 
-  const end = endLabel === "Present" ? new Date() : parseProjectDateValue(endLabel, "end");
+  const end =
+    endLabel === "Present"
+      ? new Date()
+      : parseProjectDateValue(endLabel, "end");
   if (!end) {
     return undefined;
   }
@@ -571,18 +631,29 @@ function getProjectTimelineSegment(project: Project): ParsedTimelineSegment | un
   };
 }
 
-function getRoleSegmentsFromProfile(organization: string): ParsedTimelineSegment[] {
-  const profile = companyProfiles[organization];
+function getRoleSegmentsFromProfile(
+  organization: string,
+): ParsedTimelineSegment[] {
+  const profile = currentCompanyProfiles[organization] as
+    | {
+        timelineRoles?: Array<{ label: string; start: string; end?: string }>;
+        tenureEnd?: string;
+      }
+    | undefined;
   if (!profile?.timelineRoles?.length) {
     return [];
   }
 
   return profile.timelineRoles
-    .map((role) => {
+    .map((role): ParsedTimelineSegment | undefined => {
       const startLabel = role.start.trim();
-      const endLabel = role.end?.trim() || profile.tenureEnd?.trim() || "Present";
+      const endLabel =
+        role.end?.trim() || profile.tenureEnd?.trim() || "Present";
       const start = parseProjectDateValue(startLabel, "start");
-      const end = endLabel === "Present" ? new Date() : parseProjectDateValue(endLabel, "end");
+      const end =
+        endLabel === "Present"
+          ? new Date()
+          : parseProjectDateValue(endLabel, "end");
 
       if (!start || !end) {
         return undefined;
@@ -597,11 +668,15 @@ function getRoleSegmentsFromProfile(organization: string): ParsedTimelineSegment
         kind: "role" as const,
       };
     })
-    .filter((segment): segment is ParsedTimelineSegment => Boolean(segment))
-    .sort((a, b) => a.start.getTime() - b.start.getTime());
+    .filter(
+      (segment): segment is ParsedTimelineSegment => segment !== undefined,
+    )
+    .sort((a, b) => (a?.start?.getTime() ?? 0) - (b?.start?.getTime() ?? 0));
 }
 
-function inferRoleSegmentsFromProjects(projects: Project[]): ParsedTimelineSegment[] {
+function inferRoleSegmentsFromProjects(
+  projects: Project[],
+): ParsedTimelineSegment[] {
   const groupedRoles = new Map<string, ParsedTimelineSegment[]>();
 
   for (const project of projects) {
@@ -652,10 +727,18 @@ function buildAxisYears(range: DateRange): number[] {
   return years;
 }
 
-function toRenderSegment(segment: ParsedTimelineSegment, range: DateRange): TimelineSegment {
-  const totalDurationMs = Math.max(range.end.getTime() - range.start.getTime(), 1);
-  const rawOffset = ((segment.start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
-  const rawWidth = ((segment.end.getTime() - segment.start.getTime()) / totalDurationMs) * 100;
+function toRenderSegment(
+  segment: ParsedTimelineSegment,
+  range: DateRange,
+): TimelineSegment {
+  const totalDurationMs = Math.max(
+    range.end.getTime() - range.start.getTime(),
+    1,
+  );
+  const rawOffset =
+    ((segment.start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
+  const rawWidth =
+    ((segment.end.getTime() - segment.start.getTime()) / totalDurationMs) * 100;
   const offsetPct = Math.min(Math.max(rawOffset, 0), 100);
   const widthPct = Math.min(Math.max(rawWidth, 1.5), 100 - offsetPct);
 
@@ -681,9 +764,10 @@ function buildCompanyTimeline(
     .sort((a, b) => a.start.getTime() - b.start.getTime());
 
   const roleSegments = getRoleSegmentsFromProfile(organization);
-  const resolvedRoleSegments = roleSegments.length > 0
-    ? roleSegments
-    : inferRoleSegmentsFromProjects(groupedProjects);
+  const resolvedRoleSegments =
+    roleSegments.length > 0
+      ? roleSegments
+      : inferRoleSegmentsFromProjects(groupedProjects);
 
   const mergedRange = mergeTimelineRanges([
     getCompanyDateRange(organization),
@@ -703,15 +787,19 @@ function buildCompanyTimeline(
     rangeEndLabel: mergedRange.endLabel,
     rangeLabel: mergedRange.label,
     axisYears: buildAxisYears(mergedRange),
-    roleSegments: resolvedRoleSegments.map((segment) => toRenderSegment(segment, mergedRange)),
-    projectSegments: projectSegments.map((segment) => toRenderSegment(segment, mergedRange)),
+    roleSegments: resolvedRoleSegments.map((segment) =>
+      toRenderSegment(segment, mergedRange),
+    ),
+    projectSegments: projectSegments.map((segment) =>
+      toRenderSegment(segment, mergedRange),
+    ),
   };
 }
 
 function rangeLengthInMonths(range: DateRange): number {
   return (
-    (range.end.getFullYear() - range.start.getFullYear()) * 12
-    + (range.end.getMonth() - range.start.getMonth())
+    (range.end.getFullYear() - range.start.getFullYear()) * 12 +
+    (range.end.getMonth() - range.start.getMonth())
   );
 }
 
@@ -726,7 +814,8 @@ function selectLongerRange(
     return primaryRange;
   }
 
-  return rangeLengthInMonths(primaryRange) >= rangeLengthInMonths(secondaryRange)
+  return rangeLengthInMonths(primaryRange) >=
+    rangeLengthInMonths(secondaryRange)
     ? primaryRange
     : secondaryRange;
 }
@@ -738,7 +827,9 @@ export async function getFeaturedProjects(): Promise<Project[]> {
 }
 
 // Helper: get projects by category
-export async function getProjectsByCategory(category: string): Promise<Project[]> {
+export async function getProjectsByCategory(
+  category: string,
+): Promise<Project[]> {
   const projects = await getProjects();
   return projects.filter((p) => p.category === category);
 }
@@ -752,19 +843,26 @@ export async function getCategories(): Promise<string[]> {
 // Helper: get all unique organizations
 export async function getOrganizations(): Promise<string[]> {
   const projects = await getProjects();
-  return [...new Set(projects.map((p) => p.organization?.trim()).filter(Boolean) as string[])].sort(
-    (a, b) => a.localeCompare(b),
-  );
+  return [
+    ...new Set(
+      projects.map((p) => p.organization?.trim()).filter(Boolean) as string[],
+    ),
+  ].sort((a, b) => a.localeCompare(b));
 }
 
 // Helper: get projects by organization
-export async function getProjectsByOrganization(organization: string): Promise<Project[]> {
+export async function getProjectsByOrganization(
+  organization: string,
+): Promise<Project[]> {
   const projects = await getProjects();
   return projects.filter((p) => p.organization === organization);
 }
 
 // Helper: get grouped projects by organization
-export async function getProjectOrganizationGroups(): Promise<ProjectOrganizationGroup[]> {
+export async function getProjectOrganizationGroups(): Promise<
+  ProjectOrganizationGroup[]
+> {
+  currentCompanyProfiles = await getCompanyProfiles();
   const projects = await getProjects();
   const grouped = new Map<string, Project[]>();
 
@@ -781,7 +879,13 @@ export async function getProjectOrganizationGroups(): Promise<ProjectOrganizatio
   return [...grouped.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([organization, groupedProjects]) => {
-      const profile = companyProfiles[organization];
+      const profile = currentCompanyProfiles[organization] as
+        | {
+            summary?: string;
+            companyInfo?: string;
+            myTimeInfo?: string;
+          }
+        | undefined;
       const timeline = buildCompanyTimeline(organization, groupedProjects);
       const companyRange = getCompanyDateRange(organization);
       const projectRange = getProjectDateRange(groupedProjects);
@@ -805,25 +909,38 @@ export async function getLifeTimelineEntries(): Promise<LifeTimelineEntry[]> {
   const groups = await getProjectOrganizationGroups();
 
   return groups
-    .filter((group): group is ProjectOrganizationGroup & { timeline: CompanyTimeline } =>
-      Boolean(group.timeline)
+    .filter(
+      (
+        group,
+      ): group is ProjectOrganizationGroup & { timeline: CompanyTimeline } =>
+        Boolean(group.timeline),
     )
     .map((group) => ({
       organization: group.organization,
       rangeStart: group.timeline.rangeStart,
       rangeEnd: group.timeline.rangeEnd,
       rangeLabel: group.timeline.rangeLabel,
-      roleHighlights: group.timeline.roleSegments.map((segment) => segment.label).slice(0, 3),
+      roleHighlights: group.timeline.roleSegments
+        .map((segment) => segment.label)
+        .slice(0, 3),
       projectCount: group.timeline.projectSegments.length,
-      projectHighlights: group.projects.slice(0, 2).map((project) => project.title),
+      projectHighlights: group.projects
+        .slice(0, 2)
+        .map((project) => project.title),
     }))
     .sort((a, b) => a.rangeStart.getTime() - b.rangeStart.getTime());
 }
 
-export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined> {
+export async function getCareerAtlasData(): Promise<
+  CareerAtlasData | undefined
+> {
+  currentCompanyProfiles = await getCompanyProfiles();
   const groups = await getProjectOrganizationGroups();
   const timelineGroups = groups.filter(
-    (group): group is ProjectOrganizationGroup & { timeline: CompanyTimeline } => Boolean(group.timeline),
+    (
+      group,
+    ): group is ProjectOrganizationGroup & { timeline: CompanyTimeline } =>
+      Boolean(group.timeline),
   );
 
   if (timelineGroups.length === 0) {
@@ -832,24 +949,38 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
 
   const atlasRange: DateRange = {
     start: timelineGroups.reduce(
-      (earliest, current) => (current.timeline.rangeStart < earliest ? current.timeline.rangeStart : earliest),
+      (earliest, current) =>
+        current.timeline.rangeStart < earliest
+          ? current.timeline.rangeStart
+          : earliest,
       timelineGroups[0].timeline.rangeStart,
     ),
     end: timelineGroups.reduce(
-      (latest, current) => (current.timeline.rangeEnd > latest ? current.timeline.rangeEnd : latest),
+      (latest, current) =>
+        current.timeline.rangeEnd > latest ? current.timeline.rangeEnd : latest,
       timelineGroups[0].timeline.rangeEnd,
     ),
     startLabel: String(
-      timelineGroups.reduce(
-        (earliest, current) => (current.timeline.rangeStart < earliest ? current.timeline.rangeStart : earliest),
-        timelineGroups[0].timeline.rangeStart,
-      ).getFullYear(),
+      timelineGroups
+        .reduce(
+          (earliest, current) =>
+            current.timeline.rangeStart < earliest
+              ? current.timeline.rangeStart
+              : earliest,
+          timelineGroups[0].timeline.rangeStart,
+        )
+        .getFullYear(),
     ),
     endLabel: String(
-      timelineGroups.reduce(
-        (latest, current) => (current.timeline.rangeEnd > latest ? current.timeline.rangeEnd : latest),
-        timelineGroups[0].timeline.rangeEnd,
-      ).getFullYear(),
+      timelineGroups
+        .reduce(
+          (latest, current) =>
+            current.timeline.rangeEnd > latest
+              ? current.timeline.rangeEnd
+              : latest,
+          timelineGroups[0].timeline.rangeEnd,
+        )
+        .getFullYear(),
     ),
     label: "",
   };
@@ -859,13 +990,35 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
   const currentPosition = toPositioning(new Date(), new Date(), atlasRange);
   const companies = timelineGroups
     .map((group) => {
-      const profile = companyProfiles[group.organization];
-      const companyPosition = toPositioning(group.timeline.rangeStart, group.timeline.rangeEnd, atlasRange);
+      const profile = currentCompanyProfiles[group.organization] as
+        | {
+            roleSummary?: string;
+            color?: string;
+            summary?: string;
+            longSummary?: string;
+            myTimeInfo?: string;
+            logo?: { src: string; alt: string };
+            achievements?: string[];
+          }
+        | undefined;
+      const companyPosition = toPositioning(
+        group.timeline.rangeStart,
+        group.timeline.rangeEnd,
+        atlasRange,
+      );
       const parsedRoles = getRoleSegmentsFromProfile(group.organization);
-      const roleSegments = parsedRoles.length > 0 ? parsedRoles : inferRoleSegmentsFromProjects(group.projects);
+      const roleSegments =
+        parsedRoles.length > 0
+          ? parsedRoles
+          : inferRoleSegmentsFromProjects(group.projects);
       const roles = roleSegments.map((segment) => segment.label);
-      const roleSummary = profile?.roleSummary || roles.slice(0, 2).join(" / ") || "Cross-functional contributor";
-      const color = profile?.color || getFallbackColor(group.organization);
+      const roleSummary =
+        profile?.roleSummary ||
+        roles.slice(0, 2).join(" / ") ||
+        "Cross-functional contributor";
+      const color = sanitizeCssColor(
+        profile?.color || getFallbackColor(group.organization),
+      );
 
       const projects = group.projects
         .map((project) => {
@@ -875,8 +1028,14 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
             return undefined;
           }
 
-          const position = toPositioning(segment.start, segment.end, atlasRange);
-          const tools = [...new Set([...(project.tools ?? []), ...(project.skills ?? [])])].slice(0, 6);
+          const position = toPositioning(
+            segment.start,
+            segment.end,
+            atlasRange,
+          );
+          const tools = [
+            ...new Set([...(project.tools ?? []), ...(project.skills ?? [])]),
+          ].slice(0, 6);
           const outcomes = [project.outcome, project.approach].filter(
             (entry): entry is string => Boolean(entry && entry.trim()),
           );
@@ -898,15 +1057,23 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
             endedAt: segment.endLabel,
             offsetPct: position.offsetPct,
             widthPct: position.widthPct,
-            isMajor: project.featured || project.status === "active" || (project.order ?? 99) <= 3,
+            isMajor:
+              project.featured ||
+              project.status === "active" ||
+              (project.order ?? 99) <= 3,
             isLive: segment.endLabel === "Present",
           } as CareerAtlasProjectNode;
         })
-        .filter((project): project is CareerAtlasProjectNode => Boolean(project))
+        .filter((project): project is CareerAtlasProjectNode =>
+          Boolean(project),
+        )
         .sort((a, b) => a.offsetPct - b.offsetPct);
 
-      const isActive = group.timeline.rangeEndLabel === "Present"
-        || projects.some((project) => project.isLive || project.status === "active");
+      const isActive =
+        group.timeline.rangeEndLabel === "Present" ||
+        projects.some(
+          (project) => project.isLive || project.status === "active",
+        );
 
       return {
         id: `company-${toSlugId(group.organization)}`,
@@ -929,9 +1096,11 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
     .sort((a, b) => a.offsetPct - b.offsetPct);
 
   const eras = careerAtlasEras.map((era) => {
-    const eraStart = parseProjectDateValue(era.start, "start") || atlasRange.start;
+    const eraStart =
+      parseProjectDateValue(era.start, "start") || atlasRange.start;
     const eraEnd = parseProjectDateValue(era.end, "end") || atlasRange.end;
-    const boundedStart = eraStart < atlasRange.start ? atlasRange.start : eraStart;
+    const boundedStart =
+      eraStart < atlasRange.start ? atlasRange.start : eraStart;
     const boundedEnd = eraEnd > atlasRange.end ? atlasRange.end : eraEnd;
     const position = toPositioning(boundedStart, boundedEnd, atlasRange);
 
@@ -955,11 +1124,17 @@ export async function getCareerAtlasData(): Promise<CareerAtlasData | undefined>
   };
 }
 
-function buildNarrativeProjectNode(project: Project, organization: string): CareerNarrativeProjectNode {
-  const combinedTools = [...new Set([...(project.tools ?? []), ...(project.skills ?? [])])];
-  const detailSummary = [project.problem, project.approach, project.outcome]
-    .find((entry) => entry?.trim())
-    ?.trim() || project.summary;
+function buildNarrativeProjectNode(
+  project: Project,
+  organization: string,
+): CareerNarrativeProjectNode {
+  const combinedTools = [
+    ...new Set([...(project.tools ?? []), ...(project.skills ?? [])]),
+  ];
+  const detailSummary =
+    [project.problem, project.approach, project.outcome]
+      .find((entry) => entry?.trim())
+      ?.trim() || project.summary;
 
   return {
     id: `project-${project.slug}`,
@@ -978,39 +1153,75 @@ function buildNarrativeProjectNode(project: Project, organization: string): Care
     links: project.links ?? [],
     mediaCount: project.media?.length ?? 0,
     isFeatured: Boolean(project.featured),
-    isMajor: project.featured || project.status === "active" || (project.order ?? 99) <= 3,
+    isMajor:
+      project.featured ||
+      project.status === "active" ||
+      (project.order ?? 99) <= 3,
     isLive: project.status === "active" || project.status === "concept",
     cover: project.cover,
   };
 }
 
 export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
+  currentCompanyProfiles = await getCompanyProfiles();
   const groups = await getProjectOrganizationGroups();
 
   const companies = groups
     .map((group) => {
-      const profile = companyProfiles[group.organization];
+      const profile = currentCompanyProfiles[group.organization] as
+        | {
+            summary?: string;
+            longSummary?: string;
+            companyInfo?: string;
+            myTimeInfo?: string;
+            roleSummary?: string;
+            achievements?: string[];
+            color?: string;
+            logo?: { src: string; alt: string };
+          }
+        | undefined;
       const parsedRoles = getRoleSegmentsFromProfile(group.organization);
-      const roleSegments = parsedRoles.length > 0 ? parsedRoles : inferRoleSegmentsFromProjects(group.projects);
+      const roleSegments =
+        parsedRoles.length > 0
+          ? parsedRoles
+          : inferRoleSegmentsFromProjects(group.projects);
       const roles = roleSegments.map((segment) => segment.label);
-      const narrativeProjects = group.projects.map((project) => buildNarrativeProjectNode(project, group.organization));
-      const featuredProjectCount = narrativeProjects.filter((project) => project.isFeatured).length;
-      const activeProjectCount = narrativeProjects.filter((project) => project.isLive).length;
-      const color = profile?.color || getFallbackColor(group.organization);
+      const narrativeProjects = group.projects.map((project) =>
+        buildNarrativeProjectNode(project, group.organization),
+      );
+      const featuredProjectCount = narrativeProjects.filter(
+        (project) => project.isFeatured,
+      ).length;
+      const activeProjectCount = narrativeProjects.filter(
+        (project) => project.isLive,
+      ).length;
+      const color = sanitizeCssColor(
+        profile?.color || getFallbackColor(group.organization),
+      );
 
       return {
         id: `company-${toSlugId(group.organization)}`,
         organization: group.organization,
-        summary: profile?.summary || group.companySummary || `${group.organization} work across operations, systems, and delivery.`,
+        summary:
+          profile?.summary ||
+          group.companySummary ||
+          `${group.organization} work across operations, systems, and delivery.`,
         longSummary: profile?.longSummary,
         companyInfo: profile?.companyInfo,
         myTimeInfo: profile?.myTimeInfo,
-        roleSummary: profile?.roleSummary || roles.slice(0, 2).join(" / ") || "Cross-functional systems work",
+        roleSummary:
+          profile?.roleSummary ||
+          roles.slice(0, 2).join(" / ") ||
+          "Cross-functional systems work",
         roles,
         achievements: profile?.achievements ?? [],
-        rangeLabel: group.timeline?.rangeLabel || group.timeRangeLabel || "Timeline not specified",
+        rangeLabel:
+          group.timeline?.rangeLabel ||
+          group.timeRangeLabel ||
+          "Timeline not specified",
         color,
-        isActive: group.timeline?.rangeEndLabel === "Present" || activeProjectCount > 0,
+        isActive:
+          group.timeline?.rangeEndLabel === "Present" || activeProjectCount > 0,
         projectCount: narrativeProjects.length,
         featuredProjectCount,
         activeProjectCount,
@@ -1020,31 +1231,44 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
       } as CareerNarrativeCompanyNode;
     })
     .sort((a, b) => {
-      const aStart = a.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
-      const bStart = b.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
+      const aStart =
+        a.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
+      const bStart =
+        b.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
       return aStart - bStart;
     });
 
-  const projectCount = companies.reduce((total, company) => total + company.projectCount, 0);
-  const activeCompanyCount = companies.filter((company) => company.isActive).length;
-  const liveProjectCount = companies.reduce((total, company) => total + company.activeProjectCount, 0);
+  const projectCount = companies.reduce(
+    (total, company) => total + company.projectCount,
+    0,
+  );
+  const activeCompanyCount = companies.filter(
+    (company) => company.isActive,
+  ).length;
+  const liveProjectCount = companies.reduce(
+    (total, company) => total + company.activeProjectCount,
+    0,
+  );
 
-  const narrativeRange = companies.reduce<DateRange | undefined>((currentRange, company) => {
-    const timeline = company.timeline;
-    if (!timeline) {
-      return currentRange;
-    }
+  const narrativeRange = companies.reduce<DateRange | undefined>(
+    (currentRange, company) => {
+      const timeline = company.timeline;
+      if (!timeline) {
+        return currentRange;
+      }
 
-    const companyRange: DateRange = {
-      start: timeline.rangeStart,
-      end: timeline.rangeEnd,
-      startLabel: timeline.rangeStartLabel,
-      endLabel: timeline.rangeEndLabel,
-      label: timeline.rangeLabel,
-    };
+      const companyRange: DateRange = {
+        start: timeline.rangeStart,
+        end: timeline.rangeEnd,
+        startLabel: timeline.rangeStartLabel,
+        endLabel: timeline.rangeEndLabel,
+        label: timeline.rangeLabel,
+      };
 
-    return mergeTimelineRanges([currentRange, companyRange]);
-  }, undefined);
+      return mergeTimelineRanges([currentRange, companyRange]);
+    },
+    undefined,
+  );
 
   return {
     rangeLabel: narrativeRange?.label || "Career timeline in progress",
@@ -1057,7 +1281,9 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
 }
 
 // Helper: get project by slug
-export async function getProjectBySlug(slug: string): Promise<Project | undefined> {
+export async function getProjectBySlug(
+  slug: string,
+): Promise<Project | undefined> {
   const projects = await getProjects();
   return projects.find((p) => p.slug === slug);
 }

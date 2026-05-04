@@ -7,64 +7,76 @@ interface Props {
 
 const { timeline } = Astro.props;
 const visibleProjectSegments = timeline.projectSegments.slice(0, 8);
-const hiddenProjectCount = timeline.projectSegments.length - visibleProjectSegments.length;
+const hiddenProjectCount =
+  timeline.projectSegments.length - visibleProjectSegments.length;
 ---
 
-<div class="company-timeline panel" aria-label={`${timeline.organization} timeline`}>
+<div
+  class="company-timeline panel"
+  aria-label={`${timeline.organization} timeline`}
+>
   <div class="company-timeline__header text-mono text-muted">
     <span>Timeline: {timeline.rangeLabel}</span>
   </div>
 
   <div class="company-timeline__axis" aria-hidden="true">
-    {timeline.axisYears.map((year) => (
-      <span>{year}</span>
-    ))}
+    {timeline.axisYears.map((year) => <span>{year}</span>)}
   </div>
 
   <div class="company-timeline__lane-group">
     <p class="company-timeline__lane-title text-mono text-accent">Roles</p>
     <div class="company-timeline__rows">
-      {timeline.roleSegments.map((segment) => (
-        <div class="company-timeline__row">
-          <span class="company-timeline__label">{segment.label}</span>
-          <div class="company-timeline__track">
-            <span
-              class="company-timeline__bar company-timeline__bar--role"
-              style={`left: ${segment.offsetPct}%; width: ${segment.widthPct}%;`}
-            >
-              <span class="company-timeline__bar-label text-mono">{segment.startLabel} - {segment.endLabel}</span>
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {visibleProjectSegments.length > 0 && (
-    <div class="company-timeline__lane-group">
-      <p class="company-timeline__lane-title text-mono text-accent">Projects</p>
-      <div class="company-timeline__rows">
-        {visibleProjectSegments.map((segment) => (
+      {
+        timeline.roleSegments.map((segment) => (
           <div class="company-timeline__row">
             <span class="company-timeline__label">{segment.label}</span>
             <div class="company-timeline__track">
               <span
-                class={`company-timeline__bar company-timeline__bar--project company-timeline__bar--${segment.status ?? "completed"}`}
+                class="company-timeline__bar company-timeline__bar--role"
                 style={`left: ${segment.offsetPct}%; width: ${segment.widthPct}%;`}
               >
-                <span class="company-timeline__bar-label text-mono">{segment.startLabel} - {segment.endLabel}</span>
+                <span class="company-timeline__bar-label text-mono">
+                  {segment.startLabel} - {segment.endLabel}
+                </span>
               </span>
             </div>
           </div>
-        ))}
-      </div>
-      {hiddenProjectCount > 0 && (
-        <p class="company-timeline__overflow-note text-mono text-muted">
-          +{hiddenProjectCount} more project timeline entries
-        </p>
-      )}
+        ))
+      }
     </div>
-  )}
+  </div>
+
+  {
+    visibleProjectSegments.length > 0 && (
+      <div class="company-timeline__lane-group">
+        <p class="company-timeline__lane-title text-mono text-accent">
+          Projects
+        </p>
+        <div class="company-timeline__rows">
+          {visibleProjectSegments.map((segment) => (
+            <div class="company-timeline__row">
+              <span class="company-timeline__label">{segment.label}</span>
+              <div class="company-timeline__track">
+                <span
+                  class={`company-timeline__bar company-timeline__bar--project company-timeline__bar--${segment.status ?? "completed"}`}
+                  style={`left: ${segment.offsetPct}%; width: ${segment.widthPct}%;`}
+                >
+                  <span class="company-timeline__bar-label text-mono">
+                    {segment.startLabel} - {segment.endLabel}
+                  </span>
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        {hiddenProjectCount > 0 && (
+          <p class="company-timeline__overflow-note text-mono text-muted">
+            +{hiddenProjectCount} more project timeline entries
+          </p>
+        )}
+      </div>
+    )
+  }
 </div>
 
 <style>
@@ -145,7 +157,11 @@ const hiddenProjectCount = timeline.projectSegments.length - visibleProjectSegme
   }
 
   .company-timeline__bar--role {
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent), black 15%), var(--color-accent2));
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent), black 15%),
+      var(--color-accent2)
+    );
   }
 
   .company-timeline__bar--project {

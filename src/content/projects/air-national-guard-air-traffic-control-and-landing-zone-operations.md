@@ -1,35 +1,39 @@
 ---
-title: Air National Guard Air Traffic Control and Landing Zone Operations
+title: 235th Combat Airfield Operations Squadron — Air Traffic Control
 status: active
 category: Military Operations
 tags:
   - Air Traffic Control
-  - Landing Zone Safety
-  - Airfield Assessments
-  - Readiness Leadership
-organization: 235th Air Traffic Control Squadron
+  - AFSC 1C1X1
+  - Expeditionary Airfield Operations
+  - Airfield Operations
+  - Air National Guard
+organization: 235th Combat Airfield Operations Squadron (formerly 235th ATCS)
 timeframe: Ongoing
-roleTitle: Air Traffic Controller / Landing Zone Safety Officer
+roleTitle: Air Traffic Controller (AFSC 1C1X1)
 startedAt: Apr 2015
-summary: Served with the North Carolina Air National Guard in air traffic control and expeditionary airfield operations, qualifying as a tower controller, supporting landing zone missions, and serving in additional readiness leadership roles with the 235th Air Traffic Control Squadron.
-cardSummary: Air traffic control and landing zone operations leadership across domestic and international mission environments.
+summary: Serving as an Air Traffic Controller (AFSC 1C1X1) with the North Carolina Air National Guard's 235th Combat Airfield Operations Squadron — formerly the 235th Air Traffic Control Squadron. Qualified tower controller supporting expeditionary and domestic airfield missions across the full ATC spectrum.
+cover:
+  src: /media/projects/ang-235-germany.jpg
+  alt: 235th CAOS team members LZSO operations in Germany
+cardSummary: Qualified ANG tower controller supporting expeditionary and domestic airfield operations since 2015.
 highlights:
-  - Qualified tower controller supporting expeditionary and domestic airfield missions.
-  - Led landing zone safety and airfield suitability assessments in austere conditions.
-  - Strengthened squadron readiness through additional-duty leadership and training support.
-problem: Airfield and landing zone missions depend on safe control procedures, strong readiness standards, and reliable leadership across diverse mission sets and distributed personnel.
-approach: Transferred into the 235th ATCS in April 2015, completed Air Traffic Control Specialist training at Keesler AFB in May 2016, qualified as a tower controller, conducted landing zone safety and initial airfield suitability work in austere environments, supported squadron readiness as an additional-duty First Sergeant, and continued professional development through Air Advisor training in November 2024 and Combat Airspace training in June 2025.
-outcome: Helped sustain safe and mission-ready ATC and landing zone operations, supported squadron morale and readiness across a multi-AFSC unit, and contributed to domestic and international mission support in multiple countries.
+  - Completed Air Traffic Control Specialist training at Keesler AFB, May 2016, and qualified as a tower controller supporting expeditionary and domestic airfield missions.
+  - Maintains currency and readiness across tower, ground control, and approach control environments across domestic and international mission profiles.
+  - Served through the unit's redesignation from the 235th ATCS to the 235th CAOS, reflecting an expanded combat airfield operations mission.
+problem: Airfield operations in expeditionary environments require controllers who can establish and manage safe, efficient airspace with limited infrastructure, often at austere locations under operational pressure.
+approach: Transferred into the 235th ATCS in April 2015 following TACP service with the 118th ASOS. Completed formal ATC Specialist training at Keesler AFB and qualified as a tower controller, then built operational experience across domestic training and international mission deployments. Maintained readiness and currency through recurring unit training, exercises, and real-world airfield operations as the squadron expanded its mission into the full Combat Airfield Operations (CAOS) role.
+outcome: Sustained qualification as a tower controller across more than a decade of Guard service, supporting safe airfield operations in both home-station and expeditionary environments. Additional SEI certifications — LZSO, Air Advisor, and AOC Combat Airspace — built directly on this ATC foundation.
 skills:
   - Air Traffic Control
-  - Landing Zone Safety
-  - Airfield Suitability Assessment
-  - Readiness Leadership
-  - Team Development
+  - Tower Operations
+  - Airfield Operations
+  - Expeditionary Airfield Operations
+  - Radio Communications
+  - Airspace Management
 tools:
   - Airfield Operations Systems
-  - Radio Communications
-  - Microsoft 365
+  - Radio Communications Equipment
 featured: true
 order: 1
 ---

@@ -13,26 +13,35 @@ const hasMetaSlot = Astro.slots.has("meta");
 
 <section class="page-hero">
   <div class="container">
-    <div class:list={["page-hero__layout", hasAside && "page-hero__layout--with-aside"]}>
+    <div
+      class:list={[
+        "page-hero__layout",
+        hasAside && "page-hero__layout--with-aside",
+      ]}
+    >
       <div class="page-hero__content">
         <p class="section-label">{label}</p>
         <span class="accent-line"></span>
         <h1>{title}</h1>
         {subtitle && <p class="page-hero__sub">{subtitle}</p>}
-        {hasMetaSlot ? (
-          <p class="page-hero__meta text-mono text-muted">
-            <slot name="meta" />
-          </p>
-        ) : (
-          meta && <p class="page-hero__meta text-mono text-muted">{meta}</p>
-        )}
+        {
+          hasMetaSlot ? (
+            <p class="page-hero__meta text-mono text-muted">
+              <slot name="meta" />
+            </p>
+          ) : (
+            meta && <p class="page-hero__meta text-mono text-muted">{meta}</p>
+          )
+        }
       </div>
 
-      {hasAside && (
-        <div class="page-hero__aside">
-          <slot name="aside" />
-        </div>
-      )}
+      {
+        hasAside && (
+          <div class="page-hero__aside">
+            <slot name="aside" />
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

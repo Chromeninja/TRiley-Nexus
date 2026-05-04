@@ -6,7 +6,9 @@ import CareerNarrativeExplorer from "../../components/CareerNarrativeExplorer.as
 import CareerScrollTimeline from "../../components/CareerScrollTimeline.astro";
 import CompanyTimeline from "../../components/CompanyTimeline.astro";
 import LifeTimeline from "../../components/LifeTimeline.astro";
-import TimelineViewSelector, { type TimelineViewMode } from "../../components/TimelineViewSelector.astro";
+import TimelineViewSelector, {
+  type TimelineViewMode,
+} from "../../components/TimelineViewSelector.astro";
 import {
   getCareerAtlasData,
   getCareerNarrativeData,
@@ -31,7 +33,13 @@ interface TimelineYearGroup {
   months: TimelineMonthGroup[];
 }
 
-const timelineViewModes: TimelineViewMode[] = ["gantt", "narrative", "scroll", "company", "life"];
+const timelineViewModes: TimelineViewMode[] = [
+  "gantt",
+  "narrative",
+  "scroll",
+  "company",
+  "life",
+];
 
 function resolveTimelineViewMode(value: string | null): TimelineViewMode {
   if (!value) {
@@ -44,7 +52,9 @@ function resolveTimelineViewMode(value: string | null): TimelineViewMode {
     : "narrative";
 }
 
-const timelineView = resolveTimelineViewMode(Astro.url.searchParams.get("view"));
+const timelineView = resolveTimelineViewMode(
+  Astro.url.searchParams.get("view"),
+);
 
 const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" });
 
@@ -81,17 +91,16 @@ const shouldShowLife = timelineView === "life";
 const atlasData = await getCareerAtlasData();
 const narrativeData = await getCareerNarrativeData();
 
-let currentProjects: Project[] = [];
-let yearGroups: TimelineYearGroup[] = [];
-
 const projects = await getProjects();
 const activeStatuses = new Set(["active", "concept"]);
 
-currentProjects = projects
+const currentProjects = projects
   .filter((project) => activeStatuses.has(project.status))
   .sort(sortByOrderThenDate);
 
-const historicalProjects = projects.filter((project) => !activeStatuses.has(project.status));
+const historicalProjects = projects.filter(
+  (project) => !activeStatuses.has(project.status),
+);
 const yearBucket = new Map<number, Map<number, Project[]>>();
 
 for (const project of historicalProjects) {
@@ -119,7 +128,7 @@ for (const project of historicalProjects) {
   monthBucket.get(month)?.push(project);
 }
 
-yearGroups = [...yearBucket.entries()]
+const yearGroups: TimelineYearGroup[] = [...yearBucket.entries()]
   .sort(([yearA], [yearB]) => yearB - yearA)
   .map(([year, monthMap]) => {
     const months: TimelineMonthGroup[] = [...monthMap.entries()]
@@ -140,10 +149,18 @@ yearGroups = [...yearBucket.entries()]
 
 const organizationGroups = await getProjectOrganizationGroups();
 const companyTimelineGroups = organizationGroups
-  .filter((group): group is ProjectOrganizationGroup & { timeline: NonNullable<ProjectOrganizationGroup["timeline"]> } =>
-    Boolean(group.timeline),
+  .filter(
+    (
+      group,
+    ): group is ProjectOrganizationGroup & {
+      timeline: NonNullable<ProjectOrganizationGroup["timeline"]>;
+    } => Boolean(group.timeline),
   )
-  .sort((groupA, groupB) => groupA.timeline.rangeStart.getTime() - groupB.timeline.rangeStart.getTime());
+  .sort(
+    (groupA, groupB) =>
+      groupA.timeline.rangeStart.getTime() -
+      groupB.timeline.rangeStart.getTime(),
+  );
 
 const lifeTimelineEntries = await getLifeTimelineEntries();
 ---
@@ -162,66 +179,114 @@ const lifeTimelineEntries = await getLifeTimelineEntries();
 
       <TimelineViewSelector currentView={timelineView} />
 
-      {narrativeData && (
-        <div class={`career-view-panel ${shouldShowNarrative ? "" : "is-hidden"}`} data-career-view-panel="narrative">
-          <CareerNarrativeExplorer
-            data={narrativeData}
-            label="// CAREER SYSTEM"
-            title="Explore the companies, systems, and programs behind the work"
-            subtitle="Expand each company to inspect projects, roles, and execution context in-place."
-            initialOpenCompanyCount={1}
-          />
-        </div>
-      )}
+      {
+        narrativeData && (
+          <div
+            class={`career-view-panel ${shouldShowNarrative ? "" : "is-hidden"}`}
+            data-career-view-panel="narrative"
+          >
+            <CareerNarrativeExplorer
+              data={narrativeData}
+              label="// CAREER SYSTEM"
+              title="Explore the companies, systems, and programs behind the work"
+              subtitle="Expand each company to inspect projects, roles, and execution context in-place."
+              initialOpenCompanyCount={1}
+            />
+          </div>
+        )
+      }
 
-      <div class={`career-view-panel ${shouldShowGantt ? "" : "is-hidden"}`} data-career-view-panel="gantt">
-          {atlasData ? (
+      <div
+        class={`career-view-panel ${shouldShowGantt ? "" : "is-hidden"}`}
+        data-career-view-panel="gantt"
+      >
+        {
+          atlasData ? (
             <CareerAtlas data={atlasData} />
           ) : (
             <div class="panel career-view-empty">
-              <p class="text-muted">Gantt atlas data appears once dated company and project entries are available.</p>
+              <p class="text-muted">
+                Gantt atlas data appears once dated company and project entries
+                are available.
+              </p>
             </div>
-          )}
+          )
+        }
       </div>
 
-      <div class={`career-view-panel ${shouldShowScroll ? "" : "is-hidden"}`} data-career-view-panel="scroll">
-        <CareerScrollTimeline currentProjects={currentProjects} yearGroups={yearGroups} />
+      <div
+        class={`career-view-panel ${shouldShowScroll ? "" : "is-hidden"}`}
+        data-career-view-panel="scroll"
+      >
+        <CareerScrollTimeline
+          currentProjects={currentProjects}
+          yearGroups={yearGroups}
+        />
       </div>
 
-      <div class={`career-view-panel career-company-view ${shouldShowCompany ? "" : "is-hidden"}`} data-career-view-panel="company">
-          {companyTimelineGroups.length > 0 ? (
+      <div
+        class={`career-view-panel career-company-view ${shouldShowCompany ? "" : "is-hidden"}`}
+        data-career-view-panel="company"
+      >
+        {
+          companyTimelineGroups.length > 0 ? (
             companyTimelineGroups.map((group) => (
               <article class="panel career-company-view__item">
                 <header class="career-company-view__header">
-                  <p class="text-mono text-accent career-company-view__label">{group.timeRangeLabel ?? group.timeline.rangeLabel}</p>
+                  <p class="text-mono text-accent career-company-view__label">
+                    {group.timeRangeLabel ?? group.timeline.rangeLabel}
+                  </p>
                   <h2>{group.organization}</h2>
-                  {group.companySummary && <p class="text-muted">{group.companySummary}</p>}
+                  {group.companySummary && (
+                    <p class="text-muted">{group.companySummary}</p>
+                  )}
                 </header>
                 <CompanyTimeline timeline={group.timeline} />
               </article>
             ))
           ) : (
             <div class="panel career-view-empty">
-              <p class="text-muted">Company timelines appear once organization timeline data is available.</p>
+              <p class="text-muted">
+                Company timelines appear once organization timeline data is
+                available.
+              </p>
             </div>
-          )}
+          )
+        }
       </div>
 
-      <div class={`career-view-panel ${shouldShowLife ? "" : "is-hidden"}`} data-career-view-panel="life">
+      <div
+        class={`career-view-panel ${shouldShowLife ? "" : "is-hidden"}`}
+        data-career-view-panel="life"
+      >
         <LifeTimeline entries={lifeTimelineEntries} />
       </div>
 
-      <p class="career-view-helper text-muted text-mono">Shareable links use query mode: /career?view=narrative, /career?view=gantt, /career?view=scroll, /career?view=company, /career?view=life</p>
+      <p class="career-view-helper text-muted text-mono">
+        Shareable links use query mode: /career?view=narrative,
+        /career?view=gantt, /career?view=scroll, /career?view=company,
+        /career?view=life
+      </p>
     </div>
   </section>
 
   <script>
     (() => {
-      const validModes = new Set(["gantt", "narrative", "scroll", "company", "life"]);
+      const validModes = new Set([
+        "gantt",
+        "narrative",
+        "scroll",
+        "company",
+        "life",
+      ]);
       const selectorOptions = Array.from(
-        document.querySelectorAll<HTMLAnchorElement>('.timeline-view-selector__option[data-view-mode]'),
+        document.querySelectorAll<HTMLAnchorElement>(
+          ".timeline-view-selector__option[data-view-mode]",
+        ),
       );
-      const viewPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-career-view-panel]'));
+      const viewPanels = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-career-view-panel]"),
+      );
 
       if (selectorOptions.length === 0 || viewPanels.length === 0) {
         return;
@@ -273,7 +338,13 @@ const lifeTimelineEntries = await getLifeTimelineEntries();
             return;
           }
 
-          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          if (
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          ) {
             return;
           }
 
@@ -286,7 +357,11 @@ const lifeTimelineEntries = await getLifeTimelineEntries();
           const resolvedMode = setActiveMode(targetMode);
           const nextUrl = new URL(target.href, window.location.origin);
           nextUrl.searchParams.set("view", resolvedMode);
-          window.history.pushState({}, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+          window.history.pushState(
+            {},
+            "",
+            `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`,
+          );
           event.preventDefault();
         });
       });

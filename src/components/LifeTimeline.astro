@@ -6,62 +6,95 @@ interface Props {
 }
 
 const { entries } = Astro.props;
-const careerStart = entries.length > 0
-  ? entries.reduce((currentEarliest, entry) =>
-    entry.rangeStart < currentEarliest ? entry.rangeStart : currentEarliest, entries[0].rangeStart)
-  : undefined;
-const careerEnd = entries.length > 0
-  ? entries.reduce((currentLatest, entry) =>
-    entry.rangeEnd > currentLatest ? entry.rangeEnd : currentLatest, entries[0].rangeEnd)
-  : undefined;
+const careerStart =
+  entries.length > 0
+    ? entries.reduce(
+        (currentEarliest, entry) =>
+          entry.rangeStart < currentEarliest
+            ? entry.rangeStart
+            : currentEarliest,
+        entries[0].rangeStart,
+      )
+    : undefined;
+const careerEnd =
+  entries.length > 0
+    ? entries.reduce(
+        (currentLatest, entry) =>
+          entry.rangeEnd > currentLatest ? entry.rangeEnd : currentLatest,
+        entries[0].rangeEnd,
+      )
+    : undefined;
 
 function buildSpanStyle(entry: LifeTimelineEntry): string {
   if (!careerStart || !careerEnd) {
     return "";
   }
 
-  const totalDuration = Math.max(careerEnd.getTime() - careerStart.getTime(), 1);
-  const offset = ((entry.rangeStart.getTime() - careerStart.getTime()) / totalDuration) * 100;
-  const width = ((entry.rangeEnd.getTime() - entry.rangeStart.getTime()) / totalDuration) * 100;
+  const totalDuration = Math.max(
+    careerEnd.getTime() - careerStart.getTime(),
+    1,
+  );
+  const offset =
+    ((entry.rangeStart.getTime() - careerStart.getTime()) / totalDuration) *
+    100;
+  const width =
+    ((entry.rangeEnd.getTime() - entry.rangeStart.getTime()) / totalDuration) *
+    100;
 
   return `left: ${Math.max(offset, 0)}%; width: ${Math.max(width, 2)}%;`;
 }
 ---
 
 <div class="life-timeline panel" aria-label="Career life timeline">
-  {entries.length > 0 ? (
-    <>
-      <div class="life-timeline__header text-mono text-muted">
-        <span>Career timeline: {entries[0]?.rangeStart.getFullYear()} - {entries[entries.length - 1]?.rangeEnd.getFullYear()}</span>
-      </div>
+  {
+    entries.length > 0 ? (
+      <>
+        <div class="life-timeline__header text-mono text-muted">
+          <span>
+            Career timeline: {entries[0]?.rangeStart.getFullYear()} -{" "}
+            {entries[entries.length - 1]?.rangeEnd.getFullYear()}
+          </span>
+        </div>
 
-      <div class="life-timeline__list">
-        {entries.map((entry) => (
-          <article class="life-timeline__item">
-            <p class="life-timeline__range text-mono text-accent">{entry.rangeLabel}</p>
-            <h3 class="life-timeline__company">{entry.organization}</h3>
-
-            <div class="life-timeline__track" aria-hidden="true">
-              <span class="life-timeline__span" style={buildSpanStyle(entry)}></span>
-            </div>
-
-            {entry.roleHighlights.length > 0 && (
-              <p class="life-timeline__roles">
-                <span class="text-mono text-accent">Roles:</span> {entry.roleHighlights.join(" / ")}
+        <div class="life-timeline__list">
+          {entries.map((entry) => (
+            <article class="life-timeline__item">
+              <p class="life-timeline__range text-mono text-accent">
+                {entry.rangeLabel}
               </p>
-            )}
+              <h3 class="life-timeline__company">{entry.organization}</h3>
 
-            <p class="life-timeline__meta text-muted">
-              {entry.projectCount} project{entry.projectCount === 1 ? "" : "s"}
-              {entry.projectHighlights.length > 0 && ` • ${entry.projectHighlights.join(" • ")}`}
-            </p>
-          </article>
-        ))}
-      </div>
-    </>
-  ) : (
-    <p class="text-muted">Timeline data will appear as dated company and project entries are added.</p>
-  )}
+              <div class="life-timeline__track" aria-hidden="true">
+                <span
+                  class="life-timeline__span"
+                  style={buildSpanStyle(entry)}
+                />
+              </div>
+
+              {entry.roleHighlights.length > 0 && (
+                <p class="life-timeline__roles">
+                  <span class="text-mono text-accent">Roles:</span>{" "}
+                  {entry.roleHighlights.join(" / ")}
+                </p>
+              )}
+
+              <p class="life-timeline__meta text-muted">
+                {entry.projectCount} project
+                {entry.projectCount === 1 ? "" : "s"}
+                {entry.projectHighlights.length > 0 &&
+                  ` • ${entry.projectHighlights.join(" • ")}`}
+              </p>
+            </article>
+          ))}
+        </div>
+      </>
+    ) : (
+      <p class="text-muted">
+        Timeline data will appear as dated company and project entries are
+        added.
+      </p>
+    )
+  }
 </div>
 
 <style>
@@ -119,7 +152,11 @@ function buildSpanStyle(entry: LifeTimelineEntry): string {
     bottom: 1px;
     min-width: 8px;
     border-radius: var(--radius-sm);
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent), black 8%), color-mix(in srgb, var(--color-accent2), black 8%));
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent), black 8%),
+      color-mix(in srgb, var(--color-accent2), black 8%)
+    );
   }
 
   .life-timeline__roles,

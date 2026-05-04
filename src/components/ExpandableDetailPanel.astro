@@ -19,7 +19,9 @@ const { id, title } = Astro.props;
     opacity: 0;
     overflow: clip;
     pointer-events: none;
-    transition: max-height var(--transition-slow), opacity var(--transition-base);
+    transition:
+      max-height var(--transition-slow),
+      opacity var(--transition-base);
   }
 
   .expandable-detail--open {

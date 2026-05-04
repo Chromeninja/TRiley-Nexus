@@ -14,7 +14,8 @@ import { siteConfig } from "./siteConfig";
 
 export const nowLastUpdated = siteConfig.now.lastUpdated;
 
-export const explorationItems: ExplorationItem[] = siteConfig.now.explorationItems;
+export const explorationItems: ExplorationItem[] =
+  siteConfig.now.explorationItems;
 
 export const priorityItems: PriorityItem[] = siteConfig.now.priorityItems;
 

@@ -1,7 +1,16 @@
 <div class="atlas-legend" aria-label="Timeline legend">
-  <span class="atlas-legend__item"><i class="atlas-legend__swatch atlas-legend__swatch--company"></i>Company Span</span>
-  <span class="atlas-legend__item"><i class="atlas-legend__swatch atlas-legend__swatch--project"></i>Project</span>
-  <span class="atlas-legend__item"><i class="atlas-legend__swatch atlas-legend__swatch--live"></i>Live / Present</span>
+  <span class="atlas-legend__item"
+    ><i class="atlas-legend__swatch atlas-legend__swatch--company"></i>Company
+    Span</span
+  >
+  <span class="atlas-legend__item"
+    ><i class="atlas-legend__swatch atlas-legend__swatch--project"
+    ></i>Project</span
+  >
+  <span class="atlas-legend__item"
+    ><i class="atlas-legend__swatch atlas-legend__swatch--live"></i>Live /
+    Present</span
+  >
 </div>
 
 <style>
@@ -32,15 +41,27 @@
   }
 
   .atlas-legend__swatch--company {
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent), black 36%), color-mix(in srgb, var(--color-accent), white 10%));
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent), black 36%),
+      color-mix(in srgb, var(--color-accent), white 10%)
+    );
   }
 
   .atlas-legend__swatch--project {
-    background: linear-gradient(90deg, color-mix(in srgb, #5cc8ff, black 24%), color-mix(in srgb, #5cc8ff, white 8%));
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, #5cc8ff, black 24%),
+      color-mix(in srgb, #5cc8ff, white 8%)
+    );
   }
 
   .atlas-legend__swatch--live {
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-success), black 35%), color-mix(in srgb, var(--color-success), white 8%));
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-success), black 35%),
+      color-mix(in srgb, var(--color-success), white 8%)
+    );
     box-shadow: 0 0 14px rgba(74, 222, 128, 0.35);
   }
 </style>

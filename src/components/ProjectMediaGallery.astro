@@ -9,9 +9,14 @@ interface Props {
 const { media = [] } = Astro.props;
 
 const firstVideoIndex = media.findIndex((item) => item.type === "video");
-const orderedMedia = firstVideoIndex <= 0
-  ? media
-  : [media[firstVideoIndex], ...media.slice(0, firstVideoIndex), ...media.slice(firstVideoIndex + 1)];
+const orderedMedia =
+  firstVideoIndex <= 0
+    ? media
+    : [
+        media[firstVideoIndex],
+        ...media.slice(0, firstVideoIndex),
+        ...media.slice(firstVideoIndex + 1),
+      ];
 
 function resolveSrc(src: string): string {
   if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
@@ -23,65 +28,91 @@ function resolveSrc(src: string): string {
 }
 ---
 
-{orderedMedia.length > 0 && (
-<section class="project-gallery" data-project-gallery tabindex="0">
-  <div class="project-gallery__viewport" aria-live="polite">
-    {orderedMedia.map((item, index) => (
-      <figure class={`project-gallery__slide ${index === 0 ? "is-active" : ""}`} data-gallery-slide aria-hidden={index === 0 ? "false" : "true"}>
-        {item.type === "video" ? (
-          <video
-            class="project-gallery__media"
-            autoplay
-            controls
-            loop
-            muted
-            preload="metadata"
-            playsinline
-            poster={item.poster ? resolveSrc(item.poster) : undefined}
-          >
-            <source src={resolveSrc(item.src)} />
-          </video>
-        ) : (
-          <img
-            class="project-gallery__media"
-            src={resolveSrc(item.src)}
-            alt={item.alt}
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
-        )}
-        {item.caption && <figcaption class="project-gallery__caption">{item.caption}</figcaption>}
-      </figure>
-    ))}
-  </div>
-
-  {orderedMedia.length > 1 && (
-    <div class="project-gallery__controls">
-      <button type="button" class="project-gallery__nav" data-gallery-prev aria-label="Previous media item">
-        ←
-      </button>
-      <div class="project-gallery__dots" role="tablist" aria-label="Project media slides">
+{
+  orderedMedia.length > 0 && (
+    <section class="project-gallery" data-project-gallery tabindex="0">
+      <div class="project-gallery__viewport" aria-live="polite">
         {orderedMedia.map((item, index) => (
-          <button
-            type="button"
-            class={`project-gallery__dot ${index === 0 ? "is-active" : ""}`}
-            data-gallery-dot
-            data-gallery-index={index}
-            role="tab"
-            aria-selected={index === 0 ? "true" : "false"}
-            aria-label={`Show ${item.type} ${index + 1}`}
+          <figure
+            class={`project-gallery__slide ${index === 0 ? "is-active" : ""}`}
+            data-gallery-slide
+            aria-hidden={index === 0 ? "false" : "true"}
           >
-            <span class="sr-only">{item.type} {index + 1}</span>
-          </button>
+            {item.type === "video" ? (
+              <video
+                class="project-gallery__media"
+                autoplay
+                controls
+                loop
+                muted
+                preload="metadata"
+                playsinline
+                poster={item.poster ? resolveSrc(item.poster) : undefined}
+              >
+                <source src={resolveSrc(item.src)} />
+              </video>
+            ) : (
+              <img
+                class="project-gallery__media"
+                src={resolveSrc(item.src)}
+                alt={item.alt}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            )}
+            {item.caption && (
+              <figcaption class="project-gallery__caption">
+                {item.caption}
+              </figcaption>
+            )}
+          </figure>
         ))}
       </div>
-      <button type="button" class="project-gallery__nav" data-gallery-next aria-label="Next media item">
-        →
-      </button>
-    </div>
-  )}
-</section>
-)}
+
+      {orderedMedia.length > 1 && (
+        <div class="project-gallery__controls">
+          <button
+            type="button"
+            class="project-gallery__nav"
+            data-gallery-prev
+            aria-label="Previous media item"
+          >
+            ←
+          </button>
+          <div
+            class="project-gallery__dots"
+            role="tablist"
+            aria-label="Project media slides"
+          >
+            {orderedMedia.map((item, index) => (
+              <button
+                type="button"
+                class={`project-gallery__dot ${index === 0 ? "is-active" : ""}`}
+                data-gallery-dot
+                data-gallery-index={index}
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                aria-label={`Show ${item.type} ${index + 1}`}
+              >
+                <span class="sr-only">
+                  {item.type} {index + 1}
+                </span>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            class="project-gallery__nav"
+            data-gallery-next
+            aria-label="Next media item"
+          >
+            →
+          </button>
+        </div>
+      )}
+    </section>
+  )
+}
 
 <script>
   const galleries = document.querySelectorAll("[data-project-gallery]");
@@ -116,14 +147,13 @@ function resolveSrc(src: string): string {
       });
     };
 
-    const updateSlides = (index) => {
+    const updateSlides = (index: number) => {
       currentIndex = (index + slides.length) % slides.length;
 
       slides.forEach((slide, slideIndex) => {
         const isActive = slideIndex === currentIndex;
         slide.classList.toggle("is-active", isActive);
         slide.setAttribute("aria-hidden", isActive ? "false" : "true");
-
       });
 
       dots.forEach((dot, dotIndex) => {
@@ -143,11 +173,11 @@ function resolveSrc(src: string): string {
     });
 
     gallery.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowLeft") {
+      if ((event as KeyboardEvent).key === "ArrowLeft") {
         event.preventDefault();
         updateSlides(currentIndex - 1);
       }
-      if (event.key === "ArrowRight") {
+      if ((event as KeyboardEvent).key === "ArrowRight") {
         event.preventDefault();
         updateSlides(currentIndex + 1);
       }
@@ -211,7 +241,9 @@ function resolveSrc(src: string): string {
     background: transparent;
     color: var(--color-text-muted);
     cursor: pointer;
-    transition: border-color var(--transition-fast), color var(--transition-fast),
+    transition:
+      border-color var(--transition-fast),
+      color var(--transition-fast),
       background var(--transition-fast);
   }
 
@@ -236,7 +268,9 @@ function resolveSrc(src: string): string {
     border: 1px solid var(--color-border-strong);
     background: transparent;
     cursor: pointer;
-    transition: transform var(--transition-fast), background var(--transition-fast),
+    transition:
+      transform var(--transition-fast),
+      background var(--transition-fast),
       border-color var(--transition-fast);
   }
 

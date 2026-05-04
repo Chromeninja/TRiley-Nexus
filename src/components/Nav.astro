@@ -13,7 +13,11 @@ const navItems = enabledNavItems.map((link) => ({
 <nav class="nav" aria-label="Main navigation">
   <div class="nav__inner">
     <!-- Logo / Wordmark -->
-    <a href={toBasePath("/")} class="nav__logo" aria-label={`${siteConfig.site.name} - Home`}>
+    <a
+      href={toBasePath("/")}
+      class="nav__logo"
+      aria-label={`${siteConfig.site.name} - Home`}
+    >
       <span class="nav__logo-bracket">[</span>
       <span class="nav__logo-text">{siteConfig.site.logoText}</span>
       <span class="nav__logo-bracket">]</span>
@@ -21,23 +25,30 @@ const navItems = enabledNavItems.map((link) => ({
 
     <!-- Desktop Links -->
     <ul class="nav__links" role="list">
-      {navItems.map((link) => {
-        return (
-          <li>
-            <a
-              href={toBasePath(link.href)}
-              class={`nav__link ${link.isActive ? "nav__link--active" : ""}`}
-              aria-current={link.isActive ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          </li>
-        );
-      })}
+      {
+        navItems.map((link) => {
+          return (
+            <li>
+              <a
+                href={toBasePath(link.href)}
+                class={`nav__link ${link.isActive ? "nav__link--active" : ""}`}
+                aria-current={link.isActive ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
 
     <!-- Mobile menu toggle -->
-    <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-menu">
+    <button
+      class="nav__toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
       <span class="nav__toggle-bar"></span>
@@ -47,19 +58,21 @@ const navItems = enabledNavItems.map((link) => ({
   <!-- Mobile menu -->
   <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
     <ul role="list">
-      {navItems.map((link) => {
-        return (
-          <li>
-            <a
-              href={toBasePath(link.href)}
-              class={`nav__mobile-link ${link.isActive ? "nav__mobile-link--active" : ""}`}
-              aria-current={link.isActive ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          </li>
-        );
-      })}
+      {
+        navItems.map((link) => {
+          return (
+            <li>
+              <a
+                href={toBasePath(link.href)}
+                class={`nav__mobile-link ${link.isActive ? "nav__mobile-link--active" : ""}`}
+                aria-current={link.isActive ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })
+      }
     </ul>
   </div>
 </nav>
@@ -69,8 +82,11 @@ const navItems = enabledNavItems.map((link) => ({
     position: sticky;
     top: 0;
     z-index: 100;
-    background:
-      linear-gradient(180deg, rgba(8, 17, 13, 0.96), rgba(16, 26, 22, 0.92));
+    background: linear-gradient(
+      180deg,
+      rgba(8, 17, 13, 0.96),
+      rgba(16, 26, 22, 0.92)
+    );
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
@@ -134,13 +150,19 @@ const navItems = enabledNavItems.map((link) => ({
     text-decoration: none;
     padding: 0.4em 0.75em;
     border-radius: var(--radius-sm);
-    transition: color var(--transition-fast), background var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast);
     position: relative;
   }
 
   .nav__link:hover {
     color: var(--color-text);
-    background: linear-gradient(90deg, rgba(87, 166, 255, 0.08), rgba(34, 211, 238, 0.06));
+    background: linear-gradient(
+      90deg,
+      rgba(87, 166, 255, 0.08),
+      rgba(34, 211, 238, 0.06)
+    );
   }
 
   .nav__link--active {
@@ -155,7 +177,11 @@ const navItems = enabledNavItems.map((link) => ({
     transform: translateX(-50%);
     width: 28px;
     height: 2px;
-    background: linear-gradient(90deg, var(--color-accent), var(--color-accent2));
+    background: linear-gradient(
+      90deg,
+      var(--color-accent),
+      var(--color-accent2)
+    );
   }
 
   /* Mobile toggle */
@@ -176,13 +202,19 @@ const navItems = enabledNavItems.map((link) => ({
     height: 2px;
     background: var(--color-text-heading);
     border-radius: 1px;
-    transition: transform var(--transition-base), opacity var(--transition-fast);
+    transition:
+      transform var(--transition-base),
+      opacity var(--transition-fast);
   }
 
   /* Mobile menu */
   .nav__mobile {
     display: none;
-    background: linear-gradient(180deg, rgba(16, 26, 22, 0.98), rgba(21, 35, 29, 0.96));
+    background: linear-gradient(
+      180deg,
+      rgba(16, 26, 22, 0.98),
+      rgba(21, 35, 29, 0.96)
+    );
     border-top: 1px solid var(--color-border);
     padding: var(--space-md) var(--space-xl);
   }
@@ -203,14 +235,20 @@ const navItems = enabledNavItems.map((link) => ({
     color: var(--color-text-muted);
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--radius-sm);
-    transition: color var(--transition-fast), background var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast);
     text-decoration: none;
   }
 
   .nav__mobile-link:hover,
   .nav__mobile-link--active {
     color: var(--color-accent);
-    background: linear-gradient(90deg, rgba(87, 166, 255, 0.12), rgba(34, 211, 238, 0.08));
+    background: linear-gradient(
+      90deg,
+      rgba(87, 166, 255, 0.12),
+      rgba(34, 211, 238, 0.08)
+    );
   }
 
   /* Responsive */
@@ -266,7 +304,9 @@ const navItems = enabledNavItems.map((link) => ({
 </style>
 
 <script>
-  const toggle = document.querySelector(".nav__toggle") as HTMLButtonElement | null;
+  const toggle = document.querySelector(
+    ".nav__toggle",
+  ) as HTMLButtonElement | null;
   const menu = document.getElementById("mobile-menu");
 
   toggle?.addEventListener("click", () => {

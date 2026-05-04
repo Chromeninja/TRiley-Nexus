@@ -1,7 +1,11 @@
 ---
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
-import { projectStatusColors, type CareerNarrativeData } from "../data/projects";
+import {
+  projectStatusColors,
+  type CareerNarrativeData,
+} from "../data/projects";
 import { toBasePath } from "../utils/paths";
+import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
   data: CareerNarrativeData;
@@ -36,7 +40,10 @@ const {
       <p class="career-narrative__subtitle">{subtitle}</p>
     </div>
 
-    <div class="career-narrative__summary" aria-label="Career narrative summary">
+    <div
+      class="career-narrative__summary"
+      aria-label="Career narrative summary"
+    >
       <div class="career-narrative__metric">
         <span class="career-narrative__metric-value">{data.companyCount}</span>
         <span class="career-narrative__metric-label">Companies</span>
@@ -52,159 +59,234 @@ const {
     </div>
   </div>
 
-  {showControls && (
-    <div class="career-narrative__controls" role="group" aria-label="Career narrative controls">
-      <button type="button" class="btn btn-ghost btn-sm" data-narrative-control="expand-all">Expand all</button>
-      <button type="button" class="btn btn-ghost btn-sm" data-narrative-control="collapse-all">Collapse all</button>
-    </div>
-  )}
+  {
+    showControls && (
+      <div
+        class="career-narrative__controls"
+        role="group"
+        aria-label="Career narrative controls"
+      >
+        <button
+          type="button"
+          class="btn btn-ghost btn-sm"
+          data-narrative-control="expand-all"
+        >
+          Expand all
+        </button>
+        <button
+          type="button"
+          class="btn btn-ghost btn-sm"
+          data-narrative-control="collapse-all"
+        >
+          Collapse all
+        </button>
+      </div>
+    )
+  }
 
   <div class="career-narrative__rail" aria-hidden="true"></div>
 
   <div class="career-narrative__companies">
-    {data.companies.map((company, companyIndex) => (
-      <article
-        id={company.id}
-        class="narrative-company"
-        data-narrative-company
-        data-company-id={company.id}
-        data-expanded="false"
-        style={`--company-color: ${company.color};`}
-      >
-        <div class="narrative-company__node" aria-hidden="true">
-          <span class="narrative-company__node-index text-mono">{String(companyIndex + 1).padStart(2, "0")}</span>
-          <span class="narrative-company__node-dot"></span>
-        </div>
-
-        <button
-          type="button"
-          class="narrative-company__header"
-          data-narrative-company-toggle
-          aria-expanded="false"
-          aria-controls={`${company.id}-panel`}
+    {
+      data.companies.map((company, companyIndex) => (
+        <article
+          id={company.id}
+          class="narrative-company"
+          data-narrative-company
+          data-company-id={company.id}
+          data-expanded="false"
+          style={`--company-color: ${sanitizeCssColor(company.color)};`}
         >
-          <div class="narrative-company__header-main">
-            <div class="narrative-company__identity">
-              {company.logo && (
-                <img
-                  class="narrative-company__logo"
-                  src={toBasePath(company.logo.src)}
-                  alt={company.logo.alt}
-                  loading="lazy"
-                />
-              )}
-              <div class="narrative-company__identity-copy">
-                <span class="narrative-company__eyebrow text-mono">{company.rangeLabel}</span>
-                <h3 class="narrative-company__name">{company.organization}</h3>
+          <div class="narrative-company__node" aria-hidden="true">
+            <span class="narrative-company__node-index text-mono">
+              {String(companyIndex + 1).padStart(2, "0")}
+            </span>
+            <span class="narrative-company__node-dot" />
+          </div>
+
+          <button
+            type="button"
+            class="narrative-company__header"
+            data-narrative-company-toggle
+            aria-expanded="false"
+            aria-controls={`${company.id}-panel`}
+          >
+            <div class="narrative-company__header-main">
+              <div class="narrative-company__identity">
+                {company.logo && (
+                  <img
+                    class="narrative-company__logo"
+                    src={toBasePath(company.logo.src)}
+                    alt={company.logo.alt}
+                    loading="lazy"
+                  />
+                )}
+                <div class="narrative-company__identity-copy">
+                  <span class="narrative-company__eyebrow text-mono">
+                    {company.rangeLabel}
+                  </span>
+                  <h3 class="narrative-company__name">
+                    {company.organization}
+                  </h3>
+                </div>
+              </div>
+              <p class="narrative-company__role">{company.roleSummary}</p>
+            </div>
+
+            <div class="narrative-company__header-meta">
+              <div class="narrative-company__chips">
+                <span class="narrative-chip">
+                  {company.projectCount} projects
+                </span>
+                {company.featuredProjectCount > 0 && (
+                  <span class="narrative-chip">
+                    {company.featuredProjectCount} featured
+                  </span>
+                )}
+                {company.isActive && (
+                  <span class="narrative-chip narrative-chip--live">
+                    active
+                  </span>
+                )}
+              </div>
+              <span class="narrative-company__chevron" aria-hidden="true">
+                ↘
+              </span>
+            </div>
+          </button>
+
+          <ExpandableDetailPanel
+            id={`${company.id}-panel`}
+            title={`${company.organization} details`}
+          >
+            <div class="narrative-company__panel-top">
+              <div class="narrative-company__story">
+                <p>{company.longSummary || company.summary}</p>
+                {company.myTimeInfo && <p>{company.myTimeInfo}</p>}
+              </div>
+
+              <div class="narrative-company__facts">
+                {company.roles.length > 0 && (
+                  <div class="narrative-fact-block">
+                    <span class="narrative-fact-label text-mono">Roles</span>
+                    <p>{company.roles.join(" / ")}</p>
+                  </div>
+                )}
+                {company.achievements.length > 0 && (
+                  <div class="narrative-fact-block">
+                    <span class="narrative-fact-label text-mono">
+                      Highlights
+                    </span>
+                    <p>{company.achievements.join(" ")}</p>
+                  </div>
+                )}
               </div>
             </div>
-            <p class="narrative-company__role">{company.roleSummary}</p>
-          </div>
 
-          <div class="narrative-company__header-meta">
-            <div class="narrative-company__chips">
-              <span class="narrative-chip">{company.projectCount} projects</span>
-              {company.featuredProjectCount > 0 && <span class="narrative-chip">{company.featuredProjectCount} featured</span>}
-              {company.isActive && <span class="narrative-chip narrative-chip--live">active</span>}
-            </div>
-            <span class="narrative-company__chevron" aria-hidden="true">↘</span>
-          </div>
-        </button>
-
-        <ExpandableDetailPanel id={`${company.id}-panel`} title={`${company.organization} details`}>
-          <div class="narrative-company__panel-top">
-            <div class="narrative-company__story">
-              <p>{company.longSummary || company.summary}</p>
-              {company.myTimeInfo && <p>{company.myTimeInfo}</p>}
-            </div>
-
-            <div class="narrative-company__facts">
-              {company.roles.length > 0 && (
-                <div class="narrative-fact-block">
-                  <span class="narrative-fact-label text-mono">Roles</span>
-                  <p>{company.roles.join(" / ")}</p>
-                </div>
-              )}
-              {company.achievements.length > 0 && (
-                <div class="narrative-fact-block">
-                  <span class="narrative-fact-label text-mono">Highlights</span>
-                  <p>{company.achievements.join(" ")}</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div class="narrative-projects" aria-label={`${company.organization} projects`}>
-            {company.projects.map((project) => (
-              <article
-                id={project.id}
-                class="narrative-project"
-                data-narrative-project
-                data-category={project.category}
-                data-status={project.status}
-                data-expanded="false"
-              >
-                <button
-                  type="button"
-                  class="narrative-project__summary"
-                  data-narrative-project-toggle
-                  aria-expanded="false"
-                  aria-controls={`${project.id}-panel`}
+            <div
+              class="narrative-projects"
+              aria-label={`${company.organization} projects`}
+            >
+              {company.projects.map((project) => (
+                <article
+                  id={project.id}
+                  class="narrative-project"
+                  data-narrative-project
+                  data-category={project.category}
+                  data-status={project.status}
+                  data-expanded="false"
                 >
-                  <div class="narrative-project__summary-main">
-                    <div>
-                      <span class="narrative-project__timeframe text-mono">{project.timeframeLabel}</span>
-                      <h4 class="narrative-project__title">{project.title}</h4>
-                    </div>
-                    <p class="narrative-project__role">{project.roleTitle}</p>
-                  </div>
-
-                  <div class="narrative-project__summary-meta">
-                    <span class={`badge ${projectStatusColors[project.status]}`}>{project.statusLabel}</span>
-                    <span class="narrative-project__chevron" aria-hidden="true">+</span>
-                  </div>
-
-                  <div class="narrative-project__hover">
-                    <div class="narrative-project__hover-meta text-mono">
-                      <span>{project.category}</span>
-                      {project.mediaCount > 0 && <span>{project.mediaCount} media</span>}
-                      {project.isFeatured && <span>featured</span>}
-                    </div>
-                    <div class="narrative-project__hover-tags">
-                      {project.tags.map((tag) => (
-                        <span class="narrative-tag">{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                </button>
-
-                <ExpandableDetailPanel id={`${project.id}-panel`} title={`${project.title} details`}>
-                  <div class="narrative-project__detail-grid">
-                    <div class="narrative-project__detail-copy">
-                      <p>{project.detailSummary}</p>
-                      {project.tools.length > 0 && (
-                        <p>
-                          <span class="text-accent">Tools:</span> {project.tools.join(" • ")}
-                        </p>
-                      )}
+                  <button
+                    type="button"
+                    class="narrative-project__summary"
+                    data-narrative-project-toggle
+                    aria-expanded="false"
+                    aria-controls={`${project.id}-panel`}
+                  >
+                    <div class="narrative-project__summary-main">
+                      <div>
+                        <span class="narrative-project__timeframe text-mono">
+                          {project.timeframeLabel}
+                        </span>
+                        <h4 class="narrative-project__title">
+                          {project.title}
+                        </h4>
+                      </div>
+                      <p class="narrative-project__role">{project.roleTitle}</p>
                     </div>
 
-                    <div class="narrative-project__detail-actions">
-                      <a href={toBasePath(`/projects/${project.slug}`)} class="btn btn-outline btn-sm">Open case study</a>
-                      {project.links.slice(0, 2).map((link) => (
-                        <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
-                          {link.label} ↗
+                    <div class="narrative-project__summary-meta">
+                      <span
+                        class={`badge ${projectStatusColors[project.status]}`}
+                      >
+                        {project.statusLabel}
+                      </span>
+                      <span
+                        class="narrative-project__chevron"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+                    </div>
+
+                    <div class="narrative-project__hover">
+                      <div class="narrative-project__hover-meta text-mono">
+                        <span>{project.category}</span>
+                        {project.mediaCount > 0 && (
+                          <span>{project.mediaCount} media</span>
+                        )}
+                        {project.isFeatured && <span>featured</span>}
+                      </div>
+                      <div class="narrative-project__hover-tags">
+                        {project.tags.map((tag) => (
+                          <span class="narrative-tag">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </button>
+
+                  <ExpandableDetailPanel
+                    id={`${project.id}-panel`}
+                    title={`${project.title} details`}
+                  >
+                    <div class="narrative-project__detail-grid">
+                      <div class="narrative-project__detail-copy">
+                        <p>{project.detailSummary}</p>
+                        {project.tools.length > 0 && (
+                          <p>
+                            <span class="text-accent">Tools:</span>{" "}
+                            {project.tools.join(" • ")}
+                          </p>
+                        )}
+                      </div>
+
+                      <div class="narrative-project__detail-actions">
+                        <a
+                          href={toBasePath(`/projects/${project.slug}`)}
+                          class="btn btn-outline btn-sm"
+                        >
+                          Open case study
                         </a>
-                      ))}
+                        {project.links.slice(0, 2).map((link) => (
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-ghost btn-sm"
+                          >
+                            {link.label} ↗
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </ExpandableDetailPanel>
-              </article>
-            ))}
-          </div>
-        </ExpandableDetailPanel>
-      </article>
-    ))}
+                  </ExpandableDetailPanel>
+                </article>
+              ))}
+            </div>
+          </ExpandableDetailPanel>
+        </article>
+      ))
+    }
   </div>
 </section>
 
@@ -212,7 +294,10 @@ const {
   const roots = document.querySelectorAll("[data-career-narrative]");
 
   roots.forEach((root) => {
-    const initialOpenCount = Number.parseInt(root.getAttribute("data-initial-open-count") || "0", 10);
+    const initialOpenCount = Number.parseInt(
+      root.getAttribute("data-initial-open-count") || "0",
+      10,
+    );
 
     const setCompanyExpanded = (company: HTMLElement, expanded: boolean) => {
       company.dataset.expanded = expanded ? "true" : "false";
@@ -242,11 +327,13 @@ const {
       }
     };
 
-    root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company, index) => {
-      if (index < initialOpenCount) {
-        setCompanyExpanded(company, true);
-      }
-    });
+    root
+      .querySelectorAll<HTMLElement>("[data-narrative-company]")
+      .forEach((company, index) => {
+        if (index < initialOpenCount) {
+          setCompanyExpanded(company, true);
+        }
+      });
 
     root.addEventListener("click", (event) => {
       const target = event.target;
@@ -258,18 +345,24 @@ const {
       if (control instanceof HTMLButtonElement) {
         const action = control.dataset.narrativeControl;
         if (action === "expand-all") {
-          root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company) => {
-            setCompanyExpanded(company, true);
-          });
+          root
+            .querySelectorAll<HTMLElement>("[data-narrative-company]")
+            .forEach((company) => {
+              setCompanyExpanded(company, true);
+            });
         }
 
         if (action === "collapse-all") {
-          root.querySelectorAll<HTMLElement>("[data-narrative-company]").forEach((company) => {
-            setCompanyExpanded(company, false);
-          });
-          root.querySelectorAll<HTMLElement>("[data-narrative-project]").forEach((project) => {
-            setProjectExpanded(project, false);
-          });
+          root
+            .querySelectorAll<HTMLElement>("[data-narrative-company]")
+            .forEach((company) => {
+              setCompanyExpanded(company, false);
+            });
+          root
+            .querySelectorAll<HTMLElement>("[data-narrative-project]")
+            .forEach((project) => {
+              setProjectExpanded(project, false);
+            });
         }
         return;
       }
@@ -350,7 +443,11 @@ const {
     padding: 0.9rem 1rem;
     border-radius: var(--radius-md);
     border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
   }
 
   .career-narrative__metric-value {
@@ -381,7 +478,11 @@ const {
     top: calc(var(--space-4xl) + 1.2rem);
     bottom: var(--space-xl);
     width: 1px;
-    background: linear-gradient(180deg, rgba(59, 130, 246, 0.24), rgba(6, 182, 212, 0.02));
+    background: linear-gradient(
+      180deg,
+      rgba(59, 130, 246, 0.24),
+      rgba(6, 182, 212, 0.02)
+    );
     pointer-events: none;
   }
 
@@ -419,8 +520,13 @@ const {
     height: 0.8rem;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--company-color), white 30%);
-    background: radial-gradient(circle, color-mix(in srgb, var(--company-color), white 8%), color-mix(in srgb, var(--company-color), black 24%));
-    box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--company-color), transparent 86%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--company-color), white 8%),
+      color-mix(in srgb, var(--company-color), black 24%)
+    );
+    box-shadow: 0 0 0 0.35rem
+      color-mix(in srgb, var(--company-color), transparent 86%);
   }
 
   .narrative-company__header {
@@ -433,11 +539,19 @@ const {
     text-align: left;
     border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
     border-radius: var(--radius-lg);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
     padding: 1.15rem 1.2rem;
     color: inherit;
     cursor: pointer;
-    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      background var(--transition-base),
+      transform var(--transition-fast),
+      box-shadow var(--transition-base);
   }
 
   .narrative-company__header:hover,
@@ -445,7 +559,11 @@ const {
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--company-color), white 18%);
     box-shadow: 0 22px 40px rgba(2, 8, 20, 0.24);
-    background: linear-gradient(180deg, color-mix(in srgb, var(--company-color), transparent 94%), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--company-color), transparent 94%),
+      rgba(255, 255, 255, 0.02)
+    );
   }
 
   .narrative-company__header:focus-visible,
@@ -493,7 +611,11 @@ const {
     padding: 0.3rem;
     border-radius: 0.8rem;
     border: 1px solid color-mix(in srgb, var(--color-border), white 10%);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.01)
+    );
   }
 
   .narrative-company__role {
@@ -588,20 +710,31 @@ const {
     text-align: left;
     border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
     border-radius: var(--radius-md);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 85%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02),
+      transparent 85%
+    );
     color: inherit;
     padding: 1rem;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: var(--space-md);
     cursor: pointer;
-    transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-fast);
+    transition:
+      border-color var(--transition-base),
+      background var(--transition-base),
+      transform var(--transition-fast);
   }
 
   .narrative-project__summary:hover,
   .narrative-project[data-expanded="true"] .narrative-project__summary {
     border-color: color-mix(in srgb, var(--color-accent), transparent 52%);
-    background: linear-gradient(180deg, rgba(59, 130, 246, 0.09), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(
+      180deg,
+      rgba(59, 130, 246, 0.09),
+      rgba(255, 255, 255, 0.02)
+    );
     transform: translateY(-1px);
   }
 
@@ -642,7 +775,9 @@ const {
     color: var(--color-text-dim);
     font-size: 1.2rem;
     line-height: 1;
-    transition: transform var(--transition-base), color var(--transition-base);
+    transition:
+      transform var(--transition-base),
+      color var(--transition-base);
   }
 
   .narrative-project[data-expanded="true"] .narrative-project__chevron {
@@ -657,7 +792,9 @@ const {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity var(--transition-base), max-height var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      max-height var(--transition-base);
   }
 
   .narrative-project__summary:hover .narrative-project__hover,
