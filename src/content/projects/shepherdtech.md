@@ -35,7 +35,7 @@ links:
     url: "https://shepherdtech.io"
   - label: GitHub
     url: "https://github.com/Chromeninja"
-featured: "true"
-order: "4"
+featured: true
+order: 4
 ---
 

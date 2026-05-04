@@ -30,7 +30,7 @@ tools:
   - Discord AutoMod
   - Moderation Bots
   - Notion
-featured: "false"
-order: "18"
+featured: false
+order: 18
 ---
 

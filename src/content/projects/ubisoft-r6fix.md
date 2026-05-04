@@ -16,7 +16,7 @@ summary: Contributed to platform and process work around R6Fix to improve struct
 problem: "Bug reports lacked consistency and signal quality, slowing triage and resolution workflows."
 approach: Supported reporting framework improvements and issue categorization patterns aligned to support and dev needs.
 outcome: "Better report quality and improved visibility for high-impact defects."
-featured: "false"
-order: "10"
+featured: false
+order: 10
 ---
 

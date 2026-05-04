@@ -34,7 +34,7 @@ tools:
   - Landing Zone Assessment Equipment
   - Radio Communications Equipment
   - Airfield Operations Systems
-featured: "false"
-order: "8"
+featured: false
+order: 8
 ---
 

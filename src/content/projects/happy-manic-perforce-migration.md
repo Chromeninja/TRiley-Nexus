@@ -17,7 +17,7 @@ summary: Supported a focused Perforce migration effort for Nope Challenge to sta
 problem: Legacy source control workflows constrained collaboration and increased operational risk.
 approach: "Planned migration sequencing, process updates, and team onboarding for the new source control workflow during a concentrated migration window."
 outcome: "More reliable collaboration workflows and improved version-control discipline for ongoing Nope Challenge development."
-featured: "false"
-order: "23"
+featured: false
+order: 23
 ---
 

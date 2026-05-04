@@ -16,7 +16,7 @@ summary: Delivered improvements to Ubisoft Help platform workflows and support e
 problem: Support pathways and knowledge flow created friction for both players and support teams.
 approach: "Identified high-friction points and implemented structured improvements to navigation, workflows, and support handoff quality."
 outcome: Smoother support journeys and better operational efficiency for support teams.
-featured: "false"
-order: "12"
+featured: false
+order: 12
 ---
 

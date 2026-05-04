@@ -34,7 +34,7 @@ tools:
 links:
   - label: Private Repo
     url: "https://github.com/Chromeninja/event-ops-platform"
-featured: "true"
-order: "5"
+featured: true
+order: 5
 ---
 

@@ -25,7 +25,7 @@ skills:
   - Military Training
   - Adaptability
   - Team Integration
-featured: "false"
-order: "7"
+featured: false
+order: 7
 ---
 

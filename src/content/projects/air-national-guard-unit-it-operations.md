@@ -33,7 +33,7 @@ tools:
   - Microsoft SharePoint
   - Microsoft Teams
   - Microsoft 365
-featured: "false"
-order: "11"
+featured: false
+order: 11
 ---
 

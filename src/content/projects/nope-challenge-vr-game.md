@@ -53,7 +53,7 @@ media:
   - type: video
     src: "/media/projects/nope-trailer.mp4"
     caption: Nope Challenge trailer
-featured: "true"
-order: "2"
+featured: true
+order: 2
 ---
 

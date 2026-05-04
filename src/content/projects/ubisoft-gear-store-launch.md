@@ -16,7 +16,7 @@ summary: Supported launch execution for Ubisoft Gear Store with focus on custome
 problem: "Launching commerce experiences required coordinated support, workflows, and issue response coverage."
 approach: Helped align launch support operations and process checkpoints across teams.
 outcome: Improved launch readiness and reduced operational friction during rollout.
-featured: "false"
-order: "15"
+featured: false
+order: 15
 ---
 

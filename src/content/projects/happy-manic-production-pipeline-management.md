@@ -16,7 +16,7 @@ summary: "Ongoing production pipeline management for Nope Challenge focused on i
 problem: Pipeline bottlenecks and inconsistent handoffs impacted production velocity and quality.
 approach: "Standardize workflow stages, ownership, communication checkpoints, and planning routines across Nope Challenge production tracks."
 outcome: "Improved predictability, throughput, and operational clarity across the ongoing production pipeline."
-featured: "false"
-order: "22"
+featured: false
+order: 22
 ---
 

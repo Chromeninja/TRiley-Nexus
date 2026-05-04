@@ -21,7 +21,7 @@ skills:
   - Engineering Support
   - Operational Readiness
   - Team Coordination
-featured: "false"
-order: "6"
+featured: false
+order: 6
 ---
 

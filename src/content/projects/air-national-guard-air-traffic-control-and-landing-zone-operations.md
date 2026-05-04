@@ -34,7 +34,7 @@ skills:
 tools:
   - Airfield Operations Systems
   - Radio Communications Equipment
-featured: "true"
-order: "1"
+featured: true
+order: 1
 ---
 

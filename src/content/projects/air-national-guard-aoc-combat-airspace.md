@@ -34,7 +34,7 @@ tools:
   - AOC Command and Control Systems
   - Airspace Control Systems
   - Radio Communications Equipment
-featured: "false"
-order: "10"
+featured: false
+order: 10
 ---
 

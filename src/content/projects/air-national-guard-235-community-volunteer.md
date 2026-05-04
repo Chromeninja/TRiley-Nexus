@@ -29,7 +29,7 @@ skills:
   - Volunteer Coordination
   - Event Support
   - Public Representation
-featured: "false"
-order: "12"
+featured: false
+order: 12
 ---
 

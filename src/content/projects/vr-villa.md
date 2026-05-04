@@ -44,7 +44,7 @@ links:
     url: "https://discord.gg/MpaU2WgZjY"
   - label: Instagram
     url: "https://www.instagram.com/vrvillage/"
-featured: "true"
-order: "3"
+featured: true
+order: 3
 ---
 

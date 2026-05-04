@@ -20,7 +20,7 @@ links:
     url: "https://github.com/Chromeninja/test_squadron_discord_bot"
   - label: TEST Squadron Website
     url: "https://testsquadron.com/"
-featured: "false"
-order: "17"
+featured: false
+order: 17
 ---
 

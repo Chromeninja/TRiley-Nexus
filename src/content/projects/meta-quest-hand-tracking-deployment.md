@@ -22,7 +22,7 @@ highlights:
 problem: "Hand-tracking implementation required balancing technical constraints with real-world usability."
 approach: "Coordinate hand-tracking priorities, support interaction prototyping, validate implementation needs across testing scenarios, and help shape practical rollout decisions around hand-tracking interactions on Meta Quest for Nope Challenge."
 outcome: "Improved readiness for hand-tracking feature work, produced clearer direction for interaction design, and continues to inform future XR gameplay decisions within Nope Challenge."
-featured: "true"
-order: "6"
+featured: true
+order: 6
 ---
 

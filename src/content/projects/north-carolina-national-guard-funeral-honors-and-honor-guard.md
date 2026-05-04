@@ -21,7 +21,7 @@ skills:
   - Ceremonial Operations
   - Public Representation
   - Mission Coordination
-featured: "false"
-order: "9"
+featured: false
+order: 9
 ---
 

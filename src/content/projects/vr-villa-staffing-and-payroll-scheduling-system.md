@@ -30,7 +30,7 @@ tools:
   - Google Workspace
   - Formula Automation
   - Discord
-featured: "false"
-order: "8"
+featured: false
+order: 8
 ---
 
