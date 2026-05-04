@@ -380,7 +380,7 @@ async function walkDirectory(dirPath, out) {
 }
 
 async function walkFiles(dirPath, out) {
-  let entries = [];
+  let entries;
   try {
     entries = await fs.readdir(dirPath, { withFileTypes: true });
   } catch (error) {
