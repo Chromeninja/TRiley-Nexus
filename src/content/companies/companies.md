@@ -1,5 +1,5 @@
 ---
-profiles: "{}"
+profiles: {}
 ---
 
 Company profile overrides for timeline and narrative views.
