@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, "../..");
 const PUBLIC_DIR = path.join(__dirname, "public");
+const SITE_PUBLIC_DIR = path.join(ROOT_DIR, "public");
 const BACKUP_DIR = path.join(ROOT_DIR, ".content-editor-backups");
 const PORT = Number.parseInt(process.env.CONTENT_EDITOR_PORT ?? "4387", 10);
 const HOST = process.env.CONTENT_EDITOR_HOST ?? "127.0.0.1";
@@ -34,6 +35,243 @@ const RESERVED_FM_FIELDS = new Set([
   "values", "profileMedia", "additionalMedia", "resume", "highlights", "achievements",
   "timelineRoles", "companyInfo", "myTimeInfo", "roleSummary",
 ]);
+
+const FORM_SCHEMAS = {
+  projects: [
+    { key: "title", label: "Title", type: "text", required: true, placeholder: "Project title" },
+    { key: "status", label: "Status", type: "select", required: true, options: ["active", "completed", "archived", "concept"] },
+    { key: "category", label: "Category", type: "text", required: true, placeholder: "Project category" },
+    { key: "organization", label: "Organization", type: "text", placeholder: "Company or team" },
+    { key: "organizationUrl", label: "Organization URL", type: "text", placeholder: "https://example.com" },
+    { key: "roleTitle", label: "Role Title", type: "text", placeholder: "Your role on this project" },
+    { key: "timeframe", label: "Timeframe", type: "text", placeholder: "Ongoing or Jan 2024 - Mar 2025" },
+    { key: "startedAt", label: "Started At", type: "text", placeholder: "Nov 2024" },
+    { key: "endedAt", label: "Ended At", type: "text", placeholder: "Present" },
+    { key: "summary", label: "Summary", type: "textarea", required: true, placeholder: "What was done and why it mattered." },
+    { key: "cardSummary", label: "Card Summary", type: "textarea", placeholder: "Short version for cards/lists." },
+    { key: "problem", label: "Problem", type: "textarea", placeholder: "What challenge existed?" },
+    { key: "approach", label: "Approach", type: "textarea", placeholder: "How was the work executed?" },
+    { key: "outcome", label: "Outcome", type: "textarea", placeholder: "What changed as a result?" },
+    { key: "tags", label: "Tags", type: "list", placeholder: "One item per line or comma-separated" },
+    { key: "skills", label: "Skills", type: "list", placeholder: "One item per line or comma-separated" },
+    { key: "tools", label: "Tools", type: "list", placeholder: "One item per line or comma-separated" },
+    { key: "highlights", label: "Highlights", type: "list", placeholder: "Up to 3 concise highlights" },
+    { key: "featured", label: "Featured Project", type: "boolean" },
+    { key: "order", label: "Sort Order", type: "number", placeholder: "Lower appears first" },
+  ],
+  about: [
+    { key: "metaDescription", label: "Meta Description", type: "textarea", required: true, placeholder: "Short SEO/about summary." },
+    { key: "backgroundParagraphs", label: "Background Paragraphs", type: "list", placeholder: "One paragraph per line" },
+    { key: "values", label: "Values", type: "list", placeholder: "One value per line" },
+    { key: "thinkItems", label: "Think Items", type: "textarea", placeholder: "Use one per line: Title::Text" },
+    { key: "personalItems", label: "Personal Items", type: "textarea", placeholder: "Use one per line: Icon|Title|Body" },
+  ],
+  companies: [
+    { key: "companyName", label: "Profile Name", type: "text", required: true, placeholder: "Must match project organization" },
+    { key: "summary", label: "Summary", type: "textarea", required: true, placeholder: "Company summary used in timeline views." },
+    { key: "companyInfo", label: "Company Info", type: "textarea", required: true, placeholder: "Company context and mission." },
+    { key: "myTimeInfo", label: "My Time Info", type: "textarea", required: true, placeholder: "Your tenure narrative." },
+    { key: "longSummary", label: "Long Summary", type: "textarea", placeholder: "Optional expanded summary." },
+    { key: "roleSummary", label: "Role Summary", type: "textarea", placeholder: "Optional role-specific summary." },
+    { key: "achievements", label: "Achievements", type: "list", placeholder: "One achievement per line" },
+    { key: "color", label: "Brand Color", type: "text", placeholder: "#57a6ff" },
+    { key: "tenureStart", label: "Tenure Start", type: "text", placeholder: "YYYY-MM or date label" },
+    { key: "tenureEnd", label: "Tenure End", type: "text", placeholder: "Present or end date" },
+    { key: "timelineRoles", label: "Timeline Roles", type: "textarea", placeholder: "Use one per line: Label|Start|End(optional)" },
+  ],
+};
+
+function inferSectionFromPath(relativePath) {
+  const normalized = String(relativePath ?? "").replace(/\\/g, "/");
+  const section = normalized.split("/")[2] ?? "projects";
+  return FORM_SCHEMAS[section] ? section : "projects";
+}
+
+function listSchemaKeys(section) {
+  return new Set((FORM_SCHEMAS[section] ?? []).map((field) => field.key));
+}
+
+function parseArrayInput(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item ?? "").trim()).filter(Boolean);
+  }
+
+  const text = String(value ?? "");
+  const separator = text.includes("\n") ? /\n/ : /,/;
+
+  return text
+    .split(separator)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function parseBooleanInput(value) {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "number") return value !== 0;
+  const normalized = String(value ?? "").trim().toLowerCase();
+  return normalized === "true" || normalized === "1" || normalized === "yes";
+}
+
+function toNumberOrUndefined(value) {
+  if (value === null || value === undefined || value === "") return undefined;
+  const parsed = Number.parseInt(String(value), 10);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function topLevelKeyBlocks(rawFm) {
+  const lines = String(rawFm ?? "").split("\n");
+  const blocks = [];
+  let currentKey = null;
+  let currentLines = [];
+
+  for (const line of lines) {
+    const keyMatch = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
+    if (keyMatch) {
+      if (currentKey) {
+        blocks.push({ key: currentKey, block: currentLines.join("\n") });
+      }
+      currentKey = keyMatch[1];
+      currentLines = [line];
+      continue;
+    }
+
+    if (currentKey) currentLines.push(line);
+  }
+
+  if (currentKey) {
+    blocks.push({ key: currentKey, block: currentLines.join("\n") });
+  }
+
+  return blocks;
+}
+
+function sanitizeUnknownFrontmatter(rawUnknown) {
+  return String(rawUnknown ?? "")
+    .split("\n")
+    .filter((line) => line.trim() !== "---")
+    .join("\n")
+    .trim();
+}
+
+function scalarToYaml(value) {
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (typeof value === "number") return String(value);
+
+  const text = String(value ?? "");
+  if (!text) return '""';
+  if (/^(true|false|null|~|-?\d+(\.\d+)?)$/i.test(text)) {
+    return quoteYamlString(text);
+  }
+
+  if (
+    /[:#\n\-,]|^\s|\s$/.test(text)
+    || text.includes("[")
+    || text.includes("]")
+    || text.includes("{")
+    || text.includes("}")
+  ) {
+    return quoteYamlString(text);
+  }
+
+  return text;
+}
+
+function serializeYaml(value, indent = 0) {
+  const space = " ".repeat(indent);
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) return `${space}[]`;
+
+    return value
+      .map((item) => {
+        if (item && typeof item === "object" && !Array.isArray(item)) {
+          const entries = Object.entries(item);
+          if (entries.length === 0) return `${space}- {}`;
+
+          const [firstKey, firstValue] = entries[0];
+          const rendered = [`${space}- ${firstKey}: ${scalarToYaml(firstValue)}`];
+          for (const [key, itemValue] of entries.slice(1)) {
+            rendered.push(`${space}  ${key}: ${scalarToYaml(itemValue)}`);
+          }
+          return rendered.join("\n");
+        }
+
+        return `${space}- ${scalarToYaml(item)}`;
+      })
+      .join("\n");
+  }
+
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value);
+    if (entries.length === 0) return `${space}{}`;
+
+    const out = [];
+    for (const [key, child] of entries) {
+      if (child === undefined) continue;
+
+      if (Array.isArray(child)) {
+        if (child.length === 0) {
+          out.push(`${space}${key}: []`);
+        } else {
+          out.push(`${space}${key}:`);
+          out.push(serializeYaml(child, indent + 2));
+        }
+        continue;
+      }
+
+      if (child && typeof child === "object") {
+        const childEntries = Object.entries(child).filter(([, v]) => v !== undefined);
+        if (childEntries.length === 0) {
+          out.push(`${space}${key}: {}`);
+        } else {
+          out.push(`${space}${key}:`);
+          out.push(serializeYaml(child, indent + 2));
+        }
+        continue;
+      }
+
+      out.push(`${space}${key}: ${scalarToYaml(child)}`);
+    }
+
+    return out.join("\n");
+  }
+
+  return `${space}${scalarToYaml(value)}`;
+}
+
+function parseLinesToObjects(text, expectedParts, delimiter = "|") {
+  const rows = String(text ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  const out = [];
+  for (const row of rows) {
+    const parts = row.split(delimiter).map((part) => part.trim());
+    if (parts.length < expectedParts.length) continue;
+
+    const item = {};
+    expectedParts.forEach((key, index) => {
+      if (parts[index]) item[key] = parts[index];
+    });
+    out.push(item);
+  }
+
+  return out;
+}
+
+function objectsToLines(value, keys, delimiter = "|") {
+  if (!Array.isArray(value)) return "";
+  return value
+    .filter((item) => item && typeof item === "object")
+    .map((item) => keys.map((key) => String(item[key] ?? "").trim()).join(` ${delimiter} `).trim())
+    .filter(Boolean)
+    .join("\n");
+}
+
+function cloneJsonLike(value) {
+  return JSON.parse(JSON.stringify(value));
+}
 
 function sendJson(res, statusCode, payload) {
   res.writeHead(statusCode, {
@@ -64,31 +302,60 @@ function parseUrl(req) {
   return new URL(target, `http://${HOST}:${PORT}`);
 }
 
+function getContentType(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+  if (ext === ".html") return "text/html; charset=utf-8";
+  if (ext === ".css") return "text/css; charset=utf-8";
+  if (ext === ".js") return "application/javascript; charset=utf-8";
+  if (ext === ".json") return "application/json; charset=utf-8";
+  if (ext === ".png") return "image/png";
+  if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg";
+  if (ext === ".webp") return "image/webp";
+  if (ext === ".gif") return "image/gif";
+  if (ext === ".svg") return "image/svg+xml";
+  if (ext === ".avif") return "image/avif";
+  if (ext === ".mp4") return "video/mp4";
+  if (ext === ".webm") return "video/webm";
+  if (ext === ".mov") return "video/quicktime";
+  if (ext === ".pdf") return "application/pdf";
+  return "application/octet-stream";
+}
+
 async function serveStatic(url, res) {
   const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
-  const filePath = path.join(PUBLIC_DIR, pathname);
-  if (!filePath.startsWith(PUBLIC_DIR)) {
+  const editorFilePath = path.join(PUBLIC_DIR, pathname);
+  const siteFilePath = path.join(SITE_PUBLIC_DIR, pathname);
+
+  if (!editorFilePath.startsWith(PUBLIC_DIR) || !siteFilePath.startsWith(SITE_PUBLIC_DIR)) {
     sendText(res, 403, "Forbidden");
     return;
   }
 
   let content;
+  let resolvedPath = editorFilePath;
   try {
-    content = await fs.readFile(filePath);
-  } catch {
-    sendText(res, 404, "Not found");
-    return;
+    content = await fs.readFile(editorFilePath);
+  } catch (editorError) {
+    if (editorError?.code !== "ENOENT") {
+      sendText(res, 500, "Failed to read file.");
+      return;
+    }
+
+    try {
+      content = await fs.readFile(siteFilePath);
+      resolvedPath = siteFilePath;
+    } catch (siteError) {
+      if (siteError?.code === "ENOENT") {
+        sendText(res, 404, "Not found");
+        return;
+      }
+
+      sendText(res, 500, "Failed to read file.");
+      return;
+    }
   }
 
-  const ext = path.extname(filePath).toLowerCase();
-  const contentType =
-    ext === ".html"
-      ? "text/html; charset=utf-8"
-      : ext === ".css"
-        ? "text/css; charset=utf-8"
-        : ext === ".js"
-          ? "application/javascript; charset=utf-8"
-          : "application/octet-stream";
+  const contentType = getContentType(resolvedPath);
 
   res.writeHead(200, {
     "Content-Type": contentType,
@@ -110,6 +377,167 @@ async function walkDirectory(dirPath, out) {
       out.push(path.relative(ROOT_DIR, fullPath).replace(/\\/g, "/"));
     }
   }
+}
+
+async function walkFiles(dirPath, out) {
+  let entries = [];
+  try {
+    entries = await fs.readdir(dirPath, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+
+  for (const entry of entries) {
+    const fullPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      await walkFiles(fullPath, out);
+      continue;
+    }
+
+    if (entry.isFile()) out.push(fullPath);
+  }
+}
+
+function inferMediaKind(fileName) {
+  const ext = path.extname(fileName).toLowerCase();
+  if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)) {
+    return "image";
+  }
+  if ([".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"].includes(ext)) {
+    return "video";
+  }
+  if ([".pdf", ".doc", ".docx", ".txt", ".md"].includes(ext)) {
+    return "document";
+  }
+  return "other";
+}
+
+async function listMediaFiles(targetId) {
+  const target = MEDIA_TARGETS.find((entry) => entry.id === targetId);
+  if (!target) {
+    throw new Error("Unknown media target.");
+  }
+
+  const targetDir = path.join(ROOT_DIR, target.relativeDir);
+  if (!targetDir.startsWith(ROOT_DIR)) {
+    throw new Error("Invalid media target directory.");
+  }
+
+  const files = [];
+  await walkFiles(targetDir, files);
+
+  const items = await Promise.all(
+    files.map(async (absolutePath) => {
+      const stat = await fs.stat(absolutePath);
+      const relativePath = path.relative(ROOT_DIR, absolutePath).replace(/\\/g, "/");
+      return {
+        fileName: path.basename(absolutePath),
+        relativePath,
+        publicPath: `/${relativePath.replace(/^public\//, "")}`,
+        kind: inferMediaKind(absolutePath),
+        sizeBytes: stat.size,
+        updatedAt: stat.mtime.toISOString(),
+      };
+    }),
+  );
+
+  items.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  return {
+    target,
+    items,
+  };
+}
+
+function inferMediaKindFromSource(src, explicitType) {
+  if (explicitType === "image" || explicitType === "video") return explicitType;
+  const ext = path.extname(String(src ?? "")).toLowerCase();
+  if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)) {
+    return "image";
+  }
+  if ([".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"].includes(ext)) {
+    return "video";
+  }
+  return "other";
+}
+
+function normalizePreviewItem(label, src, kind, extra = {}) {
+  return {
+    label,
+    src: String(src ?? ""),
+    kind: inferMediaKindFromSource(src, kind),
+    ...extra,
+  };
+}
+
+function collectConfiguredMediaPreview(relativePath, content) {
+  const section = inferSectionFromPath(relativePath);
+  const { rawFm } = splitFrontmatter(content);
+  const parsed = parseFrontmatterYaml(rawFm);
+  const items = [];
+
+  if (section === "projects") {
+    const cover = parsed.cover;
+    if (cover && typeof cover === "object" && cover.src) {
+      items.push(normalizePreviewItem("Cover", cover.src, "image", { alt: cover.alt ?? "" }));
+    }
+
+    if (Array.isArray(parsed.media)) {
+      parsed.media
+        .filter((entry) => entry && typeof entry === "object" && entry.src)
+        .forEach((entry, index) => {
+          items.push(
+            normalizePreviewItem(`Media ${index + 1}`, entry.src, entry.type, {
+              alt: entry.alt ?? "",
+              caption: entry.caption ?? "",
+              poster: entry.poster ?? "",
+            }),
+          );
+        });
+    }
+  }
+
+  if (section === "companies") {
+    const profiles = parsed.profiles && typeof parsed.profiles === "object" ? parsed.profiles : {};
+    for (const [profileName, profileData] of Object.entries(profiles)) {
+      if (!profileData || typeof profileData !== "object") continue;
+      const logo = profileData.logo;
+      if (logo && typeof logo === "object" && logo.src) {
+        items.push(
+          normalizePreviewItem(`${profileName} Logo`, logo.src, "image", {
+            alt: logo.alt ?? profileName,
+          }),
+        );
+      }
+    }
+  }
+
+  if (section === "about") {
+    const profileMedia = parsed.profileMedia;
+    if (profileMedia && typeof profileMedia === "object" && profileMedia.src) {
+      items.push(
+        normalizePreviewItem("Profile Media", profileMedia.src, "image", {
+          alt: profileMedia.alt ?? "",
+          caption: profileMedia.caption ?? "",
+        }),
+      );
+    }
+
+    if (Array.isArray(parsed.additionalMedia)) {
+      parsed.additionalMedia
+        .filter((entry) => entry && typeof entry === "object" && entry.src)
+        .forEach((entry, index) => {
+          items.push(
+            normalizePreviewItem(`Additional Media ${index + 1}`, entry.src, "image", {
+              alt: entry.alt ?? "",
+              caption: entry.caption ?? "",
+            }),
+          );
+        });
+    }
+  }
+
+  return { section, items };
 }
 
 function slugToLabel(value) {
@@ -240,6 +668,270 @@ function parseFrontmatterYaml(rawFm) {
   }
 
   return result;
+}
+
+function createFormModel(relativePath, content) {
+  const section = inferSectionFromPath(relativePath);
+  const schema = FORM_SCHEMAS[section] ?? [];
+  const { rawFm, body } = splitFrontmatter(content);
+  const parsed = parseFrontmatterYaml(rawFm);
+
+  const knownKeys = listSchemaKeys(section);
+  if (section === "projects") {
+    knownKeys.add("cover");
+    knownKeys.add("links");
+    knownKeys.add("media");
+  }
+  if (section === "about") {
+    knownKeys.add("profileMedia");
+    knownKeys.add("additionalMedia");
+    knownKeys.add("resume");
+  }
+  if (section === "companies") {
+    knownKeys.add("profiles");
+  }
+  const unknownFrontmatter = topLevelKeyBlocks(rawFm)
+    .filter((entry) => !knownKeys.has(entry.key))
+    .map((entry) => entry.block)
+    .join("\n")
+    .trim();
+
+  let values = {};
+  let context = {};
+
+  if (section === "projects") {
+    values = {
+      title: String(parsed.title ?? ""),
+      status: String(parsed.status ?? "active"),
+      category: String(parsed.category ?? "Operations"),
+      organization: String(parsed.organization ?? ""),
+      organizationUrl: String(parsed.organizationUrl ?? ""),
+      roleTitle: String(parsed.roleTitle ?? ""),
+      timeframe: String(parsed.timeframe ?? ""),
+      startedAt: String(parsed.startedAt ?? ""),
+      endedAt: String(parsed.endedAt ?? ""),
+      summary: String(parsed.summary ?? ""),
+      cardSummary: String(parsed.cardSummary ?? ""),
+      problem: String(parsed.problem ?? ""),
+      approach: String(parsed.approach ?? ""),
+      outcome: String(parsed.outcome ?? ""),
+      tags: Array.isArray(parsed.tags) ? parsed.tags.join("\n") : "",
+      skills: Array.isArray(parsed.skills) ? parsed.skills.join("\n") : "",
+      tools: Array.isArray(parsed.tools) ? parsed.tools.join("\n") : "",
+      highlights: Array.isArray(parsed.highlights) ? parsed.highlights.join("\n") : "",
+      featured: parseBooleanInput(parsed.featured),
+      order: parsed.order === undefined ? "" : String(parsed.order),
+    };
+
+    context = {
+      preserved: {
+        cover: parsed.cover,
+        links: parsed.links,
+        media: parsed.media,
+      },
+    };
+  }
+
+  if (section === "about") {
+    values = {
+      metaDescription: String(parsed.metaDescription ?? ""),
+      backgroundParagraphs: Array.isArray(parsed.backgroundParagraphs)
+        ? parsed.backgroundParagraphs.join("\n")
+        : "",
+      values: Array.isArray(parsed.values) ? parsed.values.join("\n") : "",
+      thinkItems: objectsToLines(parsed.thinkItems, ["title", "text"], "::"),
+      personalItems: objectsToLines(parsed.personalItems, ["icon", "title", "body"], "|"),
+    };
+
+    context = {
+      preserved: {
+        profileMedia: parsed.profileMedia,
+        additionalMedia: parsed.additionalMedia,
+        resume: parsed.resume,
+      },
+    };
+  }
+
+  if (section === "companies") {
+    const profiles = parsed.profiles && typeof parsed.profiles === "object" ? parsed.profiles : {};
+    const profileEntries = Object.entries(profiles);
+    const [activeName, profile = {}] = profileEntries[0] ?? ["", {}];
+
+    values = {
+      companyName: String(activeName ?? ""),
+      summary: String(profile.summary ?? ""),
+      companyInfo: String(profile.companyInfo ?? ""),
+      myTimeInfo: String(profile.myTimeInfo ?? ""),
+      longSummary: String(profile.longSummary ?? ""),
+      roleSummary: String(profile.roleSummary ?? ""),
+      achievements: Array.isArray(profile.achievements) ? profile.achievements.join("\n") : "",
+      color: String(profile.color ?? ""),
+      tenureStart: String(profile.tenureStart ?? ""),
+      tenureEnd: String(profile.tenureEnd ?? ""),
+      timelineRoles: objectsToLines(profile.timelineRoles, ["label", "start", "end"], "|"),
+    };
+
+    context = {
+      activeProfileName: activeName,
+      preservedProfiles: profiles,
+    };
+  }
+
+  return {
+    section,
+    schema,
+    values,
+    body: String(body ?? "").replace(/^\s+/, ""),
+    unknownFrontmatter,
+    context,
+  };
+}
+
+function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter, context = {}) {
+  const section = inferSectionFromPath(relativePath);
+  const out = {};
+
+  if (section === "projects") {
+    out.title = String(values.title ?? "").trim() || "Untitled Project";
+    out.status = String(values.status ?? "active").trim() || "active";
+    out.category = String(values.category ?? "Operations").trim() || "Operations";
+
+    const organization = String(values.organization ?? "").trim();
+    if (organization) out.organization = organization;
+
+    const organizationUrl = String(values.organizationUrl ?? "").trim();
+    if (organizationUrl) out.organizationUrl = organizationUrl;
+
+    const roleTitle = String(values.roleTitle ?? "").trim();
+    if (roleTitle) out.roleTitle = roleTitle;
+
+    const timeframe = String(values.timeframe ?? "").trim();
+    if (timeframe) out.timeframe = timeframe;
+
+    const startedAt = String(values.startedAt ?? "").trim();
+    if (startedAt) out.startedAt = startedAt;
+
+    const endedAt = String(values.endedAt ?? "").trim();
+    if (endedAt) out.endedAt = endedAt;
+
+    out.summary = String(values.summary ?? "").trim() || "Add project summary.";
+
+    const cardSummary = String(values.cardSummary ?? "").trim();
+    if (cardSummary) out.cardSummary = cardSummary;
+
+    const highlights = parseArrayInput(values.highlights);
+    if (highlights.length) out.highlights = highlights.slice(0, 3);
+
+    const problem = String(values.problem ?? "").trim();
+    if (problem) out.problem = problem;
+
+    const approach = String(values.approach ?? "").trim();
+    if (approach) out.approach = approach;
+
+    const outcome = String(values.outcome ?? "").trim();
+    if (outcome) out.outcome = outcome;
+
+    const skills = parseArrayInput(values.skills);
+    if (skills.length) out.skills = skills;
+
+    const tools = parseArrayInput(values.tools);
+    if (tools.length) out.tools = tools;
+
+    out.tags = parseArrayInput(values.tags);
+
+    const preserved = context.preserved && typeof context.preserved === "object" ? context.preserved : {};
+    if (preserved.cover && typeof preserved.cover === "object") out.cover = preserved.cover;
+    if (Array.isArray(preserved.links) && preserved.links.length) out.links = preserved.links;
+    if (Array.isArray(preserved.media) && preserved.media.length) out.media = preserved.media;
+
+    out.featured = parseBooleanInput(values.featured);
+    const order = toNumberOrUndefined(values.order);
+    if (order !== undefined) out.order = order;
+  }
+
+  if (section === "about") {
+    out.metaDescription = String(values.metaDescription ?? "").trim() || "Add about meta description.";
+
+    const backgroundParagraphs = parseArrayInput(values.backgroundParagraphs);
+    out.backgroundParagraphs = backgroundParagraphs;
+
+    const thinkItems = parseLinesToObjects(values.thinkItems, ["title", "text"], "::");
+    out.thinkItems = thinkItems;
+
+    const personalItems = parseLinesToObjects(values.personalItems, ["icon", "title", "body"], "|");
+    out.personalItems = personalItems;
+
+    const valueList = parseArrayInput(values.values);
+    out.values = valueList;
+
+    const preserved = context.preserved && typeof context.preserved === "object" ? context.preserved : {};
+    if (preserved.profileMedia && typeof preserved.profileMedia === "object") out.profileMedia = preserved.profileMedia;
+    if (Array.isArray(preserved.additionalMedia)) out.additionalMedia = preserved.additionalMedia;
+    if (preserved.resume && typeof preserved.resume === "object") out.resume = preserved.resume;
+  }
+
+  if (section === "companies") {
+    const profileName = String(values.companyName ?? "").trim() || "Organization";
+    const preservedProfiles =
+      context.preservedProfiles && typeof context.preservedProfiles === "object"
+        ? cloneJsonLike(context.preservedProfiles)
+        : {};
+
+    const activeProfileName = String(context.activeProfileName ?? "").trim();
+    const baseProfile =
+      (activeProfileName && preservedProfiles[activeProfileName] && typeof preservedProfiles[activeProfileName] === "object")
+        ? preservedProfiles[activeProfileName]
+        : ((preservedProfiles[profileName] && typeof preservedProfiles[profileName] === "object") ? preservedProfiles[profileName] : {});
+
+    if (activeProfileName && activeProfileName !== profileName) {
+      delete preservedProfiles[activeProfileName];
+    }
+
+    const updatedProfile = {
+      ...baseProfile,
+      summary: String(values.summary ?? "").trim(),
+      companyInfo: String(values.companyInfo ?? "").trim(),
+      myTimeInfo: String(values.myTimeInfo ?? "").trim(),
+    };
+
+    const longSummary = String(values.longSummary ?? "").trim();
+    if (longSummary) updatedProfile.longSummary = longSummary;
+    else delete updatedProfile.longSummary;
+
+    const roleSummary = String(values.roleSummary ?? "").trim();
+    if (roleSummary) updatedProfile.roleSummary = roleSummary;
+    else delete updatedProfile.roleSummary;
+
+    const color = String(values.color ?? "").trim();
+    if (color) updatedProfile.color = color;
+    else delete updatedProfile.color;
+
+    const tenureStart = String(values.tenureStart ?? "").trim();
+    if (tenureStart) updatedProfile.tenureStart = tenureStart;
+    else delete updatedProfile.tenureStart;
+
+    const tenureEnd = String(values.tenureEnd ?? "").trim();
+    if (tenureEnd) updatedProfile.tenureEnd = tenureEnd;
+    else delete updatedProfile.tenureEnd;
+
+    const achievements = parseArrayInput(values.achievements);
+    if (achievements.length) updatedProfile.achievements = achievements;
+    else delete updatedProfile.achievements;
+
+    const timelineRoles = parseLinesToObjects(values.timelineRoles, ["label", "start", "end"], "|");
+    if (timelineRoles.length) updatedProfile.timelineRoles = timelineRoles;
+    else delete updatedProfile.timelineRoles;
+
+    preservedProfiles[profileName] = updatedProfile;
+    out.profiles = preservedProfiles;
+  }
+
+  const knownYaml = serializeYaml(out).trim();
+  const unknownYaml = sanitizeUnknownFrontmatter(unknownFrontmatter);
+  const mergedFrontmatter = [knownYaml, unknownYaml].filter(Boolean).join("\n");
+  const normalizedBody = String(body ?? "").replace(/^\s+/, "");
+
+  return `---\n${mergedFrontmatter}\n---\n\n${normalizedBody}`;
 }
 
 function renderFrontmatterPreview(rawFm) {
@@ -731,6 +1423,99 @@ async function handleApi(req, res, url) {
       sendJson(res, 200, { path: normalized, content });
     } catch (error) {
       sendJson(res, 400, { error: `Failed to read file: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "GET" && url.pathname === "/api/media") {
+    try {
+      const targetId = String(url.searchParams.get("targetId") ?? "");
+      if (!targetId) {
+        sendJson(res, 400, { error: "targetId is required." });
+        return;
+      }
+
+      sendJson(res, 200, await listMediaFiles(targetId));
+    } catch (error) {
+      sendJson(res, 400, { error: `Failed to list media: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/form-model") {
+    try {
+      const body = await parseJsonBody(req);
+
+      let content = String(body.content ?? "");
+      let relativePath = String(body.path ?? "");
+      if (!content && relativePath) {
+        const { normalized, absolutePath } = getAllowedAbsolutePath(relativePath);
+        relativePath = normalized;
+        content = await fs.readFile(absolutePath, "utf-8");
+      }
+
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required to build form model." });
+        return;
+      }
+
+      sendJson(res, 200, createFormModel(relativePath, content));
+    } catch (error) {
+      sendJson(res, 400, { error: `Form model failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/media-preview") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required to preview configured media." });
+        return;
+      }
+
+      const content = String(body.content ?? "");
+      if (!content) {
+        sendJson(res, 200, {
+          section: inferSectionFromPath(relativePath),
+          items: [],
+        });
+        return;
+      }
+
+      sendJson(res, 200, collectConfiguredMediaPreview(relativePath, content));
+    } catch (error) {
+      sendJson(res, 400, { error: `Configured media preview failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/compose") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required to compose markdown." });
+        return;
+      }
+
+      const content = composeMarkdownFromForm(
+        relativePath,
+        body.values ?? {},
+        body.body ?? "",
+        body.unknownFrontmatter ?? "",
+        body.context ?? {},
+      );
+
+      const validation = validateMarkdownContent(content);
+      sendJson(res, 200, {
+        content,
+        errors: validation.errors,
+        warnings: validation.warnings,
+      });
+    } catch (error) {
+      sendJson(res, 400, { error: `Compose failed: ${error.message}` });
     }
     return;
   }

@@ -58,6 +58,10 @@
 
         <section class="panel-block editor-panel">
           <div class="editor-toolbar" id="editor-toolbar">
+            <div class="editor-mode-toggle" role="tablist" aria-label="Editor mode">
+              <button id="mode-form-button" class="is-active" type="button" data-mode="form">Form Mode</button>
+              <button id="mode-raw-button" type="button" data-mode="raw">Raw Markdown</button>
+            </div>
             <button data-action="bold" type="button">Bold</button>
             <button data-action="italic" type="button">Italic</button>
             <button data-action="h2" type="button">H2</button>
@@ -69,8 +73,25 @@
 
           <div class="editor-grid">
             <div>
-              <h3>Markdown <span class="editor-hint" title="The --- blocks are YAML frontmatter required by the site. Fields like title, organization, summary etc. live there. Any free text below the second --- is the markdown body.">?</span></h3>
-              <textarea id="markdown-editor" spellcheck="false"></textarea>
+              <div id="form-editor-panel">
+                <h3>Structured Frontmatter</h3>
+                <p class="muted">Fill these fields to generate frontmatter automatically. Empty optional fields are omitted.</p>
+                <div id="form-editor" class="form-editor"></div>
+
+                <details id="advanced-frontmatter-block" class="advanced-frontmatter">
+                  <summary>Advanced: Preserve Unknown Frontmatter Keys</summary>
+                  <p class="muted">Any custom frontmatter keys not modeled by the form can be kept here as raw YAML.</p>
+                  <textarea id="unknown-frontmatter-editor" spellcheck="false" placeholder="customField: value"></textarea>
+                </details>
+
+                <h3>Markdown Body</h3>
+                <textarea id="body-editor" spellcheck="true" placeholder="Body markdown content goes here."></textarea>
+              </div>
+
+              <div id="raw-editor-panel" class="hidden">
+                <h3>Markdown <span class="editor-hint" title="The --- blocks are YAML frontmatter required by the site. Any free text below the second --- is the markdown body.">?</span></h3>
+                <textarea id="markdown-editor" spellcheck="false"></textarea>
+              </div>
             </div>
             <div>
               <h3>Formatted Preview</h3>
@@ -116,6 +137,13 @@
           </div>
           <button id="upload-button" type="button">Upload File</button>
           <p id="upload-result" class="upload-result muted"></p>
+
+          <div class="media-library-header">
+            <h4>Configured Media Preview</h4>
+            <button id="refresh-media-button" type="button">Refresh Preview</button>
+          </div>
+          <p class="muted media-library-help">Shows media configured in the currently open content file. If none are configured, an empty state is shown.</p>
+          <div id="media-library" class="media-library"></div>
         </section>
       </main>
     </div>
