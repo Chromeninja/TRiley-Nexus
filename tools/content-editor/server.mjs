@@ -1555,8 +1555,21 @@ async function handleApi(req, res, url) {
         return;
       }
 
-      const current = await fs.readFile(absolutePath, "utf-8");
-      const changes = summarizeMarkdownChanges(current, body.content);
+      const rawCurrent = await fs.readFile(absolutePath, "utf-8");
+      let normalizedCurrent = rawCurrent;
+      try {
+        const formModel = createFormModel(normalized, rawCurrent);
+        normalizedCurrent = composeMarkdownFromForm(
+          normalized,
+          formModel.values,
+          formModel.body,
+          formModel.unknownFrontmatter,
+          formModel.context,
+        );
+      } catch {
+        // fall back to raw content if normalization fails (e.g. malformed frontmatter)
+      }
+      const changes = summarizeMarkdownChanges(normalizedCurrent, body.content);
       const token = randomUUID();
       TOKENS.set(token, {
         path: normalized,
@@ -1600,6 +1613,28 @@ async function handleApi(req, res, url) {
           errors: validation.errors,
           warnings: validation.warnings,
         });
+        return;
+      }
+
+      // Skip write if content is semantically unchanged (same after normalization)
+      const { absolutePath: saveAbsPath } = getAllowedAbsolutePath(body.path);
+      const rawOnDisk = await fs.readFile(saveAbsPath, "utf-8");
+      let normalizedOnDisk = rawOnDisk;
+      try {
+        const fm = createFormModel(body.path, rawOnDisk);
+        normalizedOnDisk = composeMarkdownFromForm(
+          body.path,
+          fm.values,
+          fm.body,
+          fm.unknownFrontmatter,
+          fm.context,
+        );
+      } catch {
+        // fall back to raw if normalization fails
+      }
+      if (body.content === normalizedOnDisk) {
+        TOKENS.delete(body.token);
+        sendJson(res, 200, { saved: false, path: body.path, skipped: true });
         return;
       }
 

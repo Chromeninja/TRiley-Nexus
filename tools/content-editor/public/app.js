@@ -661,7 +661,11 @@ async function saveDraft() {
     });
 
     resetPreview();
-    renderMessages([], [`Saved ${payload.path}. Backup: ${payload.backupFile}`]);
+    if (payload.skipped) {
+      renderMessages([], [`No changes to save in ${payload.path}.`]);
+    } else {
+      renderMessages([], [`Saved ${payload.path}. Backup: ${payload.backupFile}`]);
+    }
   } catch (error) {
     const errors = error.payload?.errors ?? [error.message];
     const warnings = error.payload?.warnings ?? [];

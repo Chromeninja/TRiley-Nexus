@@ -16,6 +16,7 @@ summary: Helped design and improve an automated refund flow within customer supp
 problem: Manual refund handling increased response times and created inconsistent customer outcomes.
 approach: Defined process rules and automation touchpoints to standardize refund handling.
 outcome: Faster support resolution and more consistent customer refund experiences.
-featured: false
-order: 16
+featured: "false"
+order: "16"
 ---
+

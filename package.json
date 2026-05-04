@@ -8,9 +8,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "dev:node22": "npx -y node@22 ./node_modules/astro/astro.js dev",
-    "content:check:node22": "npx -y node@22 ./node_modules/astro/astro.js sync",
+    "dev:node22": "npx -y node@22 ./node_modules/astro/bin/astro.mjs dev",
+    "content:check:node22": "npx -y node@22 ./node_modules/astro/bin/astro.mjs sync",
     "content-editor": "node tools/content-editor/server.mjs",
+    "normalize-frontmatter": "node tools/normalize-frontmatter.mjs",
+    "normalize-frontmatter:write": "node tools/normalize-frontmatter.mjs --write",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
