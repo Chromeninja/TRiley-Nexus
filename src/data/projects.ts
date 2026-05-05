@@ -278,7 +278,7 @@ function toPositioning(
     1,
   );
   const rawOffset =
-    ((start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
+    ((range.end.getTime() - end.getTime()) / totalDurationMs) * 100;
   const rawWidth = ((end.getTime() - start.getTime()) / totalDurationMs) * 100;
   const offsetPct = Math.min(Math.max(rawOffset, 0), 100);
   const widthPct = Math.min(Math.max(rawWidth, 1.5), 100 - offsetPct);
@@ -302,6 +302,32 @@ function sortByOrder(a: Project, b: Project): number {
   }
 
   return (a.order ?? 99) - (b.order ?? 99);
+}
+
+export function sortProjectsByOrderThenRecency(
+  a: Project,
+  b: Project,
+  referenceNow: Date = new Date(),
+): number {
+  const statusDifference =
+    projectStatusSortOrder[a.status] - projectStatusSortOrder[b.status];
+  if (statusDifference !== 0) {
+    return statusDifference;
+  }
+
+  const orderDifference = (a.order ?? 99) - (b.order ?? 99);
+  if (orderDifference !== 0) {
+    return orderDifference;
+  }
+
+  const recencyDiff =
+    resolveProjectRecencyDate(b, referenceNow).getTime() -
+    resolveProjectRecencyDate(a, referenceNow).getTime();
+  if (recencyDiff !== 0) {
+    return recencyDiff;
+  }
+
+  return a.title.localeCompare(b.title);
 }
 
 export async function getProjects(): Promise<Project[]> {
@@ -333,36 +359,20 @@ function resolveProjectRecencyDate(project: Project, referenceNow: Date): Date {
   return new Date(0);
 }
 
-function sortByRecencyThenOrder(
-  a: Project,
-  b: Project,
-  referenceNow: Date,
-): number {
-  const recencyDiff =
-    resolveProjectRecencyDate(b, referenceNow).getTime() -
-    resolveProjectRecencyDate(a, referenceNow).getTime();
-
-  if (recencyDiff !== 0) {
-    return recencyDiff;
-  }
-
-  return (a.order ?? 99) - (b.order ?? 99);
-}
-
 export async function getProjectsPageData(
   featuredLimit = 6,
 ): Promise<ProjectsPageData> {
   const projects = await getProjects();
   const referenceNow = new Date();
-  const sortByRecency = (a: Project, b: Project): number =>
-    sortByRecencyThenOrder(a, b, referenceNow);
+  const sortByChronology = (a: Project, b: Project): number =>
+    sortProjectsByOrderThenRecency(a, b, referenceNow);
 
   const explicitFeatured = projects
     .filter((project) => project.featured)
-    .sort(sortByRecency);
+    .sort(sortByChronology);
   const nonFeatured = projects
     .filter((project) => !project.featured)
-    .sort(sortByRecency);
+    .sort(sortByChronology);
   const featuredProjects = [...explicitFeatured, ...nonFeatured].slice(
     0,
     featuredLimit,
@@ -385,7 +395,7 @@ export async function getProjectsPageData(
   const categoryGroups = [...groupedByCategory.entries()]
     .map(([category, categoryProjects]) => ({
       category,
-      projects: categoryProjects.sort(sortByRecency),
+      projects: categoryProjects.sort(sortByChronology),
     }))
     .sort((a, b) => {
       if (b.projects.length !== a.projects.length) {
@@ -671,7 +681,14 @@ function getRoleSegmentsFromProfile(
     .filter(
       (segment): segment is ParsedTimelineSegment => segment !== undefined,
     )
-    .sort((a, b) => (a?.start?.getTime() ?? 0) - (b?.start?.getTime() ?? 0));
+    .sort((a, b) => {
+      const endDifference = (b?.end?.getTime() ?? 0) - (a?.end?.getTime() ?? 0);
+      if (endDifference !== 0) {
+        return endDifference;
+      }
+
+      return (b?.start?.getTime() ?? 0) - (a?.start?.getTime() ?? 0);
+    });
 }
 
 function inferRoleSegmentsFromProjects(
@@ -712,7 +729,14 @@ function inferRoleSegmentsFromProjects(
         kind: "role" as const,
       };
     })
-    .sort((a, b) => a.start.getTime() - b.start.getTime());
+    .sort((a, b) => {
+      const endDifference = b.end.getTime() - a.end.getTime();
+      if (endDifference !== 0) {
+        return endDifference;
+      }
+
+      return b.start.getTime() - a.start.getTime();
+    });
 }
 
 function buildAxisYears(range: DateRange): number[] {
@@ -720,7 +744,7 @@ function buildAxisYears(range: DateRange): number[] {
   const endYear = range.end.getFullYear();
 
   const years: number[] = [];
-  for (let year = startYear; year <= endYear; year++) {
+  for (let year = endYear; year >= startYear; year--) {
     years.push(year);
   }
 
@@ -736,7 +760,7 @@ function toRenderSegment(
     1,
   );
   const rawOffset =
-    ((segment.start.getTime() - range.start.getTime()) / totalDurationMs) * 100;
+    ((range.end.getTime() - segment.end.getTime()) / totalDurationMs) * 100;
   const rawWidth =
     ((segment.end.getTime() - segment.start.getTime()) / totalDurationMs) * 100;
   const offsetPct = Math.min(Math.max(rawOffset, 0), 100);
@@ -761,17 +785,32 @@ function buildCompanyTimeline(
   const projectSegments = groupedProjects
     .map((project) => getProjectTimelineSegment(project))
     .filter((segment): segment is ParsedTimelineSegment => Boolean(segment))
-    .sort((a, b) => a.start.getTime() - b.start.getTime());
+    .sort((a, b) => {
+      const endDifference = b.end.getTime() - a.end.getTime();
+      if (endDifference !== 0) {
+        return endDifference;
+      }
+
+      return b.start.getTime() - a.start.getTime();
+    });
 
   const roleSegments = getRoleSegmentsFromProfile(organization);
   const resolvedRoleSegments =
     roleSegments.length > 0
       ? roleSegments
       : inferRoleSegmentsFromProjects(groupedProjects);
+  const sortedRoleSegments = [...resolvedRoleSegments].sort((a, b) => {
+    const endDifference = b.end.getTime() - a.end.getTime();
+    if (endDifference !== 0) {
+      return endDifference;
+    }
+
+    return b.start.getTime() - a.start.getTime();
+  });
 
   const mergedRange = mergeTimelineRanges([
     getCompanyDateRange(organization),
-    getDateRangeFromSegments(resolvedRoleSegments),
+    getDateRangeFromSegments(sortedRoleSegments),
     getDateRangeFromSegments(projectSegments),
   ]);
 
@@ -787,7 +826,7 @@ function buildCompanyTimeline(
     rangeEndLabel: mergedRange.endLabel,
     rangeLabel: mergedRange.label,
     axisYears: buildAxisYears(mergedRange),
-    roleSegments: resolvedRoleSegments.map((segment) =>
+    roleSegments: sortedRoleSegments.map((segment) =>
       toRenderSegment(segment, mergedRange),
     ),
     projectSegments: projectSegments.map((segment) =>
@@ -854,8 +893,11 @@ export async function getOrganizations(): Promise<string[]> {
 export async function getProjectsByOrganization(
   organization: string,
 ): Promise<Project[]> {
+  const referenceNow = new Date();
   const projects = await getProjects();
-  return projects.filter((p) => p.organization === organization);
+  return projects
+    .filter((p) => p.organization === organization)
+    .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow));
 }
 
 // Helper: get grouped projects by organization
@@ -864,6 +906,7 @@ export async function getProjectOrganizationGroups(): Promise<
 > {
   currentCompanyProfiles = await getCompanyProfiles();
   const projects = await getProjects();
+  const referenceNow = new Date();
   const grouped = new Map<string, Project[]>();
 
   for (const project of projects) {
@@ -879,6 +922,9 @@ export async function getProjectOrganizationGroups(): Promise<
   return [...grouped.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([organization, groupedProjects]) => {
+      const orderedProjects = [...groupedProjects].sort((a, b) =>
+        sortProjectsByOrderThenRecency(a, b, referenceNow),
+      );
       const profile = currentCompanyProfiles[organization] as
         | {
             summary?: string;
@@ -886,16 +932,16 @@ export async function getProjectOrganizationGroups(): Promise<
             myTimeInfo?: string;
           }
         | undefined;
-      const timeline = buildCompanyTimeline(organization, groupedProjects);
+      const timeline = buildCompanyTimeline(organization, orderedProjects);
       const companyRange = getCompanyDateRange(organization);
-      const projectRange = getProjectDateRange(groupedProjects);
+      const projectRange = getProjectDateRange(orderedProjects);
       const selectedRange = timeline
         ? { label: timeline.rangeLabel }
         : selectLongerRange(companyRange, projectRange);
 
       return {
         organization,
-        projects: groupedProjects,
+        projects: orderedProjects,
         companySummary: profile?.summary,
         companyInfo: profile?.companyInfo,
         myTimeInfo: profile?.myTimeInfo,
@@ -928,7 +974,14 @@ export async function getLifeTimelineEntries(): Promise<LifeTimelineEntry[]> {
         .slice(0, 2)
         .map((project) => project.title),
     }))
-    .sort((a, b) => a.rangeStart.getTime() - b.rangeStart.getTime());
+    .sort((a, b) => {
+      const endDifference = b.rangeEnd.getTime() - a.rangeEnd.getTime();
+      if (endDifference !== 0) {
+        return endDifference;
+      }
+
+      return b.rangeStart.getTime() - a.rangeStart.getTime();
+    });
 }
 
 export async function getCareerAtlasData(): Promise<
@@ -1067,7 +1120,14 @@ export async function getCareerAtlasData(): Promise<
         .filter((project): project is CareerAtlasProjectNode =>
           Boolean(project),
         )
-        .sort((a, b) => a.offsetPct - b.offsetPct);
+        .sort((a, b) => {
+          const offsetDifference = a.offsetPct - b.offsetPct;
+          if (offsetDifference !== 0) {
+            return offsetDifference;
+          }
+
+          return a.title.localeCompare(b.title);
+        });
 
       const isActive =
         group.timeline.rangeEndLabel === "Present" ||
@@ -1093,7 +1153,14 @@ export async function getCareerAtlasData(): Promise<
         projects,
       } as CareerAtlasCompanyNode;
     })
-    .sort((a, b) => a.offsetPct - b.offsetPct);
+    .sort((a, b) => {
+      const offsetDifference = a.offsetPct - b.offsetPct;
+      if (offsetDifference !== 0) {
+        return offsetDifference;
+      }
+
+      return a.organization.localeCompare(b.organization);
+    });
 
   const eras = careerAtlasEras.map((era) => {
     const eraStart =
@@ -1165,6 +1232,7 @@ function buildNarrativeProjectNode(
 export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
   currentCompanyProfiles = await getCompanyProfiles();
   const groups = await getProjectOrganizationGroups();
+  const referenceNow = new Date();
 
   const companies = groups
     .map((group) => {
@@ -1186,7 +1254,9 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
           ? parsedRoles
           : inferRoleSegmentsFromProjects(group.projects);
       const roles = roleSegments.map((segment) => segment.label);
-      const narrativeProjects = group.projects.map((project) =>
+      const narrativeProjects = [...group.projects]
+        .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow))
+        .map((project) =>
         buildNarrativeProjectNode(project, group.organization),
       );
       const featuredProjectCount = narrativeProjects.filter(
@@ -1231,11 +1301,15 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
       } as CareerNarrativeCompanyNode;
     })
     .sort((a, b) => {
-      const aStart =
-        a.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
-      const bStart =
-        b.timeline?.rangeStart.getTime() ?? Number.MAX_SAFE_INTEGER;
-      return aStart - bStart;
+      const aEnd = a.timeline?.rangeEnd.getTime() ?? 0;
+      const bEnd = b.timeline?.rangeEnd.getTime() ?? 0;
+      if (bEnd !== aEnd) {
+        return bEnd - aEnd;
+      }
+
+      const aStart = a.timeline?.rangeStart.getTime() ?? 0;
+      const bStart = b.timeline?.rangeStart.getTime() ?? 0;
+      return bStart - aStart;
     });
 
   const projectCount = companies.reduce(
@@ -1290,6 +1364,9 @@ export async function getProjectBySlug(
 
 // Helper: get active projects
 export async function getActiveProjects(): Promise<Project[]> {
+  const referenceNow = new Date();
   const projects = await getProjects();
-  return projects.filter((p) => p.status === "active").sort(sortByOrder);
+  return projects
+    .filter((p) => p.status === "active")
+    .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow));
 }

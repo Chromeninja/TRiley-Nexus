@@ -753,9 +753,20 @@ async function uploadFile() {
       fileName: file.name,
       base64,
       mimeType: file.type,
+      activePath: state.activePath ?? null,
     });
 
     elements.uploadResult.textContent = `Uploaded ${payload.relativePath}. Use ${payload.publicPath} in frontmatter.`;
+
+    // Auto-fill logoSrc when uploading a company logo while a company file is open
+    if (targetId === "companies" && state.formModel) {
+      const logoInput = document.getElementById("fm-logoSrc");
+      if (logoInput) {
+        logoInput.value = payload.publicPath;
+        logoInput.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    }
+
     await refreshConfiguredMediaPreview(elements.markdownEditor.value);
   } catch (error) {
     elements.uploadResult.textContent = `Upload failed: ${error.message}`;

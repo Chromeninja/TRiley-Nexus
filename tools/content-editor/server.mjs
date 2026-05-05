@@ -74,6 +74,8 @@ const FORM_SCHEMAS = {
     { key: "longSummary", label: "Long Summary", type: "textarea", placeholder: "Optional expanded summary." },
     { key: "roleSummary", label: "Role Summary", type: "textarea", placeholder: "Optional role-specific summary." },
     { key: "achievements", label: "Achievements", type: "list", placeholder: "One achievement per line" },
+    { key: "logoSrc", label: "Logo Source", type: "text", placeholder: "/media/companies/company-logo.png" },
+    { key: "logoAlt", label: "Logo Alt Text", type: "text", placeholder: "Accessible logo description" },
     { key: "color", label: "Brand Color", type: "text", placeholder: "#57a6ff" },
     { key: "tenureStart", label: "Tenure Start", type: "text", placeholder: "YYYY-MM or date label" },
     { key: "tenureEnd", label: "Tenure End", type: "text", placeholder: "Present or end date" },
@@ -125,12 +127,12 @@ function topLevelKeyBlocks(rawFm) {
   let currentLines = [];
 
   for (const line of lines) {
-    const keyMatch = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
+    const keyMatch = line.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
     if (keyMatch) {
       if (currentKey) {
         blocks.push({ key: currentKey, block: currentLines.join("\n") });
       }
-      currentKey = keyMatch[1];
+      currentKey = keyMatch[1].trimEnd().replace(/^["'](.*)["']$/, "$1");
       currentLines = [line];
       continue;
     }
@@ -176,6 +178,11 @@ function scalarToYaml(value) {
   return text;
 }
 
+function yamlKey(key) {
+  const s = String(key ?? "");
+  return /[\s:#"']/.test(s) ? quoteYamlString(s) : s;
+}
+
 function serializeYaml(value, indent = 0) {
   const space = " ".repeat(indent);
 
@@ -189,9 +196,9 @@ function serializeYaml(value, indent = 0) {
           if (entries.length === 0) return `${space}- {}`;
 
           const [firstKey, firstValue] = entries[0];
-          const rendered = [`${space}- ${firstKey}: ${scalarToYaml(firstValue)}`];
+          const rendered = [`${space}- ${yamlKey(firstKey)}: ${scalarToYaml(firstValue)}`];
           for (const [key, itemValue] of entries.slice(1)) {
-            rendered.push(`${space}  ${key}: ${scalarToYaml(itemValue)}`);
+            rendered.push(`${space}  ${yamlKey(key)}: ${scalarToYaml(itemValue)}`);
           }
           return rendered.join("\n");
         }
@@ -211,9 +218,9 @@ function serializeYaml(value, indent = 0) {
 
       if (Array.isArray(child)) {
         if (child.length === 0) {
-          out.push(`${space}${key}: []`);
+          out.push(`${space}${yamlKey(key)}: []`);
         } else {
-          out.push(`${space}${key}:`);
+          out.push(`${space}${yamlKey(key)}:`);
           out.push(serializeYaml(child, indent + 2));
         }
         continue;
@@ -222,15 +229,15 @@ function serializeYaml(value, indent = 0) {
       if (child && typeof child === "object") {
         const childEntries = Object.entries(child).filter(([, v]) => v !== undefined);
         if (childEntries.length === 0) {
-          out.push(`${space}${key}: {}`);
+          out.push(`${space}${yamlKey(key)}: {}`);
         } else {
-          out.push(`${space}${key}:`);
+          out.push(`${space}${yamlKey(key)}:`);
           out.push(serializeYaml(child, indent + 2));
         }
         continue;
       }
 
-      out.push(`${space}${key}: ${scalarToYaml(child)}`);
+      out.push(`${space}${yamlKey(key)}: ${scalarToYaml(child)}`);
     }
 
     return out.join("\n");
@@ -584,90 +591,211 @@ function splitFrontmatter(rawContent) {
 
 /**
  * Parse simple YAML used in frontmatter into a plain object.
- * Handles: scalars, quoted strings, simple arrays, nested scalar objects,
- * and arrays of multi-key objects (e.g. thinkItems, personalItems).
+ * Handles the subset used by this editor: scalars, nested objects,
+ * arrays, and arrays of multi-key objects.
  */
 function parseFrontmatterYaml(rawFm) {
-  const unq = (s) => String(s ?? "").replace(/^["']|["']$/g, "").trim();
+  const lines = String(rawFm ?? "").split("\n");
 
-  const result = {};
-  const lines = rawFm.split("\n");
-  let i = 0;
-
-  while (i < lines.length) {
-    const line = lines[i];
-    if (!line.trim()) { i += 1; continue; }
-
-    // Top-level key
-    const topKey = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-    if (!topKey) { i += 1; continue; }
-
-    const key = topKey[1];
-    const rest = topKey[2].trim();
-
-    if (rest === "[]") { result[key] = []; i += 1; continue; }
-    if (rest) { result[key] = unq(rest); i += 1; continue; }
-
-    // No inline value — scan continuation at indent >= 2
-    i += 1;
-    const items = [];       // scalar array items
-    const nestedObj = {};   // single nested object (e.g. resume:, profileMedia:)
-    let isNestedObj = false;
-
-    while (i < lines.length) {
-      const next = lines[i];
-      if (!next.trim()) { i += 1; continue; }
-
-      const indent = next.match(/^(\s*)/)[1].length;
-      if (indent === 0) break; // back to top-level
-
-      // List item that starts an object: "  - key: val"
-      const objItem = next.match(/^\s+-\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-      if (objItem) {
-        const obj = { [objItem[1]]: unq(objItem[2]) };
-        i += 1;
-        // Consume additional properties of this object (deeper indent)
-        while (i < lines.length) {
-          const prop = lines[i];
-          if (!prop.trim()) { i += 1; continue; }
-          const propIndent = prop.match(/^(\s*)/)[1].length;
-          if (propIndent <= indent) break;
-          const kv = prop.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-          if (kv) { obj[kv[1]] = unq(kv[2]); }
-          i += 1;
-        }
-        items.push(obj);
-        continue;
-      }
-
-      // Plain scalar list item: "  - value"
-      const scalarItem = next.match(/^\s+-\s+(.+)$/);
-      if (scalarItem) {
-        items.push(unq(scalarItem[1]));
-        i += 1;
-        continue;
-      }
-
-      // Nested scalar key (e.g. "  src: /foo" inside profileMedia:)
-      const nested = next.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-      if (nested) {
-        isNestedObj = true;
-        nestedObj[nested[1]] = unq(nested[2]);
-        i += 1;
-        continue;
-      }
-
-      break;
-    }
-
-    if (isNestedObj) {
-      result[key] = nestedObj;
-    } else if (items.length > 0) {
-      result[key] = items;
-    }
+  function stripQuotes(value) {
+    return String(value ?? "").replace(/^["']|["']$/g, "").trim();
   }
 
-  return result;
+  function parseScalar(value) {
+    const text = stripQuotes(value);
+    if (text === "true") return true;
+    if (text === "false") return false;
+    if (text === "null" || text === "~") return null;
+    if (/^-?\d+$/.test(text)) return Number.parseInt(text, 10);
+    if (/^-?\d+\.\d+$/.test(text)) return Number.parseFloat(text);
+    return text;
+  }
+
+  function getIndent(line) {
+    return line.match(/^(\s*)/)?.[1].length ?? 0;
+  }
+
+  function nextMeaningfulLineIndex(startIndex) {
+    for (let index = startIndex; index < lines.length; index += 1) {
+      if (lines[index].trim()) return index;
+    }
+
+    return -1;
+  }
+
+  function parseArrayItemObject(firstLineContent, startIndex, parentIndent) {
+    const item = {};
+    const inlineMatch = firstLineContent.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+    let index = startIndex;
+
+    if (inlineMatch) {
+      const [, rawKey, rest] = inlineMatch;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim()) {
+        item[key] = parseScalar(rest);
+      } else {
+        const nextIndex = nextMeaningfulLineIndex(index + 1);
+        if (nextIndex !== -1 && getIndent(lines[nextIndex]) > parentIndent) {
+          const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+          item[key] = nested.value;
+          index = nested.nextIndex - 1;
+        } else {
+          item[key] = "";
+        }
+      }
+    } else if (firstLineContent.trim()) {
+      return { value: parseScalar(firstLineContent), nextIndex: startIndex + 1 };
+    }
+
+    index += 1;
+    while (index < lines.length) {
+      const line = lines[index];
+      if (!line.trim()) {
+        index += 1;
+        continue;
+      }
+
+      const indent = getIndent(line);
+      if (indent <= parentIndent) break;
+
+      const trimmed = line.trim();
+      if (trimmed.startsWith("- ")) break;
+
+      const match = trimmed.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+      if (!match) {
+        index += 1;
+        continue;
+      }
+
+      const [, rawKey, rest] = match;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim()) {
+        item[key] = parseScalar(rest);
+        index += 1;
+        continue;
+      }
+
+      const nextIndex = nextMeaningfulLineIndex(index + 1);
+      if (nextIndex !== -1 && getIndent(lines[nextIndex]) > indent) {
+        const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+        item[key] = nested.value;
+        index = nested.nextIndex;
+        continue;
+      }
+
+      item[key] = "";
+      index += 1;
+    }
+
+    return { value: item, nextIndex: index };
+  }
+
+  function parseBlock(startIndex, baseIndent) {
+    const firstIndex = nextMeaningfulLineIndex(startIndex);
+    if (firstIndex === -1) return { value: {}, nextIndex: lines.length };
+
+    const firstLine = lines[firstIndex];
+    if (getIndent(firstLine) < baseIndent) {
+      return { value: {}, nextIndex: firstIndex };
+    }
+
+    if (firstLine.trim().startsWith("- ")) {
+      const items = [];
+      let index = firstIndex;
+
+      while (index < lines.length) {
+        const line = lines[index];
+        if (!line.trim()) {
+          index += 1;
+          continue;
+        }
+
+        const indent = getIndent(line);
+        if (indent < baseIndent) break;
+        if (indent !== baseIndent || !line.trim().startsWith("- ")) break;
+
+        const parsedItem = parseArrayItemObject(line.trim().slice(2), index, baseIndent);
+        items.push(parsedItem.value);
+        index = parsedItem.nextIndex;
+      }
+
+      return { value: items, nextIndex: index };
+    }
+
+    const object = {};
+    let index = firstIndex;
+
+    while (index < lines.length) {
+      const line = lines[index];
+      if (!line.trim()) {
+        index += 1;
+        continue;
+      }
+
+      const indent = getIndent(line);
+      if (indent < baseIndent) break;
+      if (indent !== baseIndent) {
+        index += 1;
+        continue;
+      }
+
+      const trimmed = line.trim();
+      const match = trimmed.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+      if (!match) {
+        index += 1;
+        continue;
+      }
+
+      const [, rawKey, rest] = match;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim() === "[]") {
+        object[key] = [];
+        index += 1;
+        continue;
+      }
+
+      if (rest.trim()) {
+        object[key] = parseScalar(rest);
+        index += 1;
+        continue;
+      }
+
+      const nextIndex = nextMeaningfulLineIndex(index + 1);
+      if (nextIndex !== -1 && getIndent(lines[nextIndex]) > indent) {
+        const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+        object[key] = nested.value;
+        index = nested.nextIndex;
+        continue;
+      }
+
+      object[key] = "";
+      index += 1;
+    }
+
+    return { value: object, nextIndex: index };
+  }
+
+  return parseBlock(0, 0).value;
+}
+
+function getPrimaryCompanyProfile(parsedFrontmatter) {
+  const profiles = parsedFrontmatter?.profiles;
+  if (!profiles || typeof profiles !== "object") {
+    return { name: "", profile: null };
+  }
+
+  const [name, profile] = Object.entries(profiles)[0] ?? ["", null];
+  if (!profile || typeof profile !== "object") {
+    return { name: String(name ?? ""), profile: null };
+  }
+
+  return { name: String(name ?? ""), profile };
+}
+
+function getCompanyFileMetadata(rawContent) {
+  const { rawFm } = splitFrontmatter(rawContent);
+  const parsed = parseFrontmatterYaml(rawFm);
+  return getPrimaryCompanyProfile(parsed);
 }
 
 function createFormModel(relativePath, content) {
@@ -765,6 +893,8 @@ function createFormModel(relativePath, content) {
       longSummary: String(profile.longSummary ?? ""),
       roleSummary: String(profile.roleSummary ?? ""),
       achievements: Array.isArray(profile.achievements) ? profile.achievements.join("\n") : "",
+      logoSrc: String(profile.logo?.src ?? ""),
+      logoAlt: String(profile.logo?.alt ?? ""),
       color: String(profile.color ?? ""),
       tenureStart: String(profile.tenureStart ?? ""),
       tenureEnd: String(profile.tenureEnd ?? ""),
@@ -918,6 +1048,17 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
     if (achievements.length) updatedProfile.achievements = achievements;
     else delete updatedProfile.achievements;
 
+    const logoSrc = String(values.logoSrc ?? "").trim();
+    const logoAlt = String(values.logoAlt ?? "").trim();
+    if (logoSrc) {
+      updatedProfile.logo = {
+        src: logoSrc,
+        alt: logoAlt || `${profileName} logo`,
+      };
+    } else {
+      delete updatedProfile.logo;
+    }
+
     const timelineRoles = parseLinesToObjects(values.timelineRoles, ["label", "start", "end"], "|");
     if (timelineRoles.length) updatedProfile.timelineRoles = timelineRoles;
     else delete updatedProfile.timelineRoles;
@@ -937,6 +1078,47 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
 function renderFrontmatterPreview(rawFm) {
   const fm = parseFrontmatterYaml(rawFm);
   const parts = [];
+  const { name: companyName, profile: companyProfile } = getPrimaryCompanyProfile(fm);
+
+  if (companyProfile) {
+    if (companyName) {
+      parts.push(`<h2 class="fm-title">${escapeHtml(companyName)}</h2>`);
+    }
+
+    if (companyProfile.logo?.src) {
+      const logoAlt = String(companyProfile.logo.alt ?? companyName ?? "Company logo");
+      parts.push(
+        `<div class="fm-section"><img class="media-library__preview" src="${escapeHtml(String(companyProfile.logo.src))}" alt="${escapeHtml(logoAlt)}"></div>`,
+      );
+    }
+
+    if (companyProfile.summary) {
+      parts.push(`<p class="fm-summary">${escapeHtml(String(companyProfile.summary))}</p>`);
+    }
+
+    for (const [label, field] of [["Company Info", "companyInfo"], ["My Time Info", "myTimeInfo"], ["Role Summary", "roleSummary"], ["Long Summary", "longSummary"]]) {
+      if (companyProfile[field]) {
+        parts.push(`<div class="fm-section"><strong>${label}</strong><p>${escapeHtml(String(companyProfile[field]))}</p></div>`);
+      }
+    }
+
+    if (Array.isArray(companyProfile.achievements) && companyProfile.achievements.length) {
+      const items = companyProfile.achievements.map((item) => `<li>${escapeHtml(String(item))}</li>`).join("");
+      parts.push(`<div class="fm-section"><strong>Achievements</strong><ul class="fm-values">${items}</ul></div>`);
+    }
+
+    if (Array.isArray(companyProfile.timelineRoles) && companyProfile.timelineRoles.length) {
+      const rows = companyProfile.timelineRoles
+        .filter((item) => item && typeof item === "object" && item.label)
+        .map((item) => `<li>${escapeHtml(String(item.label))} (${[item.start, item.end].filter(Boolean).map((value) => escapeHtml(String(value))).join(" — ")})</li>`)
+        .join("");
+      if (rows) {
+        parts.push(`<div class="fm-section"><strong>Timeline Roles</strong><ul class="fm-values">${rows}</ul></div>`);
+      }
+    }
+
+    return `<div class="fm-preview">${parts.join("\n")}</div>`;
+  }
 
   if (fm.title) {
     parts.push(`<h2 class="fm-title">${escapeHtml(String(fm.title))}</h2>`);
@@ -1040,12 +1222,15 @@ async function listMarkdownFiles() {
       const section = filePath.split("/")[2] ?? "content";
       const baseName = path.basename(filePath);
       const { title, organization } = parseFrontmatter(raw);
+      const { name: companyName } = section === "companies"
+        ? getCompanyFileMetadata(raw)
+        : { name: "" };
 
       return {
         id: createHash("sha1").update(filePath).digest("hex").slice(0, 16),
         path: filePath,
         section,
-        label: title || slugToLabel(baseName),
+        label: title || companyName || slugToLabel(baseName),
         organization: organization || null,
       };
     }),
@@ -1682,11 +1867,26 @@ async function handleApi(req, res, url) {
         return;
       }
 
-      const safeName = sanitizeUploadName(body.fileName);
       if (typeof body.base64 !== "string" || !body.base64.trim()) {
         sendJson(res, 400, { error: "Missing base64 file content." });
         return;
       }
+
+      let fileName = body.fileName;
+      if (target.id === "companies" && body.activePath) {
+        try {
+          const raw = await fs.readFile(path.join(ROOT_DIR, body.activePath), "utf8");
+          const { name: profileName } = getCompanyFileMetadata(raw);
+          if (profileName) {
+            const ext = path.extname(body.fileName);
+            fileName = `${toSlug(profileName)}-logo${ext}`;
+          }
+        } catch {
+          // fall back to original filename
+        }
+      }
+
+      const safeName = sanitizeUploadName(fileName);
 
       const targetDir = path.join(ROOT_DIR, target.relativeDir);
       if (!targetDir.startsWith(ROOT_DIR)) {

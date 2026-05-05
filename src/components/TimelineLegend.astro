@@ -1,5 +1,9 @@
 <div class="atlas-legend" aria-label="Timeline legend">
   <span class="atlas-legend__item"
+    ><i class="atlas-legend__swatch atlas-legend__swatch--direction"></i>Now to
+    Past</span
+  >
+  <span class="atlas-legend__item"
     ><i class="atlas-legend__swatch atlas-legend__swatch--company"></i>Company
     Span</span
   >
@@ -45,6 +49,14 @@
       90deg,
       color-mix(in srgb, var(--color-accent), black 36%),
       color-mix(in srgb, var(--color-accent), white 10%)
+    );
+  }
+
+  .atlas-legend__swatch--direction {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-success), white 16%),
+      color-mix(in srgb, var(--color-text-dim), black 15%)
     );
   }
 

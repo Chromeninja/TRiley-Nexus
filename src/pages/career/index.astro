@@ -14,6 +14,7 @@ import {
   getCareerNarrativeData,
   getLifeTimelineEntries,
   parseProjectDateValue,
+  sortProjectsByOrderThenRecency,
   getProjectOrganizationGroups,
   getProjects,
   type Project,
@@ -71,17 +72,6 @@ function parseDateValue(value?: string): Date | undefined {
   return parseProjectDateValue(trimmed, "start");
 }
 
-function sortByOrderThenDate(a: Project, b: Project): number {
-  const orderDelta = (a.order ?? 99) - (b.order ?? 99);
-  if (orderDelta !== 0) {
-    return orderDelta;
-  }
-
-  const aDate = parseDateValue(a.startedAt)?.getTime() ?? 0;
-  const bDate = parseDateValue(b.startedAt)?.getTime() ?? 0;
-  return bDate - aDate;
-}
-
 const shouldShowGantt = timelineView === "gantt";
 const shouldShowNarrative = timelineView === "narrative";
 const shouldShowScroll = timelineView === "scroll";
@@ -92,11 +82,12 @@ const atlasData = await getCareerAtlasData();
 const narrativeData = await getCareerNarrativeData();
 
 const projects = await getProjects();
+const referenceNow = new Date();
 const activeStatuses = new Set(["active", "concept"]);
 
 const currentProjects = projects
   .filter((project) => activeStatuses.has(project.status))
-  .sort(sortByOrderThenDate);
+  .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow));
 
 const historicalProjects = projects.filter(
   (project) => !activeStatuses.has(project.status),
@@ -137,7 +128,9 @@ const yearGroups: TimelineYearGroup[] = [...yearBucket.entries()]
         key: `month-${year}-${String(month + 1).padStart(2, "0")}`,
         month,
         monthLabel: monthLabelFormatter.format(new Date(year, month, 1)),
-        projects: monthProjects.sort(sortByOrderThenDate),
+        projects: monthProjects.sort((a, b) =>
+          sortProjectsByOrderThenRecency(a, b, referenceNow),
+        ),
       }));
 
     return {
@@ -158,8 +151,10 @@ const companyTimelineGroups = organizationGroups
   )
   .sort(
     (groupA, groupB) =>
-      groupA.timeline.rangeStart.getTime() -
-      groupB.timeline.rangeStart.getTime(),
+      groupB.timeline.rangeEnd.getTime() -
+        groupA.timeline.rangeEnd.getTime() ||
+      groupB.timeline.rangeStart.getTime() -
+        groupA.timeline.rangeStart.getTime(),
   );
 
 const lifeTimelineEntries = await getLifeTimelineEntries();
