@@ -127,6 +127,11 @@ function topLevelKeyBlocks(rawFm) {
   let currentLines = [];
 
   for (const line of lines) {
+    if (/^\s/.test(line)) {
+      if (currentKey) currentLines.push(line);
+      continue;
+    }
+
     const keyMatch = line.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
     if (keyMatch) {
       if (currentKey) {
@@ -145,6 +150,34 @@ function topLevelKeyBlocks(rawFm) {
   }
 
   return blocks;
+}
+
+function isCompanyProfileObject(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+
+  const companyProfileKeys = new Set([
+    "summary",
+    "companyInfo",
+    "myTimeInfo",
+    "longSummary",
+    "roleSummary",
+    "achievements",
+    "logo",
+    "color",
+    "tenureStart",
+    "tenureEnd",
+    "timelineRoles",
+  ]);
+
+  return Object.keys(value).some((key) => companyProfileKeys.has(key));
+}
+
+function getLegacyCompanyProfileEntries(parsedFrontmatter) {
+  if (!parsedFrontmatter || typeof parsedFrontmatter !== "object") return [];
+
+  return Object.entries(parsedFrontmatter).filter(
+    ([key, value]) => key !== "profiles" && isCompanyProfileObject(value),
+  );
 }
 
 function sanitizeUnknownFrontmatter(rawUnknown) {
@@ -781,7 +814,12 @@ function parseFrontmatterYaml(rawFm) {
 function getPrimaryCompanyProfile(parsedFrontmatter) {
   const profiles = parsedFrontmatter?.profiles;
   if (!profiles || typeof profiles !== "object") {
-    return { name: "", profile: null };
+    const [legacyName, legacyProfile] = getLegacyCompanyProfileEntries(parsedFrontmatter)[0] ?? ["", null];
+    if (!legacyProfile || typeof legacyProfile !== "object") {
+      return { name: "", profile: null };
+    }
+
+    return { name: String(legacyName ?? ""), profile: legacyProfile };
   }
 
   const [name, profile] = Object.entries(profiles)[0] ?? ["", null];
@@ -818,8 +856,14 @@ function createFormModel(relativePath, content) {
   if (section === "companies") {
     knownKeys.add("profiles");
   }
+
+  const legacyCompanyProfileNames =
+    section === "companies"
+      ? new Set(getLegacyCompanyProfileEntries(parsed).map(([name]) => String(name ?? "")))
+      : new Set();
+
   const unknownFrontmatter = topLevelKeyBlocks(rawFm)
-    .filter((entry) => !knownKeys.has(entry.key))
+    .filter((entry) => !knownKeys.has(entry.key) && !legacyCompanyProfileNames.has(entry.key))
     .map((entry) => entry.block)
     .join("\n")
     .trim();
@@ -881,7 +925,14 @@ function createFormModel(relativePath, content) {
   }
 
   if (section === "companies") {
-    const profiles = parsed.profiles && typeof parsed.profiles === "object" ? parsed.profiles : {};
+    const profiles =
+      parsed.profiles && typeof parsed.profiles === "object" ? cloneJsonLike(parsed.profiles) : {};
+    for (const [profileName, legacyProfile] of getLegacyCompanyProfileEntries(parsed)) {
+      if (!(profileName in profiles)) {
+        profiles[profileName] = cloneJsonLike(legacyProfile);
+      }
+    }
+
     const profileEntries = Object.entries(profiles);
     const [activeName, profile = {}] = profileEntries[0] ?? ["", {}];
 
