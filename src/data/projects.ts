@@ -910,7 +910,7 @@ export async function getProjectOrganizationGroups(): Promise<
   const grouped = new Map<string, Project[]>();
 
   for (const project of projects) {
-    const organization = project.organization?.trim() || "Independent";
+    const organization = project.organization?.trim() || "Unspecified Organization";
 
     if (!grouped.has(organization)) {
       grouped.set(organization, []);

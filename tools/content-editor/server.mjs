@@ -1394,6 +1394,128 @@ function sanitizeUploadName(name) {
   return cleaned;
 }
 
+function extensionFromMimeType(mimeType) {
+  const value = String(mimeType ?? "").toLowerCase();
+  if (value === "image/jpeg") return ".jpg";
+  if (value === "image/png") return ".png";
+  if (value === "image/webp") return ".webp";
+  if (value === "image/gif") return ".gif";
+  if (value === "image/svg+xml") return ".svg";
+  if (value === "image/avif") return ".avif";
+  if (value === "video/mp4") return ".mp4";
+  if (value === "video/webm") return ".webm";
+  if (value === "video/quicktime") return ".mov";
+  if (value === "application/pdf") return ".pdf";
+  return "";
+}
+
+async function fileExists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+async function resolveUniqueUploadName(targetDir, baseName, ext) {
+  const safeBase = sanitizeUploadName(baseName).replace(/\.[^.]*$/, "");
+  const safeExt = ext && ext.startsWith(".") ? ext.toLowerCase() : "";
+
+  let candidate = `${safeBase}${safeExt}`;
+  let suffix = 2;
+  while (await fileExists(path.join(targetDir, candidate))) {
+    candidate = `${safeBase}-${suffix}${safeExt}`;
+    suffix += 1;
+  }
+
+  return candidate;
+}
+
+async function getProjectUploadNaming(activePath, originalFileName, mimeType, targetDir) {
+  if (!activePath) return null;
+
+  const { normalized, absolutePath } = getAllowedAbsolutePath(activePath);
+  if (!normalized.startsWith("src/content/projects/")) return null;
+
+  const projectSlug = toSlug(path.basename(normalized, path.extname(normalized)));
+  if (!projectSlug) return null;
+
+  const raw = await fs.readFile(absolutePath, "utf-8");
+  const { rawFm } = splitFrontmatter(raw);
+  const parsed = parseFrontmatterYaml(rawFm);
+  const mediaKind = inferMediaKindFromSource(originalFileName, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
+  const hasCover = Boolean(parsed?.cover && typeof parsed.cover === "object" && String(parsed.cover.src ?? "").trim());
+  const role = !hasCover && mediaKind === "image" ? "cover" : "media";
+
+  const originalExt = path.extname(String(originalFileName ?? "")).toLowerCase();
+  const extension = originalExt || extensionFromMimeType(mimeType) || ".bin";
+  const baseName = role === "cover" ? `${projectSlug}-cover` : `${projectSlug}-media`;
+  const fileName = await resolveUniqueUploadName(targetDir, baseName, extension);
+
+  return { fileName, role };
+}
+
+function linkUploadedProjectMedia(content, publicPath, mimeType) {
+  const cleanedPublicPath = String(publicPath ?? "").trim();
+  if (!cleanedPublicPath.startsWith("/")) {
+    throw new Error("publicPath must start with '/'.");
+  }
+
+  const { rawFm, body } = splitFrontmatter(content);
+  if (!rawFm.trim()) {
+    throw new Error("Project file must contain frontmatter.");
+  }
+
+  const parsed = parseFrontmatterYaml(rawFm);
+  const mediaKind = inferMediaKindFromSource(cleanedPublicPath, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
+
+  const coverSrc = parsed?.cover && typeof parsed.cover === "object" ? String(parsed.cover.src ?? "").trim() : "";
+  const mediaItems = Array.isArray(parsed.media) ? parsed.media : [];
+  const alreadyInMedia = mediaItems.some((entry) => entry && typeof entry === "object" && String(entry.src ?? "").trim() === cleanedPublicPath);
+  const alreadyLinked = coverSrc === cleanedPublicPath || alreadyInMedia;
+
+  if (alreadyLinked) {
+    return {
+      content,
+      role: coverSrc === cleanedPublicPath ? "cover" : "media",
+      inserted: false,
+    };
+  }
+
+  if (!coverSrc && mediaKind === "image") {
+    parsed.cover = {
+      src: cleanedPublicPath,
+      alt: String(parsed.title ?? "Project cover image"),
+    };
+
+    const serialized = serializeYaml(parsed);
+    const normalizedBody = String(body ?? "");
+    const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+    return {
+      content: `---\n${serialized}\n---${bodyBlock}`,
+      role: "cover",
+      inserted: true,
+    };
+  }
+
+  const entry = {
+    type: mediaKind === "video" ? "video" : "image",
+    src: cleanedPublicPath,
+  };
+
+  parsed.media = [...mediaItems, entry];
+  const serialized = serializeYaml(parsed);
+  const normalizedBody = String(body ?? "");
+  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  return {
+    content: `---\n${serialized}\n---${bodyBlock}`,
+    role: "media",
+    inserted: true,
+  };
+}
+
 function toSlug(value) {
   return value
     .trim()
@@ -1924,9 +2046,11 @@ async function handleApi(req, res, url) {
       }
 
       let fileName = body.fileName;
+      let projectMediaRole = null;
       if (target.id === "companies" && body.activePath) {
         try {
-          const raw = await fs.readFile(path.join(ROOT_DIR, body.activePath), "utf8");
+          const { absolutePath } = getAllowedAbsolutePath(body.activePath);
+          const raw = await fs.readFile(absolutePath, "utf8");
           const { name: profileName } = getCompanyFileMetadata(raw);
           if (profileName) {
             const ext = path.extname(body.fileName);
@@ -1937,13 +2061,30 @@ async function handleApi(req, res, url) {
         }
       }
 
-      const safeName = sanitizeUploadName(fileName);
-
       const targetDir = path.join(ROOT_DIR, target.relativeDir);
       if (!targetDir.startsWith(ROOT_DIR)) {
         sendJson(res, 400, { error: "Invalid upload directory." });
         return;
       }
+
+      if (target.id === "projects" && body.activePath) {
+        try {
+          const naming = await getProjectUploadNaming(
+            body.activePath,
+            body.fileName,
+            body.mimeType,
+            targetDir,
+          );
+          if (naming) {
+            fileName = naming.fileName;
+            projectMediaRole = naming.role;
+          }
+        } catch {
+          // fall back to original filename
+        }
+      }
+
+      const safeName = sanitizeUploadName(fileName);
 
       await fs.mkdir(targetDir, { recursive: true });
       const filePath = path.join(targetDir, safeName);
@@ -1958,9 +2099,38 @@ async function handleApi(req, res, url) {
         uploaded: true,
         relativePath,
         publicPath: `/${relativePath.replace(/^public\//, "")}`,
+        fileName: safeName,
+        projectMediaRole,
       });
     } catch (error) {
       sendJson(res, 400, { error: `Upload failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/link-project-media") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required." });
+        return;
+      }
+
+      const { normalized } = getAllowedAbsolutePath(relativePath);
+      if (!normalized.startsWith("src/content/projects/")) {
+        sendJson(res, 400, { error: "Only project files can be linked to uploaded project media." });
+        return;
+      }
+
+      const content = String(body.content ?? "");
+      const publicPath = String(body.publicPath ?? "");
+      const mimeType = String(body.mimeType ?? "");
+      const linked = linkUploadedProjectMedia(content, publicPath, mimeType);
+
+      sendJson(res, 200, linked);
+    } catch (error) {
+      sendJson(res, 400, { error: `Project media linking failed: ${error.message}` });
     }
     return;
   }

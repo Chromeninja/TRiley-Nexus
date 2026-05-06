@@ -12,6 +12,9 @@ profiles:
       - label: Event Technical Director
         start: "2022"
         end: "2022"
+    logo:
+      src: "/media/companies/quantum-vegas-logo.webp"
+      alt: Quantum Vegas logo
 ---
 
 Company profile override entry.
