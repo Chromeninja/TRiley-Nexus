@@ -1,17 +1,17 @@
 ---
 profiles:
   "Quantum Vegas LLC":
-    summary: Convention buildout and event operations coordination.
-    companyInfo: "Event-focused production and systems coordination."
-    myTimeInfo: Supported execution planning and buildout reliability.
-    roleSummary: Event systems and delivery support
+    summary: Fan convention co-production and event operations coordination for a large community event.
+    companyInfo: "Quantum Vegas LLC supported convention planning, production coordination, and on-site delivery for a community-focused live event program."
+    myTimeInfo: "In 2025, I supported co-production work focused on execution planning, coordination, and reliable on-site delivery."
+    roleSummary: Co-Producer
     color: "#c4b5fd"
     tenureStart: "2025-01"
     tenureEnd: "2025-08"
     timelineRoles:
-      - label: Event Technical Director
-        start: "2022"
-        end: "2022"
+      - label: Co-Producer
+        start: "2025"
+        end: "2025"
     logo:
       src: "/media/companies/quantum-vegas-logo.webp"
       alt: Quantum Vegas logo

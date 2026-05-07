@@ -14,6 +14,7 @@ A customizable Astro portfolio template designed for GitHub Pages.
 2. GitHub Pages publish steps: docs/SETUP-GITHUB-PAGES.md
 3. Optional local testing in VS Code: docs/LOCAL-DEVELOPMENT.md
 4. Project content reference: docs/CONTENT-WIKI.md
+5. Content taxonomy and writing standards: docs/CONTENT-TAXONOMY.md
 
 ## Configuration Model
 
@@ -70,7 +71,7 @@ This template is designed to be forked and customized **without writing code**. 
 | **Project content**  | Edit `.md` files in `src/content/projects` | 10 min per project |
 | **Colors & fonts**   | Edit `theme` section in JSON               | 5 min              |
 | **About content**    | Edit `src/content/about/about.md`          | 10 min             |
-| **Companies/orgs**   | Edit `src/content/companies/companies.md`  | 10 min             |
+| **Companies/orgs**   | Edit files in `src/content/companies/`     | 10 min             |
 | **Navigation links** | Edit `navigation` array in JSON            | 2 min              |
 | **Career timeline**  | Edit `careerEras` array in JSON            | 5 min              |
 
@@ -87,6 +88,10 @@ This template is designed to be forked and customized **without writing code**. 
 ### Configuration Reference
 
 👉 **See [docs/CONFIG-SCHEMA.md](./docs/CONFIG-SCHEMA.md)** for complete field documentation of every option in `portfolio-config.json`.
+
+### Content Consistency Reference
+
+👉 **See [docs/CONTENT-TAXONOMY.md](./docs/CONTENT-TAXONOMY.md)** for canonical categories, tag families, date formats, and writing style guidance used across project and company markdown files.
 
 ### Example: Change Your Brand Color
 

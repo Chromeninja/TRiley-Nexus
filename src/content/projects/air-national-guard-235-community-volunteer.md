@@ -3,8 +3,8 @@ title: 235th CAOS — Community Volunteer & Outreach
 status: active
 category: Military Operations
 tags:
-  - Community Service
-  - Volunteer Work
+  - Community Support
+  - Volunteer Service
   - Special Olympics
   - Air National Guard
   - Community Outreach
@@ -12,8 +12,8 @@ organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Volunteer / Community Support
 startedAt: "2015-04"
-summary: "Participated in ongoing community volunteer and outreach activities through the 235th Combat Airfield Operations Squadron, supporting local events including parades, Special Olympics, food collection drives, and other community service efforts."
-cardSummary: "Community volunteer work through the 235th CAOS — parades, Special Olympics, food drives, and local outreach."
+summary: "Supported ongoing community volunteer and outreach activities through the 235th CAOS, including parades, Special Olympics, food drives, and other local service events."
+cardSummary: "Supported 235th CAOS community outreach through parades, Special Olympics, food drives, and local service events."
 cover:
   src: "/media/projects/ang-235-volunteer.jpg"
   alt: Members of the 235th CAOS volunteering at a community event

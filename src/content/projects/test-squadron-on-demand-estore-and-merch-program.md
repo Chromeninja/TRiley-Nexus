@@ -3,12 +3,12 @@ title: TEST Squadron On-Demand E-Store and Community Merch Program
 status: active
 category: Commerce & Community Operations
 tags:
-  - E-Commerce
+  - Ecommerce Operations
   - Merchandise Operations
   - Fundraising
   - Brand Management
   - Community Engagement
-  - Apparel Design
+  - Merchandise Design
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing

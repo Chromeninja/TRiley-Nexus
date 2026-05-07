@@ -4,9 +4,9 @@ status: completed
 category: Production & Pipeline
 tags:
   - Community Testing
-  - QA Feedback
+  - Quality Feedback
   - Program Design
-  - Operations
+  - Production Operations
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 timeframe: Past
@@ -14,6 +14,7 @@ roleTitle: Technical Producer
 startedAt: "2025-10"
 endedAt: "2025-11"
 summary: Built and operated early community testing and beta feedback workflows around Reality Breach as part of the broader Nope Challenge production effort.
+cardSummary: Built early community testing workflows that improved feedback quality and issue discovery for Reality Breach.
 problem: "Internal testing alone missed user-context defects and limited early signal quality."
 approach: "Organized community testing cycles, beta feedback collection, reporting pathways, and triage handoff workflows to capture higher-quality signal during early project work."
 outcome: Improved early issue detection and created a stronger feedback loop for later Nope Challenge production planning.

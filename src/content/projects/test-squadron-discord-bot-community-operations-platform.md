@@ -3,11 +3,11 @@ title: TEST Squadron Discord Bot / Community Operations Platform
 status: active
 category: Community Systems
 tags:
-  - Discord Bot
+  - Community Platform
   - Community Operations
-  - Automation
-  - Governance
-  - Voice Channel Management
+  - Discord Automation
+  - Governance Systems
+  - Voice Management
   - Verification Systems
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
@@ -15,7 +15,7 @@ timeframe: Ongoing
 roleTitle: Platform Engineer
 startedAt: "2024-10"
 summary: "Built and continue to operate an open-source Discord bot platform for TEST Squadron that handles token-based verification, role assignment, voice channel orchestration, and admin operations workflows while preserving member privacy."
-cardSummary: Built an operations-focused Discord bot platform that scaled verification, moderation workflows, and voice management for TEST Squadron.
+cardSummary: Built an operations-focused Discord platform that scaled verification, moderation workflows, and voice management for TEST Squadron.
 highlights:
   - Implemented token-based member verification with role assignment, cooldown controls, and support for staff-led recheck operations.
   - Shipped voice channel lifecycle tooling so members can create and manage channels through bot commands without broad direct permissions.

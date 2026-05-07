@@ -3,18 +3,18 @@ title: 235th CAOS — Unit IT Operations
 status: active
 category: Military Operations
 tags:
-  - SharePoint
-  - Microsoft Teams
-  - Microsoft 365
-  - IT Administration
+  - Unit IT Support
+  - SharePoint Administration
+  - Microsoft 365 Administration
+  - Teams Administration
   - Digital Modernization
   - Air National Guard
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Informal Unit IT Specialist
 startedAt: "2015-04"
-summary: "Serves as the 235th Combat Airfield Operations Squadron's informal IT resource — building and maintaining SharePoint pages for unit operations, resolving Microsoft Teams configuration issues, and troubleshooting Microsoft 365 problems that would otherwise have no dedicated support."
-cardSummary: "Self-appointed unit IT lead keeping the 235th CAOS's Microsoft 365 environment functional with no formal IT budget or support structure."
+summary: "Serves as the 235th CAOS's informal IT resource, maintaining SharePoint, Teams, and Microsoft 365 tools that support day-to-day unit operations."
+cardSummary: "Keeps the unit's SharePoint, Teams, and Microsoft 365 environment working without formal IT support."
 highlights:
   - "Designs and builds SharePoint pages for squadron operations, documentation, and information management with no formal IT role or budget."
   - "Resolves Microsoft Teams configuration issues for unit members — channels, permissions, meeting rooms, and connectivity — and provides first-line Microsoft 365 troubleshooting."

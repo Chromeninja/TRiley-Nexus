@@ -5,16 +5,16 @@ category: VR & Experimental Tech
 tags:
   - Meta Quest
   - Hand Tracking
-  - Deployment
-  - XR
+  - Feature Delivery
+  - Extended Reality
   - Interaction Systems
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 roleTitle: Technical Producer
 timeframe: Ongoing
 startedAt: "2026-01"
-summary: "Ongoing hand-tracking prototyping, interaction development, and deployment work for Happy Manic on Meta Quest as part of continued Nope Challenge feature development."
-cardSummary: "Led hand-tracking rollout work for Meta Quest with practical XR interaction validation."
+summary: "Supports hand-tracking prototyping, interaction development, and feature rollout work on Meta Quest as part of ongoing Nope Challenge development."
+cardSummary: "Supported Meta Quest hand-tracking rollout work with practical interaction validation."
 highlights:
   - "Coordinated hand-tracking priorities across production and engineering."
   - Guided interaction prototypes through test feedback and deployment needs.

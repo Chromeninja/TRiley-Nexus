@@ -13,6 +13,7 @@ roleTitle: Senior Program Manager
 startedAt: "2021-02"
 endedAt: "2023-08"
 summary: Contributed to platform and process work around R6Fix to improve structured issue reporting and player feedback quality.
+cardSummary: Improved R6Fix reporting workflows to raise the quality of player issue reports.
 problem: "Bug reports lacked consistency and signal quality, slowing triage and resolution workflows."
 approach: Supported reporting framework improvements and issue categorization patterns aligned to support and dev needs.
 outcome: "Better report quality and improved visibility for high-impact defects."

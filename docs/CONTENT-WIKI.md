@@ -26,6 +26,8 @@ Use this one file to edit most personal/site content:
 - Now page content
 - Contact page text
 
+For standardized writing style, categories, tags, and date formats used in markdown content, see `docs/CONTENT-TAXONOMY.md`.
+
 Tip: Keep the JSON structure exactly the same. Replace only the text values.
 
 ## Media Storage Convention
@@ -148,7 +150,7 @@ Use `portfolio-config.json` for About page profile images.
 }
 ```
 
-Use `src/data/companyProfiles.ts` for company logos shown in the career atlas.
+Use `src/content/companies/*.md` for company logos and profile metadata shown in the career atlas.
 
 ```ts
 logo: {

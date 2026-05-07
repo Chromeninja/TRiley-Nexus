@@ -4,16 +4,16 @@ status: active
 category: Events & Community Operations
 tags:
   - Event Operations
-  - "Check-in Systems"
-  - "Check-in Automation"
-  - Operations Tooling
+  - Check-In Operations
+  - Operations Automation
+  - Internal Tooling
   - Workflow Design
 organization: VR Villa
 timeframe: Ongoing
 roleTitle: Product Lead / Producer
 startedAt: "2026-02"
-summary: "Built and evolved Event Ops Manager, an internal event operations platform with automated check-in workflows and real-time event-day visibility."
-cardSummary: "Built Event Ops Manager to automate attendee check-in and improve event-day operations at scale."
+summary: "Built and evolved Event Ops Manager, an internal operations platform for attendee check-in, workflow automation, and real-time event-day visibility."
+cardSummary: "Built Event Ops Manager to automate attendee check-in and improve event-day coordination at scale."
 highlights:
   - "Automated attendee check-in to replace manual event entry workflows."
   - "Improved real-time event visibility for organizers and staff."

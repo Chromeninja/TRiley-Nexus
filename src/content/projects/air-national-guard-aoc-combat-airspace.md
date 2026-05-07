@@ -6,15 +6,14 @@ tags:
   - Combat Airspace Management
   - Airspace Deconfliction
   - Air Operations Center
-  - AOC
   - Joint Operations
   - Air National Guard
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Combat Airspace Operator (AOC)
 startedAt: "2025-06"
-summary: "Completed Combat Airspace training in June 2025, qualifying to manage and deconflict airspace within a Combat Air Operations Center (AOC) in deployed or contingency environments. Operates at the AOC level to coordinate airspace use across joint and coalition forces, preventing conflicts between simultaneous air operations."
-cardSummary: "Qualified to manage and deconflict airspace within a deployed Combat AOC, coordinating simultaneous air operations across joint and coalition forces."
+summary: "Qualified in June 2025 to manage and deconflict airspace inside a Combat Air Operations Center for deployed and contingency missions."
+cardSummary: "Qualified to manage and deconflict joint airspace inside a deployed Combat Air Operations Center."
 highlights:
   - "Completed formal Combat Airspace qualification training in June 2025, qualifying to operate within a Combat Air Operations Center (AOC) in deployed and contingency environments."
   - "Performs airspace deconfliction across simultaneous fixed-wing, rotary-wing, and UAS operations in complex joint airspace, coordinating between theater and tactical-level assets."

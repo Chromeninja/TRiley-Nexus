@@ -2,6 +2,8 @@
 
 Complete documentation of every field in `portfolio-config.json`. Use this as a reference when customizing your portfolio.
 
+Note: this document covers `portfolio-config.json` only. Markdown content collections under `src/content/` are documented in `docs/CONTENT-WIKI.md`, and consistency standards are in `docs/CONTENT-TAXONOMY.md`.
+
 ---
 
 ## Top-Level Structure

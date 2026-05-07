@@ -7,8 +7,8 @@ tags:
   - Community Governance
   - Moderation Systems
   - Permissions Management
-  - Automation
-  - Partnered Discord
+  - Discord Automation
+  - Community Partnerships
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing

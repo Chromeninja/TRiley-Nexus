@@ -5,16 +5,16 @@ category: Events & Community Operations
 tags:
   - Event Production
   - Event Operations
-  - "Multi-Event Management"
-  - Community Experiences
-  - Staffing & Payroll Operations
+  - Multi-Event Management
+  - Community Experience
+  - Staffing Operations
   - Event Analytics
 organization: VR Villa
 timeframe: "2024 - Present"
 roleTitle: Event Operations Manager / Producer
 startedAt: "2024-01"
-summary: "Bucket project for VR Villa event operations covering event management, scheduling, staff coordination, payout operations, and live community experience delivery."
-cardSummary: "Led VR Villa event operations with systems for staffing, scheduling, payouts, and repeatable delivery."
+summary: "Led VR Villa's event operations program across scheduling, staffing, payout operations, and live community event delivery."
+cardSummary: "Led VR Villa event operations with repeatable systems for staffing, scheduling, payouts, and event delivery."
 highlights:
   - "Managed end-to-end event delivery including staff scheduling, pay tracking, and event-day coordination."
   - "Built repeatable operating systems for running multi-event programs with consistent execution quality."

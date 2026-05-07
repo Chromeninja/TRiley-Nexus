@@ -4,11 +4,11 @@ status: completed
 category: Consulting & Infrastructure
 tags:
   - Backend Modernization
-  - AWS Migration
+  - Cloud Migration
   - Security Hardening
   - Rate Limiting
   - Observability
-  - DevOps
+  - Deployment Automation
 organization: ShepherdTech
 organizationUrl: "https://shepherdtech.io"
 timeframe: Aug-Sep 2025

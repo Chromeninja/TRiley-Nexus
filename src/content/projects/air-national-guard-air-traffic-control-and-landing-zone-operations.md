@@ -4,7 +4,6 @@ status: active
 category: Military Operations
 tags:
   - Air Traffic Control
-  - AFSC 1C1X1
   - Expeditionary Airfield Operations
   - Airfield Operations
   - Air National Guard
@@ -12,7 +11,7 @@ organization: 235th Combat Airfield Operations Squadron (formerly 235th ATCS)
 timeframe: Ongoing
 roleTitle: Air Traffic Controller (AFSC 1C1X1)
 startedAt: "2015-04"
-summary: Serving as an Air Traffic Controller (AFSC 1C1X1) with the North Carolina Air National Guard's 235th Combat Airfield Operations Squadron — formerly the 235th Air Traffic Control Squadron. Qualified tower controller supporting expeditionary and domestic airfield missions across the full ATC spectrum.
+summary: "Serves as an Air Traffic Controller with the 235th CAOS, supporting expeditionary and domestic airfield missions across the full tower control spectrum."
 cover:
   src: "/media/projects/ang-235-germany.jpg"
   alt: 235th CAOS team members LZSO operations in Germany

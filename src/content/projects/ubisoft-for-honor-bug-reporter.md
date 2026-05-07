@@ -13,6 +13,7 @@ roleTitle: Program Manager
 startedAt: "2017-09"
 endedAt: "2019-03"
 summary: Supported bug reporter process improvements for For Honor with focus on clearer intake and reproducible issue data.
+cardSummary: Improved For Honor bug reporting workflows to make issue submissions clearer and easier to triage.
 problem: Inconsistent bug submission structure created extra effort for support and engineering triage.
 approach: Improved intake expectations and reporting pathways to increase actionable submissions.
 outcome: "Faster triage confidence and reduced back-and-forth on incomplete reports."

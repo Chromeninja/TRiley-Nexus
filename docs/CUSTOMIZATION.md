@@ -18,7 +18,7 @@ Welcome! This portfolio is designed to be forked and customized without touching
 10. Edit these sections (in order):
   - `src/content/projects/*.md` → Project details
   - `src/content/about/about.md` → About me page
-  - `src/content/companies/companies.md` → Company profiles
+  - `src/content/companies/*.md` → Company profiles
 11. **Run `npm run build`** to test locally
 12. **Deploy to GitHub Pages** (see [SETUP-GITHUB-PAGES.md](./SETUP-GITHUB-PAGES.md))
 
@@ -34,7 +34,7 @@ Each save requires preview confirmation and creates a backup snapshot in `.conte
 | ----------------------------------------------- | ---------- | -------------------------------------------- | ----------------------------------------- |
 | **Project content**                             | ✅ Easy    | Edit `src/content/projects/*.md`             | 5-10 min per project                      |
 | **About page content**                          | ✅ Easy    | Edit `src/content/about/about.md`            | 10 min                                    |
-| **Company profile content**                     | ✅ Easy    | Edit `src/content/companies/companies.md`    | 10 min                                    |
+| **Company profile content**                     | ✅ Easy    | Edit `src/content/companies/*.md`            | 10 min                                    |
 | **Colors and fonts**                            | ✅ Easy    | Edit `theme.*` in JSON                       | See [Styling](#styling) section           |
 | **Add new project**                             | ⚠️ Medium  | Create `.md` file in `src/content/projects/` | See [Adding Projects](#adding-projects)   |
 | **Add or override company data**                | ⚠️ Medium  | Add profile entries in `companies.md`        | See [Adding Companies](#adding-companies) |
@@ -164,7 +164,7 @@ What were the measurable outcomes?
 
 ### Adding Companies
 
-1. Open `src/content/companies/companies.md`
+1. Open a file in `src/content/companies/` (for example `src/content/companies/ubisoft.md`)
 2. Find the frontmatter `profiles` map
 3. Add a new company:
 
@@ -195,6 +195,8 @@ profiles:
 ```
 
 Then reference this company in your projects using the exact `organization` name.
+
+For consistent categories, tag vocabulary, summary tone, and date formatting in project and company markdown, use `docs/CONTENT-TAXONOMY.md`.
 
 ### Career Timeline
 

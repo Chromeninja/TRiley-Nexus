@@ -3,11 +3,11 @@ title: Bar Citizen 2.0 Website Deployment and Community Delivery
 status: completed
 category: Events & Community Operations
 tags:
-  - Website Operations
-  - Community Delivery
+  - Website Delivery
+  - Community Operations
   - Volunteer Coordination
   - Task Prioritization
-  - UX Readability
+  - Content UX
   - Wix
 organization: Bar Citizen International
 timeframe: "2025"
@@ -15,7 +15,7 @@ roleTitle: Delivery Lead / Community Operations
 startedAt: "2025-08"
 endedAt: "2025-09"
 summary: "Led community-driven delivery of the Bar Citizen 2.0 website migration to Wix through volunteer coordination, structured task management, and direct site editing focused on readability and user feedback."
-cardSummary: Led volunteer delivery of the Bar Citizen 2.0 Wix website migration using Trello, meetings, and direct UX-focused content edits.
+cardSummary: Led volunteer delivery of the Bar Citizen 2.0 Wix migration through structured coordination and direct UX-focused site edits.
 highlights:
   - Managed community delivery tasks in Trello, prioritized milestone work, and facilitated meetings to keep progress on track.
   - Made direct edits in Wix to improve site readability, information clarity, and user flow quality.
