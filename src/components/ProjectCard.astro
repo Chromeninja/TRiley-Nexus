@@ -6,7 +6,7 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import { toBasePath } from "../utils/paths";
+import { toBasePath, resolveMediaPath, normalizeWhitespace } from "../utils/paths";
 
 interface Props {
   project: Project;
@@ -18,12 +18,8 @@ const projectPath = toBasePath(`/projects/${project.slug}`);
 const actionLinks = project.links?.slice(0, 2) ?? [];
 const projectDateRange = formatProjectDateRange(project);
 
-function toHighlightLine(value: string): string {
-  return value.replace(/\s+/g, " ").trim();
-}
-
 function firstSentence(value: string): string {
-  const normalized = toHighlightLine(value);
+  const normalized = normalizeWhitespace(value);
   const match = normalized.match(/^[^.!?]+[.!?]?/);
   return (match ? match[0] : normalized).trim();
 }
@@ -33,41 +29,33 @@ const fallbackHighlights = [project.problem, project.approach, project.outcome]
   .filter((entry): entry is string => Boolean(entry && entry.trim()))
   .map((entry) => firstSentence(entry));
 const cardHighlights = (
-  project.highlights?.map((entry) => toHighlightLine(entry))?.filter(Boolean) ??
+  project.highlights?.map((entry) => normalizeWhitespace(entry))?.filter(Boolean) ??
   fallbackHighlights
 ).slice(0, 3);
-
-function resolveSrc(src: string): string {
-  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
-    return src;
-  }
-
-  return toBasePath(src.startsWith("/") ? src : `/${src}`);
-}
 
 const firstVideo = project.media?.find((item) => item.type === "video");
 const firstImage = project.media?.find((item) => item.type === "image");
 const coverMedia = project.cover
   ? {
-      src: resolveSrc(project.cover.src),
+      src: resolveMediaPath(project.cover.src),
       alt: project.cover.alt,
     }
   : firstVideo?.poster
     ? {
-        src: resolveSrc(firstVideo.poster),
+        src: resolveMediaPath(firstVideo.poster),
         alt: `${project.title} video preview`,
       }
     : firstImage
       ? {
-          src: resolveSrc(firstImage.src),
+          src: resolveMediaPath(firstImage.src),
           alt: firstImage.alt,
         }
       : undefined;
 
 const previewVideo = firstVideo
   ? {
-      src: resolveSrc(firstVideo.src),
-      poster: firstVideo.poster ? resolveSrc(firstVideo.poster) : undefined,
+      src: resolveMediaPath(firstVideo.src),
+      poster: firstVideo.poster ? resolveMediaPath(firstVideo.poster) : undefined,
     }
   : undefined;
 

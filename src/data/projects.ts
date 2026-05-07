@@ -859,47 +859,6 @@ function selectLongerRange(
     : secondaryRange;
 }
 
-// Helper: get featured projects
-export async function getFeaturedProjects(): Promise<Project[]> {
-  const projects = await getProjects();
-  return projects.filter((p) => p.featured);
-}
-
-// Helper: get projects by category
-export async function getProjectsByCategory(
-  category: string,
-): Promise<Project[]> {
-  const projects = await getProjects();
-  return projects.filter((p) => p.category === category);
-}
-
-// Helper: get all unique categories
-export async function getCategories(): Promise<string[]> {
-  const projects = await getProjects();
-  return [...new Set(projects.map((p) => p.category))];
-}
-
-// Helper: get all unique organizations
-export async function getOrganizations(): Promise<string[]> {
-  const projects = await getProjects();
-  return [
-    ...new Set(
-      projects.map((p) => p.organization?.trim()).filter(Boolean) as string[],
-    ),
-  ].sort((a, b) => a.localeCompare(b));
-}
-
-// Helper: get projects by organization
-export async function getProjectsByOrganization(
-  organization: string,
-): Promise<Project[]> {
-  const referenceNow = new Date();
-  const projects = await getProjects();
-  return projects
-    .filter((p) => p.organization === organization)
-    .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow));
-}
-
 // Helper: get grouped projects by organization
 export async function getProjectOrganizationGroups(): Promise<
   ProjectOrganizationGroup[]
@@ -1352,14 +1311,6 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
     activeCompanyCount,
     liveProjectCount,
   };
-}
-
-// Helper: get project by slug
-export async function getProjectBySlug(
-  slug: string,
-): Promise<Project | undefined> {
-  const projects = await getProjects();
-  return projects.find((p) => p.slug === slug);
 }
 
 // Helper: get active projects

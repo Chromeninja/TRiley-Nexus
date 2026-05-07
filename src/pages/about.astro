@@ -4,19 +4,11 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
-import { toBasePath } from "../utils/paths";
+import { resolveMediaPath } from "../utils/paths";
 import {
   getAboutContentData,
   type AboutMediaItem,
 } from "../data/aboutContent";
-
-function resolveMediaSrc(src: string): string {
-  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
-    return src;
-  }
-
-  return toBasePath(src.startsWith("/") ? src : `/${src}`);
-}
 
 const aboutContent = await getAboutContentData();
 const aboutAdditionalMedia = aboutContent.additionalMedia;
@@ -27,7 +19,7 @@ const aboutThinkItems = aboutContent.thinkItems;
 const aboutValues = aboutContent.values;
 const resumeConfig = aboutContent.resume;
 const resumePath = resumeConfig
-  ? resolveMediaSrc(resumeConfig.filePath)
+  ? resolveMediaPath(resumeConfig.filePath)
   : undefined;
 ---
 
@@ -46,7 +38,7 @@ const resumePath = resumeConfig
           aria-label="Profile photo"
         >
           <img
-            src={resolveMediaSrc(aboutProfileMedia.src)}
+            src={resolveMediaPath(aboutProfileMedia.src)}
             alt={aboutProfileMedia.alt}
             loading="lazy"
           />
@@ -145,7 +137,7 @@ const resumePath = resumeConfig
             {aboutAdditionalMedia.map((item) => (
               <figure class="photo-slot">
                 <img
-                  src={resolveMediaSrc(item.src)}
+                  src={resolveMediaPath(item.src)}
                   alt={item.alt}
                   loading="lazy"
                 />

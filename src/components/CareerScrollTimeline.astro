@@ -5,7 +5,7 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import { toBasePath } from "../utils/paths";
+import { toBasePath, normalizeWhitespace } from "../utils/paths";
 
 interface TimelineMonthGroup {
   key: string;
@@ -30,10 +30,6 @@ const referenceNow = new Date();
 
 function resolveProjectHref(slug: string): string {
   return toBasePath(`/projects/${slug}`);
-}
-
-function compactSummary(value: string): string {
-  return value.replace(/\s+/g, " ").trim();
 }
 
 const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
@@ -158,8 +154,7 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
                       {formatProjectDateRange(project)}
                     </p>
                   )}
-                  <p>{compactSummary(project.summary)}</p>
-                </li>
+                  <p>{normalizeWhitespace(project.summary)}</p>\n                </li>
               ))}
             </ul>
           )
@@ -233,7 +228,7 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
                             {formatProjectDateRange(project)}
                           </p>
                         )}
-                        <p>{compactSummary(project.summary)}</p>
+                        <p>{normalizeWhitespace(project.summary)}</p>
                       </li>
                     ))}
                   </ul>
