@@ -11,7 +11,7 @@ tags:
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Volunteer / Community Support
-startedAt: Apr 2015
+startedAt: "2015-04"
 summary: "Participated in ongoing community volunteer and outreach activities through the 235th Combat Airfield Operations Squadron, supporting local events including parades, Special Olympics, food collection drives, and other community service efforts."
 cardSummary: "Community volunteer work through the 235th CAOS — parades, Special Olympics, food drives, and local outreach."
 cover:

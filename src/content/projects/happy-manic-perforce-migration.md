@@ -11,8 +11,8 @@ organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 timeframe: Past
 roleTitle: Technical Producer
-startedAt: Feb 2026
-endedAt: Feb 2026
+startedAt: "2026-02"
+endedAt: "2026-02"
 summary: Supported a focused Perforce migration effort for Nope Challenge to stabilize source control workflows and team coordination.
 problem: Legacy source control workflows constrained collaboration and increased operational risk.
 approach: "Planned migration sequencing, process updates, and team onboarding for the new source control workflow during a concentrated migration window."

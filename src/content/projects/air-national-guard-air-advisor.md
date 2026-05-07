@@ -12,7 +12,7 @@ tags:
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Air Advisor
-startedAt: Nov 2024
+startedAt: "2024-11"
 summary: "Completed Air Advisor training in November 2024, qualifying to advise, assist, and train foreign partner nation air forces on aviation operations, airfield procedures, and Air Force standards in support of U.S. security cooperation and capacity-building objectives."
 cardSummary: Qualified Air Advisor trained to assist and develop partner nation aviation forces in support of U.S. security cooperation missions.
 highlights:

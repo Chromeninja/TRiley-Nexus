@@ -11,7 +11,7 @@ organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 timeframe: Ongoing
 roleTitle: Technical Producer
-startedAt: Oct 2025
+startedAt: "2025-10"
 summary: "Producer role at Happy Manic for Nope Challenge on the Meta Quest platform, focused on production planning, mixed reality support, hand-tracking coordination, and community-driven quality feedback."
 cardSummary: "Technical producer for Nope Challenge, coordinating live roadmap execution across VR, MR, and community feedback loops."
 highlights:

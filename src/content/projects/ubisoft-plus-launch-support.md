@@ -8,18 +8,12 @@ tags:
   - Support Readiness
   - Program Execution
 organization: Ubisoft
-timeframe: Past
-summary: Contributed to launch support readineun 2020
-endedAt: Mar 2021soft+ rollout activities.
+startedAt: "2020"
+endedAt: "2021-03"
+summary: Contributed to Ubisoft+ launch support readiness activities from 2020 through early 2021.
 problem: Subscription launch complexity required aligned support workflows and readiness across teams.
-approach: "Coordinated launch-support execution details, readiness checks, and process stabilization."
+approach: Coordinated launch-support execution details, readiness checks, and process stabilization.
 outcome: Supported smoother launch operations and clearer escalation pathways.
 featured: false
 order: 14
----
-
-erations and clearer escalation pathways.
-featured: false
-order: 14
-
 ---

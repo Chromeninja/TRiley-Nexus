@@ -10,8 +10,8 @@ tags:
 organization: Ubisoft
 timeframe: Past
 roleTitle: Program Manager
-startedAt: Sep 2017
-endedAt: Mar 2019
+startedAt: "2017-09"
+endedAt: "2019-03"
 summary: Supported bug reporter process improvements for For Honor with focus on clearer intake and reproducible issue data.
 problem: Inconsistent bug submission structure created extra effort for support and engineering triage.
 approach: Improved intake expectations and reporting pathways to increase actionable submissions.

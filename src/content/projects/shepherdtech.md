@@ -10,7 +10,7 @@ tags:
 organization: ShepherdTech
 timeframe: Ongoing
 roleTitle: Fractional CTO / Technical Advisor
-startedAt: Mar 2024
+startedAt: "2024-03"
 summary: "Active founder-led work focused on IT consulting, cloud solutions, infrastructure, backend modernization, and business development."
 cardSummary: Fractional CTO and advisor delivering infrastructure modernization plans for growing teams.
 highlights:

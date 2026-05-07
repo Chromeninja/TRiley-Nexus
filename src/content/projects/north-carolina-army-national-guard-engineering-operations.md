@@ -10,8 +10,8 @@ tags:
 organization: 878th Engineer Company
 timeframe: Past
 roleTitle: Plumber / Engineering Specialist
-startedAt: Feb 2011
-endedAt: Oct 2013
+startedAt: "2011-02"
+endedAt: "2013-10"
 summary: "Served in the North Carolina Army National Guard as a 12K Plumber, supporting engineering operations, field readiness, and joint training requirements with the 878th Engineer Company."
 problem: Engineering units need dependable field support capabilities and disciplined execution to sustain readiness across training and operational demands.
 approach: "Completed Army basic training and 12K Advanced Individual Training, then supported unit readiness through hands-on engineering work, field support tasks, and participation in joint training exercises."

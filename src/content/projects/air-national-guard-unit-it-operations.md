@@ -12,7 +12,7 @@ tags:
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Informal Unit IT Specialist
-startedAt: Apr 2015
+startedAt: "2015-04"
 summary: "Serves as the 235th Combat Airfield Operations Squadron's informal IT resource — building and maintaining SharePoint pages for unit operations, resolving Microsoft Teams configuration issues, and troubleshooting Microsoft 365 problems that would otherwise have no dedicated support."
 cardSummary: "Self-appointed unit IT lead keeping the 235th CAOS's Microsoft 365 environment functional with no formal IT budget or support structure."
 highlights:

@@ -12,7 +12,7 @@ tags:
 organization: VR Villa
 timeframe: "2024 - Present"
 roleTitle: Event Operations Manager / Producer
-startedAt: Jan 2024
+startedAt: "2024-01"
 summary: "Bucket project for VR Villa event operations covering event management, scheduling, staff coordination, payout operations, and live community experience delivery."
 cardSummary: "Led VR Villa event operations with systems for staffing, scheduling, payouts, and repeatable delivery."
 highlights:

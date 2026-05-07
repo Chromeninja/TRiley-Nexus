@@ -13,8 +13,8 @@ organization: ShepherdTech
 organizationUrl: "https://shepherdtech.io"
 timeframe: Aug-Sep 2025
 roleTitle: Fractional CTO / Technical Advisor
-startedAt: Aug 2025
-endedAt: Sep 2025
+startedAt: "2025-08"
+endedAt: "2025-09"
 summary: "Led a focused backend modernization engagement for a confidential ShepherdTech client, migrating core services from Firebase to AWS while strengthening authentication security, improving resilience, and preparing the platform for long-term scale."
 cardSummary: Delivered an NDA-safe AWS backend modernization that improved security, stability, deployment safety, and push-notification readiness.
 highlights:

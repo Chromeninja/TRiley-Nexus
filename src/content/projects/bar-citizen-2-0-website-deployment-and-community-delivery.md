@@ -12,8 +12,8 @@ tags:
 organization: Bar Citizen International
 timeframe: "2025"
 roleTitle: Delivery Lead / Community Operations
-startedAt: Aug 2025
-endedAt: Sep 2025
+startedAt: "2025-08"
+endedAt: "2025-09"
 summary: "Led community-driven delivery of the Bar Citizen 2.0 website migration to Wix through volunteer coordination, structured task management, and direct site editing focused on readability and user feedback."
 cardSummary: Led volunteer delivery of the Bar Citizen 2.0 Wix website migration using Trello, meetings, and direct UX-focused content edits.
 highlights:

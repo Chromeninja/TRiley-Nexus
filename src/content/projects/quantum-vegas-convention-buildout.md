@@ -5,8 +5,8 @@ category: Events & Community Operations
 organization: Quantum Vegas LLC
 roleTitle: "Co-Producer"
 timeframe: Past
-startedAt: Nov 2024
-endedAt: July 2025
+startedAt: "2024-11"
+endedAt: "2025-07"
 summary: "Helped co-produce Quantum Vegas 2955, a fan-run Star Citizen community convention in Las Vegas that brought together over 200 players, content creators, special guests, and Cloud Imperium Games developers for an immersive community event at AREA15."
 cardSummary: "Co-produced Quantum Vegas 2955, supporting developer relations, sponsor coordination, Bar Citizen meetup planning, and on-site operations for a 200+ attendee Star Citizen fan convention in Las Vegas."
 highlights:

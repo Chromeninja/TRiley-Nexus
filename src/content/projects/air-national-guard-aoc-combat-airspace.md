@@ -12,7 +12,7 @@ tags:
 organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Combat Airspace Operator (AOC)
-startedAt: Jun 2025
+startedAt: "2025-06"
 summary: "Completed Combat Airspace training in June 2025, qualifying to manage and deconflict airspace within a Combat Air Operations Center (AOC) in deployed or contingency environments. Operates at the AOC level to coordinate airspace use across joint and coalition forces, preventing conflicts between simultaneous air operations."
 cardSummary: "Qualified to manage and deconflict airspace within a deployed Combat AOC, coordinating simultaneous air operations across joint and coalition forces."
 highlights:

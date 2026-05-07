@@ -8,10 +8,9 @@ tags:
   - Support UX
   - Process Improvement
 organization: Ubisoft
-timeframe: Past
-roleTitle: Sernior Program Manager
-startedAt: Mar 2022
-endedAt: Apr 2024
+roleTitle: Senior Program Manager
+startedAt: "2022-03"
+endedAt: "2024-04"
 summary: Delivered improvements to Ubisoft Help platform workflows and support experience quality.
 problem: Support pathways and knowledge flow created friction for both players and support teams.
 approach: "Identified high-friction points and implemented structured improvements to navigation, workflows, and support handoff quality."

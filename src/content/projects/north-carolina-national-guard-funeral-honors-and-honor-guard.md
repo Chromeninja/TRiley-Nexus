@@ -10,8 +10,8 @@ tags:
 organization: North Carolina National Guard Joint Force Headquarters
 timeframe: Past
 roleTitle: Funeral Honors Team Leader
-startedAt: May 2012
-endedAt: Oct 2013
+startedAt: "2012-05"
+endedAt: "2013-10"
 summary: "Led funeral honors and ceremonial support missions for the North Carolina National Guard, including military funerals, honor guard details, and public-facing outreach support."
 problem: "Funeral honors and ceremonial missions require precision, professionalism, and dependable leadership while representing service members, families, and the Guard in high-visibility settings."
 approach: "Completed Honor Guard training, led funeral honors details, coordinated ceremonial execution, and supported outreach efforts connected to programs such as Salute the Troops and the USO."

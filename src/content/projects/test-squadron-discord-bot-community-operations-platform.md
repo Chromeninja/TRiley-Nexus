@@ -13,7 +13,7 @@ organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
 roleTitle: Platform Engineer
-startedAt: Oct 2024
+startedAt: "2024-10"
 summary: "Built and continue to operate an open-source Discord bot platform for TEST Squadron that handles token-based verification, role assignment, voice channel orchestration, and admin operations workflows while preserving member privacy."
 cardSummary: Built an operations-focused Discord bot platform that scaled verification, moderation workflows, and voice management for TEST Squadron.
 highlights:

@@ -12,7 +12,7 @@ organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 roleTitle: Technical Producer
 timeframe: Ongoing
-startedAt: Jan 2026
+startedAt: "2026-01"
 summary: "Ongoing hand-tracking prototyping, interaction development, and deployment work for Happy Manic on Meta Quest as part of continued Nope Challenge feature development."
 cardSummary: "Led hand-tracking rollout work for Meta Quest with practical XR interaction validation."
 highlights:
