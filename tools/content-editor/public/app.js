@@ -788,7 +788,7 @@ async function uploadFile() {
       const logoInput = document.getElementById("fm-logoSrc");
       if (logoInput) {
         logoInput.value = payload.publicPath;
-        logoInput.dispatchEvent(new Event("input", { bubbles: true }));
+        logoInput.dispatchEvent(new window.Event("input", { bubbles: true }));
       }
     }
 

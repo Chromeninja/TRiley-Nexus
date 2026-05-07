@@ -14,7 +14,7 @@ roleTitle: Supervisor, E-Commerce Operations
 startedAt: "2019-11"
 endedAt: "2021-12"
 summary: "Designed and delivered an automated refund flow integrated with the Tecsys order management system that auto-refunds players who meet defined eligibility rules, a multi-month build with dev, design, and business teams that reduced overall e-commerce CS tickets by more than 30%."
-cardSummary: Built an automated refund flow integrated with Tecsys: reduced e-commerce CS tickets by 30%+.
+cardSummary: "Built an automated refund flow integrated with Tecsys: reduced e-commerce CS tickets by 30%+."
 highlights:
   - Defined eligibility rules and automation touchpoints for self-service refunds in the Tecsys order management system.
   - Reduced overall e-commerce customer support tickets by more than 30%.

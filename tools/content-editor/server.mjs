@@ -1500,10 +1500,10 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
     };
   }
 
-  const entry = {
-    type: mediaKind === "video" ? "video" : "image",
-    src: cleanedPublicPath,
-  };
+  const entry =
+    mediaKind === "video"
+      ? { type: "video", src: cleanedPublicPath }
+      : { type: "image", src: cleanedPublicPath, alt: String(parsed.title ?? "") };
 
   parsed.media = [...mediaItems, entry];
   const serialized = serializeYaml(parsed);
