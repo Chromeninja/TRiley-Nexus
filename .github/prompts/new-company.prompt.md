@@ -13,22 +13,22 @@ Follow the schema in [`src/content.config.ts`](../../src/content.config.ts) and 
 
 Ask the user for the following, then generate the complete file:
 
-1. **slug** — URL-safe filename and profile key (e.g. `my-company` → file: `src/content/companies/my-company.md`, profile key: `my-company`)
-2. **summary** — One or two sentence card summary
-3. **companyInfo** — Paragraph about the company itself
-4. **myTimeInfo** — Paragraph about what the user did there
-5. **longSummary** — Extended summary (optional)
-6. **roleSummary** — Role-focused summary (optional)
-7. **achievements** — Bullet list of achievements (optional)
-8. **tenureStart / tenureEnd** — Date strings (e.g. `2019-03`), or leave blank
-9. **color** — CSS color string for timeline accent (optional, e.g. `#57a6ff`)
-10. **timelineRoles** — List of roles with start/end dates (optional)
+1. **slug**: URL-safe filename and profile key (e.g. `my-company` → file: `src/content/companies/my-company.md`, profile key: `my-company`)
+2. **summary**: One or two sentence card summary
+3. **companyInfo**: Paragraph about the company itself
+4. **myTimeInfo**: Paragraph about what the user did there
+5. **longSummary**: Extended summary (optional)
+6. **roleSummary**: Role-focused summary (optional)
+7. **achievements**: Bullet list of achievements (optional)
+8. **tenureStart / tenureEnd**: Date strings (e.g. `2019-03`), or leave blank
+9. **color**: CSS color string for timeline accent (optional, e.g. `#57a6ff`)
+10. **timelineRoles**: List of roles with start/end dates (optional)
 
 ## Output Format
 
 Produce a complete `.md` file at `src/content/companies/{slug}.md`.
 
-All fields must be nested inside the `profiles` record under the company slug key — never at the root level:
+All fields must be nested inside the `profiles` record under the company slug key, never at the root level:
 
 ```md
 ---

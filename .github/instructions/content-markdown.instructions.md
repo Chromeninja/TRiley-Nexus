@@ -1,13 +1,13 @@
 ---
 applyTo: "src/content/**/*.md"
 ---
-<!-- Last reviewed: 2026-05-06 — update when collection schemas change in src/content.config.ts -->
+<!-- Last reviewed: 2026-05-06; update when collection schemas change in src/content.config.ts -->
 
 # Content Markdown Rules
 
-Applies to all markdown files under `src/content/`. The canonical schema source is [`src/content.config.ts`](../../src/content.config.ts) — always consult it for field types, required/optional status, and enums.
+Applies to all markdown files under `src/content/`. The canonical schema source is [`src/content.config.ts`](../../src/content.config.ts). Always consult it for field types, required/optional status, and enums.
 
-> Prefer using the content editor UI (`npm run content-editor`, port 4387) for frontmatter edits — it provides form validation and auto-backup.
+> Prefer using the content editor UI (`npm run content-editor`, port 4387) for frontmatter edits. It provides form validation and auto-backup.
 
 ---
 
@@ -33,7 +33,7 @@ Applies to all markdown files under `src/content/`. The canonical schema source 
 | `roleTitle` | `string` | Job title or role name |
 | `startedAt` | `string` | ISO-ish date string (e.g. `"2019-03"`) |
 | `endedAt` | `string` | Omit if ongoing |
-| `timeframe` | `string` | Human label (e.g. `"2019–2022"`) — overrides date display |
+| `timeframe` | `string` | Human label (e.g. `"2019–2022"`) that overrides date display |
 | `cardSummary` | `string` | Shorter summary for cards (falls back to `summary`) |
 | `highlights` | `string[]` | Max 3 bullet-point highlights |
 | `problem` | `string` | Problem statement |
@@ -95,7 +95,7 @@ Each key in `profiles` maps to:
 | `roleSummary` | `string` | optional |
 | `achievements` | `string[]` | optional |
 | `logo` | `{ src: string, alt: string }` | optional |
-| `color` | `string` | optional — CSS color for timeline accent |
+| `color` | `string` | optional; CSS color for timeline accent |
 | `tenureStart` | `string` | optional |
 | `tenureEnd` | `string` | optional |
 | `timelineRoles` | `{ label, start, end? }[]` | optional |

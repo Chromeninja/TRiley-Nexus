@@ -1,6 +1,6 @@
 /* ============================================================
   GLOBAL STYLES & DESIGN SYSTEM
-  TRiley Nexus — Electric Orbital Systems Theme
+  TRiley Nexus: Electric Orbital Systems Theme
   ============================================================
   NOTE: Color values sync with portfolio-config.json theme.colors
   To customize colors and fonts, edit portfolio-config.json
@@ -33,12 +33,12 @@
   --color-border: rgba(87, 166, 255, 0.16);
   --color-border-strong: rgba(87, 166, 255, 0.34);
 
-  /* Primary accent — electric blue */
+  /* Primary accent: electric blue */
   --color-accent: #57a6ff;
   --color-accent-dim: rgba(87, 166, 255, 0.14);
   --color-accent-glow: rgba(87, 166, 255, 0.28);
 
-  /* Secondary accent — cyan signal */
+  /* Secondary accent: cyan signal */
   --color-accent2: #22d3ee;
   --color-accent2-dim: rgba(34, 211, 238, 0.14);
   --color-accent2-glow: rgba(34, 211, 238, 0.26);

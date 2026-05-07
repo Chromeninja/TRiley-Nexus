@@ -1,7 +1,7 @@
 ---
 applyTo: "src/components/**/*.astro"
 ---
-<!-- Last reviewed: 2026-05-06 — update when new component patterns are added -->
+<!-- Last reviewed: 2026-05-06; update when new component patterns are added -->
 
 # Astro Component Rules
 
@@ -22,7 +22,7 @@ const { title, subtitle, featured = false } = Astro.props;
 ---
 ```
 
-- No `any` types — all props must be explicitly typed
+- No `any` types: all props must be explicitly typed
 - Use `?` for optional props; provide defaults in destructuring
 - Export prop types when they may be reused: `export type { Props }`
 
@@ -40,7 +40,7 @@ Check for slot presence before using conditional layouts:
 
 - Named slots for secondary content regions (`aside`, `meta`, `footer`)
 - Default `<slot />` for primary content
-- Never assume a slot is filled — always guard with `Astro.slots.has()`
+- Never assume a slot is filled: always guard with `Astro.slots.has()`
 
 ## CSS
 
@@ -64,14 +64,14 @@ All styles go in a scoped `<style>` block at the bottom of the file:
 ```
 
 - **BEM naming**: `.block__element--modifier`
-- **CSS custom properties only** — never hardcode hex, rgb, or numeric spacing values
+- **CSS custom properties only**: never hardcode hex, rgb, or numeric spacing values
 - All token values come from `src/styles/global.css` `:root` block
 - Responsive breakpoints go inside the scoped `<style>` block, not global CSS
 - Use `@media (max-width: 640px)` for mobile (consistent with existing components)
 
 ## JavaScript
 
-Vanilla JS only in `<script>` blocks — no framework imports:
+Vanilla JS only in `<script>` blocks, with no framework imports:
 
 ```astro
 <script>
@@ -81,7 +81,7 @@ Vanilla JS only in `<script>` blocks — no framework imports:
 ```
 
 - Use `data-*` attributes as JS hooks, not CSS class names
-- Do not add `client:*` directives — there are no interactive framework components in this project
+- Do not add `client:*` directives: there are no interactive framework components in this project
 - Keep scripts small and focused; extract shared utilities to `src/utils/`
 
 ## Naming & Structure Conventions

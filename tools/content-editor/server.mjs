@@ -26,7 +26,7 @@ const MEDIA_TARGETS = [
 const TOKENS = new Map();
 const TOKEN_TTL_MS = 10 * 60 * 1000;
 
-// Fields handled explicitly by renderFrontmatterPreview — excluded from the fallback scalar table.
+// Fields handled explicitly by renderFrontmatterPreview: excluded from the fallback scalar table.
 const RESERVED_FM_FIELDS = new Set([
   "title", "organization", "roleTitle", "status", "category",
   "startedAt", "endedAt", "summary", "cardSummary", "longSummary", "problem", "approach",
@@ -1161,7 +1161,7 @@ function renderFrontmatterPreview(rawFm) {
     if (Array.isArray(companyProfile.timelineRoles) && companyProfile.timelineRoles.length) {
       const rows = companyProfile.timelineRoles
         .filter((item) => item && typeof item === "object" && item.label)
-        .map((item) => `<li>${escapeHtml(String(item.label))} (${[item.start, item.end].filter(Boolean).map((value) => escapeHtml(String(value))).join(" — ")})</li>`)
+        .map((item) => `<li>${escapeHtml(String(item.label))} (${[item.start, item.end].filter(Boolean).map((value) => escapeHtml(String(value))).join(" to ")})</li>`)
         .join("");
       if (rows) {
         parts.push(`<div class="fm-section"><strong>Timeline Roles</strong><ul class="fm-values">${rows}</ul></div>`);
@@ -1186,7 +1186,7 @@ function renderFrontmatterPreview(rawFm) {
   // Dates
   if (fm.startedAt || fm.endedAt) {
     const dates = [fm.startedAt, fm.endedAt].filter(Boolean).map((d) => escapeHtml(String(d)));
-    parts.push(`<p class="fm-dates">&#128197; ${dates.join(" — ")}</p>`);
+    parts.push(`<p class="fm-dates">&#128197; ${dates.join(" to ")}</p>`);
   }
 
   // Primary summary

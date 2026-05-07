@@ -1,7 +1,7 @@
 ---
 applyTo: "{src/data/**/*.ts,src/content.config.ts}"
 ---
-<!-- Last reviewed: 2026-05-06 — update when new collections or data patterns are added -->
+<!-- Last reviewed: 2026-05-06; update when new collections or data patterns are added -->
 
 # Data Layer Rules
 
@@ -9,7 +9,7 @@ Applies to `src/data/**/*.ts` and `src/content.config.ts`.
 
 ## TypeScript Requirements
 
-- **Strict mode** — `astro/tsconfigs/strict` is active; `any` is forbidden
+- **Strict mode**: `astro/tsconfigs/strict` is active; `any` is forbidden
 - Type assertions (`as Foo`) require an inline comment explaining why
 - All exported values must have an explicit return type or inferred type that is exported alongside them
 - Use `type` imports for type-only imports: `import type { CollectionEntry } from "astro:content"`
@@ -35,7 +35,7 @@ const myCollection = defineCollection({
 ```
 
 - Never use legacy `defineCollection` without a `loader`
-- Schema lives in `src/content.config.ts` — do not duplicate schema definitions in `src/data/`
+- Schema lives in `src/content.config.ts`: do not duplicate schema definitions in `src/data/`
 - Import `z` from `"astro:schema"`, not directly from `"zod"`
 
 ## Data File Patterns
@@ -91,7 +91,7 @@ export async function getCompanyProfiles() {
 Every `src/data/*.ts` file must export:
 1. **Typed interfaces** for all data shapes used in components
 2. **Helper functions** (async where collection access is needed)
-3. No default exports — named exports only
+3. No default exports: named exports only
 
 ## siteConfig
 

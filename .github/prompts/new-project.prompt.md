@@ -13,19 +13,19 @@ Follow the schema in [`src/content.config.ts`](../../src/content.config.ts) and 
 
 Ask the user for the following, then generate the complete file:
 
-1. **title** — Display name of the project or role
-2. **slug** — URL-safe filename (e.g. `my-project-name` → file: `src/content/projects/my-project-name.md`)
-3. **status** — One of: `active`, `completed`, `archived`, `concept`
-4. **category** — Grouping label (e.g. `Military`, `Gaming`, `Consulting`)
-5. **organization** — Company slug (must match a key in a companies collection file), or omit
-6. **roleTitle** — Job title or role name (optional)
-7. **startedAt / endedAt** — Date strings (e.g. `2021-06`), or leave blank if not known
-8. **summary** — Full description paragraph
-9. **cardSummary** — Shorter version for card display (optional, defaults to summary)
-10. **problem / approach / outcome** — Three-part narrative (optional but encouraged)
-11. **skills** — Comma-separated skill labels (optional)
-12. **tags** — Comma-separated tags for search (required)
-13. **featured** — `true` or `false`
+1. **title**: Display name of the project or role
+2. **slug**: URL-safe filename (e.g. `my-project-name` → file: `src/content/projects/my-project-name.md`)
+3. **status**: One of: `active`, `completed`, `archived`, `concept`
+4. **category**: Grouping label (e.g. `Military`, `Gaming`, `Consulting`)
+5. **organization**: Company slug (must match a key in a companies collection file), or omit
+6. **roleTitle**: Job title or role name (optional)
+7. **startedAt / endedAt**: Date strings (e.g. `2021-06`), or leave blank if not known
+8. **summary**: Full description paragraph
+9. **cardSummary**: Shorter version for card display (optional, defaults to summary)
+10. **problem / approach / outcome**: Three-part narrative (optional but encouraged)
+11. **skills**: Comma-separated skill labels (optional)
+12. **tags**: Comma-separated tags for search (required)
+13. **featured**: `true` or `false`
 
 ## Output Format
 

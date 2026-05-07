@@ -1,6 +1,6 @@
-<!-- Last reviewed: 2026-05-06 — update when stack or architecture changes -->
+<!-- Last reviewed: 2026-05-06; update when stack or architecture changes -->
 
-# TRiley-Nexus — Copilot Workspace Instructions
+# TRiley-Nexus: Copilot Workspace Instructions
 
 ## What This Project Is
 
@@ -11,12 +11,12 @@ Personal portfolio template and live portfolio site for T.Riley Garrett. Deploye
 | Layer | Details |
 |---|---|
 | **Framework** | Astro 6.2.1, static output (`output: "static"`) |
-| **Language** | TypeScript (strict mode — `astro/tsconfigs/strict`) |
+| **Language** | TypeScript (strict mode via `astro/tsconfigs/strict`) |
 | **Node** | ≥ 22.12.0 required |
-| **Styling** | CSS custom properties only — no Tailwind, no CSS-in-JS |
-| **UI Frameworks** | None — vanilla Astro components only |
+| **Styling** | CSS custom properties only, no Tailwind or CSS-in-JS |
+| **UI Frameworks** | None. Vanilla Astro components only |
 | **Content** | Astro 6 content collections with glob loader |
-| **Config layer** | `portfolio-config.json` — primary user customization surface |
+| **Config layer** | `portfolio-config.json`, the primary user customization surface |
 | **Dev tools** | ESLint 10, Prettier 3, `@astrojs/check` |
 
 ## Architecture Overview
@@ -24,7 +24,7 @@ Personal portfolio template and live portfolio site for T.Riley Garrett. Deploye
 ```
 src/
   content/          ← Markdown files (projects, companies, about)
-  content.config.ts ← Collection schemas (Zod) — canonical schema source
+  content.config.ts ← Collection schemas (Zod), canonical schema source
   data/             ← Typed data layer (merges collections + siteConfig)
   components/       ← Astro components (scoped CSS, typed Props)
   pages/            ← Astro pages (static routes + dynamic [slug] routes)
@@ -41,13 +41,14 @@ Content collections (`getCollection("projects" | "companies" | "about")`) are lo
 
 ## Hard Rules
 
-- **No React, Vue, or Svelte** — all components are `.astro` files
-- **No Tailwind** — use CSS custom properties from `src/styles/global.css`
-- **No inline styles** — use scoped `<style>` blocks or CSS custom properties
-- **No Alpine.js** — vanilla JS only in `<script>` blocks
-- **TypeScript strict** — no `any`, no type assertions without a comment justifying them
-- **No hardcoded color/spacing values** — always reference `var(--token-name)`
-- **Astro 6 glob loader** — content collection schemas use `glob({ pattern: "**/*.md", base: "./src/content/X" })`; never use legacy `defineCollection` without a loader
+- **No React, Vue, or Svelte**: all components are `.astro` files
+- **No Tailwind**: use CSS custom properties from `src/styles/global.css`
+- **No inline styles**: use scoped `<style>` blocks or CSS custom properties
+- **No Alpine.js**: vanilla JS only in `<script>` blocks
+- **TypeScript strict**: no `any`, no type assertions without a comment justifying them
+- **No hardcoded color/spacing values**: always reference `var(--token-name)`
+- **No em dashes in generated writing**: never use `—`; prefer commas, periods, parentheses, or a colon depending on the sentence
+- **Astro 6 glob loader**: content collection schemas use `glob({ pattern: "**/*.md", base: "./src/content/X" })`; never use legacy `defineCollection` without a loader
 
 ## Key File References
 
@@ -71,8 +72,8 @@ Status enum for projects: `active | completed | archived | concept`
 ## Running Locally
 
 ```bash
-npm run dev           # Astro dev server — localhost:4321
-npm run content-editor  # Content editor UI — localhost:4387
+npm run dev           # Astro dev server at localhost:4321
+npm run content-editor  # Content editor UI at localhost:4387
 npm run build         # Static build to dist/
 npm run check         # TypeScript + Astro type check (requires Node ≥ 22.12.0)
 ```

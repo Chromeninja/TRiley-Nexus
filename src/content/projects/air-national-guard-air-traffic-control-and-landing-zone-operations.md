@@ -1,5 +1,5 @@
 ---
-title: 235th Combat Airfield Operations Squadron — Air Traffic Control
+title: "235th Combat Airfield Operations Squadron: Air Traffic Control"
 status: active
 category: Military Operations
 tags:
@@ -22,7 +22,7 @@ highlights:
   - "Served through the unit's redesignation from the 235th ATCS to the 235th CAOS, reflecting an expanded combat airfield operations mission."
 problem: "Airfield operations in expeditionary environments require controllers who can establish and manage safe, efficient airspace with limited infrastructure, often at austere locations under operational pressure."
 approach: "Transferred into the 235th ATCS in April 2015 following TACP service with the 118th ASOS. Completed formal ATC Specialist training at Keesler AFB and qualified as a tower controller, then built operational experience across domestic training and international mission deployments. Maintained readiness and currency through recurring unit training, exercises, and real-world airfield operations as the squadron expanded its mission into the full Combat Airfield Operations (CAOS) role."
-outcome: "Sustained qualification as a tower controller across more than a decade of Guard service, supporting safe airfield operations in both home-station and expeditionary environments. Additional SEI certifications — LZSO, Air Advisor, and AOC Combat Airspace — built directly on this ATC foundation."
+outcome: "Sustained qualification as a tower controller across more than a decade of Guard service, supporting safe airfield operations in both home-station and expeditionary environments. Additional SEI certifications, including LZSO, Air Advisor, and AOC Combat Airspace, built directly on this ATC foundation."
 skills:
   - Air Traffic Control
   - Tower Operations

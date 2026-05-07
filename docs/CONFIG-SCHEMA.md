@@ -28,7 +28,7 @@ Note: this document covers `portfolio-config.json` only. Markdown content collec
 
 ---
 
-## `site` — Site Metadata
+## `site`: Site Metadata
 
 Global site configuration used for SEO, branding, and social sharing.
 
@@ -66,7 +66,7 @@ Global site configuration used for SEO, branding, and social sharing.
 
 ---
 
-## `navigation` — Top Navigation Menu
+## `navigation`: Top Navigation Menu
 
 Array of links appearing in the main navigation. Set `enabled: false` to hide items without removing them.
 
@@ -91,7 +91,7 @@ Array of links appearing in the main navigation. Set `enabled: false` to hide it
 
 ---
 
-## `social` — Social & Contact Links
+## `social`: Social & Contact Links
 
 Your social profiles and email contact.
 
@@ -115,7 +115,7 @@ Your social profiles and email contact.
 
 ---
 
-## `footer` — Footer Content
+## `footer`: Footer Content
 
 Tagline and focus statement appearing in site footer.
 
@@ -137,7 +137,7 @@ Tagline and focus statement appearing in site footer.
 
 ---
 
-## `home` — Home Page Content
+## `home`: Home Page Content
 
 Hero section, principles, and statistics for the homepage.
 
@@ -207,7 +207,7 @@ Array of statistics. Each item has:
 
 ---
 
-## `about` — About Page
+## `about`: About Page
 
 Your background, values, and personal details.
 
@@ -275,7 +275,7 @@ Array of personal interests. Each item:
 
 ---
 
-## `skills` — Skills Section
+## `skills`: Skills Section
 
 Professional skills grouped by category.
 
@@ -325,7 +325,7 @@ Array of core strengths. Each item:
 
 ---
 
-## `howIWork` — How I Work Page
+## `howIWork`: How I Work Page
 
 Your methodology, work principles, and tools.
 
@@ -381,7 +381,7 @@ Your methodology, work principles, and tools.
 
 ---
 
-## `now` — Now Page
+## `now`: Now Page
 
 What you're currently focused on.
 
@@ -439,7 +439,7 @@ Array with `label` (`"HIGH"`, `"MED"`, `"LOW"`), `text`, `color` (`"badge-green"
 
 ---
 
-## `contact` — Contact Page
+## `contact`: Contact Page
 
 How to get in touch.
 
@@ -477,7 +477,7 @@ How to get in touch.
 
 ---
 
-## `companies` — Organizations & Companies
+## `companies`: Organizations & Companies
 
 All companies/organizations you've worked with. Referenced by projects.
 
@@ -529,7 +529,7 @@ All companies/organizations you've worked with. Referenced by projects.
 
 ---
 
-## `careerEras` — Career Timeline Periods
+## `careerEras`: Career Timeline Periods
 
 Periods in your career (appears on `/career` page).
 
@@ -557,7 +557,7 @@ Periods in your career (appears on `/career` page).
 
 ---
 
-## `theme` — Styling & Customization
+## `theme`: Styling & Customization
 
 Colors and fonts for the entire site.
 
@@ -636,6 +636,6 @@ Font family names. Include fallbacks.
 
 ## See Also
 
-- [CUSTOMIZATION.md](./CUSTOMIZATION.md) — How-to guide for common tasks
-- [LOCAL-DEVELOPMENT.md](./LOCAL-DEVELOPMENT.md) — Running locally during development
+- [CUSTOMIZATION.md](./CUSTOMIZATION.md): How-to guide for common tasks
+- [LOCAL-DEVELOPMENT.md](./LOCAL-DEVELOPMENT.md): Running locally during development
 - Main repository: [TRiley-Nexus](https://github.com/Chromeninja/TRiley-Nexus)

@@ -1,5 +1,5 @@
 ---
-title: "Quantum Vegas 2955 — Co-Producer & Event Operations"
+title: "Quantum Vegas 2955: Co-Producer & Event Operations"
 status: completed
 category: Events & Community Operations
 organization: Quantum Vegas LLC

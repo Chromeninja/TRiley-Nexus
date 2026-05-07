@@ -1,7 +1,7 @@
 ---
 applyTo: "src/styles/**/*.css"
 ---
-<!-- Last reviewed: 2026-05-06 — update when design tokens or font stack changes -->
+<!-- Last reviewed: 2026-05-06; update when design tokens or font stack changes -->
 
 # Styles Rules
 
@@ -95,10 +95,10 @@ Applies to all CSS files under `src/styles/`. The design token source of truth i
 
 ## Rules
 
-- **Never hardcode colors or spacing** — always use `var(--token-name)`
-- **Dark theme only** — no light mode unless explicitly requested
-- **No Tailwind utilities** — this project uses CSS custom properties exclusively
-- **No inline styles** — scoped `<style>` in components or global.css only
+- **Never hardcode colors or spacing**: always use `var(--token-name)`
+- **Dark theme only**: no light mode unless explicitly requested
+- **No Tailwind utilities**: this project uses CSS custom properties exclusively
+- **No inline styles**: scoped `<style>` in components or global.css only
 - **BEM naming** for any global utility classes added here: `.block__element--modifier`
 - New global utility classes should be broadly applicable; component-specific styles belong in the component's scoped `<style>` block
 

@@ -22,7 +22,7 @@ const CONTENT_DIR = path.join(ROOT_DIR, "src/content");
 const DRY_RUN = !process.argv.includes("--write");
 
 // ---------------------------------------------------------------------------
-// YAML helpers — identical to server.mjs
+// YAML helpers: identical to server.mjs
 // ---------------------------------------------------------------------------
 
 function quoteYamlString(value) {
@@ -170,7 +170,7 @@ function parseFrontmatterYaml(rawFm) {
 }
 
 // ---------------------------------------------------------------------------
-// Normalize a single file — parse FM, re-serialize, rebuild document
+// Normalize a single file: parse FM, re-serialize, rebuild document
 // ---------------------------------------------------------------------------
 
 function normalizeContent(rawContent) {

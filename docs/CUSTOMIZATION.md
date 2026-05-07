@@ -71,14 +71,14 @@ Each save requires preview confirmation and creates a backup snapshot in `.conte
 
 **Available colors to customize:**
 
-- `primary` — Main accent color (links, buttons, borders)
-- `secondary` — Alternate accent (secondary elements)
-- `accent` — Highlight color (warnings, important items)
-- `success` — Success state (green)
-- `warning` — Warning state (yellow)
-- `danger` — Error state (red)
-- `bgPrimary`, `bgSecondary`, `bgCard` — Background colors
-- `textPrimary`, `textMuted`, `textDim`, `textHeading` — Text colors
+- `primary`: Main accent color (links, buttons, borders)
+- `secondary`: Alternate accent (secondary elements)
+- `accent`: Highlight color (warnings, important items)
+- `success`: Success state (green)
+- `warning`: Warning state (yellow)
+- `danger`: Error state (red)
+- `bgPrimary`, `bgSecondary`, `bgCard`: Background colors
+- `textPrimary`, `textMuted`, `textDim`, `textHeading`: Text colors
 
 ### Adding Projects
 
@@ -150,17 +150,17 @@ What were the measurable outcomes?
 
 **Project field reference:**
 
-- `title` (required) — Project name
-- `status` — "active", "completed", "archived", or "concept"
-- `category` — Group projects by category (e.g., "Engineering", "Operations", "Community")
-- `tags` — List of tags for filtering
-- `organization` — Company/org name (use exact name from `companies` section)
-- `summary` (required) — One sentence for timeline/list view
-- `highlights` — 3 key points (shown on project card)
-- `featured` — Set `true` to pin to top of projects page
-- `order` — Numeric order for sorting (lower = appears first)
-- `skills` & `tools` — Skills and tools you used
-- `media` — Images and videos (use paths relative to `/public/`)
+- `title` (required): Project name
+- `status`: "active", "completed", "archived", or "concept"
+- `category`: Group projects by category (e.g., "Engineering", "Operations", "Community")
+- `tags`: List of tags for filtering
+- `organization`: Company/org name (use exact name from `companies` section)
+- `summary` (required): One sentence for timeline/list view
+- `highlights`: 3 key points (shown on project card)
+- `featured`: Set `true` to pin to top of projects page
+- `order`: Numeric order for sorting (lower = appears first)
+- `skills` & `tools`: Skills and tools you used
+- `media`: Images and videos (use paths relative to `/public/`)
 
 ### Adding Companies
 
