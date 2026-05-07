@@ -216,6 +216,21 @@ const monthLookup: Record<string, number> = {
   dec: 11,
 };
 
+const monthAbbreviations = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export const projectStatusColors: Record<Project["status"], string> = {
   active: "badge-green",
   completed: "badge-cyan",
@@ -419,14 +434,26 @@ export function formatProjectDateRange(
   const endedAt = project.endedAt?.trim();
 
   if (startedAt && endedAt) {
-    return `${startedAt} - ${endedAt}`;
+    return `${formatMonthYear(startedAt)} - ${formatMonthYear(endedAt)}`;
   }
 
   if (startedAt) {
-    return `${startedAt} - Present`;
+    return `${formatMonthYear(startedAt)} - Present`;
   }
 
   return project.timeframe?.trim();
+}
+
+function formatMonthYear(dateString: string): string {
+  const match = /^(\d{4})-(\d{2})$/.exec(dateString.trim());
+  if (match) {
+    const year = match[1];
+    const monthNum = Number.parseInt(match[2], 10) - 1;
+    if (monthNum >= 0 && monthNum <= 11) {
+      return `${monthAbbreviations[monthNum]} ${year}`;
+    }
+  }
+  return dateString;
 }
 
 export function parseProjectDateValue(
