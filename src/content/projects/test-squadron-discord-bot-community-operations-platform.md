@@ -7,14 +7,35 @@ tags:
   - Community Operations
   - Automation
   - Governance
+  - Voice Channel Management
+  - Verification Systems
 organization: TEST Squadron
+organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
 roleTitle: Platform Engineer
 startedAt: Oct 2024
-summary: "Active open-source Discord bot and operations platform supporting TEST Squadron community workflows, built after several years of hands-on community support."
-problem: "High-volume community operations required automation, governance consistency, and reduced manual overhead."
-approach: "After first helping support the TEST Squadron community in October 2020, began development of the Discord bot in October 2024 to implement bot-driven moderation, onboarding, event operations, and admin workflow automation."
-outcome: "Improved consistency, reduced admin burden, and enabled scalable community management."
+summary: "Built and continue to operate an open-source Discord bot platform for TEST Squadron that handles token-based verification, role assignment, voice channel orchestration, and admin operations workflows while preserving member privacy."
+cardSummary: Built an operations-focused Discord bot platform that scaled verification, moderation workflows, and voice management for TEST Squadron.
+highlights:
+  - Implemented token-based member verification with role assignment, cooldown controls, and support for staff-led recheck operations.
+  - Shipped voice channel lifecycle tooling so members can create and manage channels through bot commands without broad direct permissions.
+  - Added activity metrics dashboards for voice, message counts, and game activity with manager-gated access and privacy-first data handling.
+problem: "As TEST Squadron scaled, manual verification and voice moderation workflows created inconsistent governance outcomes, elevated staff workload, and slower response during high activity windows."
+approach: "Designed the bot as an operations platform with modular cogs, a resilient database-backed settings layer, role-hierarchy permission checks, and a companion web dashboard for policy-aligned staff actions. Added structured logging, retry-safe helpers, and explicit privacy constraints so activity data supports leadership decisions without collecting message content."
+outcome: "Standardized core community operations, reduced repetitive moderation overhead, improved onboarding/verification consistency, and gave leadership clearer operational visibility through secure, role-scoped dashboards."
+skills:
+  - Community Operations Engineering
+  - Discord Platform Architecture
+  - Moderation Workflow Design
+  - Role-Based Access Control
+  - Privacy-Conscious Analytics
+tools:
+  - Python
+  - discord.py
+  - SQLite
+  - FastAPI
+  - Uvicorn
+  - Discord OAuth2
 links:
   - label: GitHub Repository
     url: "https://github.com/Chromeninja/test_squadron_discord_bot"

@@ -1,6 +1,6 @@
 ---
 profiles:
-  "Quantum Vegas":
+  "Quantum Vegas LLC":
     summary: Convention buildout and event operations coordination.
     companyInfo: "Event-focused production and systems coordination."
     myTimeInfo: Supported execution planning and buildout reliability.
