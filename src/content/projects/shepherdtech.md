@@ -3,16 +3,16 @@ title: ShepherdTech
 status: active
 category: Consulting & Infrastructure
 tags:
-  - IT Consulting
-  - Cloud Solutions
-  - Infrastructure
+  - Technical Advisory
+  - Cloud Infrastructure
+  - IT Modernization
   - Backend Modernization
 organization: ShepherdTech
 timeframe: Ongoing
 roleTitle: Fractional CTO / Technical Advisor
-startedAt: Mar 2024
-summary: "Active founder-led work focused on IT consulting, cloud solutions, infrastructure, backend modernization, and business development."
-cardSummary: Fractional CTO and advisor delivering infrastructure modernization plans for growing teams.
+startedAt: "2024-03"
+summary: "Ongoing ShepherdTech work focused on business operations, technical advisory support, cloud infrastructure improvements, and backend modernization planning."
+cardSummary: Fractional CTO and advisor helping teams turn technical goals into practical modernization work.
 highlights:
   - Designed pragmatic cloud and backend modernization roadmaps.
   - Improved reliability and scalability for client operations.

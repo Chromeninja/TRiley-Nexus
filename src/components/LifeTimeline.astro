@@ -35,8 +35,7 @@ function buildSpanStyle(entry: LifeTimelineEntry): string {
     1,
   );
   const offset =
-    ((entry.rangeStart.getTime() - careerStart.getTime()) / totalDuration) *
-    100;
+    ((careerEnd.getTime() - entry.rangeEnd.getTime()) / totalDuration) * 100;
   const width =
     ((entry.rangeEnd.getTime() - entry.rangeStart.getTime()) / totalDuration) *
     100;
@@ -51,8 +50,8 @@ function buildSpanStyle(entry: LifeTimelineEntry): string {
       <>
         <div class="life-timeline__header text-mono text-muted">
           <span>
-            Career timeline: {entries[0]?.rangeStart.getFullYear()} -{" "}
-            {entries[entries.length - 1]?.rangeEnd.getFullYear()}
+            Career timeline (now → past): {careerEnd?.getFullYear()} -{" "}
+            {careerStart?.getFullYear()}
           </span>
         </div>
 

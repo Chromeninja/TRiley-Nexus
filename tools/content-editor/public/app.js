@@ -753,10 +753,47 @@ async function uploadFile() {
       fileName: file.name,
       base64,
       mimeType: file.type,
+      activePath: state.activePath ?? null,
     });
 
-    elements.uploadResult.textContent = `Uploaded ${payload.relativePath}. Use ${payload.publicPath} in frontmatter.`;
+    let uploadMessage = `Uploaded ${payload.relativePath}. Use ${payload.publicPath} in frontmatter.`;
+
+    if (targetId === "projects" && inferSectionFromActivePath() === "projects" && state.activePath) {
+      const linkPayload = await apiPost("/api/link-project-media", {
+        path: state.activePath,
+        content: elements.markdownEditor.value,
+        publicPath: payload.publicPath,
+        mimeType: file.type,
+      });
+
+      elements.markdownEditor.value = linkPayload.content;
+      await loadFormModel(state.activePath, linkPayload.content);
+
+      if (state.editorMode === MODE_FORM) {
+        await composeMarkdownFromForm();
+        state.rawDirty = false;
+      } else {
+        state.rawDirty = true;
+        await renderMarkdownPreview();
+      }
+
+      const role = linkPayload.role === "cover" ? "cover" : "media";
+      uploadMessage = `Uploaded ${payload.relativePath} and linked it as project ${role}: ${payload.publicPath}.`;
+    }
+
+    elements.uploadResult.textContent = uploadMessage;
+
+    // Auto-fill logoSrc when uploading a company logo while a company file is open
+    if (targetId === "companies" && state.formModel) {
+      const logoInput = document.getElementById("fm-logoSrc");
+      if (logoInput) {
+        logoInput.value = payload.publicPath;
+        logoInput.dispatchEvent(new window.Event("input", { bubbles: true }));
+      }
+    }
+
     await refreshConfiguredMediaPreview(elements.markdownEditor.value);
+    elements.uploadFile.value = "";
   } catch (error) {
     elements.uploadResult.textContent = `Upload failed: ${error.message}`;
   }

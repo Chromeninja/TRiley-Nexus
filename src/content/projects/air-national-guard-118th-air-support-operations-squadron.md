@@ -12,10 +12,11 @@ tags:
 organization: 118th Air Support Operations Squadron
 timeframe: Past
 roleTitle: TACP Trainee
-startedAt: Oct 2013
-endedAt: Apr 2015
+startedAt: "2013-10"
+endedAt: "2015-04"
 summary: "Trained with the North Carolina Air National Guard's 118th Air Support Operations Squadron in the Tactical Air Control Party (TACP) pipeline, gaining foundational exposure to close air support operations, joint fires coordination, and air-ground integration before transitioning to the 235th ATCS."
-problem: "Building effective air-ground integration requires personnel who understand both the ground maneuver environment and the capabilities and limitations of air power — knowledge that requires structured training in the TACP discipline."
+cardSummary: Built a joint-operations foundation in the TACP pipeline before transitioning into airfield operations work.
+problem: "Building effective air-ground integration requires personnel who understand both the ground maneuver environment and the capabilities and limitations of air power, knowledge that requires structured training in the TACP discipline."
 approach: "Joined the 118th ASOS and completed training activities within the TACP pipeline, developing familiarity with close air support procedures, radio communications across joint nets, and the operational environment that TACPs work in alongside Army ground forces."
 outcome: "Built a strong joint operations foundation and understanding of air-ground integration that directly informed the transition into airfield operations and air traffic control with the 235th ATCS in April 2015."
 skills:

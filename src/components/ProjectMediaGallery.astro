@@ -1,5 +1,5 @@
 ---
-import { toBasePath } from "../utils/paths";
+import { resolveMediaPath } from "../utils/paths";
 import type { Project } from "../data/projects";
 
 interface Props {
@@ -17,15 +17,6 @@ const orderedMedia =
         ...media.slice(0, firstVideoIndex),
         ...media.slice(firstVideoIndex + 1),
       ];
-
-function resolveSrc(src: string): string {
-  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
-    return src;
-  }
-
-  const normalizedPath = src.startsWith("/") ? src : `/${src}`;
-  return toBasePath(normalizedPath);
-}
 ---
 
 {
@@ -47,14 +38,14 @@ function resolveSrc(src: string): string {
                 muted
                 preload="metadata"
                 playsinline
-                poster={item.poster ? resolveSrc(item.poster) : undefined}
+                poster={item.poster ? resolveMediaPath(item.poster) : undefined}
               >
-                <source src={resolveSrc(item.src)} />
+                <source src={resolveMediaPath(item.src)} />
               </video>
             ) : (
               <img
                 class="project-gallery__media"
-                src={resolveSrc(item.src)}
+                src={resolveMediaPath(item.src)}
                 alt={item.alt}
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"

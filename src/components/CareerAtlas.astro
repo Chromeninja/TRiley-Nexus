@@ -35,7 +35,7 @@ const activeProjectCount =
         <div class="career-atlas__top">
           <TimelineHeader
             title="Career Timeline"
-            subtitle="A chronological view of companies and project spans on a shared axis. Expand rows to explore role progression, outcomes, and live work in-place."
+            subtitle="A now-to-past timeline of companies and project spans on a shared axis. Expand rows to explore role progression, outcomes, and live work in-place."
           />
           <ViewControls />
         </div>
@@ -69,8 +69,6 @@ const activeProjectCount =
 
   if (root) {
     const timelineSection = root.querySelector(".timeline-section");
-    // const majorToggle = root.querySelector('[data-control="toggle-major"]'); // unused
-    // const nowToggle = root.querySelector('[data-control="toggle-now"]'); // unused
 
     const syncViewMode = () => {
       const hasExpandedRow = Array.from(

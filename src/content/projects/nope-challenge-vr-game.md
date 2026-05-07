@@ -6,21 +6,21 @@ tags:
   - VR
   - Production
   - Mixed Reality
-  - Beta Testing
+  - Community Testing
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 timeframe: Ongoing
-roleTitle: Technical Producer
-startedAt: Oct 2025
-summary: "Producer role at Happy Manic for Nope Challenge on the Meta Quest platform, focused on production planning, mixed reality support, hand-tracking coordination, and community-driven quality feedback."
-cardSummary: "Technical producer for Nope Challenge, coordinating live roadmap execution across VR, MR, and community feedback loops."
+roleTitle: Producer
+startedAt: "2025-10"
+summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout, coordinating Jira priorities with developers, community testing, Discord operations updates, and ongoing hand-tracking work."
+cardSummary: "Producer for Nope Challenge during Reality Breach rollout, aligning mixed reality delivery, community testing, and hand-tracking priorities."
 highlights:
-  - "Owned Jira planning, release coordination, and cross-team priority alignment."
-  - Integrated community testing feedback into live development decisions.
-  - "Supported mixed reality and hand-tracking feature delivery on Meta Quest."
-problem: "After launch on Meta Quest, the project needed stronger production leadership to align development priorities, manage live issues, support mixed reality deployments, and turn public community feedback into actionable work while the team continued technical upgrades."
-approach: "Managed the development team through Jira-based planning, roadmap alignment, prioritization, storyboarding, and release coordination while supporting mixed reality deployments, Reality Breach and beta community testing, bug-report triage, hand-tracking work, Perforce-based change management, and ongoing production pipeline improvements tied to Nope Challenge."
-outcome: "Improved delivery alignment across the team, strengthened the public beta feedback loop, supported mixed reality and hand-tracking priorities, and created a more dependable production structure around ongoing Nope Challenge development."
+  - "Worked with 30+ community members to run testing cycles and collect actionable feedback."
+  - "Revamped Discord channel structure and implemented AutoMod best practices for safer community operations."
+  - "Partnered with developers in Jira to prioritize roadmap work across mixed reality and hand-tracking features."
+problem: "Nope Challenge entered the Reality Breach mixed reality rollout phase and needed coordinated production support to manage live feature priorities, community testing signal, and cross-team planning."
+approach: "Led producer workflows across Jira planning, developer prioritization, community testing operations, and Discord operations updates. Coordinated rollout support for Reality Breach mixed reality features while helping shape hand-tracking implementation priorities from test feedback."
+outcome: "Created a tighter rollout loop between community testing and development decisions, improved server safety and feedback quality through Discord updates and AutoMod practices, and helped maintain an over 4.5 player rating for the game."
 skills:
   - Production
   - Roadmapping

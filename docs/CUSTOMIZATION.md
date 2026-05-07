@@ -18,7 +18,7 @@ Welcome! This portfolio is designed to be forked and customized without touching
 10. Edit these sections (in order):
   - `src/content/projects/*.md` → Project details
   - `src/content/about/about.md` → About me page
-  - `src/content/companies/companies.md` → Company profiles
+  - `src/content/companies/*.md` → Company profiles
 11. **Run `npm run build`** to test locally
 12. **Deploy to GitHub Pages** (see [SETUP-GITHUB-PAGES.md](./SETUP-GITHUB-PAGES.md))
 
@@ -34,7 +34,7 @@ Each save requires preview confirmation and creates a backup snapshot in `.conte
 | ----------------------------------------------- | ---------- | -------------------------------------------- | ----------------------------------------- |
 | **Project content**                             | ✅ Easy    | Edit `src/content/projects/*.md`             | 5-10 min per project                      |
 | **About page content**                          | ✅ Easy    | Edit `src/content/about/about.md`            | 10 min                                    |
-| **Company profile content**                     | ✅ Easy    | Edit `src/content/companies/companies.md`    | 10 min                                    |
+| **Company profile content**                     | ✅ Easy    | Edit `src/content/companies/*.md`            | 10 min                                    |
 | **Colors and fonts**                            | ✅ Easy    | Edit `theme.*` in JSON                       | See [Styling](#styling) section           |
 | **Add new project**                             | ⚠️ Medium  | Create `.md` file in `src/content/projects/` | See [Adding Projects](#adding-projects)   |
 | **Add or override company data**                | ⚠️ Medium  | Add profile entries in `companies.md`        | See [Adding Companies](#adding-companies) |
@@ -71,14 +71,14 @@ Each save requires preview confirmation and creates a backup snapshot in `.conte
 
 **Available colors to customize:**
 
-- `primary` — Main accent color (links, buttons, borders)
-- `secondary` — Alternate accent (secondary elements)
-- `accent` — Highlight color (warnings, important items)
-- `success` — Success state (green)
-- `warning` — Warning state (yellow)
-- `danger` — Error state (red)
-- `bgPrimary`, `bgSecondary`, `bgCard` — Background colors
-- `textPrimary`, `textMuted`, `textDim`, `textHeading` — Text colors
+- `primary`: Main accent color (links, buttons, borders)
+- `secondary`: Alternate accent (secondary elements)
+- `accent`: Highlight color (warnings, important items)
+- `success`: Success state (green)
+- `warning`: Warning state (yellow)
+- `danger`: Error state (red)
+- `bgPrimary`, `bgSecondary`, `bgCard`: Background colors
+- `textPrimary`, `textMuted`, `textDim`, `textHeading`: Text colors
 
 ### Adding Projects
 
@@ -150,21 +150,21 @@ What were the measurable outcomes?
 
 **Project field reference:**
 
-- `title` (required) — Project name
-- `status` — "active", "completed", "archived", or "concept"
-- `category` — Group projects by category (e.g., "Engineering", "Operations", "Community")
-- `tags` — List of tags for filtering
-- `organization` — Company/org name (use exact name from `companies` section)
-- `summary` (required) — One sentence for timeline/list view
-- `highlights` — 3 key points (shown on project card)
-- `featured` — Set `true` to pin to top of projects page
-- `order` — Numeric order for sorting (lower = appears first)
-- `skills` & `tools` — Skills and tools you used
-- `media` — Images and videos (use paths relative to `/public/`)
+- `title` (required): Project name
+- `status`: "active", "completed", "archived", or "concept"
+- `category`: Group projects by category (e.g., "Engineering", "Operations", "Community")
+- `tags`: List of tags for filtering
+- `organization`: Company/org name (use exact name from `companies` section)
+- `summary` (required): One sentence for timeline/list view
+- `highlights`: 3 key points (shown on project card)
+- `featured`: Set `true` to pin to top of projects page
+- `order`: Numeric order for sorting (lower = appears first)
+- `skills` & `tools`: Skills and tools you used
+- `media`: Images and videos (use paths relative to `/public/`)
 
 ### Adding Companies
 
-1. Open `src/content/companies/companies.md`
+1. Open a file in `src/content/companies/` (for example `src/content/companies/ubisoft.md`)
 2. Find the frontmatter `profiles` map
 3. Add a new company:
 
@@ -195,6 +195,8 @@ profiles:
 ```
 
 Then reference this company in your projects using the exact `organization` name.
+
+For consistent categories, tag vocabulary, summary tone, and date formatting in project and company markdown, use `docs/CONTENT-TAXONOMY.md`.
 
 ### Career Timeline
 

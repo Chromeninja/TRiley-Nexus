@@ -5,13 +5,13 @@ category: Events & Community Operations
 tags:
   - Scheduling Systems
   - Staffing Operations
-  - Payroll Tracking
+  - Payroll Operations
   - Operations Finance
 organization: VR Villa
 timeframe: Ongoing
 roleTitle: Operations Systems Manager
 startedAt: "2025"
-summary: "Built a Google Sheets operations system to manage staff schedules, role assignments, event hours, individual pay calculations, and expense tracking in one place."
+summary: "Built a Google Sheets operations system for staff schedules, role assignments, event hours, pay calculations, and expense tracking."
 cardSummary: "Built a Google Sheets system for staffing schedules, role management, and accurate event pay operations."
 highlights:
   - Standardized schedule management across recurring events and rotating staff roles.

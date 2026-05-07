@@ -21,3 +21,14 @@ export function stripBasePath(pathname: string): string {
 export function isActivePath(currentPath: string, href: string): boolean {
   return href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 }
+
+export function resolveMediaPath(src: string): string {
+  if (/^(https?:)?\/\//.test(src) || src.startsWith("data:")) {
+    return src;
+  }
+  return toBasePath(src.startsWith("/") ? src : `/${src}`);
+}
+
+export function normalizeWhitespace(value: string): string {
+  return value.replace(/\s+/g, " ").trim();
+}

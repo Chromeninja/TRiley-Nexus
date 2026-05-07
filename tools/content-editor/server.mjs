@@ -26,7 +26,7 @@ const MEDIA_TARGETS = [
 const TOKENS = new Map();
 const TOKEN_TTL_MS = 10 * 60 * 1000;
 
-// Fields handled explicitly by renderFrontmatterPreview — excluded from the fallback scalar table.
+// Fields handled explicitly by renderFrontmatterPreview: excluded from the fallback scalar table.
 const RESERVED_FM_FIELDS = new Set([
   "title", "organization", "roleTitle", "status", "category",
   "startedAt", "endedAt", "summary", "cardSummary", "longSummary", "problem", "approach",
@@ -74,6 +74,8 @@ const FORM_SCHEMAS = {
     { key: "longSummary", label: "Long Summary", type: "textarea", placeholder: "Optional expanded summary." },
     { key: "roleSummary", label: "Role Summary", type: "textarea", placeholder: "Optional role-specific summary." },
     { key: "achievements", label: "Achievements", type: "list", placeholder: "One achievement per line" },
+    { key: "logoSrc", label: "Logo Source", type: "text", placeholder: "/media/companies/company-logo.png" },
+    { key: "logoAlt", label: "Logo Alt Text", type: "text", placeholder: "Accessible logo description" },
     { key: "color", label: "Brand Color", type: "text", placeholder: "#57a6ff" },
     { key: "tenureStart", label: "Tenure Start", type: "text", placeholder: "YYYY-MM or date label" },
     { key: "tenureEnd", label: "Tenure End", type: "text", placeholder: "Present or end date" },
@@ -125,12 +127,17 @@ function topLevelKeyBlocks(rawFm) {
   let currentLines = [];
 
   for (const line of lines) {
-    const keyMatch = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
+    if (/^\s/.test(line)) {
+      if (currentKey) currentLines.push(line);
+      continue;
+    }
+
+    const keyMatch = line.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
     if (keyMatch) {
       if (currentKey) {
         blocks.push({ key: currentKey, block: currentLines.join("\n") });
       }
-      currentKey = keyMatch[1];
+      currentKey = keyMatch[1].trimEnd().replace(/^["'](.*)["']$/, "$1");
       currentLines = [line];
       continue;
     }
@@ -143,6 +150,34 @@ function topLevelKeyBlocks(rawFm) {
   }
 
   return blocks;
+}
+
+function isCompanyProfileObject(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+
+  const companyProfileKeys = new Set([
+    "summary",
+    "companyInfo",
+    "myTimeInfo",
+    "longSummary",
+    "roleSummary",
+    "achievements",
+    "logo",
+    "color",
+    "tenureStart",
+    "tenureEnd",
+    "timelineRoles",
+  ]);
+
+  return Object.keys(value).some((key) => companyProfileKeys.has(key));
+}
+
+function getLegacyCompanyProfileEntries(parsedFrontmatter) {
+  if (!parsedFrontmatter || typeof parsedFrontmatter !== "object") return [];
+
+  return Object.entries(parsedFrontmatter).filter(
+    ([key, value]) => key !== "profiles" && isCompanyProfileObject(value),
+  );
 }
 
 function sanitizeUnknownFrontmatter(rawUnknown) {
@@ -176,6 +211,11 @@ function scalarToYaml(value) {
   return text;
 }
 
+function yamlKey(key) {
+  const s = String(key ?? "");
+  return /[\s:#"']/.test(s) ? quoteYamlString(s) : s;
+}
+
 function serializeYaml(value, indent = 0) {
   const space = " ".repeat(indent);
 
@@ -189,9 +229,9 @@ function serializeYaml(value, indent = 0) {
           if (entries.length === 0) return `${space}- {}`;
 
           const [firstKey, firstValue] = entries[0];
-          const rendered = [`${space}- ${firstKey}: ${scalarToYaml(firstValue)}`];
+          const rendered = [`${space}- ${yamlKey(firstKey)}: ${scalarToYaml(firstValue)}`];
           for (const [key, itemValue] of entries.slice(1)) {
-            rendered.push(`${space}  ${key}: ${scalarToYaml(itemValue)}`);
+            rendered.push(`${space}  ${yamlKey(key)}: ${scalarToYaml(itemValue)}`);
           }
           return rendered.join("\n");
         }
@@ -211,9 +251,9 @@ function serializeYaml(value, indent = 0) {
 
       if (Array.isArray(child)) {
         if (child.length === 0) {
-          out.push(`${space}${key}: []`);
+          out.push(`${space}${yamlKey(key)}: []`);
         } else {
-          out.push(`${space}${key}:`);
+          out.push(`${space}${yamlKey(key)}:`);
           out.push(serializeYaml(child, indent + 2));
         }
         continue;
@@ -222,15 +262,15 @@ function serializeYaml(value, indent = 0) {
       if (child && typeof child === "object") {
         const childEntries = Object.entries(child).filter(([, v]) => v !== undefined);
         if (childEntries.length === 0) {
-          out.push(`${space}${key}: {}`);
+          out.push(`${space}${yamlKey(key)}: {}`);
         } else {
-          out.push(`${space}${key}:`);
+          out.push(`${space}${yamlKey(key)}:`);
           out.push(serializeYaml(child, indent + 2));
         }
         continue;
       }
 
-      out.push(`${space}${key}: ${scalarToYaml(child)}`);
+      out.push(`${space}${yamlKey(key)}: ${scalarToYaml(child)}`);
     }
 
     return out.join("\n");
@@ -584,90 +624,216 @@ function splitFrontmatter(rawContent) {
 
 /**
  * Parse simple YAML used in frontmatter into a plain object.
- * Handles: scalars, quoted strings, simple arrays, nested scalar objects,
- * and arrays of multi-key objects (e.g. thinkItems, personalItems).
+ * Handles the subset used by this editor: scalars, nested objects,
+ * arrays, and arrays of multi-key objects.
  */
 function parseFrontmatterYaml(rawFm) {
-  const unq = (s) => String(s ?? "").replace(/^["']|["']$/g, "").trim();
+  const lines = String(rawFm ?? "").split("\n");
 
-  const result = {};
-  const lines = rawFm.split("\n");
-  let i = 0;
-
-  while (i < lines.length) {
-    const line = lines[i];
-    if (!line.trim()) { i += 1; continue; }
-
-    // Top-level key
-    const topKey = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-    if (!topKey) { i += 1; continue; }
-
-    const key = topKey[1];
-    const rest = topKey[2].trim();
-
-    if (rest === "[]") { result[key] = []; i += 1; continue; }
-    if (rest) { result[key] = unq(rest); i += 1; continue; }
-
-    // No inline value — scan continuation at indent >= 2
-    i += 1;
-    const items = [];       // scalar array items
-    const nestedObj = {};   // single nested object (e.g. resume:, profileMedia:)
-    let isNestedObj = false;
-
-    while (i < lines.length) {
-      const next = lines[i];
-      if (!next.trim()) { i += 1; continue; }
-
-      const indent = next.match(/^(\s*)/)[1].length;
-      if (indent === 0) break; // back to top-level
-
-      // List item that starts an object: "  - key: val"
-      const objItem = next.match(/^\s+-\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-      if (objItem) {
-        const obj = { [objItem[1]]: unq(objItem[2]) };
-        i += 1;
-        // Consume additional properties of this object (deeper indent)
-        while (i < lines.length) {
-          const prop = lines[i];
-          if (!prop.trim()) { i += 1; continue; }
-          const propIndent = prop.match(/^(\s*)/)[1].length;
-          if (propIndent <= indent) break;
-          const kv = prop.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-          if (kv) { obj[kv[1]] = unq(kv[2]); }
-          i += 1;
-        }
-        items.push(obj);
-        continue;
-      }
-
-      // Plain scalar list item: "  - value"
-      const scalarItem = next.match(/^\s+-\s+(.+)$/);
-      if (scalarItem) {
-        items.push(unq(scalarItem[1]));
-        i += 1;
-        continue;
-      }
-
-      // Nested scalar key (e.g. "  src: /foo" inside profileMedia:)
-      const nested = next.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-      if (nested) {
-        isNestedObj = true;
-        nestedObj[nested[1]] = unq(nested[2]);
-        i += 1;
-        continue;
-      }
-
-      break;
-    }
-
-    if (isNestedObj) {
-      result[key] = nestedObj;
-    } else if (items.length > 0) {
-      result[key] = items;
-    }
+  function stripQuotes(value) {
+    return String(value ?? "").replace(/^["']|["']$/g, "").trim();
   }
 
-  return result;
+  function parseScalar(value) {
+    const text = stripQuotes(value);
+    if (text === "true") return true;
+    if (text === "false") return false;
+    if (text === "null" || text === "~") return null;
+    if (/^-?\d+$/.test(text)) return Number.parseInt(text, 10);
+    if (/^-?\d+\.\d+$/.test(text)) return Number.parseFloat(text);
+    return text;
+  }
+
+  function getIndent(line) {
+    return line.match(/^(\s*)/)?.[1].length ?? 0;
+  }
+
+  function nextMeaningfulLineIndex(startIndex) {
+    for (let index = startIndex; index < lines.length; index += 1) {
+      if (lines[index].trim()) return index;
+    }
+
+    return -1;
+  }
+
+  function parseArrayItemObject(firstLineContent, startIndex, parentIndent) {
+    const item = {};
+    const inlineMatch = firstLineContent.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+    let index = startIndex;
+
+    if (inlineMatch) {
+      const [, rawKey, rest] = inlineMatch;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim()) {
+        item[key] = parseScalar(rest);
+      } else {
+        const nextIndex = nextMeaningfulLineIndex(index + 1);
+        if (nextIndex !== -1 && getIndent(lines[nextIndex]) > parentIndent) {
+          const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+          item[key] = nested.value;
+          index = nested.nextIndex - 1;
+        } else {
+          item[key] = "";
+        }
+      }
+    } else if (firstLineContent.trim()) {
+      return { value: parseScalar(firstLineContent), nextIndex: startIndex + 1 };
+    }
+
+    index += 1;
+    while (index < lines.length) {
+      const line = lines[index];
+      if (!line.trim()) {
+        index += 1;
+        continue;
+      }
+
+      const indent = getIndent(line);
+      if (indent <= parentIndent) break;
+
+      const trimmed = line.trim();
+      if (trimmed.startsWith("- ")) break;
+
+      const match = trimmed.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+      if (!match) {
+        index += 1;
+        continue;
+      }
+
+      const [, rawKey, rest] = match;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim()) {
+        item[key] = parseScalar(rest);
+        index += 1;
+        continue;
+      }
+
+      const nextIndex = nextMeaningfulLineIndex(index + 1);
+      if (nextIndex !== -1 && getIndent(lines[nextIndex]) > indent) {
+        const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+        item[key] = nested.value;
+        index = nested.nextIndex;
+        continue;
+      }
+
+      item[key] = "";
+      index += 1;
+    }
+
+    return { value: item, nextIndex: index };
+  }
+
+  function parseBlock(startIndex, baseIndent) {
+    const firstIndex = nextMeaningfulLineIndex(startIndex);
+    if (firstIndex === -1) return { value: {}, nextIndex: lines.length };
+
+    const firstLine = lines[firstIndex];
+    if (getIndent(firstLine) < baseIndent) {
+      return { value: {}, nextIndex: firstIndex };
+    }
+
+    if (firstLine.trim().startsWith("- ")) {
+      const items = [];
+      let index = firstIndex;
+
+      while (index < lines.length) {
+        const line = lines[index];
+        if (!line.trim()) {
+          index += 1;
+          continue;
+        }
+
+        const indent = getIndent(line);
+        if (indent < baseIndent) break;
+        if (indent !== baseIndent || !line.trim().startsWith("- ")) break;
+
+        const parsedItem = parseArrayItemObject(line.trim().slice(2), index, baseIndent);
+        items.push(parsedItem.value);
+        index = parsedItem.nextIndex;
+      }
+
+      return { value: items, nextIndex: index };
+    }
+
+    const object = {};
+    let index = firstIndex;
+
+    while (index < lines.length) {
+      const line = lines[index];
+      if (!line.trim()) {
+        index += 1;
+        continue;
+      }
+
+      const indent = getIndent(line);
+      if (indent < baseIndent) break;
+      if (indent !== baseIndent) {
+        index += 1;
+        continue;
+      }
+
+      const trimmed = line.trim();
+      const match = trimmed.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+      if (!match) {
+        index += 1;
+        continue;
+      }
+
+      const [, rawKey, rest] = match;
+      const key = rawKey.trimEnd().replace(/^["'](.*)["']$/, "$1");
+      if (rest.trim() === "[]") {
+        object[key] = [];
+        index += 1;
+        continue;
+      }
+
+      if (rest.trim()) {
+        object[key] = parseScalar(rest);
+        index += 1;
+        continue;
+      }
+
+      const nextIndex = nextMeaningfulLineIndex(index + 1);
+      if (nextIndex !== -1 && getIndent(lines[nextIndex]) > indent) {
+        const nested = parseBlock(nextIndex, getIndent(lines[nextIndex]));
+        object[key] = nested.value;
+        index = nested.nextIndex;
+        continue;
+      }
+
+      object[key] = "";
+      index += 1;
+    }
+
+    return { value: object, nextIndex: index };
+  }
+
+  return parseBlock(0, 0).value;
+}
+
+function getPrimaryCompanyProfile(parsedFrontmatter) {
+  const profiles = parsedFrontmatter?.profiles;
+  if (!profiles || typeof profiles !== "object") {
+    const [legacyName, legacyProfile] = getLegacyCompanyProfileEntries(parsedFrontmatter)[0] ?? ["", null];
+    if (!legacyProfile || typeof legacyProfile !== "object") {
+      return { name: "", profile: null };
+    }
+
+    return { name: String(legacyName ?? ""), profile: legacyProfile };
+  }
+
+  const [name, profile] = Object.entries(profiles)[0] ?? ["", null];
+  if (!profile || typeof profile !== "object") {
+    return { name: String(name ?? ""), profile: null };
+  }
+
+  return { name: String(name ?? ""), profile };
+}
+
+function getCompanyFileMetadata(rawContent) {
+  const { rawFm } = splitFrontmatter(rawContent);
+  const parsed = parseFrontmatterYaml(rawFm);
+  return getPrimaryCompanyProfile(parsed);
 }
 
 function createFormModel(relativePath, content) {
@@ -690,8 +856,14 @@ function createFormModel(relativePath, content) {
   if (section === "companies") {
     knownKeys.add("profiles");
   }
+
+  const legacyCompanyProfileNames =
+    section === "companies"
+      ? new Set(getLegacyCompanyProfileEntries(parsed).map(([name]) => String(name ?? "")))
+      : new Set();
+
   const unknownFrontmatter = topLevelKeyBlocks(rawFm)
-    .filter((entry) => !knownKeys.has(entry.key))
+    .filter((entry) => !knownKeys.has(entry.key) && !legacyCompanyProfileNames.has(entry.key))
     .map((entry) => entry.block)
     .join("\n")
     .trim();
@@ -753,7 +925,14 @@ function createFormModel(relativePath, content) {
   }
 
   if (section === "companies") {
-    const profiles = parsed.profiles && typeof parsed.profiles === "object" ? parsed.profiles : {};
+    const profiles =
+      parsed.profiles && typeof parsed.profiles === "object" ? cloneJsonLike(parsed.profiles) : {};
+    for (const [profileName, legacyProfile] of getLegacyCompanyProfileEntries(parsed)) {
+      if (!(profileName in profiles)) {
+        profiles[profileName] = cloneJsonLike(legacyProfile);
+      }
+    }
+
     const profileEntries = Object.entries(profiles);
     const [activeName, profile = {}] = profileEntries[0] ?? ["", {}];
 
@@ -765,6 +944,8 @@ function createFormModel(relativePath, content) {
       longSummary: String(profile.longSummary ?? ""),
       roleSummary: String(profile.roleSummary ?? ""),
       achievements: Array.isArray(profile.achievements) ? profile.achievements.join("\n") : "",
+      logoSrc: String(profile.logo?.src ?? ""),
+      logoAlt: String(profile.logo?.alt ?? ""),
       color: String(profile.color ?? ""),
       tenureStart: String(profile.tenureStart ?? ""),
       tenureEnd: String(profile.tenureEnd ?? ""),
@@ -918,6 +1099,17 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
     if (achievements.length) updatedProfile.achievements = achievements;
     else delete updatedProfile.achievements;
 
+    const logoSrc = String(values.logoSrc ?? "").trim();
+    const logoAlt = String(values.logoAlt ?? "").trim();
+    if (logoSrc) {
+      updatedProfile.logo = {
+        src: logoSrc,
+        alt: logoAlt || `${profileName} logo`,
+      };
+    } else {
+      delete updatedProfile.logo;
+    }
+
     const timelineRoles = parseLinesToObjects(values.timelineRoles, ["label", "start", "end"], "|");
     if (timelineRoles.length) updatedProfile.timelineRoles = timelineRoles;
     else delete updatedProfile.timelineRoles;
@@ -937,6 +1129,47 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
 function renderFrontmatterPreview(rawFm) {
   const fm = parseFrontmatterYaml(rawFm);
   const parts = [];
+  const { name: companyName, profile: companyProfile } = getPrimaryCompanyProfile(fm);
+
+  if (companyProfile) {
+    if (companyName) {
+      parts.push(`<h2 class="fm-title">${escapeHtml(companyName)}</h2>`);
+    }
+
+    if (companyProfile.logo?.src) {
+      const logoAlt = String(companyProfile.logo.alt ?? companyName ?? "Company logo");
+      parts.push(
+        `<div class="fm-section"><img class="media-library__preview" src="${escapeHtml(String(companyProfile.logo.src))}" alt="${escapeHtml(logoAlt)}"></div>`,
+      );
+    }
+
+    if (companyProfile.summary) {
+      parts.push(`<p class="fm-summary">${escapeHtml(String(companyProfile.summary))}</p>`);
+    }
+
+    for (const [label, field] of [["Company Info", "companyInfo"], ["My Time Info", "myTimeInfo"], ["Role Summary", "roleSummary"], ["Long Summary", "longSummary"]]) {
+      if (companyProfile[field]) {
+        parts.push(`<div class="fm-section"><strong>${label}</strong><p>${escapeHtml(String(companyProfile[field]))}</p></div>`);
+      }
+    }
+
+    if (Array.isArray(companyProfile.achievements) && companyProfile.achievements.length) {
+      const items = companyProfile.achievements.map((item) => `<li>${escapeHtml(String(item))}</li>`).join("");
+      parts.push(`<div class="fm-section"><strong>Achievements</strong><ul class="fm-values">${items}</ul></div>`);
+    }
+
+    if (Array.isArray(companyProfile.timelineRoles) && companyProfile.timelineRoles.length) {
+      const rows = companyProfile.timelineRoles
+        .filter((item) => item && typeof item === "object" && item.label)
+        .map((item) => `<li>${escapeHtml(String(item.label))} (${[item.start, item.end].filter(Boolean).map((value) => escapeHtml(String(value))).join(" to ")})</li>`)
+        .join("");
+      if (rows) {
+        parts.push(`<div class="fm-section"><strong>Timeline Roles</strong><ul class="fm-values">${rows}</ul></div>`);
+      }
+    }
+
+    return `<div class="fm-preview">${parts.join("\n")}</div>`;
+  }
 
   if (fm.title) {
     parts.push(`<h2 class="fm-title">${escapeHtml(String(fm.title))}</h2>`);
@@ -953,7 +1186,7 @@ function renderFrontmatterPreview(rawFm) {
   // Dates
   if (fm.startedAt || fm.endedAt) {
     const dates = [fm.startedAt, fm.endedAt].filter(Boolean).map((d) => escapeHtml(String(d)));
-    parts.push(`<p class="fm-dates">&#128197; ${dates.join(" — ")}</p>`);
+    parts.push(`<p class="fm-dates">&#128197; ${dates.join(" to ")}</p>`);
   }
 
   // Primary summary
@@ -1040,12 +1273,15 @@ async function listMarkdownFiles() {
       const section = filePath.split("/")[2] ?? "content";
       const baseName = path.basename(filePath);
       const { title, organization } = parseFrontmatter(raw);
+      const { name: companyName } = section === "companies"
+        ? getCompanyFileMetadata(raw)
+        : { name: "" };
 
       return {
         id: createHash("sha1").update(filePath).digest("hex").slice(0, 16),
         path: filePath,
         section,
-        label: title || slugToLabel(baseName),
+        label: title || companyName || slugToLabel(baseName),
         organization: organization || null,
       };
     }),
@@ -1156,6 +1392,128 @@ function sanitizeUploadName(name) {
   const cleaned = name.trim().replace(/\s+/g, "-").replace(/[^A-Za-z0-9._-]/g, "");
   if (!cleaned || cleaned === "." || cleaned === "..") throw new Error("Invalid file name.");
   return cleaned;
+}
+
+function extensionFromMimeType(mimeType) {
+  const value = String(mimeType ?? "").toLowerCase();
+  if (value === "image/jpeg") return ".jpg";
+  if (value === "image/png") return ".png";
+  if (value === "image/webp") return ".webp";
+  if (value === "image/gif") return ".gif";
+  if (value === "image/svg+xml") return ".svg";
+  if (value === "image/avif") return ".avif";
+  if (value === "video/mp4") return ".mp4";
+  if (value === "video/webm") return ".webm";
+  if (value === "video/quicktime") return ".mov";
+  if (value === "application/pdf") return ".pdf";
+  return "";
+}
+
+async function fileExists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+async function resolveUniqueUploadName(targetDir, baseName, ext) {
+  const safeBase = sanitizeUploadName(baseName).replace(/\.[^.]*$/, "");
+  const safeExt = ext && ext.startsWith(".") ? ext.toLowerCase() : "";
+
+  let candidate = `${safeBase}${safeExt}`;
+  let suffix = 2;
+  while (await fileExists(path.join(targetDir, candidate))) {
+    candidate = `${safeBase}-${suffix}${safeExt}`;
+    suffix += 1;
+  }
+
+  return candidate;
+}
+
+async function getProjectUploadNaming(activePath, originalFileName, mimeType, targetDir) {
+  if (!activePath) return null;
+
+  const { normalized, absolutePath } = getAllowedAbsolutePath(activePath);
+  if (!normalized.startsWith("src/content/projects/")) return null;
+
+  const projectSlug = toSlug(path.basename(normalized, path.extname(normalized)));
+  if (!projectSlug) return null;
+
+  const raw = await fs.readFile(absolutePath, "utf-8");
+  const { rawFm } = splitFrontmatter(raw);
+  const parsed = parseFrontmatterYaml(rawFm);
+  const mediaKind = inferMediaKindFromSource(originalFileName, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
+  const hasCover = Boolean(parsed?.cover && typeof parsed.cover === "object" && String(parsed.cover.src ?? "").trim());
+  const role = !hasCover && mediaKind === "image" ? "cover" : "media";
+
+  const originalExt = path.extname(String(originalFileName ?? "")).toLowerCase();
+  const extension = originalExt || extensionFromMimeType(mimeType) || ".bin";
+  const baseName = role === "cover" ? `${projectSlug}-cover` : `${projectSlug}-media`;
+  const fileName = await resolveUniqueUploadName(targetDir, baseName, extension);
+
+  return { fileName, role };
+}
+
+function linkUploadedProjectMedia(content, publicPath, mimeType) {
+  const cleanedPublicPath = String(publicPath ?? "").trim();
+  if (!cleanedPublicPath.startsWith("/")) {
+    throw new Error("publicPath must start with '/'.");
+  }
+
+  const { rawFm, body } = splitFrontmatter(content);
+  if (!rawFm.trim()) {
+    throw new Error("Project file must contain frontmatter.");
+  }
+
+  const parsed = parseFrontmatterYaml(rawFm);
+  const mediaKind = inferMediaKindFromSource(cleanedPublicPath, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
+
+  const coverSrc = parsed?.cover && typeof parsed.cover === "object" ? String(parsed.cover.src ?? "").trim() : "";
+  const mediaItems = Array.isArray(parsed.media) ? parsed.media : [];
+  const alreadyInMedia = mediaItems.some((entry) => entry && typeof entry === "object" && String(entry.src ?? "").trim() === cleanedPublicPath);
+  const alreadyLinked = coverSrc === cleanedPublicPath || alreadyInMedia;
+
+  if (alreadyLinked) {
+    return {
+      content,
+      role: coverSrc === cleanedPublicPath ? "cover" : "media",
+      inserted: false,
+    };
+  }
+
+  if (!coverSrc && mediaKind === "image") {
+    parsed.cover = {
+      src: cleanedPublicPath,
+      alt: String(parsed.title ?? "Project cover image"),
+    };
+
+    const serialized = serializeYaml(parsed);
+    const normalizedBody = String(body ?? "");
+    const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+    return {
+      content: `---\n${serialized}\n---${bodyBlock}`,
+      role: "cover",
+      inserted: true,
+    };
+  }
+
+  const entry =
+    mediaKind === "video"
+      ? { type: "video", src: cleanedPublicPath }
+      : { type: "image", src: cleanedPublicPath, alt: String(parsed.title ?? "") };
+
+  parsed.media = [...mediaItems, entry];
+  const serialized = serializeYaml(parsed);
+  const normalizedBody = String(body ?? "");
+  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  return {
+    content: `---\n${serialized}\n---${bodyBlock}`,
+    role: "media",
+    inserted: true,
+  };
 }
 
 function toSlug(value) {
@@ -1682,10 +2040,25 @@ async function handleApi(req, res, url) {
         return;
       }
 
-      const safeName = sanitizeUploadName(body.fileName);
       if (typeof body.base64 !== "string" || !body.base64.trim()) {
         sendJson(res, 400, { error: "Missing base64 file content." });
         return;
+      }
+
+      let fileName = body.fileName;
+      let projectMediaRole = null;
+      if (target.id === "companies" && body.activePath) {
+        try {
+          const { absolutePath } = getAllowedAbsolutePath(body.activePath);
+          const raw = await fs.readFile(absolutePath, "utf8");
+          const { name: profileName } = getCompanyFileMetadata(raw);
+          if (profileName) {
+            const ext = path.extname(body.fileName);
+            fileName = `${toSlug(profileName)}-logo${ext}`;
+          }
+        } catch {
+          // fall back to original filename
+        }
       }
 
       const targetDir = path.join(ROOT_DIR, target.relativeDir);
@@ -1693,6 +2066,25 @@ async function handleApi(req, res, url) {
         sendJson(res, 400, { error: "Invalid upload directory." });
         return;
       }
+
+      if (target.id === "projects" && body.activePath) {
+        try {
+          const naming = await getProjectUploadNaming(
+            body.activePath,
+            body.fileName,
+            body.mimeType,
+            targetDir,
+          );
+          if (naming) {
+            fileName = naming.fileName;
+            projectMediaRole = naming.role;
+          }
+        } catch {
+          // fall back to original filename
+        }
+      }
+
+      const safeName = sanitizeUploadName(fileName);
 
       await fs.mkdir(targetDir, { recursive: true });
       const filePath = path.join(targetDir, safeName);
@@ -1707,9 +2099,38 @@ async function handleApi(req, res, url) {
         uploaded: true,
         relativePath,
         publicPath: `/${relativePath.replace(/^public\//, "")}`,
+        fileName: safeName,
+        projectMediaRole,
       });
     } catch (error) {
       sendJson(res, 400, { error: `Upload failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/link-project-media") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required." });
+        return;
+      }
+
+      const { normalized } = getAllowedAbsolutePath(relativePath);
+      if (!normalized.startsWith("src/content/projects/")) {
+        sendJson(res, 400, { error: "Only project files can be linked to uploaded project media." });
+        return;
+      }
+
+      const content = String(body.content ?? "");
+      const publicPath = String(body.publicPath ?? "");
+      const mimeType = String(body.mimeType ?? "");
+      const linked = linkUploadedProjectMedia(content, publicPath, mimeType);
+
+      sendJson(res, 200, linked);
+    } catch (error) {
+      sendJson(res, 400, { error: `Project media linking failed: ${error.message}` });
     }
     return;
   }

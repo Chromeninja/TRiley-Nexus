@@ -1,9 +1,6 @@
 ---
-// Footer.astro — Global footer
-const toBasePath = (path: string) => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-  return path === "/" ? `${base}/` : `${base}${path}`;
-};
+// Footer.astro: Global footer
+import { toBasePath } from "../utils/paths";
 ---
 
 <footer class="footer">
@@ -85,7 +82,7 @@ const toBasePath = (path: string) => {
 
     <div class="footer__bottom">
       <span class="footer__bottom-text text-mono text-muted">
-        // FOCUS: PROGRAMS, PROCESS, SYSTEMS — {new Date().getFullYear()} T.RILEY
+        // FOCUS: PROGRAMS, PROCESS, SYSTEMS | {new Date().getFullYear()} T.RILEY
       </span>
     </div>
   </div>

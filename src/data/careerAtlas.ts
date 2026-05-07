@@ -1,5 +1,5 @@
 // ============================================================
-// CAREER TIMELINE ERAS — Pure Data Loader
+// CAREER TIMELINE ERAS: Pure Data Loader
 // ============================================================
 // This file loads career era definitions from portfolio-config.json
 // (via siteConfig.ts). All era data is now in JSON format

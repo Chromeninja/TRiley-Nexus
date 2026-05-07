@@ -1,11 +1,11 @@
 ---
 import {
   formatProjectDateRange,
-  parseProjectDateValue,
+  sortProjectsByOrderThenRecency,
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import { toBasePath } from "../utils/paths";
+import { toBasePath, normalizeWhitespace } from "../utils/paths";
 
 interface TimelineMonthGroup {
   key: string;
@@ -26,36 +26,15 @@ interface Props {
 }
 
 const { currentProjects, yearGroups } = Astro.props;
-// const monthLabelFormatter = new Intl.DateTimeFormat("en-US", { month: "long" }); // unused
+const referenceNow = new Date();
 
 function resolveProjectHref(slug: string): string {
   return toBasePath(`/projects/${slug}`);
 }
 
-function compactSummary(value: string): string {
-  return value.replace(/\s+/g, " ").trim();
-}
-
-function sortByOrderThenDate(a: Project, b: Project): number {
-  const orderDelta = (a.order ?? 99) - (b.order ?? 99);
-  if (orderDelta !== 0) {
-    return orderDelta;
-  }
-
-  const aDate = a.startedAt
-    ? (parseProjectDateValue(a.startedAt, "start")?.getTime() ?? 0)
-    : 0;
-  const bDate = b.startedAt
-    ? (parseProjectDateValue(b.startedAt, "start")?.getTime() ?? 0)
-    : 0;
-  if (aDate !== bDate) {
-    return bDate - aDate;
-  }
-
-  return a.title.localeCompare(b.title);
-}
-
-const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
+const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
+  sortProjectsByOrderThenRecency(a, b, referenceNow),
+);
 ---
 
 <div class="career-scroll" data-career-scroll>
@@ -175,8 +154,7 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
                       {formatProjectDateRange(project)}
                     </p>
                   )}
-                  <p>{compactSummary(project.summary)}</p>
-                </li>
+                  <p>{normalizeWhitespace(project.summary)}</p>\n                </li>
               ))}
             </ul>
           )
@@ -250,7 +228,7 @@ const sortedCurrentProjects = [...currentProjects].sort(sortByOrderThenDate);
                             {formatProjectDateRange(project)}
                           </p>
                         )}
-                        <p>{compactSummary(project.summary)}</p>
+                        <p>{normalizeWhitespace(project.summary)}</p>
                       </li>
                     ))}
                   </ul>

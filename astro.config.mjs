@@ -26,6 +26,12 @@ function loadPortfolioConfig() {
 
 const portfolioConfig = loadPortfolioConfig();
 
+if (!portfolioConfig.site?.canonicalUrl) {
+  throw new Error(
+    "portfolio-config.json missing required field: site.canonicalUrl",
+  );
+}
+
 const repoName = portfolioConfig?.site?.repository?.name ?? "";
 const basePath = repoName.endsWith(".github.io")
   ? "/"
@@ -34,7 +40,7 @@ const basePath = repoName.endsWith(".github.io")
     : "/";
 
 export default defineConfig({
-  site: portfolioConfig?.site?.canonicalUrl ?? "https://example.github.io",
+  site: portfolioConfig.site.canonicalUrl,
   base: basePath,
   output: "static",
 });

@@ -3,15 +3,15 @@ title: VR Villa Discord Community Management and Moderation Operations
 status: active
 category: Events & Community Operations
 tags:
-  - Community Management
-  - Discord Operations
-  - Moderation Automation
-  - Information Architecture
+  - Community Operations
+  - Discord Administration
+  - Moderation Systems
+  - Communication Design
 organization: VR Villa
 timeframe: Ongoing
 roleTitle: Community Manager
 startedAt: "2025"
-summary: "Supported VR Villa community operations as a Discord CM by improving server layout, strengthening moderation workflows, and implementing selective automation where it reduced manual overhead."
+summary: "Supported VR Villa community operations in Discord by improving server structure, strengthening moderation workflows, and adding practical automation."
 cardSummary: Improved VR Villa Discord structure and moderation operations with practical automation.
 highlights:
   - Reorganized channels and categories to improve discoverability and reduce member confusion.
