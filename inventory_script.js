@@ -19,7 +19,8 @@ function parseMarkdown(filePath) {
         const data = parsed && typeof parsed === 'object' ? parsed : {};
         return { data, body };
     } catch (error) {
-        throw new Error(`Failed to parse frontmatter in ${filePath}: ${error.message}`);
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to parse frontmatter in ${filePath}: ${message}`, { cause: error });
     }
 }
 
