@@ -14,7 +14,7 @@ timeframe: Ongoing
 roleTitle: Air Advisor
 startedAt: "2024-11"
 summary: "Completed Air Advisor training in November 2024, qualifying to advise, assist, and train foreign partner nation air forces on aviation operations, airfield procedures, and Air Force standards in support of U.S. security cooperation and capacity-building objectives."
-cardSummary: Qualified Air Advisor trained to assist and develop partner nation aviation forces in support of U.S. security cooperation missions.
+cardSummary: "Qualified Air Advisor trained to assist and develop partner nation aviation forces in support of U.S. security cooperation missions."
 highlights:
   - "Completed formal Air Advisor qualification training in November 2024, qualifying to embed with and advise foreign air force counterparts on aviation operations, procedures, and standards."
   - "Applies ATC and airfield operations expertise to train partner nation forces on tower operations, airspace management, and expeditionary airfield procedures."

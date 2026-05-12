@@ -14,8 +14,8 @@ timeframe: "2015"
 roleTitle: Ancillary Frontline Representative
 startedAt: "2015-02"
 endedAt: "2015-10"
-summary: "Tools-focused role building automation for Ubisoft's CS team, auto-complete and canned responses for high-frequency questions, CRM campaign tooling for bulk player alerts, SharePoint workspaces, mass-edit ticket workflows in Salesforce, and rollout testing for live chat support and known-issue automation flows."
-cardSummary: Built CS automation at Ubisoft, including canned responses, CRM bulk alerts, mass-edit ticket flows, and live chat rollout testing.
+summary: "Built practical automation for Ubisoft's CS team, including auto-complete and canned responses for high-frequency questions, CRM campaign tooling for bulk player alerts, SharePoint workspaces, Salesforce mass-edit workflows, live chat rollout testing, and known-issue automation support."
+cardSummary: "Built CS automation at Ubisoft, including canned responses, CRM bulk alerts, mass-edit flows, and live chat rollout testing."
 highlights:
   - Built automation, auto-complete, and Salesforce mass-edit flows to cut CS handle time at scale.
   - Owned CRM campaign tooling to push bulk player alerts during incidents and launches.
@@ -33,11 +33,13 @@ approach: |
 
   The value was in assembling a practical working layer of support automation instead of one isolated tool.
 outcome: |
-  The CS organization gained:
-  - a working automation layer for recurring support tasks
-  - faster handle times on known issues
-  - usable bulk-alert capability for incidents
-  - live chat deployed to the floor as a new channel
+  The CS organization gained a working automation layer for recurring support tasks.
+
+  That improved:
+  - handle time on known issues
+  - bulk-alert capability during incidents
+  - cross-team coordination through shared workspaces
+  - live chat readiness as a new support channel
 skills:
   - Automation Design
   - Salesforce Configuration

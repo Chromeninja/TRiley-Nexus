@@ -7,8 +7,8 @@ roleTitle: "Supervisor, E-Commerce Operations"
 timeframe: 2019 – 2021
 startedAt: "2019-09"
 endedAt: "2021-06"
-summary: "Helped launch Ubisoft+, Ubisoft's first subscription service supporting 100+ games at launch, by partnering with dev teams to validate refund flows and subscription edge cases, building public and internal knowledge base coverage, and running marketing and PSP testing for worldwide commerce."
-cardSummary: "Supported Ubisoft+ launch (100+ games) with refund flows, subscription edge cases, KB coverage, and PSP validation for worldwide commerce."
+summary: "Helped launch Ubisoft+, Ubisoft's first subscription service, supporting 100+ games at launch through refund-flow validation, subscription edge-case testing, public and internal knowledge base coverage, marketing-tool testing, and PSP readiness for worldwide commerce."
+cardSummary: "Supported Ubisoft+ launch readiness across refund flows, subscription edge cases, KB coverage, PSP testing, and 100+ launch titles."
 highlights:
   - Validated subscription refund flows and edge cases with dev teams ahead of worldwide launch.
   - Built public FAQ articles and internal CS knowledge base coverage to scale support readiness.

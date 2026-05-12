@@ -7,8 +7,8 @@ roleTitle: "Supervisor, E-Commerce Operations"
 timeframe: 2019 – 2021
 startedAt: "2019-09"
 endedAt: "2021-06"
-summary: "Supported the Ubisoft Gear Store as an ongoing on-demand merch program, working with business, dev, and design partners from the E-Commerce side in my Supervisor role. Helped launch new products, test site changes, manage QA and reporting, and build customer support policies and FAQs around refunds, returns, and other service issues."
-cardSummary: "Supported the Ubisoft Gear Store as an ongoing on-demand merch program with launch support, QA, reporting, and customer support policy work."
+summary: "Supported the Ubisoft Gear Store as an ongoing on-demand merchandise program, partnering with business, development, and design teams on product launches, site QA, reporting, customer support policies, refund workflows, returns, and player-facing FAQs."
+cardSummary: "Supported Ubisoft Gear Store operations with launch QA, reporting, customer support policies, returns, refunds, and FAQ coverage."
 highlights:
   - "Partnered with business, dev, and design teams to support ongoing product launches and site changes."
   - "Tested new products and merch flows as they were added to the site, including customization and fulfillment paths."

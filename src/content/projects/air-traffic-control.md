@@ -7,7 +7,7 @@ roleTitle: Air Traffic Controller (AFSC 1C1X1)
 timeframe: Ongoing
 startedAt: "2015-04"
 summary: "Serves as an Air Traffic Controller with the 235th CAOS, supporting expeditionary and domestic airfield missions across the full tower control spectrum."
-cardSummary: Qualified ANG tower controller supporting expeditionary and domestic airfield operations since 2015.
+cardSummary: "Qualified ANG tower controller supporting expeditionary and domestic airfield operations since 2015."
 highlights:
   - "Completed Air Traffic Control Specialist training at Keesler AFB, May 2016, and qualified as a tower controller supporting expeditionary and domestic airfield missions."
   - "Maintains currency and readiness across tower, ground control, and approach control environments across domestic and international mission profiles."

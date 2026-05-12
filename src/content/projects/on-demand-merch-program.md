@@ -13,8 +13,8 @@ organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
 roleTitle: Commerce Program Lead
-summary: "Launched and managed an on-demand e-store program for TEST Squadron using Fourthwall to create a sustainable fundraising channel while giving members an easy way to access custom community merchandise."
-cardSummary: Built and managed a Fourthwall-based merch program that supported org fundraising and member access to branded apparel.
+summary: "Launched and manage an on-demand Fourthwall storefront for TEST Squadron, creating a sustainable fundraising channel while giving members easier access to custom community merchandise."
+cardSummary: "Built and manage a Fourthwall merch program that supports fundraising and member access to branded apparel."
 highlights:
   - Stood up an on-demand Fourthwall storefront to support recurring org fundraising without upfront inventory risk.
   - Built a member-friendly merch access model so community apparel could be ordered on demand with less admin overhead.

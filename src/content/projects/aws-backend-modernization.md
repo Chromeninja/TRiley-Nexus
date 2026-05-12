@@ -16,7 +16,7 @@ roleTitle: Project Coordinator
 startedAt: "2025-08"
 endedAt: "2025-09"
 summary: "Led a focused backend modernization engagement for a confidential ShepherdTech client, migrating core services from Firebase to AWS while strengthening authentication security, improving resilience, and preparing the platform for long-term scale."
-cardSummary: Coordinated delivery of an NDA-safe AWS backend modernization that improved security, stability, deployment safety, and push-notification readiness.
+cardSummary: "Coordinated delivery of an NDA-safe AWS backend modernization that improved security, stability, deployment safety, and push-notification readiness."
 highlights:
   - Migrated backend infrastructure from Firebase to AWS to improve scalability, reliability, and operational flexibility.
   - Hardened authentication and session handling with stronger token management, updated encryption practices, and legacy security cleanup.

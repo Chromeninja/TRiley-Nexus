@@ -1,14 +1,16 @@
 ---
 profiles:
   Happy Manic:
-    summary: "Production and operations work across Nope Challenge feature development, testing, and live delivery systems."
-    companyInfo: "Happy Manic is a creative production environment focused on experimentation, rapid iteration, and community-facing game experiences."
-    myTimeInfo: "Since October 2025, I have supported Nope Challenge through Reality Breach rollout work, community testing operations, Jira planning with developers, Discord operations improvements, and hand-tracking feature support."
-    longSummary: "Hands-on production leadership across planning, testing, community feedback, and feature delivery for ongoing Nope Challenge development."
-    roleSummary: "Production and delivery operations"
+    summary: "Production leadership across VR feature delivery, community testing, mixed reality rollout work, and live operations for Nope Challenge."
+    companyInfo: "Happy Manic is an independent VR studio focused on playful, community-facing game experiences, rapid iteration, and experimental mixed reality work."
+    myTimeInfo: "Since October 2025, I have supported Nope Challenge as a producer, coordinating Jira priorities with developers, organizing community testing cycles, improving Discord operations, and helping guide mixed reality and hand-tracking feature work."
+    longSummary: "The role sits between production, community signal, and feature delivery. I help translate player feedback into actionable development priorities, keep rollout work organized across Jira and Discord, and support experimental VR features as they move from prototype into the live Meta Quest experience."
+    roleSummary: "Producer for VR feature delivery and community operations"
     achievements:
-      - "Strengthened delivery structure around ongoing Nope Challenge work."
-      - "Improved testing signal quality through community feedback workflows."
+      - "Coordinated testing cycles with 30+ community members to improve feedback quality for live feature decisions."
+      - "Supported Reality Breach mixed reality rollout work and ongoing hand-tracking implementation priorities."
+      - "Improved Discord structure and AutoMod practices to make community operations safer and easier to manage."
+      - "Helped maintain a strong player experience for a Meta Quest title holding an over 4.5 player rating."
     logo:
       src: "/media/companies/happy-manic-logo.png"
       alt: "Happy Manic logo"

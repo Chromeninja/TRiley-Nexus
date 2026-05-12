@@ -11,8 +11,12 @@ organization: Bar Citizen International
 timeframe: Ongoing
 roleTitle: Community Operations Lead
 startedAt: "2024-04"
-summary: Led international operations planning for Bar Citizen events and community activations across organizers, partners, and on-site teams.
-cardSummary: Built repeatable operations for Bar Citizen events across planning, coordination, and on-site delivery.
+summary: "Led international operations planning for Bar Citizen events and community activations, creating repeatable structures for organizers, partners, and on-site teams across regions."
+cardSummary: "Built repeatable Bar Citizen operations for planning, organizer coordination, partner communication, and on-site delivery."
+highlights:
+  - "Created planning standards that helped organizers align earlier on readiness, stakeholders, and event expectations."
+  - "Built execution frameworks for staffing, attendee flow, and on-site operational consistency."
+  - "Improved partner communication so organizers, sponsors, and support teams had clearer expectations across regions."
 problem: |
   Multi-region event execution required consistent systems for planning, coordination, and on-site delivery.
 
@@ -33,6 +37,16 @@ outcome: |
   - stronger operational consistency across different regions
   - better alignment between organizers and partners
   - a clearer foundation for future international event growth
+skills:
+  - International Event Operations
+  - Community Organizer Enablement
+  - Partner Communication
+  - Planning Standards
+  - Event Execution Frameworks
+tools:
+  - Discord
+  - Shared Planning Docs
+  - Operations Playbooks
 featured: false
 order: 20
 ---

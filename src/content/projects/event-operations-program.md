@@ -6,15 +6,31 @@ organization: VR Villa
 roleTitle: Event Operations Manager / Producer / Product Lead
 timeframe: "2024 - Present"
 startedAt: "2024-01"
-summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used to run live VR event operations. Designed it as an offline-first platform for attendee check-in, digital waivers, live player information, and staff-facing operations management. Led the product from architecture through production use, building the system to reduce staff overhead, improve event-day visibility, and create a smoother attendee experience."
-cardSummary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow with an offline-first platform for check-in, waivers, live player information, and staff operations management."
+summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used during live VR activations. Designed the product as an offline-first operations platform for check-in, digital waivers, live player information, and staff coordination, then led it from architecture through production use."
+cardSummary: "Built Event Ops Manager, an offline-first platform for check-in, waivers, live player information, and staff operations at VR events."
 highlights:
   - "Replaced a manual Google Forms and Google Sheets process that slowed check-in and increased staff overhead during live events."
   - "Built the system as an offline-first platform so event operations could continue reliably when venue connectivity was inconsistent."
   - "Owned the product from architecture through production use, improving event-day visibility for staff and the attendee experience on the floor."
-problem: |
+problem: "Live VR events were running on a patchwork of Google Forms, Sheets, and manual staff communication. That made check-in slower, waiver handling harder to track, and event-day visibility too dependent on whoever had the latest spreadsheet open."
 approach: |
+  I designed Event Ops Manager as a practical event-floor tool first, not as an abstract admin system.
+
+  The build focused on four operating needs:
+  1. **Offline-first reliability** so check-in and staff workflows could keep running when venue connectivity was weak
+  2. **Digital waiver and player records** to reduce duplicate entry and make attendee status easier to verify
+  3. **Live operations visibility** so staff could see active players, queue movement, and event status from one place
+  4. **Simple staff-facing workflows** that matched how volunteers and event staff actually work during a busy show
+
+  I owned the product from architecture through production use, balancing technical decisions with event-day usability.
 outcome: |
+  The platform gave VR Villa a stronger operating layer for live events.
+
+  It improved:
+  - attendee check-in flow
+  - waiver visibility and player record handling
+  - staff awareness during active event operations
+  - resilience when venues had inconsistent internet access
 skills:
   - Live event operations
   - Workflow automation

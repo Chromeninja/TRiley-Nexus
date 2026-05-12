@@ -13,8 +13,8 @@ timeframe: "2015 – 2017"
 roleTitle: Senior Frontline Representative
 startedAt: "2015-11"
 endedAt: "2017-05"
-summary: "Helped push out and improve Ubisoft's knowledge base system, used both as the internal knowledge source for CS teams and as the public-facing FAQ for players, driving adoption, content quality, and structural improvements from a frontline-floor perspective."
-cardSummary: Drove improvements to Ubisoft's KB system serving as both internal CS knowledge and public-facing player FAQs.
+summary: "Helped improve Ubisoft's knowledge base system as both the internal source of truth for CS teams and the public-facing FAQ surface for players, driving adoption, content quality, and structural improvements from a frontline perspective."
+cardSummary: "Improved Ubisoft's knowledge base as both internal CS documentation and public-facing player self-help content."
 highlights:
   - Improved KB content quality and structure for CS-internal and public-facing audiences.
   - Drove adoption of the KB across frontline reps as the canonical knowledge source.
