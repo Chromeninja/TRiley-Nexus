@@ -212,8 +212,7 @@ const projectDateRange = formatProjectDateRange(project);
           <div>
             <a
               href={toBasePath("/projects")}
-              class="btn btn-ghost"
-              style="width: 100%; justify-content: center;"
+              class="btn btn-ghost project-sidebar__back-link"
             >
               ← All Projects
             </a>
@@ -357,6 +356,11 @@ const projectDateRange = formatProjectDateRange(project);
     gap: var(--space-lg);
     position: sticky;
     top: calc(var(--nav-height) + var(--space-xl));
+  }
+
+  .project-sidebar__back-link {
+    width: 100%;
+    justify-content: center;
   }
 
   .sidebar-card {

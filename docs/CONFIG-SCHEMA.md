@@ -153,15 +153,33 @@ Meta description for SEO.
 | Field                   | Type   | Example                  | Notes                             |
 | ----------------------- | ------ | ------------------------ | --------------------------------- |
 | `eyebrow`               | string | `"// ENGINEERING"`       | Small text above headline         |
+| `roleLine`              | string | `"Director of TPM | ..."` | Role-definition line above headline |
 | `headlineLead`          | string | `"I build tools that"`   | First part of headline            |
 | `headlineAccent`        | string | `"developers love"`      | Emphasized part (usually colored) |
 | `headlineTail`          | string | `"to use"`               | Final part of headline            |
 | `subtext`               | string | `"Full description..."`  | Larger description                |
 | `supportingText`        | string | `"2-3 sentence summary"` | Supporting context                |
+| `proofPoints`           | string[] | `["Signal 1", "Signal 2"]` | Short proof bullets for the hero |
 | `primaryAction.label`   | string | `"View My Work"`         | Primary button text               |
 | `primaryAction.href`    | string | `"/projects"`            | Primary button link               |
 | `secondaryAction.label` | string | `"Learn More"`           | Secondary button text             |
 | `secondaryAction.href`  | string | `"/about"`               | Secondary button link             |
+
+### `home.hiringProfiles`
+
+Array of recruiter-facing role/problem statements. Each item has:
+
+- `title`: string
+- `text`: string
+
+### `home.featuredEvidence`
+
+Array of top proof cards used on the homepage. Each item has:
+
+- `value`: string
+- `label`: string
+- `detail`: string
+- `href`: string
 
 ### `home.principles`
 
@@ -185,14 +203,33 @@ Array of statistics. Each item has:
     "metaDescription": "Engineer building tools developers love",
     "hero": {
       "eyebrow": "// DEVELOPER TOOLS",
+      "roleLine": "Senior Engineer | Developer Experience | Tooling",
       "headlineLead": "I build",
       "headlineAccent": "fast, delightful",
       "headlineTail": "tools for developers",
       "subtext": "Full-stack engineer with 10+ years building developer tools...",
       "supportingText": "I focus on simplicity, performance, and developer experience.",
+      "proofPoints": [
+        "Scaled platform used by 50K+ developers",
+        "Reduced onboarding time by 35%"
+      ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
       "secondaryAction": { "label": "About Me", "href": "/about" }
     },
+    "hiringProfiles": [
+      {
+        "title": "Platform leadership",
+        "text": "For engineering organizations that need clearer execution across teams and systems."
+      }
+    ],
+    "featuredEvidence": [
+      {
+        "value": "35%",
+        "label": "Faster onboarding",
+        "detail": "Built workflow tooling that reduced time-to-productivity for new users.",
+        "href": "/projects/onboarding-tool"
+      }
+    ],
     "principles": [
       { "num": "01", "text": "Simplicity first" },
       { "num": "02", "text": "Developer experience matters" }

@@ -21,6 +21,20 @@ const resumeConfig = aboutContent.resume;
 const resumePath = resumeConfig
   ? resolveMediaPath(resumeConfig.filePath)
   : undefined;
+const leadershipSnapshot = [
+  {
+    title: "Director-track program leadership",
+    body: "Ten-plus years at Ubisoft across seven roles, culminating in Senior Program Manager ownership of Help and customer experience work.",
+  },
+  {
+    title: "Operational discipline under pressure",
+    body: "Fifteen-plus years of military service, including Air National Guard air traffic control, shaped how I communicate, plan, and lead when stakes are real.",
+  },
+  {
+    title: "Builder's bias beyond the org chart",
+    body: "From automation and community systems to VR Villa tooling, I repeatedly move toward the gap, build what is missing, and leave behind a system others can run.",
+  },
+];
 ---
 
 <Layout title="About" description={aboutContent.metaDescription}>
@@ -28,7 +42,8 @@ const resumePath = resumeConfig
   <PageHero
     label="// PROFILE"
     title="About Me"
-    subtitle="A program leader and systems-minded builder working at the intersection of people, process, and technology."
+    subtitle="A director-track technical program leader with a builder's bias for systems that hold up in real operating environments."
+    meta="15+ years military service • 10+ years in gaming and platform operations • Senior Program Manager at Ubisoft"
   >
     {
       aboutProfileMedia && (
@@ -47,8 +62,32 @@ const resumePath = resumeConfig
     }
   </PageHero>
 
-  <!-- Background -->
   <section class="section">
+    <div class="container container--md">
+      <SectionHeader
+        label="// LEADERSHIP SNAPSHOT"
+        title="How I Operate"
+        subtitle="The shortest accurate version is this: I lead ambiguous, cross-functional work by turning it into structure other people can execute."
+      />
+
+      <div class="snapshot-grid">
+        {
+          leadershipSnapshot.map((item) => (
+            <div class="snapshot-card">
+              <h3 class="snapshot-card__title">{item.title}</h3>
+              <p class="snapshot-card__body">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Background -->
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container">
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
@@ -58,31 +97,14 @@ const resumePath = resumeConfig
     </div>
   </section>
 
-  <!-- How I Think -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
-      <SectionHeader label="// MENTAL MODELS" title="How I Think" />
-
-      <div class="think-grid">
-        {
-          aboutThinkItems.map((item) => (
-            <div class="think-card">
-              <h3 class="think-card__title">{item.title}</h3>
-              <p class="think-card__text">{item.text}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
   <!-- Skills -->
   <section class="section">
     <div class="container">
-      <SectionHeader label="// CAPABILITIES" title="Skills & Expertise" />
+      <SectionHeader
+        label="// CAPABILITIES"
+        title="Skills & Expertise"
+        subtitle="These are the capability clusters that show up most consistently across my career, regardless of title or domain."
+      />
 
       <div class="skills-grid">
         {
@@ -111,13 +133,42 @@ const resumePath = resumeConfig
     </div>
   </section>
 
+  <!-- How I Think -->
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
+    <div class="container container--md">
+      <SectionHeader
+        label="// MENTAL MODELS"
+        title="How I Think"
+        subtitle="The operating assumptions below are the reason my work tends to look the way it does."
+      />
+
+      <div class="think-grid">
+        {
+          aboutThinkItems.map((item) => (
+            <div class="think-card">
+              <h3 class="think-card__title">{item.title}</h3>
+              <p class="think-card__text">{item.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Personal -->
   <section
     class="section"
     style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
   >
     <div class="container container--md">
-      <SectionHeader label="// LIFE OUTSIDE WORK" title="Beyond Work" />
+      <SectionHeader
+        label="// LIFE OUTSIDE WORK"
+        title="Context Outside Work"
+        subtitle="These are the parts of my life that explain what I value, how I recharge, and why I keep building outside formal roles."
+      />
 
       <div class="personal-grid">
         {
@@ -217,6 +268,31 @@ const resumePath = resumeConfig
 </Layout>
 
 <style>
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .snapshot-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .snapshot-card__title {
+    font-size: 0.95rem;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-sm);
+  }
+
+  .snapshot-card__body {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
   .profile-photo {
     margin: 0;
     display: flex;
@@ -455,6 +531,7 @@ const resumePath = resumeConfig
       max-width: 320px;
     }
 
+    .snapshot-grid,
     .think-grid,
     .skills-grid,
     .personal-grid {

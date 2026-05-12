@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
-import { z } from "astro:schema";
 import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const projectsCollection = defineCollection({
   loader: glob({
@@ -13,7 +13,7 @@ const projectsCollection = defineCollection({
     category: z.string(),
     tags: z.array(z.string()),
     organization: z.string().optional(),
-    organizationUrl: z.string().url().optional(),
+    organizationUrl: z.url().optional(),
     roleTitle: z.string().optional(),
     startedAt: z.string().optional(),
     endedAt: z.string().optional(),
@@ -36,7 +36,7 @@ const projectsCollection = defineCollection({
       .array(
         z.object({
           label: z.string(),
-          url: z.string().url(),
+          url: z.url(),
         }),
       )
       .optional(),

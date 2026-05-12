@@ -59,6 +59,7 @@ const previewVideo = firstVideo
     }
   : undefined;
 
+const hasMedia = Boolean(coverMedia || previewVideo);
 const hasHoverPreview = Boolean(project.cover && previewVideo);
 ---
 
@@ -101,39 +102,45 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     class="project-card__main-link"
     aria-label={`View project: ${project.title}`}
   >
-    {
-      (coverMedia || previewVideo) && (
-        <div
-          class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""}`}
-          data-project-card-media={
-            hasHoverPreview ? "hover-preview" : undefined
-          }
-        >
-          {coverMedia && (
-            <img
-              class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
-              src={coverMedia.src}
-              alt={coverMedia.alt}
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-          {previewVideo && (
-            <video
-              class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
-              src={previewVideo.src}
-              poster={previewVideo.poster}
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label={`${project.title} video preview`}
-              autoplay={!hasHoverPreview}
-            />
-          )}
-        </div>
-      )
-    }
+    <div
+      class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""} ${hasMedia ? "" : "project-card__media--empty"}`}
+      data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
+      aria-hidden={hasMedia ? undefined : "true"}
+    >
+      {coverMedia && (
+        <img
+          class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
+          src={coverMedia.src}
+          alt={coverMedia.alt}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+      {previewVideo && (
+        <video
+          class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
+          src={previewVideo.src}
+          poster={previewVideo.poster}
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label={`${project.title} video preview`}
+          autoplay={!hasHoverPreview}
+        />
+      )}
+      {
+        !hasMedia && (
+          <div class="project-card__media-empty-shell">
+            <span class="project-card__media-kicker text-mono">{project.category}</span>
+            <div class="project-card__media-orbit" />
+            <div class="project-card__media-tags">
+              {project.tags.slice(0, 2).map((tag) => <span>{tag}</span>)}
+            </div>
+          </div>
+        )
+      }
+    </div>
 
     <h3 class="project-card__title">{project.title}</h3>
 
@@ -387,14 +394,96 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     border-radius: var(--radius-md);
     overflow: hidden;
     background: var(--color-bg);
+    aspect-ratio: 16 / 9;
+    min-height: 0;
   }
 
   .project-card__media img,
   .project-card__media video {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .project-card__media--empty {
+    background:
+      radial-gradient(circle at top right, var(--color-accent-glow), transparent 40%),
+      linear-gradient(135deg, var(--color-accent-dim), transparent 58%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 55%),
+      var(--color-bg);
+  }
+
+  .project-card__media-empty-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "kicker orbit"
+      ". orbit"
+      "tags orbit";
+    align-items: stretch;
+    height: 100%;
+    padding: var(--space-md);
+    gap: var(--space-md);
+  }
+
+  .project-card__media-kicker {
+    grid-area: kicker;
+    width: fit-content;
+    max-width: 100%;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: rgba(4, 11, 25, 0.45);
+  }
+
+  .project-card__media-orbit {
+    grid-area: orbit;
+    align-self: center;
+    justify-self: end;
+    width: clamp(4.5rem, 20vw, 6.5rem);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    opacity: 0.8;
+  }
+
+  .project-card__media-orbit::before,
+  .project-card__media-orbit::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    inset: 12%;
+  }
+
+  .project-card__media-orbit::after {
+    inset: 28%;
+    background: var(--color-accent-dim);
+  }
+
+  .project-card__media-tags {
+    grid-area: tags;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-self: end;
+    max-width: 100%;
+  }
+
+  .project-card__media-tags span {
+    font-size: 0.72rem;
+    line-height: 1;
+    color: var(--color-text-muted);
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: rgba(4, 11, 25, 0.35);
   }
 
   .project-card__media--hover-preview {
@@ -498,6 +587,18 @@ const hasHoverPreview = Boolean(project.cover && previewVideo);
     .project-card {
       padding: var(--space-lg);
       gap: var(--space-md);
+    }
+
+    .project-card__media-empty-shell {
+      padding: var(--space-sm);
+    }
+
+    .project-card__media-orbit {
+      width: clamp(4rem, 24vw, 5rem);
+    }
+
+    .project-card__media-tags {
+      max-width: 100%;
     }
 
     .project-card__title {

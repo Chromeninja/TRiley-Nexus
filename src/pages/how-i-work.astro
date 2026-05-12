@@ -12,6 +12,25 @@ import {
   workPrinciples,
   workStyleGroups,
 } from "../data/howIWorkContent";
+
+const operatingCommitments = [
+  {
+    title: "Clarity before motion",
+    body: "I do not confuse activity with progress. Teams working with me should expect clear problem framing, explicit ownership, and visible decision points before execution ramps up.",
+  },
+  {
+    title: "Risk made visible early",
+    body: "I surface tradeoffs, blockers, and delivery risk before they become surprises. Healthy programs should have fewer hidden problems and faster escalation paths.",
+  },
+  {
+    title: "Systems other people can run",
+    body: "I build for continuity. The output is not just a shipped initiative, it is a workflow, decision trail, and operating rhythm that survives without constant intervention.",
+  },
+  {
+    title: "Improvement after every cycle",
+    body: "Retrospectives are only useful if they change the next pass. Teams should expect structured review, honest assessment, and concrete follow-through after major work lands.",
+  },
+];
 ---
 
 <Layout title="How I Work" description={siteConfig.howIWork.metaDescription}>
@@ -19,7 +38,8 @@ import {
   <PageHero
     label="// APPROACH"
     title="How I Work"
-    subtitle="How I approach ambiguity, align teams, and turn hard problems into workable systems."
+    subtitle="How I lead ambiguous work, align teams, and turn hard problems into systems that stay useful after the initial push."
+    meta="Diagnosis • Alignment • Execution • Continuous improvement"
   />
 
   <!-- Core Approach -->
@@ -32,15 +52,37 @@ import {
     </div>
   </section>
 
-  <!-- Principles -->
   <section
     class="section"
     style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
   >
     <div class="container">
       <SectionHeader
+        label="// WHAT TEAMS CAN EXPECT"
+        title="What Working With Me Feels Like"
+        subtitle="The goal is not to look busy. It is to make the work legible, the risk visible, and the system stronger after each cycle."
+      />
+
+      <div class="commitment-grid">
+        {
+          operatingCommitments.map((item) => (
+            <div class="commitment-card">
+              <h3 class="commitment-card__title">{item.title}</h3>
+              <p class="commitment-card__body">{item.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
         label="// OPERATING PRINCIPLES"
-        title="How I Think About Problems"
+        title="The Operating Model"
+        subtitle="These are the principles behind the way I plan, diagnose, communicate, and build."
       />
 
       <div class="principles-grid">
@@ -62,9 +104,16 @@ import {
   </section>
 
   <!-- Working style -->
-  <section class="section">
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
     <div class="container container--md">
-      <SectionHeader label="// WORKING STYLE" title="Working Style" />
+      <SectionHeader
+        label="// WORKING STYLE"
+        title="How I Run the Work"
+        subtitle="The categories below reflect how I communicate, plan, lead, and build once the work is underway."
+      />
 
       <div class="style-cols">
         {
@@ -86,14 +135,12 @@ import {
   </section>
 
   <!-- Tools I Use -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section">
     <div class="container container--md">
       <SectionHeader
         label="// TOOLS & FRAMEWORKS"
-        title="Tools & Frameworks I Use"
+        title="Tools That Support the Work"
+        subtitle="Tooling matters when it reduces friction, improves visibility, or increases leverage. It is never the strategy by itself."
       />
 
       <div class="toolchain-grid">
@@ -143,6 +190,31 @@ import {
 </Layout>
 
 <style>
+  .commitment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .commitment-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .commitment-card__title {
+    font-size: 0.95rem;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-sm);
+  }
+
+  .commitment-card__body {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
   /* Principles */
   .principles-grid {
     display: flex;
@@ -306,6 +378,10 @@ import {
   }
 
   @media (max-width: 640px) {
+    .commitment-grid {
+      grid-template-columns: 1fr;
+    }
+
     .principle-card,
     .style-col,
     .toolchain-group,

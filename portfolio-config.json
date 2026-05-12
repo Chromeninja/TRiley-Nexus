@@ -33,48 +33,87 @@
   "home": {
     "metaDescription": "Systems builder. Technical Program Manager. Operations architect. I build the infrastructure, technical and human, that makes complex work actually work.",
     "hero": {
-      "eyebrow": "// OPERATING FIELD",
-      "headlineLead": "I lead programs that turn",
-      "headlineAccent": "complex ideas",
-      "headlineTail": "into repeatable systems.",
-      "subtext": "Program manager. Operations architect. Systems-minded builder. I work where innovation, process, and technical execution meet, designing the structure that helps teams move from ambiguity to reliable delivery.",
-      "supportingText": "Code and automation are part of the toolkit, not the headline. The real work is building aligned programs, durable processes, and teams that can scale under pressure.",
+      "eyebrow": "// DIRECTOR-LEVEL PROGRAM LEADERSHIP",
+      "roleLine": "Director of Technical Program Management | Systems Builder | Operations Architect",
+      "headlineLead": "I lead cross-functional programs and build the",
+      "headlineAccent": "systems",
+      "headlineTail": "that make complex work scale.",
+      "subtext": "I operate at the layer where strategy, execution, and operating design meet, turning ambiguous initiatives into aligned programs with clear ownership, repeatable process, and durable delivery.",
+      "supportingText": "My value is not just shipping work. It is creating the structure, decision-making rhythm, and technical leverage that let teams keep shipping under pressure without depending on heroics.",
+      "proofPoints": [
+        "7 roles across 10+ years at Ubisoft, ending as Senior Program Manager",
+        "30%+ reduction in Ubisoft e-commerce support tickets through refund automation",
+        "Discord governance and operations leadership for a 40,000-member community",
+        "15+ years of military service in high-pressure operational environments"
+      ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
       "secondaryAction": { "label": "About Me", "href": "/about" }
     },
+    "hiringProfiles": [
+      {
+        "title": "Technical program leadership",
+        "text": "For organizations with too many dependencies, unclear ownership, or complex initiatives that need one operator who can align product, technical, and operational execution."
+      },
+      {
+        "title": "Operational systems design",
+        "text": "For teams relying on tribal knowledge, reactive coordination, or brittle processes that need to become repeatable systems other people can actually run."
+      },
+      {
+        "title": "Technical enablement and automation",
+        "text": "For high-friction workflows where the right tooling, automation, or integration can create leverage without losing the human judgment the work still requires."
+      }
+    ],
+    "featuredEvidence": [
+      {
+        "value": "30%+",
+        "label": "Ticket reduction",
+        "detail": "Reduced Ubisoft e-commerce customer support tickets by building and delivering an automated refund flow.",
+        "href": "/projects/automated-refund-flow"
+      },
+      {
+        "value": "7 Roles",
+        "label": "Ubisoft progression",
+        "detail": "Grew from frontline support into Senior Program Manager over a 10+ year run inside a global game publisher.",
+        "href": "/career?view=narrative"
+      },
+      {
+        "value": "40K",
+        "label": "Community scale",
+        "detail": "Led governance, permissions, and automation strategy for a partnered Discord community operating at large scale.",
+        "href": "/projects/discord-governance"
+      },
+      {
+        "value": "15+ Years",
+        "label": "Operational discipline",
+        "detail": "Military service and air traffic control work shaped a leadership style built for ambiguity, precision, and pressure.",
+        "href": "/projects/air-traffic-control"
+      }
+    ],
     "principles": [
       {
         "num": "01",
-        "text": "Diagnose before designing - understand the real problem, not just the stated one."
+        "text": "Diagnose the real problem before moving resources, process, or tooling."
       },
       {
         "num": "02",
-        "text": "Build systems, not solutions - make it repeatable, not just functional once."
+        "text": "Build systems other people can run, not hero-dependent one-off fixes."
       },
       {
         "num": "03",
-        "text": "Align people before automating process - technology amplifies what is already there."
-      },
-      {
-        "num": "04",
-        "text": "Create clarity in ambiguity - my job is to reduce uncertainty for everyone around me."
-      },
-      {
-        "num": "05",
-        "text": "Balance strategy and execution - think at both levels simultaneously."
+        "text": "Create clarity, ownership, and momentum across cross-functional teams."
       }
     ],
     "stats": [
-      { "value": "15+", "label": "Years military experience" },
-      { "value": "10+", "label": "Years in gaming industry" },
-      { "value": "40+", "label": "Operations planned and executed" },
-      { "value": "12+", "label": "Large-scale events run" }
+      { "value": "10+", "label": "Years in gaming and platform operations" },
+      { "value": "15+", "label": "Years of military service and leadership" },
+      { "value": "30%+", "label": "Reduction in Ubisoft e-commerce support tickets" },
+      { "value": "40K", "label": "Members supported through community systems" }
     ]
   },
   "about": {
     "metaDescription": "Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations.",
     "backgroundParagraphs": [
-      "I served in the U.S. military for over eight years, working in communications and operations roles that required precision, adaptability, and the ability to execute under pressure. That experience fundamentally shaped how I approach complex work - I default to structure, clear communication, and planning for contingencies before they happen.",
+      "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That experience fundamentally shaped how I approach complex work. I default to structure, clear communication, and planning for contingencies before they happen.",
       "After military service, I moved into technical program management and operations leadership in the gaming and community space. Over the past several years, I have designed and operated systems for communities with thousands of members - building the governance structures, automation infrastructure, event frameworks, and moderation pipelines that keep large-scale organizations running.",
       "I have also done meaningful work in infrastructure modernization, migrating legacy systems to modern architectures, building operational runbooks, and improving reliability across distributed services. Alongside this, I have been building AI-assisted workflow tools to reduce the manual overhead of program management and knowledge work.",
       "My background is deliberately broad because the problems I care about are broad. I work best at the layer where systems thinking, technical execution, and human coordination all have to come together at once."
@@ -109,12 +148,12 @@
       {
         "icon": "◉",
         "title": "Family",
-        "body": "Husband and father. Family is the primary system I operate and optimize for. Everything else is in service of building a life that works for the people I love."
+        "body": "Father. Family is the primary system I operate and optimize for. Everything else is in service of building a life that works for the people I love."
       },
       {
         "icon": "⬡",
         "title": "Star Citizen",
-        "body": "Deep into the Star Citizen universe - not just as a player but as an org leader and community operator. This is where many of my community systems skills were actually developed and tested in production."
+        "body": "Org leader and operations builder for TEST Squadron (24,000+ members) and COO of BarCitizen International, an NPO supporting in-person BarCitizen events worldwide. I run or support 4+ events per year. The Discord bots, websites, and community infrastructure built there are real systems at real scale."
       },
       {
         "icon": "◆",
@@ -553,7 +592,7 @@
     },
     "North Carolina Air National Guard": {
       "summary": "Long-term Air National Guard service spanning forward air control, air traffic control, expeditionary airfield ops, landing zone safety, air advising, and combat airspace operations.",
-      "companyInfo": "The North Carolina Air National Guard supports federal and state missions across a range of specialties. Service spanned two units: the 118th Air Support Operations Squadron (TACP) and the 235th Combat Airfield Operations Squadron (formerly 235th ATCS), which provides air traffic control, expeditionary airfield operations, and combat support capabilities.",
+      "companyInfo": "The North Carolina Air National Guard supports federal and state missions across a range of specialties. Service spanned two units: the 118th Air Support Operations Squadron (TACP) and the 235th Combat Airfield Operations Squadron, which provides air traffic control, expeditionary airfield operations, and combat support capabilities.",
       "myTimeInfo": "Served continuously since October 2013, first as a TACP embedded with Army ground forces directing close air support, then transferring in April 2015 to the 235th as a qualified Air Traffic Controller with additional certifications as a Landing Zone Safety Officer, Air Advisor, and Combat Airspace operator. Also serves as the unit's informal IT specialist managing SharePoint and Microsoft Teams infrastructure.",
       "roleSummary": "Air Traffic Controller / TACP / Multi-role ANG Specialist",
       "logo": {

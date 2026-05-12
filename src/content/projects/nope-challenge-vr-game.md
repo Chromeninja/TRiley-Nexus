@@ -1,7 +1,7 @@
 ---
 title: The Nope Challenge VR Game
 status: active
-category: Product & Game Development
+category: Digital Products & Platforms
 tags:
   - VR
   - Production
@@ -52,6 +52,7 @@ links:
 media:
   - type: video
     src: "/media/projects/nope-trailer.mp4"
+    poster: "/media/projects/nope-cover.webp"
     caption: Nope Challenge trailer
 featured: true
 order: 2
