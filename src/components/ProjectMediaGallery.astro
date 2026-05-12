@@ -8,14 +8,14 @@ interface Props {
 
 const { media = [] } = Astro.props;
 
-const firstVideoIndex = media.findIndex((item) => item.type === "video");
+const firstCoverIndex = media.findIndex((item) => item.isCover === true);
 const orderedMedia =
-  firstVideoIndex <= 0
+  firstCoverIndex <= 0
     ? media
     : [
-        media[firstVideoIndex],
-        ...media.slice(0, firstVideoIndex),
-        ...media.slice(firstVideoIndex + 1),
+        media[firstCoverIndex],
+        ...media.slice(0, firstCoverIndex),
+        ...media.slice(firstCoverIndex + 1),
       ];
 ---
 

@@ -501,6 +501,130 @@ function inferMediaKindFromSource(src, explicitType) {
   return "other";
 }
 
+function finalizeProjectMediaEntries(mediaItems) {
+  const normalized = mediaItems
+    .filter((entry) => entry && typeof entry === "object")
+    .map((entry) => {
+      const kind = inferMediaKindFromSource(entry.src, entry.type);
+      if ((kind !== "image" && kind !== "video") || !entry.src) {
+        return null;
+      }
+
+      if (kind === "video") {
+        const videoEntry = {
+          type: "video",
+          src: String(entry.src ?? "").trim(),
+        };
+        const poster = String(entry.poster ?? "").trim();
+        const caption = String(entry.caption ?? "").trim();
+        if (poster) videoEntry.poster = poster;
+        if (caption) videoEntry.caption = caption;
+        return videoEntry;
+      }
+
+      const imageEntry = {
+        type: "image",
+        src: String(entry.src ?? "").trim(),
+        alt: String(entry.alt ?? "").trim(),
+        isCover: entry.isCover === true,
+      };
+      const caption = String(entry.caption ?? "").trim();
+      if (caption) imageEntry.caption = caption;
+      return imageEntry;
+    })
+    .filter((entry) => entry && entry.src);
+
+  const firstMarkedCoverIndex = normalized.findIndex(
+    (entry) => entry.type === "image" && entry.isCover === true,
+  );
+  const fallbackCoverIndex = normalized.findIndex((entry) => entry.type === "image");
+  const coverIndex = firstMarkedCoverIndex >= 0 ? firstMarkedCoverIndex : fallbackCoverIndex;
+
+  return normalized.map((entry, index) => {
+    if (entry.type !== "image") {
+      return entry;
+    }
+
+    const imageEntry = {
+      type: "image",
+      src: entry.src,
+      alt: String(entry.alt ?? "").trim(),
+    };
+
+    const caption = String(entry.caption ?? "").trim();
+    if (caption) imageEntry.caption = caption;
+    if (coverIndex >= 0 && index === coverIndex) {
+      imageEntry.isCover = true;
+    }
+
+    return imageEntry;
+  });
+}
+
+function normalizeProjectMediaEntries(parsed, options = {}) {
+  const migrateLegacyCover = options.migrateLegacyCover !== false;
+  const mediaItems = Array.isArray(parsed?.media) ? parsed.media : [];
+  let normalized = finalizeProjectMediaEntries(mediaItems);
+
+  if (!migrateLegacyCover) {
+    return normalized;
+  }
+
+  const legacyCover = parsed?.cover;
+  const legacyCoverSrc = legacyCover && typeof legacyCover === "object"
+    ? String(legacyCover.src ?? "").trim()
+    : "";
+
+  if (legacyCoverSrc) {
+    const existingLegacyIndex = normalized.findIndex((entry) => entry.type === "image" && entry.src === legacyCoverSrc);
+    if (existingLegacyIndex >= 0) {
+      normalized[existingLegacyIndex] = {
+        ...normalized[existingLegacyIndex],
+        isCover: true,
+      };
+    } else {
+      normalized = [
+        {
+          type: "image",
+          src: legacyCoverSrc,
+          alt: String(legacyCover.alt ?? parsed?.title ?? "Project cover image").trim(),
+          isCover: true,
+        },
+        ...normalized,
+      ];
+    }
+  }
+
+  return finalizeProjectMediaEntries(normalized);
+}
+
+function serializeProjectMediaContent(content, transform) {
+  const { rawFm, body } = splitFrontmatter(content);
+  if (!rawFm.trim()) {
+    throw new Error("Project file must contain frontmatter.");
+  }
+
+  const parsed = parseFrontmatterYaml(rawFm);
+  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+  const nextMediaItems = transform(cloneJsonLike(mediaItems));
+  const finalizedMedia = finalizeProjectMediaEntries(nextMediaItems);
+
+  if (finalizedMedia.length > 0) {
+    parsed.media = finalizedMedia;
+  } else {
+    delete parsed.media;
+  }
+  delete parsed.cover;
+
+  const serialized = serializeYaml(parsed);
+  const normalizedBody = String(body ?? "");
+  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  return {
+    content: `---\n${serialized}\n---${bodyBlock}`,
+    media: finalizedMedia,
+  };
+}
+
 function normalizePreviewItem(label, src, kind, extra = {}) {
   return {
     label,
@@ -517,24 +641,18 @@ function collectConfiguredMediaPreview(relativePath, content) {
   const items = [];
 
   if (section === "projects") {
-    const cover = parsed.cover;
-    if (cover && typeof cover === "object" && cover.src) {
-      items.push(normalizePreviewItem("Cover", cover.src, "image", { alt: cover.alt ?? "" }));
-    }
-
-    if (Array.isArray(parsed.media)) {
-      parsed.media
-        .filter((entry) => entry && typeof entry === "object" && entry.src)
-        .forEach((entry, index) => {
-          items.push(
-            normalizePreviewItem(`Media ${index + 1}`, entry.src, entry.type, {
-              alt: entry.alt ?? "",
-              caption: entry.caption ?? "",
-              poster: entry.poster ?? "",
-            }),
-          );
-        });
-    }
+    const projectMedia = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+    projectMedia.forEach((entry, index) => {
+      items.push(
+        normalizePreviewItem(entry.isCover ? "Cover" : `Media ${index + 1}`, entry.src, entry.type, {
+          alt: entry.alt ?? "",
+          caption: entry.caption ?? "",
+          poster: entry.poster ?? "",
+          isCover: entry.isCover === true,
+          mediaIndex: index,
+        }),
+      );
+    });
   }
 
   if (section === "companies") {
@@ -1481,29 +1599,20 @@ function unlinkConfiguredMedia(relativePath, content, publicPath) {
   const section = inferSectionFromPath(relativePath);
 
   if (section === "projects") {
-    const coverSrc = parsed?.cover && typeof parsed.cover === "object"
-      ? String(parsed.cover.src ?? "").trim()
-      : "";
-    if (coverSrc === cleanedPublicPath) {
-      delete parsed.cover;
-      removedCount += 1;
-    }
-
-    if (Array.isArray(parsed.media)) {
-      const before = parsed.media.length;
-      parsed.media = parsed.media.filter((entry) => {
-        if (!entry || typeof entry !== "object") return true;
-        return String(entry.src ?? "").trim() !== cleanedPublicPath;
-      });
-
-      const diff = before - parsed.media.length;
-      if (diff > 0) {
-        removedCount += diff;
-      }
-
-      if (parsed.media.length === 0) {
+    const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+    const before = mediaItems.length;
+    const filtered = mediaItems.filter(
+      (entry) => String(entry.src ?? "").trim() !== cleanedPublicPath,
+    );
+    const diff = before - filtered.length;
+    if (diff > 0) {
+      removedCount += diff;
+      if (filtered.length > 0) {
+        parsed.media = finalizeProjectMediaEntries(filtered);
+      } else {
         delete parsed.media;
       }
+      delete parsed.cover;
     }
   }
 
@@ -1591,7 +1700,8 @@ async function getProjectUploadNaming(activePath, originalFileName, mimeType, ta
   const { rawFm } = splitFrontmatter(raw);
   const parsed = parseFrontmatterYaml(rawFm);
   const mediaKind = inferMediaKindFromSource(originalFileName, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
-  const hasCover = Boolean(parsed?.cover && typeof parsed.cover === "object" && String(parsed.cover.src ?? "").trim());
+  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+  const hasCover = mediaItems.some((entry) => entry.type === "image" && entry.isCover === true);
   const role = !hasCover && mediaKind === "image" ? "cover" : "media";
 
   const originalExt = path.extname(String(originalFileName ?? "")).toLowerCase();
@@ -1616,32 +1726,16 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
   const parsed = parseFrontmatterYaml(rawFm);
   const mediaKind = inferMediaKindFromSource(cleanedPublicPath, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
 
-  const coverSrc = parsed?.cover && typeof parsed.cover === "object" ? String(parsed.cover.src ?? "").trim() : "";
-  const mediaItems = Array.isArray(parsed.media) ? parsed.media : [];
-  const alreadyInMedia = mediaItems.some((entry) => entry && typeof entry === "object" && String(entry.src ?? "").trim() === cleanedPublicPath);
-  const alreadyLinked = coverSrc === cleanedPublicPath || alreadyInMedia;
+  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+  const existingIndex = mediaItems.findIndex((entry) => String(entry.src ?? "").trim() === cleanedPublicPath);
+  const alreadyLinked = existingIndex >= 0;
 
   if (alreadyLinked) {
+    const existingEntry = mediaItems[existingIndex];
     return {
       content,
-      role: coverSrc === cleanedPublicPath ? "cover" : "media",
+      role: existingEntry?.isCover === true ? "cover" : "media",
       inserted: false,
-    };
-  }
-
-  if (!coverSrc && mediaKind === "image") {
-    parsed.cover = {
-      src: cleanedPublicPath,
-      alt: String(parsed.title ?? "Project cover image"),
-    };
-
-    const serialized = serializeYaml(parsed);
-    const normalizedBody = String(body ?? "");
-    const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
-    return {
-      content: `---\n${serialized}\n---${bodyBlock}`,
-      role: "cover",
-      inserted: true,
     };
   }
 
@@ -1650,13 +1744,20 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
       ? { type: "video", src: cleanedPublicPath }
       : { type: "image", src: cleanedPublicPath, alt: String(parsed.title ?? "") };
 
-  parsed.media = [...mediaItems, entry];
+  const hasCover = mediaItems.some((item) => item.type === "image" && item.isCover === true);
+  const role = mediaKind === "image" && !hasCover ? "cover" : "media";
+  if (role === "cover" && entry.type === "image") {
+    entry.isCover = true;
+  }
+
+  parsed.media = finalizeProjectMediaEntries([...mediaItems, entry]);
+  delete parsed.cover;
   const serialized = serializeYaml(parsed);
   const normalizedBody = String(body ?? "");
   const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
   return {
     content: `---\n${serialized}\n---${bodyBlock}`,
-    role: "media",
+    role,
     inserted: true,
   };
 }
@@ -2318,6 +2419,117 @@ async function handleApi(req, res, url) {
       sendJson(res, 200, linked);
     } catch (error) {
       sendJson(res, 400, { error: `Project media linking failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/set-project-cover") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required." });
+        return;
+      }
+
+      const { normalized } = getAllowedAbsolutePath(relativePath);
+      if (!normalized.startsWith("src/content/projects/")) {
+        sendJson(res, 400, { error: "Only project files support cover media updates." });
+        return;
+      }
+
+      const content = String(body.content ?? "");
+      const mediaIndex = Number.parseInt(String(body.mediaIndex ?? ""), 10);
+      if (!Number.isInteger(mediaIndex) || mediaIndex < 0) {
+        sendJson(res, 400, { error: "mediaIndex must be a non-negative integer." });
+        return;
+      }
+
+      const updated = serializeProjectMediaContent(content, (mediaItems) => {
+        if (mediaItems.length === 0) {
+          throw new Error("No project media is configured.");
+        }
+
+        if (mediaIndex >= mediaItems.length) {
+          throw new Error("mediaIndex is out of range.");
+        }
+
+        if (mediaItems[mediaIndex]?.type !== "image") {
+          throw new Error("Only image items can be marked as cover.");
+        }
+
+        return mediaItems.map((entry, index) => {
+          if (entry.type !== "image") {
+            return entry;
+          }
+
+          return {
+            ...entry,
+            isCover: index === mediaIndex,
+          };
+        });
+      });
+
+      sendJson(res, 200, updated);
+    } catch (error) {
+      sendJson(res, 400, { error: `Set project cover failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/reorder-project-media") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required." });
+        return;
+      }
+
+      const { normalized } = getAllowedAbsolutePath(relativePath);
+      if (!normalized.startsWith("src/content/projects/")) {
+        sendJson(res, 400, { error: "Only project files support media reordering." });
+        return;
+      }
+
+      if (!Array.isArray(body.order)) {
+        sendJson(res, 400, { error: "order must be an array of media indexes." });
+        return;
+      }
+
+      const content = String(body.content ?? "");
+      const orderedIndexes = body.order.map((value) => Number.parseInt(String(value), 10));
+      const hasInvalidIndex = orderedIndexes.some((value) => !Number.isInteger(value) || value < 0);
+      if (hasInvalidIndex) {
+        sendJson(res, 400, { error: "order contains invalid media indexes." });
+        return;
+      }
+
+      const updated = serializeProjectMediaContent(content, (mediaItems) => {
+        if (mediaItems.length === 0) {
+          throw new Error("No project media is configured.");
+        }
+
+        if (orderedIndexes.length !== mediaItems.length) {
+          throw new Error("order length must match the number of media items.");
+        }
+
+        const uniqueIndexes = new Set(orderedIndexes);
+        if (uniqueIndexes.size !== mediaItems.length) {
+          throw new Error("order must include each media index exactly once.");
+        }
+
+        const outOfRange = orderedIndexes.some((index) => index >= mediaItems.length);
+        if (outOfRange) {
+          throw new Error("order contains an index out of range.");
+        }
+
+        return orderedIndexes.map((index) => mediaItems[index]);
+      });
+
+      sendJson(res, 200, updated);
+    } catch (error) {
+      sendJson(res, 400, { error: `Reorder project media failed: ${error.message}` });
     }
     return;
   }

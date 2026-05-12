@@ -35,9 +35,17 @@ tags:
   - "On-Site Coordination"
   - AREA15
   - Bar Citizen
-cover:
-  src: "/media/projects/quantum-vegas-convention-buildout-cover.webp"
-  alt: Quantum Vegas 2955 Star Citizen community convention at AREA15 in Las Vegas
+media:
+  - type: image
+    src: "/media/projects/quantum-vegas-convention-buildout-cover.webp"
+    alt: Quantum Vegas 2955 Star Citizen community convention at AREA15 in Las Vegas
+    isCover: true
+  - type: image
+    src: "/media/projects/quantum-vegas-2955-media-2.jpg"
+    alt: Quantum Vegas 2955
+  - type: image
+    src: "/media/projects/quantum-vegas-2955-media-3.jpg"
+    alt: Quantum Vegas 2955
 featured: false
 order: 21
 ---

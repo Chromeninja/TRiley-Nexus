@@ -25,6 +25,32 @@ interface Props {
 
 const { project } = Astro.props;
 const projectDateRange = formatProjectDateRange(project);
+const normalizedProjectMedia = (() => {
+  const media = Array.isArray(project.media) ? [...project.media] : [];
+  const legacyCoverSrc = String(project.cover?.src ?? "").trim();
+  if (!legacyCoverSrc) {
+    return media;
+  }
+
+  const existingCoverIndex = media.findIndex((item) => item.type === "image" && item.src === legacyCoverSrc);
+  if (existingCoverIndex >= 0) {
+    media[existingCoverIndex] = {
+      ...media[existingCoverIndex],
+      isCover: true,
+    };
+    return media;
+  }
+
+  return [
+    {
+      type: "image" as const,
+      src: legacyCoverSrc,
+      alt: project.cover?.alt ?? `${project.title} cover image`,
+      isCover: true,
+    },
+    ...media,
+  ];
+})();
 ---
 
 <Layout title={project.title} description={project.summary}>
@@ -92,11 +118,7 @@ const projectDateRange = formatProjectDateRange(project);
             <p class="project-header__summary">{project.summary}</p>
           </header>
 
-          {
-            project.media && project.media.length > 0 && (
-              <ProjectMediaGallery media={project.media} />
-            )
-          }
+          {normalizedProjectMedia.length > 0 && <ProjectMediaGallery media={normalizedProjectMedia} />}
 
           <!-- Problem -->
           {

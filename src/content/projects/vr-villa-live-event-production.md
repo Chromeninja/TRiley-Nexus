@@ -3,6 +3,7 @@ title: VR Villa Live Event Production
 status: active
 category: Events & Community Operations
 organization: VR Villa
+organizationUrl: "https://vrvilla.org/pitch"
 roleTitle: Producer / Event Operations Lead
 timeframe: "2024 - Present"
 startedAt: "2024"
@@ -35,9 +36,17 @@ tags:
   - Show Logistics
   - VR Villa
   - Community Operations
-cover:
-  src: "/media/projects/vr-villa-live-event-production-cover-2.jpg"
-  alt: VR Villa Live Event Production
+media:
+  - type: image
+    src: "/media/projects/vr-villa-live-event-production-media.jpeg"
+    alt: VR Villa Live Event Production
+    isCover: true
+  - type: image
+    src: "/media/projects/vr-villa-live-event-production-cover-2.jpg"
+    alt: VR Villa Live Event Production
+  - type: image
+    src: "/media/projects/vr-villa-live-event-production-media.jpg"
+    alt: VR Villa Live Event Production
 featured: false
 order: 27
 ---

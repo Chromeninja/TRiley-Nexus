@@ -10,6 +10,8 @@ const state = {
   editorMode: MODE_FORM,
   rawDirty: false,
   formModel: null,
+  configuredMediaSection: "",
+  configuredMediaItems: [],
 };
 
 const elements = {
@@ -57,6 +59,7 @@ const elements = {
 
 let renderDebounce = null;
 let composeDebounce = null;
+let dragMediaIndex = null;
 
 function setCreatePanelOpen(open) {
   state.isCreatePanelOpen = open;
@@ -326,7 +329,49 @@ function inferSectionFromActivePath() {
   return section;
 }
 
+async function applyEditorContentUpdate(content) {
+  elements.markdownEditor.value = content;
+  await loadFormModel(state.activePath, content);
+  resetPreview();
+
+  if (state.editorMode === MODE_FORM) {
+    await composeMarkdownFromForm();
+    state.rawDirty = false;
+  } else {
+    state.rawDirty = true;
+    await renderMarkdownPreview();
+  }
+}
+
+async function setProjectCoverMedia(mediaIndex) {
+  if (!state.activePath) return;
+
+  const payload = await apiPost("/api/set-project-cover", {
+    path: state.activePath,
+    content: elements.markdownEditor.value,
+    mediaIndex,
+  });
+
+  await applyEditorContentUpdate(payload.content);
+  elements.uploadResult.textContent = "Updated project cover image.";
+}
+
+async function reorderProjectMedia(order) {
+  if (!state.activePath) return;
+
+  const payload = await apiPost("/api/reorder-project-media", {
+    path: state.activePath,
+    content: elements.markdownEditor.value,
+    order,
+  });
+
+  await applyEditorContentUpdate(payload.content);
+  elements.uploadResult.textContent = "Updated project media order.";
+}
+
 function renderConfiguredMediaPreview(section, items = []) {
+  state.configuredMediaSection = section;
+  state.configuredMediaItems = Array.isArray(items) ? items : [];
   elements.mediaLibrary.innerHTML = "";
 
   if (!Array.isArray(items) || items.length === 0) {
@@ -344,14 +389,75 @@ function renderConfiguredMediaPreview(section, items = []) {
   items.forEach((item) => {
     const card = document.createElement("div");
     card.className = "media-library__item";
+    const isProjectMediaItem = section === "projects" && Number.isInteger(item.mediaIndex);
 
-    const name = document.createElement("div");
-    name.className = "media-library__name";
-    name.textContent = item.label || item.src;
+    const dragHandle = document.createElement("div");
+    dragHandle.className = "media-library__drag-handle";
+    dragHandle.textContent = "Drag to reorder";
 
-    const meta = document.createElement("div");
-    meta.className = "media-library__meta";
-    meta.textContent = mediaTypeLabel(item.kind);
+    if (isProjectMediaItem) {
+      card.draggable = true;
+      card.dataset.mediaIndex = String(item.mediaIndex);
+      if (item.isCover === true) {
+        card.classList.add("media-library__item--cover");
+      }
+
+      card.addEventListener("dragstart", () => {
+        dragMediaIndex = item.mediaIndex;
+        card.classList.add("is-dragging");
+      });
+
+      card.addEventListener("dragend", () => {
+        dragMediaIndex = null;
+        card.classList.remove("is-dragging");
+        elements.mediaLibrary
+          .querySelectorAll(".is-drop-target")
+          .forEach((entry) => entry.classList.remove("is-drop-target"));
+      });
+
+      card.addEventListener("dragover", (event) => {
+        if (!Number.isInteger(dragMediaIndex) || dragMediaIndex === item.mediaIndex) {
+          return;
+        }
+
+        event.preventDefault();
+        card.classList.add("is-drop-target");
+      });
+
+      card.addEventListener("dragleave", () => {
+        card.classList.remove("is-drop-target");
+      });
+
+      card.addEventListener("drop", (event) => {
+        event.preventDefault();
+        card.classList.remove("is-drop-target");
+
+        if (!Number.isInteger(dragMediaIndex) || dragMediaIndex === item.mediaIndex) {
+          return;
+        }
+
+        const projectItems = state.configuredMediaItems
+          .filter((entry) => Number.isInteger(entry.mediaIndex));
+        const currentOrder = projectItems.map((entry) => entry.mediaIndex);
+        const fromPosition = currentOrder.indexOf(dragMediaIndex);
+        const toPosition = currentOrder.indexOf(item.mediaIndex);
+        if (fromPosition < 0 || toPosition < 0 || fromPosition === toPosition) {
+          return;
+        }
+
+        const nextOrder = [...currentOrder];
+        const [movedIndex] = nextOrder.splice(fromPosition, 1);
+        nextOrder.splice(toPosition, 0, movedIndex);
+
+        reorderProjectMedia(nextOrder).catch((error) => {
+          elements.uploadResult.textContent = `Reorder failed: ${error.message}`;
+        });
+      });
+    }
+
+    // Thumbnail (left column)
+    const thumb = document.createElement("div");
+    thumb.className = "media-library__thumb";
 
     if (item.kind === "image") {
       const image = document.createElement("img");
@@ -359,7 +465,7 @@ function renderConfiguredMediaPreview(section, items = []) {
       image.src = item.src;
       image.alt = item.alt || item.label || "Configured image";
       image.loading = "lazy";
-      card.appendChild(image);
+      thumb.appendChild(image);
     }
 
     if (item.kind === "video") {
@@ -370,8 +476,58 @@ function renderConfiguredMediaPreview(section, items = []) {
       video.muted = true;
       video.preload = "metadata";
       if (item.poster) video.poster = item.poster;
-      card.appendChild(video);
+      thumb.appendChild(video);
     }
+
+    // Info (right column)
+    const info = document.createElement("div");
+    info.className = "media-library__info";
+
+    const name = document.createElement("div");
+    name.className = "media-library__name";
+    name.textContent = item.label || item.src;
+
+    const nameRow = document.createElement("div");
+    nameRow.className = "media-library__name-row";
+    nameRow.appendChild(name);
+    if (isProjectMediaItem) {
+      nameRow.appendChild(dragHandle);
+    }
+
+    const meta = document.createElement("div");
+    meta.className = "media-library__meta";
+    meta.textContent = `${mediaTypeLabel(item.kind)}${item.isCover ? " • Cover" : ""}`;
+
+    const actionRow = document.createElement("div");
+    actionRow.className = "media-library__actions";
+
+    if (isProjectMediaItem && item.kind === "image") {
+      const coverButton = document.createElement("button");
+      coverButton.type = "button";
+      coverButton.className = `media-library__cover-toggle ${item.isCover ? "is-active" : ""}`;
+      coverButton.textContent = item.isCover ? "★ Cover" : "☆ Set Cover";
+      coverButton.title = item.isCover
+        ? "This image is currently the project cover"
+        : "Mark this image as the project cover";
+      coverButton.addEventListener("click", () => {
+        setProjectCoverMedia(item.mediaIndex).catch((error) => {
+          elements.uploadResult.textContent = `Cover update failed: ${error.message}`;
+        });
+      });
+      actionRow.appendChild(coverButton);
+    }
+
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "media-library__delete";
+    deleteButton.textContent = "Delete File";
+    deleteButton.title = "Delete this file from public assets and remove references in this file";
+    deleteButton.addEventListener("click", () => {
+      removeMediaFile(item).catch((error) => {
+        elements.uploadResult.textContent = `Delete failed: ${error.message}`;
+      });
+    });
+    actionRow.appendChild(deleteButton);
 
     const pathButton = document.createElement("button");
     pathButton.type = "button";
@@ -384,25 +540,13 @@ function renderConfiguredMediaPreview(section, items = []) {
       });
     });
 
-    const deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.className = "media-library__delete";
-    deleteButton.textContent = "Delete File";
-    deleteButton.title = "Delete this file from public assets and remove references in this file";
-    deleteButton.addEventListener("click", () => {
-      removeMediaFile(item).catch((error) => {
-        elements.uploadResult.textContent = `Delete failed: ${error.message}`;
-      });
-    });
+    info.appendChild(nameRow);
+    info.appendChild(meta);
+    info.appendChild(actionRow);
+    info.appendChild(pathButton);
 
-    const actionRow = document.createElement("div");
-    actionRow.className = "media-library__actions";
-    actionRow.appendChild(pathButton);
-    actionRow.appendChild(deleteButton);
-
-    card.appendChild(name);
-    card.appendChild(meta);
-    card.appendChild(actionRow);
+    card.appendChild(thumb);
+    card.appendChild(info);
     elements.mediaLibrary.appendChild(card);
   });
 }

@@ -33,9 +33,20 @@ const cardHighlights = (
   fallbackHighlights
 ).slice(0, 3);
 
+const coverMediaItem = project.media?.find(
+  (
+    item,
+  ): item is Extract<NonNullable<Project["media"]>[number], { type: "image" }> =>
+    item.type === "image" && item.isCover === true,
+);
 const firstVideo = project.media?.find((item) => item.type === "video");
 const firstImage = project.media?.find((item) => item.type === "image");
-const coverMedia = project.cover
+const coverMedia = coverMediaItem
+  ? {
+      src: resolveMediaPath(coverMediaItem.src),
+      alt: coverMediaItem.alt,
+    }
+  : project.cover
   ? {
       src: resolveMediaPath(project.cover.src),
       alt: project.cover.alt,
@@ -60,7 +71,7 @@ const previewVideo = firstVideo
   : undefined;
 
 const hasMedia = Boolean(coverMedia || previewVideo);
-const hasHoverPreview = Boolean(project.cover && previewVideo);
+const hasHoverPreview = Boolean(coverMedia && previewVideo);
 ---
 
 <article class={`project-card ${featured ? "project-card--featured" : ""}`}>

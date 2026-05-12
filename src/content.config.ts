@@ -48,12 +48,14 @@ const projectsCollection = defineCollection({
             src: z.string(),
             alt: z.string(),
             caption: z.string().optional(),
+            isCover: z.boolean().optional(),
           }),
           z.object({
             type: z.literal("video"),
             src: z.string(),
             poster: z.string().optional(),
             caption: z.string().optional(),
+            isCover: z.boolean().optional(),
           }),
         ]),
       )
