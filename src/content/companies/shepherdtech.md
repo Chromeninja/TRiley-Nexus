@@ -5,7 +5,7 @@ profiles:
     companyInfo: "ShepherdTech supports small and medium-sized businesses with backend IT modernization, cloud infrastructure improvements, and practical operational support."
     myTimeInfo: "My work has focused on business operations and program management, including client negotiations, discovery conversations, project coordination, knowledge-base development, and hands-on support for internal tools and documentation workflows."
     longSummary: "I help turn broad technical goals into structured, actionable work by bridging client needs, technical execution, and scalable operating processes. The role centers on organizing priorities, shaping client-facing conversations, and supporting practical system and process improvements."
-    roleSummary: "Business operations and program management"
+    roleSummary: "Project coordination"
     achievements:
       - "Turned broad technical goals into structured project plans and actionable delivery work."
       - "Supported client negotiations, discovery conversations, and coordination across technical and business priorities."
@@ -17,7 +17,7 @@ profiles:
     tenureStart: "2024"
     tenureEnd: "Present"
     timelineRoles:
-      - label: "Fractional CTO / Technical Advisor"
+      - label: "Project Coordinator"
         start: "2024"
         end: "Present"
 ---

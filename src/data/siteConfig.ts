@@ -78,14 +78,23 @@ export interface SiteConfig {
     metaDescription: string;
     hero: {
       eyebrow: string;
+      roleLine: string;
       headlineLead: string;
       headlineAccent: string;
       headlineTail: string;
       subtext: string;
       supportingText: string;
+      proofPoints: string[];
       primaryAction: { label: string; href: string };
       secondaryAction: { label: string; href: string };
     };
+    hiringProfiles: Array<{ title: string; text: string }>;
+    featuredEvidence: Array<{
+      value: string;
+      label: string;
+      detail: string;
+      href: string;
+    }>;
     principles: Array<{ num: string; text: string }>;
     stats: Array<{ value: string; label: string }>;
   };

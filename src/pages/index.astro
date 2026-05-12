@@ -6,6 +6,11 @@ import { homePrinciples, homeStats } from "../data/homeContent";
 import { coreStrengths } from "../data/skills";
 import { toBasePath } from "../utils/paths";
 import { siteConfig } from "../data/siteConfig";
+
+const homeHero = siteConfig.home.hero;
+const hiringProfiles = siteConfig.home.hiringProfiles;
+const featuredEvidence = siteConfig.home.featuredEvidence;
+const featuredStrengths = coreStrengths.slice(0, 4);
 ---
 
 <Layout
@@ -19,86 +24,74 @@ import { siteConfig } from "../data/siteConfig";
     <div class="container">
       <div class="hero__grid">
         <div class="hero__content animate-fade-up">
-          <p class="hero__eyebrow section-label">
-            {siteConfig.home.hero.eyebrow}
-          </p>
+          <p class="hero__eyebrow section-label">{homeHero.eyebrow}</p>
+          <p class="hero__role-line text-mono">{homeHero.roleLine}</p>
           <h1 class="hero__headline">
-            {siteConfig.home.hero.headlineLead}
+            {homeHero.headlineLead}
             <span class="hero__headline-accent">
-              {siteConfig.home.hero.headlineAccent}</span
+              {homeHero.headlineAccent}</span
             >
-            {siteConfig.home.hero.headlineTail}
+            {homeHero.headlineTail}
           </h1>
           <p class="hero__subtext">
-            {siteConfig.home.hero.subtext}
+            {homeHero.subtext}
           </p>
           <p class="hero__supporting-text">
-            {siteConfig.home.hero.supportingText}
+            {homeHero.supportingText}
           </p>
+          <ul class="hero__proof-list" aria-label="Selected proof points">
+            {
+              homeHero.proofPoints.map((point) => (
+                <li class="hero__proof-pill">{point}</li>
+              ))
+            }
+          </ul>
           <div class="hero__actions">
             <a
-              href={toBasePath(siteConfig.home.hero.primaryAction.href)}
+              href={toBasePath(homeHero.primaryAction.href)}
               class="btn btn-primary"
-              >{siteConfig.home.hero.primaryAction.label}</a
+              >{homeHero.primaryAction.label}</a
             >
             <a
-              href={toBasePath(siteConfig.home.hero.secondaryAction.href)}
+              href={toBasePath(homeHero.secondaryAction.href)}
               class="btn btn-outline"
-              >{siteConfig.home.hero.secondaryAction.label}</a
+              >{homeHero.secondaryAction.label}</a
             >
           </div>
         </div>
 
         <div
-          class="hero__signal panel animate-fade-up delay-200"
-          aria-label="Core operating zones"
+          class="hero__evidence panel animate-fade-up delay-200"
+          aria-label="Selected proof of impact"
         >
-          <div class="hero__signal-head">
-            <p class="hero__signal-label text-mono">
-              FIELD MAP // ORBITAL SYSTEM
+          <div class="hero__evidence-head">
+            <p class="hero__evidence-label text-mono">
+              EXECUTIVE SNAPSHOT // SELECTED PROOF
             </p>
-            <span class="hero__signal-status">Active</span>
+            <span class="hero__evidence-status">Verified</span>
           </div>
 
-          <div class="hero__signal-core">
-            <div class="hero__signal-node hero__signal-node--center">
-              <span class="hero__signal-node-title">Innovation Programs</span>
-              <span class="hero__signal-node-text"
-                >Strategy, coordination, execution</span
-              >
-            </div>
-            <div class="hero__signal-node hero__signal-node--left">
-              <span class="hero__signal-node-title">Process Design</span>
-              <span class="hero__signal-node-text"
-                >Clarity, cadence, accountability</span
-              >
-            </div>
-            <div class="hero__signal-node hero__signal-node--right">
-              <span class="hero__signal-node-title">Technical Enablement</span>
-              <span class="hero__signal-node-text"
-                >Automation, tooling, operating leverage</span
-              >
-            </div>
+          <div class="hero__evidence-intro">
+            <h2 class="hero__evidence-title">
+              Director-level range, backed by shipped work.
+            </h2>
+            <p class="hero__evidence-copy">
+              The pattern across my career is consistent: diagnose quickly,
+              align the work, build the system, and leave the organization with
+              more leverage than it had before.
+            </p>
           </div>
 
-          <div class="hero__signal-metrics" aria-hidden="true">
-            <div class="hero__signal-metric">
-              <span class="hero__signal-value">People</span>
-              <span class="hero__signal-caption"
-                >Cross-functional alignment</span
-              >
-            </div>
-            <div class="hero__signal-metric">
-              <span class="hero__signal-value">Process</span>
-              <span class="hero__signal-caption">Operational repeatability</span
-              >
-            </div>
-            <div class="hero__signal-metric">
-              <span class="hero__signal-value">Systems</span>
-              <span class="hero__signal-caption"
-                >Scaled execution infrastructure</span
-              >
-            </div>
+          <div class="hero__evidence-grid">
+            {
+              featuredEvidence.map((item) => (
+                <a class="hero__evidence-card" href={toBasePath(item.href)}>
+                  <span class="hero__evidence-value">{item.value}</span>
+                  <span class="hero__evidence-card-label">{item.label}</span>
+                  <p class="hero__evidence-card-detail">{item.detail}</p>
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -109,19 +102,81 @@ import { siteConfig } from "../data/siteConfig";
   </section>
 
   <!-- ═══════════════════════════════════════════
+       WHAT I SOLVE
+  ═══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <SectionHeader
+        label="// WHAT I SOLVE"
+        title="Where I Create Leverage"
+        subtitle="I am most useful when an organization needs one operator who can clarify the problem, align the work, and build systems that keep holding after launch."
+      />
+
+      <div class="grid-3 profile-grid">
+        {
+          hiringProfiles.map((profile, i) => (
+            <div
+              class={`profile-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            >
+              <p class="profile-card__kicker text-mono">Focus {i + 1}</p>
+              <h3 class="profile-card__title">{profile.title}</h3>
+              <p class="profile-card__desc">{profile.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW I LEAD PROGRAMS
+  ═══════════════════════════════════════════ -->
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
+    <div class="container container--md">
+      <SectionHeader
+        label="// HOW I LEAD PROGRAMS"
+        title="The Operating Model, In Brief"
+        subtitle="This is the short version of how I approach director-level program work before you dive into the full methodology page."
+      />
+
+      <div class="principles-list principles-list--grid">
+        {
+          homePrinciples.map((principle) => (
+            <div class="principle principle--card">
+              <span class="principle__num text-mono text-accent">
+                {principle.num}
+              </span>
+              <p class="principle__text">{principle.text}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="section-actions">
+        <a href={toBasePath("/how-i-work")} class="btn btn-outline"
+          >See the full operating model</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        CORE STRENGTHS
   ═══════════════════════════════════════════ -->
   <section class="section">
     <div class="container">
       <SectionHeader
         label="// CAPABILITIES"
-        title="Core Strengths"
-        subtitle="I work across the full operational stack: strategy, systems, people, and tools."
+        title="How I Add Value"
+        subtitle="The through-line is consistent across domains: systems thinking, execution clarity, technical leverage, and leadership that holds under pressure."
       />
 
       <div class="grid-3 strengths-grid">
         {
-          coreStrengths.map((strength, i) => (
+          featuredStrengths.map((strength, i) => (
             <div
               class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
             >
@@ -146,15 +201,15 @@ import { siteConfig } from "../data/siteConfig";
   >
     <div class="container container--md">
       <SectionHeader
-        label="// CAREER TIMELINE"
-        title="Timeline views now live on the career page"
-        subtitle="Choose narrative, gantt, scroll, company, or life timeline mode from one unified selector."
+        label="// CAREER ARC"
+        title="See the progression behind the outcomes"
+        subtitle="The career page now brings the full arc together, from frontline support and military operations to senior program leadership, community systems, and live-event execution."
       />
 
       <div class="career-hub-card panel">
         <p class="career-hub-card__copy text-muted">
-          The full timeline system has moved to a single hub so you can switch
-          views without leaving context.
+          Use narrative view for the director-level story, gantt for role and
+          project overlap, or scroll for the full progression in one pass.
         </p>
         <div class="career-hub-card__actions">
           <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
@@ -172,34 +227,6 @@ import { siteConfig } from "../data/siteConfig";
   </section>
 
   <!-- ═══════════════════════════════════════════
-        HOW I WORK: TEASER
-  ═══════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container--md">
-      <SectionHeader label="// OPERATING PRINCIPLES" title="How I Work" />
-
-      <div class="principles-list">
-        {
-          homePrinciples.map((principle) => (
-            <div class="principle">
-              <span class="principle__num text-mono text-accent">
-                {principle.num}
-              </span>
-              <p class="principle__text">{principle.text}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div style="margin-top: var(--space-2xl);">
-        <a href={toBasePath("/how-i-work")} class="btn btn-outline"
-          >Read More →</a
-        >
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
   <section
@@ -211,26 +238,27 @@ import { siteConfig } from "../data/siteConfig";
         <div class="intro__text">
           <p class="section-label">// BACKGROUND</p>
           <span class="accent-line"></span>
-          <h2>A bit about me</h2>
+          <h2>Why this perspective holds up in real environments</h2>
           <p>
-            I'm a systems-minded builder with a background spanning U.S.
-            military service, technical program management, large-scale
-            community operations, live events, and automation infrastructure.
+            My background is broad on purpose. Military service taught me how
+            to lead under pressure, Ubisoft taught me how large organizations
+            actually move work, and community and event systems gave me places
+            to keep building beyond formal job boundaries.
           </p>
           <p>
-            When I'm not building operational systems, I'm a father, a
-            competitive Star Citizen player and community leader, and someone
-            who thinks deeply about how organizations actually function at
-            scale.
+            That mix is why I tend to operate well above a narrow title line. I
+            am comfortable in the strategy layer, the execution layer, and the
+            system-design layer at the same time.
           </p>
           <p>
-            I care about building things that work, not just on paper, but in
-            the messy reality of people, pressure, and imperfect information.
+            If you want the fuller version, the About page explains where that
+            operating style came from and why I keep getting pulled toward
+            systems that need to be clarified, rebuilt, or scaled.
           </p>
           <a
             href={toBasePath("/about")}
             class="btn btn-outline"
-            style="margin-top: var(--space-md);">Full Background →</a
+            style="margin-top: var(--space-md);">Read the background</a
           >
         </div>
 
@@ -297,6 +325,14 @@ import { siteConfig } from "../data/siteConfig";
     margin-bottom: var(--space-md);
   }
 
+  .hero__role-line {
+    margin: 0 0 var(--space-md);
+    color: var(--color-accent);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   .hero__headline {
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     line-height: 1.15;
@@ -329,13 +365,31 @@ import { siteConfig } from "../data/siteConfig";
     flex-wrap: wrap;
   }
 
-  .hero__signal {
-    min-height: 420px;
+  .hero__proof-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin: 0 0 var(--space-xl);
+    padding: 0;
+  }
+
+  .hero__proof-pill {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: rgba(87, 166, 255, 0.08);
+    color: var(--color-text);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .hero__evidence {
+    min-height: 0;
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
     position: relative;
     background:
       radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
@@ -347,7 +401,7 @@ import { siteConfig } from "../data/siteConfig";
       linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
   }
 
-  .hero__signal::after {
+  .hero__evidence::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -359,7 +413,7 @@ import { siteConfig } from "../data/siteConfig";
     pointer-events: none;
   }
 
-  .hero__signal-head {
+  .hero__evidence-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -368,14 +422,14 @@ import { siteConfig } from "../data/siteConfig";
     z-index: 1;
   }
 
-  .hero__signal-label {
+  .hero__evidence-label {
     margin: 0;
     font-size: 0.72rem;
     letter-spacing: 0.14em;
     color: var(--color-text-muted);
   }
 
-  .hero__signal-status {
+  .hero__evidence-status {
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
@@ -389,7 +443,7 @@ import { siteConfig } from "../data/siteConfig";
     background: rgba(87, 166, 255, 0.08);
   }
 
-  .hero__signal-status::before {
+  .hero__evidence-status::before {
     content: "";
     width: 0.55rem;
     height: 0.55rem;
@@ -398,109 +452,122 @@ import { siteConfig } from "../data/siteConfig";
     box-shadow: 0 0 14px rgba(87, 166, 255, 0.55);
   }
 
-  .hero__signal-core {
+  .hero__evidence-intro {
     position: relative;
+    z-index: 1;
+  }
+
+  .hero__evidence-title {
+    margin: 0 0 var(--space-sm);
+    font-size: 1.1rem;
+    color: var(--color-text-heading);
+  }
+
+  .hero__evidence-copy {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .hero__evidence-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
-    gap: var(--space-lg);
-    padding: var(--space-lg) 0;
-    z-index: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
   }
 
-  .hero__signal-core::before,
-  .hero__signal-core::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    background: linear-gradient(
-      180deg,
-      transparent,
-      rgba(87, 166, 255, 0.55),
-      transparent
-    );
-  }
-
-  .hero__signal-core::before {
-    top: 24%;
-    height: 32%;
-  }
-
-  .hero__signal-core::after {
-    bottom: 18%;
-    height: 22%;
-  }
-
-  .hero__signal-node {
+  .hero__evidence-card {
     position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
-    width: min(260px, 100%);
+    gap: var(--space-sm);
     padding: var(--space-md);
     border: 1px solid rgba(87, 166, 255, 0.16);
     border-radius: var(--radius-md);
     background: rgba(6, 13, 18, 0.68);
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    text-decoration: none;
+    transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast);
   }
 
-  .hero__signal-node--center {
-    justify-self: center;
-    width: min(290px, 100%);
-    border-color: rgba(87, 166, 255, 0.28);
-    box-shadow: 0 0 20px rgba(87, 166, 255, 0.12);
+  .hero__evidence-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
   }
 
-  .hero__signal-node--left {
-    justify-self: start;
-  }
-
-  .hero__signal-node--right {
-    justify-self: end;
-  }
-
-  .hero__signal-node-title {
+  .hero__evidence-value {
     font-family: var(--font-heading);
-    font-size: 0.88rem;
-    letter-spacing: 0.05em;
+    font-size: 1.35rem;
     color: var(--color-text-heading);
   }
 
-  .hero__signal-node-text {
+  .hero__evidence-card-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero__evidence-card-detail {
+    margin: 0;
     font-size: 0.8rem;
     color: var(--color-text-muted);
     line-height: 1.55;
   }
 
-  .hero__signal-metrics {
-    position: relative;
-    z-index: 1;
+  .profile-grid {
+    align-items: stretch;
+  }
+
+  .profile-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .profile-card__kicker {
+    margin: 0 0 var(--space-md);
+    font-size: 0.72rem;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .profile-card__title {
+    font-size: 1rem;
+    color: var(--color-text-heading);
+    margin-bottom: var(--space-sm);
+  }
+
+  .profile-card__desc {
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .principles-list--grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .principle--card {
+    height: 100%;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-card);
+    display: flex;
+    flex-direction: column;
     gap: var(--space-md);
   }
 
-  .hero__signal-metric {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    padding-top: var(--space-md);
-    border-top: 1px solid rgba(217, 119, 6, 0.28);
-  }
-
-  .hero__signal-value {
-    font-family: var(--font-heading);
-    font-size: 0.82rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-heading);
-  }
-
-  .hero__signal-caption {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
+  .section-actions {
+    margin-top: var(--space-2xl);
   }
 
   .hero__bg-grid {
@@ -567,18 +634,10 @@ import { siteConfig } from "../data/siteConfig";
     grid-template-columns: 2.5rem 1fr;
     gap: var(--space-md);
     align-items: start;
-    padding: var(--space-md) 0;
-    border-bottom: 1px solid var(--color-border);
   }
 
   .principle:last-child {
     border-bottom: none;
-  }
-
-  .principle__num {
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    padding-top: 3px;
   }
 
   .principle__text {
@@ -587,22 +646,21 @@ import { siteConfig } from "../data/siteConfig";
     margin: 0;
   }
 
-  /* ── Personal intro ── */
+  /* ── Intro ── */
   .intro-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: var(--space-3xl);
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+    gap: var(--space-2xl);
     align-items: start;
   }
 
-  .intro__text p {
-    color: var(--color-text-muted);
-    line-height: 1.7;
+  .intro__text h2 {
+    margin-bottom: var(--space-lg);
   }
 
   .intro__stats {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-md);
   }
 

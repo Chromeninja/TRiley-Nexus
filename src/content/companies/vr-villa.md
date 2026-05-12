@@ -9,7 +9,7 @@ profiles:
     achievements:
       - "Supported repeatable delivery across multiple live VR shows and community programs."
       - "Helped coordinate developer relations to secure game access and demo support for events."
-      - "Built operations support around staffing, scheduling, and recurring event delivery."
+      - "Built operations support around staffing, scheduling, and recurring event delivery at 2025 scale: 16,297 players, 21,151 sessions, and 12,378 gameplay hours."
     logo:
       src: "/media/companies/vr-villa-logo.jpg"
       alt: "VR Villa logo"

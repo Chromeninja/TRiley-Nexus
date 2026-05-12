@@ -1,7 +1,7 @@
 ---
 title: Monkey Laser Face Mixed Reality Demo
 status: completed
-category: VR & Experimental Tech
+category: Digital Products & Platforms
 tags:
   - VR
   - Mixed Reality

@@ -21,18 +21,28 @@ const orderedMedia =
 
 {
   orderedMedia.length > 0 && (
-    <section class="project-gallery" data-project-gallery tabindex="0">
-      <div class="project-gallery__viewport" aria-live="polite">
+    <section
+      class="project-gallery"
+      data-project-gallery
+      aria-roledescription="carousel"
+      aria-label="Project media gallery"
+    >
+      <div class="project-gallery__viewport" data-gallery-viewport tabindex="0">
         {orderedMedia.map((item, index) => (
           <figure
             class={`project-gallery__slide ${index === 0 ? "is-active" : ""}`}
+            role="group"
+            aria-roledescription="slide"
             data-gallery-slide
+            data-gallery-index={index}
+            aria-label={`Media item ${index + 1} of ${orderedMedia.length}`}
             aria-hidden={index === 0 ? "false" : "true"}
+            aria-current={index === 0 ? "true" : undefined}
+            inert={index !== 0}
           >
             {item.type === "video" ? (
               <video
                 class="project-gallery__media"
-                autoplay
                 controls
                 loop
                 muted
@@ -51,54 +61,55 @@ const orderedMedia =
                 decoding="async"
               />
             )}
-            {item.caption && (
-              <figcaption class="project-gallery__caption">
-                {item.caption}
-              </figcaption>
-            )}
           </figure>
         ))}
       </div>
 
       {orderedMedia.length > 1 && (
         <div class="project-gallery__controls">
-          <button
-            type="button"
-            class="project-gallery__nav"
-            data-gallery-prev
-            aria-label="Previous media item"
-          >
-            ←
-          </button>
-          <div
-            class="project-gallery__dots"
-            role="tablist"
-            aria-label="Project media slides"
-          >
-            {orderedMedia.map((item, index) => (
-              <button
-                type="button"
-                class={`project-gallery__dot ${index === 0 ? "is-active" : ""}`}
-                data-gallery-dot
-                data-gallery-index={index}
-                role="tab"
-                aria-selected={index === 0 ? "true" : "false"}
-                aria-label={`Show ${item.type} ${index + 1}`}
-              >
-                <span class="sr-only">
-                  {item.type} {index + 1}
-                </span>
-              </button>
+          <div class="project-gallery__toolbar">
+            <button
+              type="button"
+              class="project-gallery__nav project-gallery__nav--prev"
+              data-gallery-prev
+              aria-label="Previous media item"
+            >
+              ←
+            </button>
+
+            <div class="project-gallery__dots" aria-label="Project media slides">
+              {orderedMedia.map((_, index) => (
+                <button
+                  type="button"
+                  class={`project-gallery__dot ${index === 0 ? "is-active" : ""}`}
+                  data-gallery-dot
+                  data-gallery-index={index}
+                  aria-label={`Go to slide ${index + 1}`}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <span class="sr-only">Slide {index + 1}</span>
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              class="project-gallery__nav project-gallery__nav--next"
+              data-gallery-next
+              aria-label="Next media item"
+            >
+              →
+            </button>
+          </div>
+
+          <div class="project-gallery__progress" aria-hidden="true">
+            {orderedMedia.map((_, index) => (
+              <span
+                class={`project-gallery__progress-segment ${index === 0 ? "is-active" : ""}`}
+                data-gallery-progress
+              />
             ))}
           </div>
-          <button
-            type="button"
-            class="project-gallery__nav"
-            data-gallery-next
-            aria-label="Next media item"
-          >
-            →
-          </button>
         </div>
       )}
     </section>
@@ -106,19 +117,34 @@ const orderedMedia =
 }
 
 <script>
-  const galleries = document.querySelectorAll("[data-project-gallery]");
+  const galleries = document.querySelectorAll<HTMLElement>("[data-project-gallery]");
 
   galleries.forEach((gallery) => {
-    const slides = Array.from(gallery.querySelectorAll("[data-gallery-slide]"));
-    const dots = Array.from(gallery.querySelectorAll("[data-gallery-dot]"));
-    const prevBtn = gallery.querySelector("[data-gallery-prev]");
-    const nextBtn = gallery.querySelector("[data-gallery-next]");
+    const viewport = gallery.querySelector<HTMLElement>("[data-gallery-viewport]");
+    const slides = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-gallery-slide]"),
+    );
+    const dots = Array.from(
+      gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"),
+    );
+    const prevBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-prev]");
+    const nextBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const progressSegments = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-gallery-progress]"),
+    );
 
-    if (slides.length <= 1) {
+    if (!viewport || slides.length <= 1) {
       return;
     }
 
     let currentIndex = 0;
+    let scrollFrame = 0;
+    let autoAdvanceId: number | undefined;
+    let isPaused = false;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     const syncActiveVideo = () => {
       slides.forEach((slide, slideIndex) => {
@@ -138,86 +164,197 @@ const orderedMedia =
       });
     };
 
-    const updateSlides = (index: number) => {
-      currentIndex = (index + slides.length) % slides.length;
-
+    const syncUi = () => {
       slides.forEach((slide, slideIndex) => {
         const isActive = slideIndex === currentIndex;
         slide.classList.toggle("is-active", isActive);
         slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+
+        if (isActive) {
+          slide.setAttribute("aria-current", "true");
+          slide.removeAttribute("inert");
+        } else {
+          slide.removeAttribute("aria-current");
+          slide.setAttribute("inert", "");
+        }
       });
 
       dots.forEach((dot, dotIndex) => {
         const isActive = dotIndex === currentIndex;
         dot.classList.toggle("is-active", isActive);
-        dot.setAttribute("aria-selected", isActive ? "true" : "false");
+        dot.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      progressSegments.forEach((segment, segmentIndex) => {
+        segment.classList.toggle("is-active", segmentIndex === currentIndex);
       });
 
       syncActiveVideo();
     };
 
-    prevBtn?.addEventListener("click", () => updateSlides(currentIndex - 1));
-    nextBtn?.addEventListener("click", () => updateSlides(currentIndex + 1));
+    const clearAutoAdvance = () => {
+      if (autoAdvanceId) {
+        window.clearInterval(autoAdvanceId);
+        autoAdvanceId = undefined;
+      }
+    };
+
+    const startAutoAdvance = () => {
+      clearAutoAdvance();
+
+      if (prefersReducedMotion || isPaused) {
+        return;
+      }
+
+      autoAdvanceId = window.setInterval(() => {
+        scrollToIndex((currentIndex + 1) % slides.length);
+      }, 5000);
+    };
+
+    const scrollToIndex = (index: number) => {
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      viewport.scrollTo({
+        left: slides[currentIndex]?.offsetLeft ?? 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+      syncUi();
+      startAutoAdvance();
+    };
+
+    const syncIndexFromScroll = () => {
+      const slideWidth = viewport.clientWidth;
+      if (slideWidth === 0) {
+        return;
+      }
+
+      const nextIndex = Math.round(viewport.scrollLeft / slideWidth);
+      const boundedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
+
+      if (boundedIndex !== currentIndex) {
+        currentIndex = boundedIndex;
+        syncUi();
+      }
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      scrollToIndex((currentIndex - 1 + slides.length) % slides.length);
+    });
+    nextBtn?.addEventListener("click", () => {
+      scrollToIndex((currentIndex + 1) % slides.length);
+    });
 
     dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => updateSlides(index));
+      dot.addEventListener("click", () => scrollToIndex(index));
     });
 
-    gallery.addEventListener("keydown", (event) => {
-      if ((event as KeyboardEvent).key === "ArrowLeft") {
-        event.preventDefault();
-        updateSlides(currentIndex - 1);
+    viewport.addEventListener("scroll", () => {
+      if (scrollFrame) {
+        cancelAnimationFrame(scrollFrame);
       }
-      if ((event as KeyboardEvent).key === "ArrowRight") {
+
+      scrollFrame = window.requestAnimationFrame(syncIndexFromScroll);
+    });
+
+    gallery.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
         event.preventDefault();
-        updateSlides(currentIndex + 1);
+        scrollToIndex((currentIndex - 1 + slides.length) % slides.length);
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        scrollToIndex((currentIndex + 1) % slides.length);
       }
     });
 
-    syncActiveVideo();
+    gallery.addEventListener("pointerenter", () => {
+      isPaused = true;
+      clearAutoAdvance();
+    });
+
+    gallery.addEventListener("pointerleave", () => {
+      isPaused = false;
+      startAutoAdvance();
+    });
+
+    gallery.addEventListener("focusin", () => {
+      isPaused = true;
+      clearAutoAdvance();
+    });
+
+    gallery.addEventListener("focusout", (event: FocusEvent) => {
+      const nextTarget = event.relatedTarget;
+      if (nextTarget instanceof Node && gallery.contains(nextTarget)) {
+        return;
+      }
+
+      isPaused = false;
+      startAutoAdvance();
+    });
+
+    window.addEventListener("resize", syncIndexFromScroll);
+
+    syncUi();
+    startAutoAdvance();
   });
 </script>
 
 <style>
   .project-gallery {
     margin-bottom: var(--space-2xl);
+    display: grid;
+    gap: var(--space-md);
+    position: relative;
   }
 
   .project-gallery__viewport {
     position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    overflow: hidden;
     background: var(--color-bg-card);
+    box-shadow: var(--shadow-card);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-y;
+  }
+
+  .project-gallery__viewport::-webkit-scrollbar {
+    display: none;
   }
 
   .project-gallery__slide {
-    display: none;
     margin: 0;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .project-gallery__slide.is-active {
-    display: block;
+    outline: none;
   }
 
   .project-gallery__media {
     width: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    object-fit: contain;
     background: var(--color-bg);
     display: block;
   }
 
-  .project-gallery__caption {
-    padding: var(--space-md) var(--space-lg);
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    border-top: 1px solid var(--color-border);
-    background: rgba(0, 0, 0, 0.14);
+  .project-gallery__controls {
+    display: grid;
+    gap: var(--space-sm);
   }
 
-  .project-gallery__controls {
-    margin-top: var(--space-md);
+  .project-gallery__toolbar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,6 +386,7 @@ const orderedMedia =
   .project-gallery__dots {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-sm);
   }
 
@@ -265,15 +403,35 @@ const orderedMedia =
       border-color var(--transition-fast);
   }
 
-  .project-gallery__dot.is-active {
-    background: var(--color-accent);
+  .project-gallery__dot:hover,
+  .project-gallery__dot:focus-visible {
     border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+    outline: none;
+  }
+
+  .project-gallery__dot.is-active {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
     transform: scale(1.15);
   }
 
-  .project-gallery__dot:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+  .project-gallery__progress {
+    display: flex;
+    gap: var(--space-xs);
+    width: 100%;
+  }
+
+  .project-gallery__progress-segment {
+    flex: 1 1 0;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-accent-dim);
+    transition: background var(--transition-fast);
+  }
+
+  .project-gallery__progress-segment.is-active {
+    background: var(--color-accent);
   }
 
   .sr-only {
@@ -289,8 +447,19 @@ const orderedMedia =
   }
 
   @media (max-width: 640px) {
-    .project-gallery__controls {
+    .project-gallery__toolbar {
       gap: var(--space-sm);
+    }
+
+    .project-gallery__nav {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-gallery__viewport {
+      scroll-behavior: auto;
     }
   }
 </style>
