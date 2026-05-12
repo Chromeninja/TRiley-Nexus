@@ -14,7 +14,7 @@ roleTitle: Senior Program Manager, Customer Experience
 startedAt: "2023-08"
 endedAt: "2024-04"
 summary: "Transitioned to the Customer Experience team as a user-research-focused program lead, running cross-functional strike teams that mapped onboarding flows and customer journeys across Ubisoft games, websites, and adjacent products to surface concrete improvement opportunities."
-cardSummary: Led research-driven strike teams improving onboarding, customer journeys, and cross-product experience across Ubisoft games and websites.
+cardSummary: "Led research-driven strike teams improving onboarding, customer journeys, and cross-product experience across Ubisoft games and websites."
 highlights:
   - Ran cross-functional strike teams to deliver comprehensive customer journey reports across games, websites, and other Ubisoft products.
   - Owned onboarding flow improvements informed by user research, qualitative feedback, and behavioral data.

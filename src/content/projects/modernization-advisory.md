@@ -11,15 +11,22 @@ organization: ShepherdTech
 timeframe: Ongoing
 roleTitle: Project Coordinator
 startedAt: "2024-03"
-summary: "Ongoing ShepherdTech work focused on business operations, project coordination, cloud infrastructure improvements, and backend modernization planning."
-cardSummary: Project coordination support helping teams turn technical goals into practical modernization work.
+summary: "Ongoing ShepherdTech advisory and coordination work that turns broad technical goals into practical modernization plans, delivery steps, and business-facing operating improvements."
+cardSummary: "Coordinate modernization work by translating client goals into practical technical plans, delivery milestones, and operating improvements."
 highlights:
   - Designed pragmatic cloud and backend modernization roadmaps.
   - Improved reliability and scalability for client operations.
   - Connected technical priorities to measurable business outcomes.
-problem: Small and growing organizations often run on fragile infrastructure and ad hoc processes that limit scale.
-approach: "Delivered pragmatic modernization plans, cloud migration pathways, and backend reliability improvements tied to business outcomes."
-outcome: Improved reliability and scalability for client systems while creating clearer technical roadmaps for future growth.
+problem: "Small and growing organizations often run on fragile infrastructure, scattered documentation, and ad hoc processes that limit scale. Technical work can stall when business needs are not translated into clear delivery priorities."
+approach: |
+  I support ShepherdTech by turning early discovery into structured modernization work.
+
+  The advisory model focuses on:
+  - clarifying client goals and operational constraints
+  - shaping modernization roadmaps that fit real business needs
+  - coordinating cloud and backend improvement work with delivery milestones
+  - keeping documentation and communication clear enough for both technical and non-technical stakeholders
+outcome: "Created clearer modernization paths for client systems, improved delivery coordination, and helped connect technical priorities to measurable business outcomes."
 skills:
   - Project Coordination
   - Infrastructure Strategy

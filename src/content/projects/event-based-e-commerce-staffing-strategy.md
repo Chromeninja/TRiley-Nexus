@@ -16,7 +16,7 @@ roleTitle: Supervisor, E-Commerce Operations
 startedAt: "2018-07"
 endedAt: "2022-01"
 summary: "Led event-based staffing strategy for Ubisoft E-Commerce support, partnering with CRC leadership and finance to build and validate ticket-volume prediction models for game launches, major sales, game announcements, and other high-demand windows, while coordinating rapid training plans that could ramp new employees in 2-3 weeks without driving attrition."
-cardSummary: Built staffing forecasts for launches, major sales, and announcement windows, then mapped 2-3 week training ramps to scale teams without increasing attrition.
+cardSummary: "Built staffing forecasts for launches, major sales, and announcement windows, then mapped 2-3 week training ramps to scale teams without increasing attrition."
 highlights:
   - Partnered with CRC staffing leadership and finance to forecast ticket volumes around launches, major sales, game announcements, and seasonal peaks.
   - Built and validated prediction models used to determine when to scale employee headcount up or down.

@@ -11,15 +11,22 @@ organization: VR Villa
 timeframe: Ongoing
 roleTitle: Community Manager
 startedAt: "2025"
-summary: "Supported VR Villa community operations in Discord by improving server structure, strengthening moderation workflows, and adding practical automation."
-cardSummary: Improved VR Villa Discord structure and moderation operations with practical automation.
+summary: "Improved VR Villa community operations in Discord by reorganizing server structure, strengthening moderation workflows, improving event communication paths, and adding practical automation."
+cardSummary: "Improved VR Villa Discord operations with clearer structure, safer moderation workflows, and practical automation."
 highlights:
   - Reorganized channels and categories to improve discoverability and reduce member confusion.
   - Implemented moderation automations for repeat policy and safety workflows.
   - "Improved event communication flows between leadership, staff, and attendees."
-problem: "As community activity scaled, Discord structure and manual moderation patterns became harder to maintain consistently."
-approach: "Redesigned the Discord information architecture, documented moderation standards, and introduced automation for repetitive tasks while keeping human review on higher-context decisions."
-outcome: "Increased moderation consistency, improved community navigation, and reduced daily operations load for moderators and event staff."
+problem: "As community and event activity grew, the server needed clearer navigation, more consistent moderation patterns, and communication paths that worked for leadership, staff, and attendees."
+approach: |
+  I treated the Discord as an operating surface for the event program, not just a chat space.
+
+  The work focused on:
+  - channel and category structure that made information easier to find
+  - moderation standards for repeat policy and safety workflows
+  - automation for repetitive actions while keeping judgment-heavy decisions with people
+  - communication flows that helped leadership, staff, and attendees stay aligned around events
+outcome: "Improved community navigation, increased moderation consistency, and reduced daily operations load for moderators and event staff."
 skills:
   - Community Operations
   - Moderation Strategy

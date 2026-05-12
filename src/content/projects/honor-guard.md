@@ -7,8 +7,12 @@ roleTitle: Team Lead
 timeframe: Past
 startedAt: "2012-05"
 endedAt: "2013-10"
-summary: "Led and trained Honor Guard teams conducting 540+ annual funeral honors and ceremonial missions across North Carolina. Managed all-volunteer teams of 2–10 personnel, coordinated statewide logistics and transportation compliance, standardized operational messaging, and partnered with funeral homes, military families, and the USO to deliver respectful honors support."
-cardSummary: "Executed 540+ honors missions annually as team lead and trainer, coordinating statewide logistics, messaging standards, and cross-regional team operations."
+summary: "Led and trained Honor Guard teams conducting 540+ annual funeral honors and ceremonial missions across North Carolina, coordinating volunteer teams, statewide logistics, transportation compliance, partner communication, and family-facing ceremonial support."
+cardSummary: "Led Honor Guard teams through 540+ annual honors missions with training, logistics, standards, and family-facing coordination."
+highlights:
+  - "Led and trained all-volunteer teams of 2-10 personnel for funeral honors and ceremonial missions."
+  - "Coordinated statewide logistics, scheduling, equipment movement, and transportation compliance."
+  - "Partnered with funeral homes, military families, and support organizations to deliver respectful honors support."
 problem: "The North Carolina National Guard Honor Guard program needed reliable, scalable leadership to coordinate high-volume funeral honors operations across the entire state while maintaining strict military standards, regional messaging consistency, and seamless coordination with funeral homes and grieving families."
 approach: |
   I led Honor Guard operations through a repeatable execution model built around training, logistics, and ceremonial consistency.
@@ -20,7 +24,13 @@ approach: |
   4. **Family and partner coordination** with funeral homes, military families, and support organizations such as the USO
 
   That structure made it possible to run high-volume honors missions without sacrificing discipline, respect, or operational reliability.
-outcome: "Delivered over 540 respectful and professionally executed honors ceremonies annually, establishing operational consistency across diverse teams and regions. Trained new personnel to program standards, coordinated complex multi-party logistics statewide, and reinforced public trust through disciplined ceremonial leadership and family-centered representation."
+outcome: |
+  Delivered over **540 respectful and professionally executed honors ceremonies annually**.
+
+  The work established:
+  - stronger operational consistency across teams and regions
+  - reliable training standards for new personnel
+  - disciplined public representation in family-centered ceremonial settings
 skills:
   - Team Leadership & Training
   - Ceremonial Operations & Protocol

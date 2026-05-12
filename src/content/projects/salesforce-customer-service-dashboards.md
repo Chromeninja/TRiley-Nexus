@@ -14,7 +14,7 @@ roleTitle: Senior Frontline Representative
 startedAt: "2015-11"
 endedAt: "2017-05"
 summary: "Built the first wave of Salesforce dashboards used by Ubisoft CS teams to actually visualize the metrics that mattered: CSAT, time to answer, and queue sizes, turning raw operational data into something a floor manager and frontline rep could act on in real time."
-cardSummary: Built early Salesforce dashboards for Ubisoft CS, surfacing CSAT, time to answer, and queue size for floor-level decisions.
+cardSummary: "Built early Salesforce dashboards for Ubisoft CS, surfacing CSAT, time to answer, and queue size for floor-level decisions."
 highlights:
   - Authored Salesforce dashboards visualizing CSAT, time-to-answer, and queue-size metrics.
   - Made operational health visible to floor managers and frontline reps in real time.

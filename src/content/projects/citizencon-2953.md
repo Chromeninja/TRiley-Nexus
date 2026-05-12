@@ -8,15 +8,22 @@ roleTitle: Event Staff / Community Operations Support
 timeframe: October 2023
 startedAt: "2023-10"
 endedAt: "2023-10"
-summary: "Supported TEST Squadron's CitizenCon 2953 presence in Los Angeles as event staff, helping booth execution, pre-show booth design planning, local last-minute item sourcing, and community meetup coordination."
-cardSummary: "Supported CitizenCon 2953 booth operations in Los Angeles through staffing, logistics support, and community meetup coordination."
+summary: "Supported TEST Squadron's CitizenCon 2953 presence in Los Angeles as event staff, contributing to booth execution, pre-show design planning, urgent local sourcing, volunteer coordination, and community meetup support."
+cardSummary: "Supported TEST Squadron booth and meetup operations at CitizenCon 2953 through staffing, logistics, and local problem-solving."
 highlights:
   - "Worked with three core staff and 15+ volunteers to support booth coverage, attendee interaction, and on-site operations."
   - "Coordinated local purchasing and securing of last-minute booth items to keep setup and event delivery on track."
   - "Helped organize meet and greets, community meetups, and pre-show planning calls to shape the booth build plan."
-problem: "CitizenCon booth delivery required dependable staffing and rapid local problem-solving for last-minute operational needs, while still maintaining a strong community-facing experience."
-approach: "Contributed as staff support rather than full event management by joining pre-show planning calls, helping design the booth build approach, coordinating local procurement for urgent booth needs, supporting day-of booth coverage, and assisting with meetup and meet-and-greet execution throughout the event."
-outcome: "Helped deliver a stable and welcoming TEST Squadron booth presence at CitizenCon 2953, improving volunteer execution and community engagement through practical operations support and meetup coordination."
+problem: "CitizenCon booth delivery required dependable staffing, quick local problem-solving, and enough structure to keep the community-facing experience welcoming under event pressure."
+approach: |
+  I supported the event team across the practical work that keeps a booth running.
+
+  The role included:
+  - joining pre-show planning calls and booth design discussions
+  - sourcing last-minute local items for setup and delivery needs
+  - supporting day-of booth coverage with staff and volunteers
+  - helping execute meetups and meet-and-greet moments around the event
+outcome: "Helped deliver a stable TEST Squadron presence at CitizenCon 2953, strengthening booth coverage, volunteer execution, and community engagement through practical operations support."
 skills:
   - Event Staff Coordination
   - Convention Logistics Support

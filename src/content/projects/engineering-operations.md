@@ -9,6 +9,10 @@ startedAt: "2011-02"
 endedAt: "2013-10"
 summary: "Served in the North Carolina Army National Guard as a 12K Plumber / Engineering Specialist, contributing to motorpool construction, soldier training, trade skills development, logistics coordination, QRF readiness, and multi-vehicle operations with the 878th Engineer Company."
 cardSummary: "Army National Guard engineering role covering soldier training, motorpool construction, trades work, supply coordination, QRF team training, and vehicle qualifications."
+highlights:
+  - "Supported motorpool construction, plumbing, electrical, carpentry, and field infrastructure tasks."
+  - "Helped train incoming soldiers on unit procedures, field expectations, and readiness practices."
+  - "Worked across supply coordination, QRF readiness, and vehicle qualification training."
 problem: Engineering units depend on cross-trained, mission-ready personnel who can sustain infrastructure, supply chains, and rapid response capabilities alongside ongoing field training demands.
 approach: |
   After Army basic training and **12K Advanced Individual Training**, I contributed across several parts of the unit's day-to-day operating model.

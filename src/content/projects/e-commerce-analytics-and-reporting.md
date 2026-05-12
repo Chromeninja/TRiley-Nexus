@@ -14,8 +14,8 @@ timeframe: "2018 – 2022"
 roleTitle: Supervisor, E-Commerce Operations
 startedAt: "2018-07"
 endedAt: "2022-01"
-summary: "Built and maintained the analytics layer for Ubisoft's e-commerce CS team. Salesforce dashboards used for WW CS metrics, plus MicroStrategy, Tableau, and Demandware reports that surfaced trending issues, queue health, and customer journey insights."
-cardSummary: Built Salesforce, MicroStrategy, Tableau, and Demandware dashboards used by Ubisoft worldwide teams totrack trends, queues, and journey health.
+summary: "Built and maintained the analytics layer for Ubisoft's e-commerce CS team, including Salesforce dashboards for worldwide CS metrics and MicroStrategy, Tableau, and Demandware reports that surfaced trends, queue health, and customer journey insights."
+cardSummary: "Built Salesforce, MicroStrategy, Tableau, and Demandware reporting used by Ubisoft teams to track trends, queues, and journey health."
 highlights:
   - Championed Salesforce dashboards adopted by Ubisoft worldwide CS teams.
   - Built MicroStrategy, Tableau, and Demandware reports to expose customer journey patterns and trending issues.

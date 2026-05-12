@@ -8,8 +8,8 @@ roleTitle: Event Organizer / Community Host
 timeframe: October 2025
 startedAt: "2025-10"
 endedAt: "2025-10"
-summary: "Organized a sold-out North Carolina community watch party for Cloud Imperium Games' digital CitizenCon 2955 by securing a discounted Alamo Drafthouse theater, coordinating ticketing and donations, sourcing giveaways, and extending the experience with a post-show meetup."
-cardSummary: "Ran a sold-out CitizenCon 2955 theater watch party in North Carolina, coordinating venue, ticketing, giveaways, and post-show community meetup logistics."
+summary: "Organized a sold-out North Carolina watch party for Cloud Imperium Games' digital CitizenCon 2955, securing a discounted Alamo Drafthouse theater, coordinating ticketing and donations, sourcing giveaways, and extending the event with a post-show meetup."
+cardSummary: "Ran a sold-out CitizenCon 2955 theater watch party with venue, ticketing, donations, giveaways, and meetup logistics."
 highlights:
   - "Negotiated a community-friendly rate with Alamo Drafthouse and helped fund the event through member donations and ticket sales."
   - "Sold out the event and used Eventbrite plus Discord to manage tickets, communication, and attendance planning."
@@ -20,17 +20,17 @@ approach: |
 
   The execution plan broke into four phases:
   1. **Venue and cost model**
-    - negotiated a reduced rate with Alamo Drafthouse
-    - collected community donations to offset event costs
+     - negotiated a reduced rate with Alamo Drafthouse
+     - collected community donations to offset event costs
   2. **Ticketing and communications**
-    - managed ticket sales through Eventbrite
-    - used Discord as the primary hub for attendee updates and planning
+     - managed ticket sales through Eventbrite
+     - used Discord as the primary hub for attendee updates and planning
   3. **Giveaways and community support**
-    - coordinated with Cloud Imperium Games for giveaway items
-    - partnered with local creators and businesses for additional prizes
+     - coordinated with Cloud Imperium Games for giveaway items
+     - partnered with local creators and businesses for additional prizes
   4. **Extended community experience**
-    - organized a post-show bar meetup
-    - helped visiting attendees identify hotel options for their stay
+     - organized a post-show bar meetup
+     - helped visiting attendees identify hotel options for their stay
 
   The goal was to make the event feel affordable, organized, and worth attending in person rather than just watching from home.
 outcome: |

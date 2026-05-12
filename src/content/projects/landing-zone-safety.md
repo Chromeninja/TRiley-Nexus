@@ -7,7 +7,7 @@ roleTitle: Landing Zone Safety Officer (LZSO)
 timeframe: Ongoing
 startedAt: "2017"
 summary: "Certified as a Landing Zone Safety Officer for the 235th CAOS, responsible for assessing and managing expeditionary landing zones for rotary-wing and fixed-wing operations."
-cardSummary: Certified Landing Zone Safety Officer supporting expeditionary landing zone assessment and safety management.
+cardSummary: "Certified Landing Zone Safety Officer supporting expeditionary landing zone assessment and safety management."
 highlights:
   - Certified to conduct initial airfield suitability assessments and establish landing zones in expeditionary and austere environments where no established airfield infrastructure exists.
   - "Manages landing zone operations for rotary-wing and fixed-wing aircraft, coordinating with aircrews and ground forces to ensure safe sequencing, obstacle clearance, and surface conditions."

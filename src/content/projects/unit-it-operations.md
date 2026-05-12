@@ -13,15 +13,21 @@ organization: 235th Combat Airfield Operations Squadron
 timeframe: Ongoing
 roleTitle: Informal Unit IT Specialist
 startedAt: "2015-04"
-summary: "Serves as the 235th CAOS's informal IT resource, maintaining SharePoint, Teams, and Microsoft 365 tools that support day-to-day unit operations."
-cardSummary: "Keeps the unit's SharePoint, Teams, and Microsoft 365 environment working without formal IT support."
+summary: "Serve as the 235th CAOS's informal IT resource, maintaining SharePoint, Teams, and Microsoft 365 tools that support documentation, meetings, permissions, and day-to-day unit operations."
+cardSummary: "Keep the unit's SharePoint, Teams, and Microsoft 365 workflows usable without dedicated local IT support."
 highlights:
   - "Designs and builds SharePoint pages for squadron operations, documentation, and information management with no formal IT role or budget."
   - "Resolves Microsoft Teams configuration issues for unit members, including channels, permissions, meeting rooms, and connectivity, and provides first-line Microsoft 365 troubleshooting."
   - "Bridges the gap between slow official Air Force IT channels and the unit's day-to-day digital operational needs."
-problem: "Guard units often lack dedicated IT personnel. When SharePoint pages break, Teams won't connect, or members can't access shared resources, there's typically no internal resource to fix it. The problem either sits unresolved or gets escalated through slow official channels. The unit's operational effectiveness depends on these tools working reliably."
-approach: "Stepped into the informal IT role organically, applying civilian technology skills to military system problems. Built SharePoint pages from scratch to support unit documentation, rosters, training tracking, and operational information management. Diagnoses and resolves Microsoft Teams configuration issues, including permission errors, channel setup, meeting room connectivity, and guest access, for unit members who lack the technical background to resolve them independently. Provides ongoing 365 troubleshooting support as issues arise."
-outcome: "Keeps the unit's Microsoft 365 environment operational and improves the quality of digital information management within the squadron. Reduces friction for unit members dealing with technology issues and provides immediate, practical IT support that official channels can't deliver at the pace the unit requires."
+problem: "Guard units often rely on Microsoft 365 tools without having dedicated local IT personnel to maintain them. When SharePoint pages, Teams access, permissions, or meeting-room workflows break, day-to-day operations can slow down quickly."
+approach: |
+  I stepped into the informal IT role by applying civilian technology experience to unit-level operational needs.
+
+  The support model includes:
+  - building and maintaining SharePoint pages for documentation, rosters, training tracking, and information management
+  - resolving Teams issues across channels, permissions, meeting rooms, connectivity, and guest access
+  - providing first-line Microsoft 365 troubleshooting when official channels are too slow for routine unit needs
+outcome: "Kept the unit's Microsoft 365 environment more usable, reduced friction for members dealing with technology issues, and improved the quality of digital information management inside the squadron."
 skills:
   - SharePoint Administration
   - Microsoft Teams Administration

@@ -7,8 +7,12 @@ roleTitle: Team Lead
 timeframe: "Aug-Oct 2013"
 startedAt: "2013-08"
 endedAt: "2013-10"
-summary: "Led the North Carolina regional Salute the Troops campaign in partnership with Kangaroo Express and the USO, executing pop-up USO events across the state to raise awareness and financial support for military service members and their families. Coordinated multi-state logistics, event setup, and public engagement across 13+ Kangaroo Express convenience store locations."
-cardSummary: "Executed statewide pop-up USO events at Kangaroo Express locations, raising awareness and support for military service members across North Carolina."
+summary: "Led the North Carolina regional Salute the Troops campaign in partnership with Kangaroo Express and the USO, executing pop-up events across 13+ convenience store locations to raise awareness and support for service members and their families."
+cardSummary: "Led statewide Salute the Troops pop-up events across 13+ Kangaroo Express locations with USO and military community partners."
+highlights:
+  - "Coordinated pop-up USO events across 13+ Kangaroo Express convenience store locations."
+  - "Balanced partner expectations, military representation, event setup, and public engagement."
+  - "Supported awareness and fundraising efforts for military service members and their families."
 problem: "The Salute the Troops program needed strong regional execution in North Carolina to drive awareness, fundraising, and community engagement with military families and service members through a retail partnership."
 approach: |
   I executed the North Carolina portion of the campaign through a structured retail-event model that balanced public engagement, partner coordination, and military community representation.
@@ -20,7 +24,13 @@ approach: |
   4. **Fundraising and awareness support** so the campaign reinforced both donation goals and public understanding of military family programs
 
   The goal was to make the campaign feel coordinated and credible at every location, not like a disconnected series of pop-up appearances.
-outcome: "Successfully executed a statewide pop-up campaign that strengthened Kangaroo Express's commitment to military support, raised public awareness of USO programs, and contributed to the regional fundraising goal supporting military personnel and their families across the southeastern United States."
+outcome: |
+  Successfully executed a statewide pop-up campaign that strengthened public support for military families.
+
+  The campaign helped:
+  - raise awareness of USO programs
+  - reinforce Kangaroo Express's military-support commitment
+  - contribute to regional fundraising goals across the southeastern United States
 skills:
   - Event Coordination & Logistics
   - Public Engagement & Outreach
