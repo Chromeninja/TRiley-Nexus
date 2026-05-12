@@ -270,6 +270,56 @@ function mediaTypeLabel(kind) {
   return "Media";
 }
 
+async function removeMediaFile(item) {
+  const sourcePath = String(item?.src ?? "").trim();
+  if (!sourcePath) {
+    elements.uploadResult.textContent = "Delete failed: missing media path.";
+    return;
+  }
+
+  const confirmed = window.confirm(`Delete this file from public assets?\n\n${sourcePath}`);
+  if (!confirmed) return;
+
+  try {
+    await apiPost("/api/delete-media", { publicPath: sourcePath });
+
+    let removedCount = 0;
+    if (state.activePath) {
+      const unlinkPayload = await apiPost("/api/unlink-media", {
+        path: state.activePath,
+        content: elements.markdownEditor.value,
+        publicPath: sourcePath,
+      });
+
+      removedCount = Number(unlinkPayload.removedCount ?? 0);
+      if (removedCount > 0) {
+        elements.markdownEditor.value = unlinkPayload.content;
+        await loadFormModel(state.activePath, unlinkPayload.content);
+        resetPreview();
+
+        if (state.editorMode === MODE_FORM) {
+          await composeMarkdownFromForm();
+          state.rawDirty = false;
+        } else {
+          state.rawDirty = true;
+          await renderMarkdownPreview();
+        }
+      }
+    }
+
+    if (removedCount === 0) {
+      await refreshConfiguredMediaPreview(elements.markdownEditor.value);
+    }
+
+    const referencesNote = removedCount > 0
+      ? ` Removed ${removedCount} reference(s) from the open file.`
+      : "";
+    elements.uploadResult.textContent = `Deleted ${sourcePath}.${referencesNote}`;
+  } catch (error) {
+    elements.uploadResult.textContent = `Delete failed: ${error.message}`;
+  }
+}
+
 function inferSectionFromActivePath() {
   const normalized = String(state.activePath ?? "").replace(/\\/g, "/");
   const section = normalized.split("/")[2] ?? "";
@@ -334,9 +384,25 @@ function renderConfiguredMediaPreview(section, items = []) {
       });
     });
 
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "media-library__delete";
+    deleteButton.textContent = "Delete File";
+    deleteButton.title = "Delete this file from public assets and remove references in this file";
+    deleteButton.addEventListener("click", () => {
+      removeMediaFile(item).catch((error) => {
+        elements.uploadResult.textContent = `Delete failed: ${error.message}`;
+      });
+    });
+
+    const actionRow = document.createElement("div");
+    actionRow.className = "media-library__actions";
+    actionRow.appendChild(pathButton);
+    actionRow.appendChild(deleteButton);
+
     card.appendChild(name);
     card.appendChild(meta);
-    card.appendChild(pathButton);
+    card.appendChild(actionRow);
     elements.mediaLibrary.appendChild(card);
   });
 }

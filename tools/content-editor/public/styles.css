@@ -718,6 +718,31 @@ textarea#markdown-editor {
   outline: none;
 }
 
+.media-library__actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.45rem;
+  align-items: start;
+}
+
+.media-library__delete {
+  border: 1px solid #8d4a4a;
+  border-radius: 6px;
+  background: #5a2323;
+  color: #ffd9d9;
+  padding: 0.34rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.media-library__delete:hover,
+.media-library__delete:focus-visible {
+  border-color: #d07b7b;
+  background: #6d2a2a;
+  outline: none;
+}
+
 .media-library__empty {
   color: var(--muted);
   font-size: 0.82rem;

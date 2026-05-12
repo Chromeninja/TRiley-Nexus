@@ -1419,6 +1419,151 @@ async function fileExists(filePath) {
   }
 }
 
+function getAllowedPublicAssetPath(publicPath) {
+  const normalizedInput = String(publicPath ?? "").trim().replace(/\\/g, "/");
+  if (!normalizedInput.startsWith("/")) {
+    throw new Error("publicPath must start with '/'.");
+  }
+
+  const normalizedPath = path.posix.normalize(normalizedInput);
+  const allowedRoots = ["/media/", "/documents/"];
+  if (!allowedRoots.some((root) => normalizedPath.startsWith(root))) {
+    throw new Error("Only files in /media or /documents can be deleted.");
+  }
+
+  const absolutePath = path.join(SITE_PUBLIC_DIR, normalizedPath.slice(1));
+  if (!absolutePath.startsWith(SITE_PUBLIC_DIR)) {
+    throw new Error("Path traversal detected.");
+  }
+
+  const relativePath = path.relative(ROOT_DIR, absolutePath).replace(/\\/g, "/");
+  return {
+    publicPath: normalizedPath,
+    absolutePath,
+    relativePath,
+  };
+}
+
+async function deletePublicAsset(publicPath) {
+  const resolved = getAllowedPublicAssetPath(publicPath);
+
+  let stat;
+  try {
+    stat = await fs.stat(resolved.absolutePath);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      throw new Error("Media file not found.");
+    }
+    throw error;
+  }
+
+  if (!stat.isFile()) {
+    throw new Error("Only files can be deleted.");
+  }
+
+  await fs.unlink(resolved.absolutePath);
+  return resolved;
+}
+
+function unlinkConfiguredMedia(relativePath, content, publicPath) {
+  const cleanedPublicPath = String(publicPath ?? "").trim();
+  if (!cleanedPublicPath.startsWith("/")) {
+    throw new Error("publicPath must start with '/'.");
+  }
+
+  const { rawFm, body } = splitFrontmatter(content);
+  if (!rawFm.trim()) {
+    return { content, removedCount: 0 };
+  }
+
+  const parsed = parseFrontmatterYaml(rawFm);
+  let removedCount = 0;
+  const section = inferSectionFromPath(relativePath);
+
+  if (section === "projects") {
+    const coverSrc = parsed?.cover && typeof parsed.cover === "object"
+      ? String(parsed.cover.src ?? "").trim()
+      : "";
+    if (coverSrc === cleanedPublicPath) {
+      delete parsed.cover;
+      removedCount += 1;
+    }
+
+    if (Array.isArray(parsed.media)) {
+      const before = parsed.media.length;
+      parsed.media = parsed.media.filter((entry) => {
+        if (!entry || typeof entry !== "object") return true;
+        return String(entry.src ?? "").trim() !== cleanedPublicPath;
+      });
+
+      const diff = before - parsed.media.length;
+      if (diff > 0) {
+        removedCount += diff;
+      }
+
+      if (parsed.media.length === 0) {
+        delete parsed.media;
+      }
+    }
+  }
+
+  if (section === "about") {
+    const profileMediaSrc = parsed?.profileMedia && typeof parsed.profileMedia === "object"
+      ? String(parsed.profileMedia.src ?? "").trim()
+      : "";
+    if (profileMediaSrc === cleanedPublicPath) {
+      delete parsed.profileMedia;
+      removedCount += 1;
+    }
+
+    if (Array.isArray(parsed.additionalMedia)) {
+      const before = parsed.additionalMedia.length;
+      parsed.additionalMedia = parsed.additionalMedia.filter((entry) => {
+        if (!entry || typeof entry !== "object") return true;
+        return String(entry.src ?? "").trim() !== cleanedPublicPath;
+      });
+
+      const diff = before - parsed.additionalMedia.length;
+      if (diff > 0) {
+        removedCount += diff;
+      }
+
+      if (parsed.additionalMedia.length === 0) {
+        delete parsed.additionalMedia;
+      }
+    }
+  }
+
+  if (section === "companies") {
+    const profiles = parsed?.profiles;
+    if (profiles && typeof profiles === "object") {
+      for (const profileData of Object.values(profiles)) {
+        if (!profileData || typeof profileData !== "object") continue;
+        const logoSrc = profileData.logo && typeof profileData.logo === "object"
+          ? String(profileData.logo.src ?? "").trim()
+          : "";
+
+        if (logoSrc === cleanedPublicPath) {
+          delete profileData.logo;
+          removedCount += 1;
+        }
+      }
+    }
+  }
+
+  if (removedCount === 0) {
+    return { content, removedCount };
+  }
+
+  const serialized = serializeYaml(parsed);
+  const normalizedBody = String(body ?? "");
+  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  return {
+    content: `---\n${serialized}\n---${bodyBlock}`,
+    removedCount,
+  };
+}
+
 async function resolveUniqueUploadName(targetDir, baseName, ext) {
   const safeBase = sanitizeUploadName(baseName).replace(/\.[^.]*$/, "");
   const safeExt = ext && ext.startsWith(".") ? ext.toLowerCase() : "";
@@ -2104,6 +2249,48 @@ async function handleApi(req, res, url) {
       });
     } catch (error) {
       sendJson(res, 400, { error: `Upload failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/delete-media") {
+    try {
+      const body = await parseJsonBody(req);
+      const publicPath = String(body.publicPath ?? "");
+      if (!publicPath) {
+        sendJson(res, 400, { error: "publicPath is required." });
+        return;
+      }
+
+      const deleted = await deletePublicAsset(publicPath);
+      sendJson(res, 200, {
+        deleted: true,
+        publicPath: deleted.publicPath,
+        relativePath: deleted.relativePath,
+      });
+    } catch (error) {
+      sendJson(res, 400, { error: `Delete media failed: ${error.message}` });
+    }
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/unlink-media") {
+    try {
+      const body = await parseJsonBody(req);
+      const relativePath = String(body.path ?? "");
+      const content = String(body.content ?? "");
+      const publicPath = String(body.publicPath ?? "");
+
+      if (!relativePath) {
+        sendJson(res, 400, { error: "Path is required." });
+        return;
+      }
+
+      getAllowedAbsolutePath(relativePath);
+      const unlinked = unlinkConfiguredMedia(relativePath, content, publicPath);
+      sendJson(res, 200, unlinked);
+    } catch (error) {
+      sendJson(res, 400, { error: `Unlink media failed: ${error.message}` });
     }
     return;
   }

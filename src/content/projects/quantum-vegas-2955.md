@@ -36,7 +36,7 @@ tags:
   - AREA15
   - Bar Citizen
 cover:
-  src: "/media/projects/quantum-vegas-2955.jpg"
+  src: "/media/projects/quantum-vegas-convention-buildout-cover.webp"
   alt: Quantum Vegas 2955 Star Citizen community convention at AREA15 in Las Vegas
 featured: false
 order: 21
