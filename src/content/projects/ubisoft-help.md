@@ -14,8 +14,23 @@ highlights:
   - "Negotiated priorities across game production, CRC, accounts, and IT stakeholder teams to balance player and internal needs."
   - "Drove collaboration across QA, Dev, and Design teams to ship player-facing improvements at scale."
 problem: "Players moved through fragmented support surfaces, portal, in-game help, bug reporting, and guides each had their own friction points and disconnected workflows, increasing time-to-resolution."
-approach: "Stood up a unified program view across all Help surfaces, aligned QA / Dev / Design teams to a shared roadmap, and ran structured stakeholder negotiations with game production teams, CRC, accounts, and IT to prioritize the highest-leverage improvements. Managed the program budget, QA testing plans, and roadmap reviews to keep delivery predictable."
-outcome: "A coordinated Help program roadmap with measurable improvements across player-facing support surfaces, clearer prioritization between stakeholders, and stronger operational cohesion across QA, Dev, and Design partners."
+approach: |
+  I stood up a unified program view across all Help surfaces so the portal, in-game help, bug reporting, and guide experiences could be managed as one system instead of disconnected streams.
+
+  The work centered on four responsibilities:
+  1. **Program unification** across the full Help surface area
+  2. **Shared roadmap alignment** between QA, Dev, and Design teams
+  3. **Stakeholder negotiation** with game production, CRC, accounts, and IT to prioritize the highest-leverage work
+  4. **Program operations** through budget management, QA testing plans, and roadmap reviews
+
+  That structure made it easier to keep delivery predictable while balancing player impact against internal stakeholder priorities.
+outcome: |
+  Established a coordinated Help program roadmap with clearer ownership and prioritization across the player support surface.
+
+  The program improved:
+  - alignment across player-facing support channels
+  - prioritization between competing stakeholder needs
+  - operational cohesion across QA, Dev, and Design partners
 skills:
   - Program Management
   - Roadmap Strategy

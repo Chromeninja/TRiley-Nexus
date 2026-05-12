@@ -13,42 +13,9 @@ highlights:
   - "Coordinate staffing, floor operations, and show readiness for free-to-play VR activations at conventions and pop-culture events across the United States."
   - "Support a hands-on attendee journey that includes waiver capture, game selection, VR onboarding, headset turnover, and between-session sanitation."
   - "Work across developers, hardware partners, sponsors, and event teams to keep each activation operationally consistent while adapting to venue, travel, and staffing realities."
-problem: |
-  VR Villa runs **free-to-play VR activations** that need to feel polished, welcoming, and reliable across a national event circuit.
-
-  Each show has to preserve the same production quality while adapting to:
-  - different venues and travel realities
-  - changing staffing mixes and role coverage
-  - sponsor and partner expectations
-  - hardware footprint and readiness constraints
-  - wide variations in audience familiarity, including many first-time VR players
-
-  The challenge is not just running a booth. It is turning a moving set of operational variables into an experience that still feels organized and accessible every time.
-approach: |
-  I built repeatable live event operations around the core production systems that matter most on show days:
-  - staffing plans and role assignments
-  - run-of-show coordination
-  - pre-show readiness and asset checks
-  - attendee flow, onboarding, and offboarding
-  - headset turnover and sanitation practices
-
-  The model supports VR Villa's community-first format by aligning **developers, hardware partners, sponsors, event organizers, and on-site staff** around one consistent attendee journey.
-
-  On site, that journey typically includes:
-  1. waiver completion
-  2. curated game selection
-  3. VR onboarding and coaching
-  4. session turnover with clear reset and sanitation steps
-
-  That structure keeps the experience scalable, whether the activation is a smaller local show or a major multi-day convention.
-outcome: |
-  Helped strengthen a national operating model that now supports **60+ events across the United States** and contributes to VR Villa's broader footprint of **55k+ players, 77k+ game sessions, and 50+ VR studios**.
-
-  The result is a more dependable event program that:
-  - gives players a welcoming first experience with VR
-  - creates consistent community touchpoints across recurring events
-  - supports partner value for developers, sponsors, and organizers
-  - keeps touring production practical without losing the mission
+problem: "VR Villa operates free-to-play VR activations that have to feel polished, welcoming, and reliable across a national event circuit. Each show demands the same production quality while adapting to different venues, staffing mixes, sponsor needs, equipment footprints, and audience experience levels, including a large share of players who are brand new to VR."
+approach: "Built repeatable live event operations around staffing plans, role coverage, run-of-show coordination, asset readiness, and attendee throughput. The model supports VR Villa's community-first format by aligning developers, hardware partners, and event organizers; guiding players through waiver collection, game selection, onboarding, offboarding, and sanitation; and preserving a free-to-play experience that can scale from local conventions to major multi-day events nationwide."
+outcome: "Helped strengthen a national operating model for VR Villa activations that supports more than 60 events across the United States and reinforces the organization's broader footprint of 55k+ players, 77k+ game sessions, 50+ VR studios, and 100+ events. The result is a more dependable event program that turns live shows into consistent community touchpoints for players, developers, sponsors, and event partners."
 skills:
   - Event Production
   - Convention Operations

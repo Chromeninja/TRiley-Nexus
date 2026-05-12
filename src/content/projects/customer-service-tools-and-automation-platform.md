@@ -21,8 +21,23 @@ highlights:
   - Owned CRM campaign tooling to push bulk player alerts during incidents and launches.
   - Tested and helped roll out Salesforce live chat support and known-issue automation flows.
 problem: "CS reps repeated themselves on the same handful of issues, bulk player communications were slow, and Ubisoft was missing the automation surface a modern CS org needed."
-approach: "Built the automation pieces directly: canned responses and auto-complete for high-frequency tickets, CRM campaign tooling for bulk alerts, SharePoint workspaces for cross-team coordination, and Salesforce mass-edit flows. Helped test and roll out live chat support and automation for known issues."
-outcome: "A working CS automation layer, allowing for faster handle times on known issues, working bulk-alert capability for incidents, and live chat support deployed to the floor as a new channel."
+approach: |
+  I built the automation pieces directly so the CS team could stop burning time on repetitive work and slow manual communication.
+
+  The platform included:
+  - **canned responses and auto-complete** for high-frequency ticket types
+  - **CRM campaign tooling** for bulk player alerts during incidents and launches
+  - **SharePoint workspaces** for cross-team coordination
+  - **Salesforce mass-edit flows** for faster operational handling
+  - **live chat and known-issue automation rollout support** during testing and launch
+
+  The value was in assembling a practical working layer of support automation instead of one isolated tool.
+outcome: |
+  The CS organization gained:
+  - a working automation layer for recurring support tasks
+  - faster handle times on known issues
+  - usable bulk-alert capability for incidents
+  - live chat deployed to the floor as a new channel
 skills:
   - Automation Design
   - Salesforce Configuration

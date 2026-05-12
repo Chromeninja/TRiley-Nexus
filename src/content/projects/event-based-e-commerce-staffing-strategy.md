@@ -22,8 +22,22 @@ highlights:
   - Built and validated prediction models used to determine when to scale employee headcount up or down.
   - Worked with training teams to design 2-3 week ramp plans that prepared new hires for recurring demand windows without materially impacting attrition.
 problem: "Game launches, major sales, game announcements, and other promotional windows created sharp swings in support volume, but over-hiring hurt efficiency and under-hiring damaged service levels. Ubisoft needed a more reliable way to forecast demand and scale staffing without burning out teams or increasing churn."
-approach: "Partnered with CRC staffing teams and finance to model expected ticket demand using launch calendars, sales events, announcement schedules, seasonal trends, and prior support volume patterns. Validated those forecasts against real operational outcomes, then worked with training teams to map short-form 2-3 week onboarding plans that could prepare new hires in time for recurring demand windows while protecting retention."
-outcome: "Created a repeatable staffing and training model for high-demand periods across launches, sales, and major announcements, giving Ubisoft a more confident way to scale support coverage, validate hiring needs, and prepare employees quickly without significantly increasing attrition risk."
+approach: |
+  I partnered with CRC staffing teams and finance to turn demand spikes into a more repeatable workforce-planning model.
+
+  The work followed three steps:
+  1. **Forecast demand** using launch calendars, sales events, announcement schedules, seasonal patterns, and prior ticket volume data
+  2. **Validate the model** against real operational outcomes so hiring assumptions could be adjusted with actual results
+  3. **Align training readiness** with short-form 2-3 week onboarding plans timed around recurring demand windows
+
+  That combination made staffing decisions less reactive and gave the business a clearer way to scale support without over-hiring.
+outcome: |
+  Created a repeatable staffing and training model for launches, sales, and major announcement periods.
+
+  The model gave Ubisoft:
+  - more confidence in staffing and hiring decisions
+  - a clearer path for scaling coverage during demand spikes
+  - faster employee readiness without materially increasing attrition risk
 skills:
   - Workforce Planning
   - Demand Forecasting

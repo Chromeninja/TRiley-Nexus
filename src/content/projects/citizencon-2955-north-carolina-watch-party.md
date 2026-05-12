@@ -15,8 +15,32 @@ highlights:
   - "Sold out the event and used Eventbrite plus Discord to manage tickets, communication, and attendance planning."
   - "Coordinated with Cloud Imperium Games, local content creators, and local businesses to secure giveaway support and create a more engaging event experience."
 problem: "A digital-first CitizenCon still needed a strong in-person community experience. To make that work locally, the event had to be affordable, clearly organized, engaging for attendees, and supported by reliable venue, ticketing, travel, and follow-up meetup logistics."
-approach: "Built the event around a four-hour private theater rental at Alamo Drafthouse so the community could watch CitizenCon 2955 together on a large screen and spend time socializing before and after the presentation. Negotiated a reduced venue rate, collected community donations to offset event costs, and managed ticket sales and attendee communication through Eventbrite with Discord as the primary community hub. Coordinated directly with Cloud Imperium Games to secure giveaway items, partnered with local content creators and businesses for additional prizes, arranged a bar meetup for post-show discussion after the two-hour presentation, and helped visiting attendees identify hotel options for their stay."
-outcome: "Delivered a sold-out North Carolina CitizenCon watch party that gave local and visiting community members a more memorable shared experience than streaming from home. The event combined structured ticketing, affordable venue planning, sponsor-supported giveaways, and a follow-on social meetup to strengthen community ties and show that local Bar Citizen events could scale into more ambitious destination-style gatherings."
+approach: |
+  I built the event around a **four-hour private theater rental at Alamo Drafthouse** so the community could watch CitizenCon together and spend time socializing before and after the presentation.
+
+  The execution plan broke into four phases:
+  1. **Venue and cost model**
+    - negotiated a reduced rate with Alamo Drafthouse
+    - collected community donations to offset event costs
+  2. **Ticketing and communications**
+    - managed ticket sales through Eventbrite
+    - used Discord as the primary hub for attendee updates and planning
+  3. **Giveaways and community support**
+    - coordinated with Cloud Imperium Games for giveaway items
+    - partnered with local creators and businesses for additional prizes
+  4. **Extended community experience**
+    - organized a post-show bar meetup
+    - helped visiting attendees identify hotel options for their stay
+
+  The goal was to make the event feel affordable, organized, and worth attending in person rather than just watching from home.
+outcome: |
+  Delivered a **sold-out** North Carolina CitizenCon watch party that gave local and visiting community members a more memorable shared experience than streaming from home.
+
+  What improved the experience:
+  - structured ticketing and clearer attendee communications
+  - affordable venue planning supported by donations and ticket sales
+  - sponsor-backed giveaways that made the event feel more special
+  - a follow-on social meetup that strengthened community ties
 skills:
   - Event Production
   - Venue Negotiation

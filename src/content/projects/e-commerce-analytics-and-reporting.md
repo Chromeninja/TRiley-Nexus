@@ -21,8 +21,20 @@ highlights:
   - Built MicroStrategy, Tableau, and Demandware reports to expose customer journey patterns and trending issues.
   - Used dashboards to identify queue issues, surface emerging support trends, and target operational improvements.
 problem: "CS leadership needed visibility into trending issues, queue health, and customer journey patterns across worldwide operations, but reporting was fragmented across tools and not tailored to the e-commerce CS workflows."
-approach: "Built role-targeted dashboards in Salesforce for the CS team and adapted them for worldwide use. Layered MicroStrategy, Tableau, and Demandware reporting on top to expose customer journey behavior and operational metrics. Iterated on report design with the teams actually consuming them."
-outcome: "Worldwide CS teams consuming a consistent set of dashboards, faster identification of trending issues and queue problems, and a data layer that informed staffing, escalation prioritization, and process improvements."
+approach: |
+  I built the analytics layer around the people who needed to make operational decisions, not just around the tools holding the data.
+
+  The reporting stack developed in three layers:
+  1. **Salesforce dashboards** for role-specific CS team visibility
+  2. **MicroStrategy, Tableau, and Demandware reporting** to expose customer journey behavior and operational metrics across systems
+  3. **Design iteration with end users** so reports reflected what managers and teams actually needed in practice
+
+  That approach made reporting more actionable and easier to use across worldwide operations.
+outcome: |
+  The analytics layer gave Ubisoft:
+  - a more consistent dashboard set across worldwide CS teams
+  - faster identification of trending issues and queue problems
+  - a better data foundation for staffing, escalation prioritization, and process improvements
 skills:
   - Dashboard Design
   - Data Analytics

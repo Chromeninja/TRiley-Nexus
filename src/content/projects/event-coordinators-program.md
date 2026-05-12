@@ -13,8 +13,28 @@ highlights:
   - "Built event handbooks, guidelines, and policy documentation to standardize quality, safety, and execution across event leads."
   - "Sustained regular event participation with typical attendance of 30-50 members across operations, training, and custom RP formats."
 problem: "Community growth created a need for consistent, high-quality events that could scale beyond ad-hoc hosting and keep members active over time."
-approach: "Formed a dedicated Event Coordinators group of trusted members and implemented a repeatable operations model: documented planning playbooks, staffing expectations, event design standards, and post-event feedback loops. Programmed a balanced event mix including CIG-aligned coordinated operations, mining/salvage/cargo activities, combat flight and FPS training, and custom storyboard-driven RP scenarios."
-outcome: "Created a dependable event engine that increased organizational consistency, strengthened member participation, and maintained ongoing engagement through structured, varied, and globally collaborative community events."
+approach: |
+  I formed a dedicated **Event Coordinators** group of trusted members and built a repeatable operating model around how TEST plans, staffs, and improves events.
+
+  The program rests on three foundations:
+  - **planning playbooks** that define how events get scoped and prepared
+  - **staffing and delivery standards** that clarify ownership and execution expectations
+  - **post-event feedback loops** so the program keeps improving instead of repeating mistakes
+
+  From there, I programmed a balanced event mix that includes:
+  - CIG-aligned coordinated operations
+  - mining, salvage, and cargo activities
+  - combat flight and FPS training
+  - custom storyboard-driven RP scenarios
+
+  The result is a program that does not rely on one-off hosts carrying the entire community calendar alone.
+outcome: |
+  Created a dependable event engine that increased organizational consistency, strengthened participation, and maintained ongoing engagement.
+
+  The program now provides:
+  - a more reliable cadence of structured events
+  - clearer ownership across a 15+ person coordinator team
+  - more varied community experiences for members across time zones and play styles
 skills:
   - Community Program Leadership
   - Event Systems Design

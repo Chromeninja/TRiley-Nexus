@@ -20,8 +20,21 @@ highlights:
   - Built a member-friendly merch access model so community apparel could be ordered on demand with less admin overhead.
   - Coordinated with designers to develop branded esports jerseys and hoodies aligned to TEST Squadron visual identity standards.
 problem: "The org needed a low-overhead way to fund community initiatives and deliver consistent, high-quality branded merchandise without manual fulfillment complexity."
-approach: "Implemented an on-demand e-commerce model through Fourthwall, defined merchandising goals and product priorities, and partnered directly with designers to iterate jersey and hoodie concepts against brand direction. Managed review cycles, design coordination, and rollout readiness to keep product output consistent with community expectations."
-outcome: "Established a repeatable merchandising pipeline that improved member access to custom apparel, reduced operational burden compared with traditional inventory models, and created an ongoing funding stream to support community activities."
+approach: |
+  I built the merch program around an on-demand model so TEST Squadron could offer branded products without taking on the risk and overhead of traditional inventory.
+
+  The work covered three areas:
+  1. **storefront setup through Fourthwall** for low-overhead order fulfillment
+  2. **merchandising priorities and product selection** so the catalog supported both fundraising and community interest
+  3. **design iteration and rollout readiness** with designers to keep jerseys, hoodies, and other products aligned with brand direction
+
+  That made the merch operation easier to sustain and easier for members to actually use.
+outcome: |
+  The program established:
+  - a repeatable merchandising pipeline
+  - easier member access to custom apparel
+  - lower operational burden than traditional inventory models
+  - an ongoing funding stream for community activities
 skills:
   - E-Commerce Operations
   - Fundraising Program Design

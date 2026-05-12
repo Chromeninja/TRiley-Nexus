@@ -20,8 +20,20 @@ highlights:
   - Owned onboarding flow improvements informed by user research, qualitative feedback, and behavioral data.
   - Translated research findings into prioritized recommendations executive and product teams could act on.
 problem: "Customer journeys across games, websites, and ancillary products were inconsistent and lacked a unified research lens, making it hard for teams to see where players got stuck in friction or churned out of onboarding."
-approach: "Stood up and led targeted strike teams scoped to specific customer journey segments. Combined user research methods such as interviews, behavioral data, and support trends into structured journey maps. Produced action-ready improvement recommendations and partnered with product, design, and game production teams to drive follow-through."
-outcome: "A pipeline of structured customer experience reports that drove tangible onboarding and journey improvements across Ubisoft surfaces, plus a stronger research-to-product feedback loop."
+approach: |
+  I stood up and led targeted strike teams scoped to specific customer journey segments so research could produce clearer product decisions instead of just reporting.
+
+  The work followed three steps:
+  1. **Assemble cross-functional strike teams** around the journey segment being examined
+  2. **Combine research inputs** such as interviews, behavioral data, and support trends into structured journey maps
+  3. **Translate findings into action-ready recommendations** and work with product, design, and game production teams on follow-through
+
+  That structure made customer experience work more operational and easier for partner teams to act on.
+outcome: |
+  The research program created:
+  - a pipeline of structured customer experience reports
+  - tangible onboarding and journey improvements across Ubisoft surfaces
+  - a stronger research-to-product feedback loop for future decisions
 skills:
   - User Research
   - Customer Journey Mapping

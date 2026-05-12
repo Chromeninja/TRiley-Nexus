@@ -10,8 +10,25 @@ endedAt: "2013-10"
 summary: "Served in the North Carolina Army National Guard as a 12K Plumber / Engineering Specialist, contributing to motorpool construction, soldier training, trade skills development, logistics coordination, QRF readiness, and multi-vehicle operations with the 878th Engineer Company."
 cardSummary: "Army National Guard engineering role covering soldier training, motorpool construction, trades work, supply coordination, QRF team training, and vehicle qualifications."
 problem: Engineering units depend on cross-trained, mission-ready personnel who can sustain infrastructure, supply chains, and rapid response capabilities alongside ongoing field training demands.
-approach: "After completing Army basic training and 12K Advanced Individual Training, contributed to a wide range of unit operations: trained incoming soldiers, helped build out a motorpool for the 1451st Transportation Company, performed hands-on work in plumbing, electrical, and carpentry, coordinated with logistics and supply to maintain inventory and readiness, trained as part of the Quick Reaction Force (QRF) team, and received qualification training on multiple vehicle types supported by the unit."
-outcome: "Contributed to the 878th Engineer Company's operational readiness across infrastructure, logistics, and rapid response functions while building a broad skillset in trade work, team leadership, and field operations."
+approach: |
+  After Army basic training and **12K Advanced Individual Training**, I contributed across several parts of the unit's day-to-day operating model.
+
+  The role included:
+  - **training incoming soldiers** on unit procedures and field expectations
+  - **motorpool construction support** for the 1451st Transportation Company
+  - **hands-on trade work** in plumbing, electrical, and carpentry
+  - **logistics and supply coordination** to maintain inventory and readiness
+  - **Quick Reaction Force training** to support rapid-response capability
+  - **vehicle qualification training** across multiple unit-supported vehicle types
+
+  The value of the role was its breadth. It demanded technical trade work, operational discipline, and readiness across multiple mission areas instead of one narrow specialty.
+outcome: |
+  Contributed to the 878th Engineer Company's readiness across infrastructure, logistics, and rapid-response functions while building a broad field skillset.
+
+  The result was practical experience in:
+  - trade work and infrastructure support
+  - soldier development and team operations
+  - logistics coordination and field readiness
 skills:
   - Soldier Training
   - Motorpool Operations

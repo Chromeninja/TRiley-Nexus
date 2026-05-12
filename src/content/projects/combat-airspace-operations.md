@@ -19,8 +19,23 @@ highlights:
   - "Performs airspace deconfliction across simultaneous fixed-wing, rotary-wing, and UAS operations in complex joint airspace, coordinating between theater and tactical-level assets."
   - "Bridges ATC tower-level control expertise with theater-level airspace management and joint AOC workflows."
 problem: "In deployed and contingency environments, multiple air missions operate concurrently within shared, congested airspace: CAS aircraft, tankers, ISR assets, helicopters, and UAS all requiring simultaneous coordination. Without dedicated combat airspace management, the risk of fratricide, airspace conflicts, and mission degradation increases significantly. The AOC Combat Airspace function provides the command and control layer that keeps all of those assets deconflicted and mission-effective."
-approach: "Completed Combat Airspace training through the formal qualification pipeline in June 2025. The training covers theater airspace management authorities, airspace control orders (ACO), special use airspace, coordination with air defense, and the AOC workflows used to synchronize airspace across a deployed theater. Brings direct ATC expertise in tower operations, procedural separation, and airspace management fundamentals to the higher-level AOC combat airspace role."
-outcome: "Adds AOC-level airspace management capability to the 235th CAOS mission portfolio. Bridges tactical ATC knowledge with theater-level airspace coordination, enabling effective operation within a deployed Combat AOC supporting joint and coalition air operations."
+approach: |
+  I completed the formal **Combat Airspace qualification pipeline** in June 2025 to move from tower-level airspace control into theater-level AOC operations.
+
+  The training covered:
+  1. **theater airspace management authorities** and command relationships
+  2. **airspace control orders and special use airspace** within deployed environments
+  3. **coordination with air defense and other mission functions** inside the AOC
+  4. **AOC workflows** used to synchronize airspace across a deployed theater
+
+  The role also draws directly on my ATC background in procedural separation, airspace management fundamentals, and live control discipline.
+outcome: |
+  Adds **AOC-level airspace management capability** to the 235th CAOS mission portfolio.
+
+  The qualification helps bridge:
+  - tactical ATC knowledge
+  - theater-level airspace coordination
+  - joint and coalition air operations inside a deployed Combat AOC
 skills:
   - Combat Airspace Management
   - Airspace Deconfliction

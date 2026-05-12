@@ -11,6 +11,15 @@ summary: "Led and trained Honor Guard teams conducting 540+ annual funeral honor
 cardSummary: "Executed 540+ honors missions annually as team lead and trainer, coordinating statewide logistics, messaging standards, and cross-regional team operations."
 problem: "The North Carolina National Guard Honor Guard program needed reliable, scalable leadership to coordinate high-volume funeral honors operations across the entire state while maintaining strict military standards, regional messaging consistency, and seamless coordination with funeral homes and grieving families."
 approach: |
+  I led Honor Guard operations through a repeatable execution model built around training, logistics, and ceremonial consistency.
+
+  The work broke down into four core responsibilities:
+  1. **Team leadership and training** to prepare volunteer personnel for funeral honors and ceremonial missions
+  2. **Statewide logistics coordination** across travel, scheduling, and equipment movement requirements
+  3. **Standards and messaging consistency** so teams represented the Guard professionally in every region
+  4. **Family and partner coordination** with funeral homes, military families, and support organizations such as the USO
+
+  That structure made it possible to run high-volume honors missions without sacrificing discipline, respect, or operational reliability.
 outcome: "Delivered over 540 respectful and professionally executed honors ceremonies annually, establishing operational consistency across diverse teams and regions. Trained new personnel to program standards, coordinated complex multi-party logistics statewide, and reinforced public trust through disciplined ceremonial leadership and family-centered representation."
 skills:
   - Team Leadership & Training

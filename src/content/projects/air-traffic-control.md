@@ -13,8 +13,20 @@ highlights:
   - "Maintains currency and readiness across tower, ground control, and approach control environments across domestic and international mission profiles."
   - "Served through the unit's redesignation from the 235th ATCS to the 235th CAOS, reflecting an expanded combat airfield operations mission."
 problem: "Airfield operations in expeditionary environments require controllers who can establish and manage safe, efficient airspace with limited infrastructure, often at austere locations under operational pressure."
-approach: "Transferred into the 235th ATCS in April 2015 following TACP service with the 118th ASOS. Completed formal ATC Specialist training at Keesler AFB and qualified as a tower controller, then built operational experience across domestic training and international mission deployments. Maintained readiness and currency through recurring unit training, exercises, and real-world airfield operations as the squadron expanded its mission into the full Combat Airfield Operations (CAOS) role."
-outcome: "Sustained qualification as a tower controller across more than a decade of Guard service, supporting safe airfield operations in both home-station and expeditionary environments. Additional SEI certifications, including LZSO, Air Advisor, and AOC Combat Airspace, built directly on this ATC foundation."
+approach: |
+  I transferred into the 235th ATCS in April 2015 following TACP service with the 118th ASOS and built the role in stages.
+
+  The progression looked like this:
+  1. **complete formal ATC Specialist training** at Keesler AFB
+  2. **qualify as a tower controller** and build operational experience across domestic training and international missions
+  3. **maintain readiness and currency** through recurring unit training, exercises, and real-world airfield operations as the squadron expanded into the broader CAOS mission
+
+  That foundation is what the later LZSO, Air Advisor, and AOC Combat Airspace qualifications all built on.
+outcome: |
+  The ATC track has sustained:
+  - long-term qualification as a tower controller
+  - safe airfield operations support in both home-station and expeditionary environments
+  - a technical foundation for later SEI qualifications including LZSO, Air Advisor, and AOC Combat Airspace
 skills:
   - Air Traffic Control
   - Tower Operations

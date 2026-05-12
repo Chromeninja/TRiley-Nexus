@@ -20,8 +20,23 @@ highlights:
   - Implemented automation workflows with tools like MEE6 for role removals, auto-banning, ticketing, and moderation support.
   - Revamped server foundations including rules, member guides, and channel structure to improve clarity and operational consistency.
 problem: "At large community scale, inconsistent governance patterns and manual moderation workflows create policy drift, staff overhead, and slower response to member and safety issues."
-approach: "Established a governance-first Discord operations model with clearly documented rules, onboarding and guide structure, and a more intentional permission hierarchy. Combined third-party automation through MEE6 with heavy use of the custom TEST Squadron Discord bot to deliver server-specific workflows for verification, moderation operations, and community coordination."
-outcome: "Improved moderation consistency and operational reliability for a 40k-member partnered community, reduced manual administration load through automation, and created a clearer member experience through structured rules, guides, and channel design."
+approach: |
+  I established a **governance-first Discord operations model** so moderation, permissions, and member experience could stay consistent at large community scale.
+
+  The work focused on four layers:
+  - **rules and onboarding structure** to make expectations clearer for members and staff
+  - **permission hierarchy design** to reduce policy drift and inconsistent access patterns
+  - **automation workflows** through MEE6 for role removals, auto-banning, ticketing, and moderation support
+  - **custom bot workflows** through the TEST Squadron bot for verification, moderation operations, and community coordination
+
+  The goal was to replace reactive manual administration with a more intentional operating system for the server.
+outcome: |
+  Improved moderation consistency and operational reliability for a **40k-member partnered community**.
+
+  The governance model delivered:
+  - lower manual administration load through automation
+  - more consistent permission and moderation patterns
+  - a clearer member experience through structured rules, guides, and channel design
 skills:
   - Discord Governance
   - Permission Architecture

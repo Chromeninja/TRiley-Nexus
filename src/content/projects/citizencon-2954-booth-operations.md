@@ -15,8 +15,23 @@ highlights:
   - "Operated the booth for two full event days with a published volunteer shift schedule for 20+ volunteers and a live booth stream for remote community visibility, supporting more than 4,000 attendees passing through the area."
   - "Procured and distributed over $3,000 in custom merchandise and giveaways while coordinating vendor production across pens, pins, challenge coins, shirts, stickers, and koozies."
 problem: "CitizenCon demanded a fast, professional, community-first activation under tight setup timelines, distributed volunteers, and strict organizer standards, while still delivering meaningful engagement for both in-person and remote members."
-approach: "Planned and executed a full event operations model before arrival and on site: coordinated with Cloud Imperium Games staff for compliance, aligned meetup timing with Bar Citizen International and TEST community events, managed volunteer schedules across 20+ booth volunteers, sourced build materials, organized local logistics support, and ran both external manufacturers and in-house merch contributors shipping to a single transport point before travel."
-outcome: "Delivered a high-visibility TEST Squadron presence at CitizenCon 2954 with reliable booth operations, strong attendee engagement, and community goodwill through coordinated meetups, livestream access, and large-scale merchandise giveaways funded in part by a managed donation campaign."
+approach: |
+  I planned and executed a full booth operations model before arrival and on site so TEST Squadron could show up prepared instead of improvising under event pressure.
+
+  The work centered on four areas:
+  1. **Organizer and event alignment** with Cloud Imperium Games staff, Bar Citizen International, and related TEST events
+  2. **Volunteer operations** across schedules, coverage, and coordination for 20+ booth volunteers
+  3. **Buildout and logistics** including materials sourcing, local support, and transport planning
+  4. **Merchandise production management** across external vendors and internal contributors shipping to one transport point before travel
+
+  That preparation made the booth easier to operate once the event started and reduced avoidable execution risk.
+outcome: |
+  Delivered a high-visibility TEST Squadron presence at CitizenCon 2954 with reliable booth operations, strong attendee engagement, and visible community goodwill.
+
+  The event outcome included:
+  - coordinated meetups and booth operations that held together under heavy traffic
+  - livestream access for remote community members
+  - large-scale merchandise giveaways supported in part by a managed donation campaign
 skills:
   - Event Operations Leadership
   - Convention Booth Buildout

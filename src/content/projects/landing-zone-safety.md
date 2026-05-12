@@ -13,8 +13,26 @@ highlights:
   - "Manages landing zone operations for rotary-wing and fixed-wing aircraft, coordinating with aircrews and ground forces to ensure safe sequencing, obstacle clearance, and surface conditions."
   - "Applies ATC and airfield operations expertise to assess and mitigate hazards in non-standard field environments."
 problem: "Expeditionary and contingency missions frequently require aircraft to operate from unprepared surfaces and improvised landing areas. Without a qualified LZSO on the ground, aircrews lack the surface condition data, obstacle clearance information, and safety coordination required for safe operations at non-standard locations."
-approach: "Built on an ATC and airfield operations foundation to earn LZSO certification, adding the ground-side expertise needed to assess terrain, surface conditions, obstacles, and approach/departure corridors for rotary-wing and fixed-wing aircraft. Applies a systematic suitability assessment process by evaluating slope gradients, surface load-bearing capacity, debris hazards, and airspace conflicts before declaring a landing zone safe for operations. Coordinates landing zone activation, manages traffic flow, and maintains communication with aircrews throughout mission execution."
-outcome: Provides the 235th CAOS with organic LZSO capability to support expeditionary and contingency missions in locations where established ATC infrastructure is unavailable. Enables safe aircraft operations in austere environments across domestic and international mission profiles.
+approach: |
+  I built on an ATC and airfield operations foundation to earn **Landing Zone Safety Officer** certification and add the ground-side assessment capability needed for expeditionary operations.
+
+  The work follows a repeatable sequence:
+  1. **Assess the landing area** by reviewing terrain, surface conditions, obstacles, and approach or departure corridors
+  2. **Run suitability checks** across:
+     - slope gradients
+     - surface load-bearing capacity
+     - debris and obstacle hazards
+     - nearby airspace conflicts
+  3. **Activate and control the zone** by coordinating traffic flow, sequencing, and communications with aircrews during execution
+
+  That process turns improvised or unprepared locations into safer operating environments for rotary-wing and fixed-wing aircraft.
+outcome: |
+  Provides the 235th CAOS with organic **LZSO capability** for expeditionary and contingency missions where established ATC infrastructure is unavailable.
+
+  The result is:
+  - safer aircraft operations in austere environments
+  - better ground-side hazard identification before mission execution
+  - stronger support for domestic and international contingency profiles
 skills:
   - Landing Zone Safety
   - Airfield Suitability Assessment

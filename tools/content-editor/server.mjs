@@ -1262,12 +1262,12 @@ function renderFrontmatterPreview(rawFm) {
     }
 
     if (companyProfile.summary) {
-      parts.push(`<p class="fm-summary">${escapeHtml(String(companyProfile.summary))}</p>`);
+      parts.push(`<div class="fm-summary">${renderRichTextPreview(companyProfile.summary)}</div>`);
     }
 
     for (const [label, field] of [["Company Info", "companyInfo"], ["My Time Info", "myTimeInfo"], ["Role Summary", "roleSummary"], ["Long Summary", "longSummary"]]) {
       if (companyProfile[field]) {
-        parts.push(`<div class="fm-section"><strong>${label}</strong><p>${escapeHtml(String(companyProfile[field]))}</p></div>`);
+        parts.push(`<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(companyProfile[field])}</div></div>`);
       }
     }
 
@@ -1310,24 +1310,24 @@ function renderFrontmatterPreview(rawFm) {
   // Primary summary
   const summaryText = fm.summary || fm.cardSummary || fm.longSummary;
   if (summaryText) {
-    parts.push(`<p class="fm-summary">${escapeHtml(String(summaryText))}</p>`);
+    parts.push(`<div class="fm-summary">${renderRichTextPreview(summaryText)}</div>`);
   }
 
   // About: metaDescription as summary if no other summary
   if (!summaryText && fm.metaDescription) {
-    parts.push(`<p class="fm-summary">${escapeHtml(String(fm.metaDescription))}</p>`);
+    parts.push(`<div class="fm-summary">${renderRichTextPreview(fm.metaDescription)}</div>`);
   }
 
   // About: backgroundParagraphs
   if (Array.isArray(fm.backgroundParagraphs) && fm.backgroundParagraphs.length) {
-    parts.push(`<div class="fm-section"><strong>Background</strong>${fm.backgroundParagraphs.map((p) => `<p>${escapeHtml(String(typeof p === "string" ? p : JSON.stringify(p)))}</p>`).join("")}</div>`);
+    parts.push(`<div class="fm-section"><strong>Background</strong>${fm.backgroundParagraphs.map((p) => `<div class="fm-richtext">${renderRichTextPreview(typeof p === "string" ? p : JSON.stringify(p))}</div>`).join("")}</div>`);
   }
 
   // About: thinkItems (array of {title, text})
   if (Array.isArray(fm.thinkItems) && fm.thinkItems.length) {
     const rows = fm.thinkItems
       .filter((item) => typeof item === "object" && item.title)
-      .map((item) => `<div class="fm-think-item"><strong>${escapeHtml(String(item.title))}</strong><p>${escapeHtml(String(item.text ?? ""))}</p></div>`)
+      .map((item) => `<div class="fm-think-item"><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.text ?? "")}</div></div>`)
       .join("");
     if (rows) parts.push(`<div class="fm-section"><strong>How I Think</strong>${rows}</div>`);
   }
@@ -1336,7 +1336,7 @@ function renderFrontmatterPreview(rawFm) {
   if (Array.isArray(fm.personalItems) && fm.personalItems.length) {
     const rows = fm.personalItems
       .filter((item) => typeof item === "object" && item.title)
-      .map((item) => `<div class="fm-personal-item"><span class="fm-personal-icon">${escapeHtml(String(item.icon ?? ""))}</span><div><strong>${escapeHtml(String(item.title))}</strong><p>${escapeHtml(String(item.body ?? ""))}</p></div></div>`)
+      .map((item) => `<div class="fm-personal-item"><span class="fm-personal-icon">${escapeHtml(String(item.icon ?? ""))}</span><div><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.body ?? "")}</div></div></div>`)
       .join("");
     if (rows) parts.push(`<div class="fm-section"><strong>Personal</strong>${rows}</div>`);
   }
@@ -1351,7 +1351,7 @@ function renderFrontmatterPreview(rawFm) {
   for (const field of ["problem", "approach", "outcome"]) {
     if (fm[field]) {
       const label = { problem: "Problem", approach: "Approach", outcome: "Outcome" }[field];
-      parts.push(`<div class="fm-section"><strong>${label}</strong><p>${escapeHtml(String(fm[field]))}</p></div>`);
+      parts.push(`<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(fm[field])}</div></div>`);
     }
   }
 
@@ -1772,6 +1772,8 @@ function toSlug(value) {
 
 const SAFE_HREF_RE = /^(https?:\/\/|mailto:|\/)./i;
 
+const PREVIEW_LIST_ITEM_PATTERN = /^(\s*)([-*•]|\d+\.)\s+(.+)$/;
+
 function applyInlineMarkdown(text) {
   return text
     .replace(/`([^`]+)`/g, "<code>$1</code>")
@@ -1781,6 +1783,128 @@ function applyInlineMarkdown(text) {
       const safeHref = SAFE_HREF_RE.test(href) ? escapeHtml(href) : "#";
       return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${label}</a>`;
     });
+}
+
+function formatPreviewInline(text) {
+  return applyInlineMarkdown(escapeHtml(String(text ?? "")));
+}
+
+function renderPreviewNodes(nodes) {
+  return nodes
+    .map((node) => {
+      if (node.type === "paragraph") {
+        return `<p>${formatPreviewInline(node.text)}</p>`;
+      }
+
+      return `<${node.listType}>${node.items
+        .map((item) => `<li>${formatPreviewInline(item.text)}${renderPreviewNodes(item.children)}</li>`)
+        .join("")}</${node.listType}>`;
+    })
+    .join("");
+}
+
+function renderRichTextPreview(value) {
+  if (!value) return "";
+
+  const lines = String(value).replace(/\r\n/g, "\n").trim().split("\n");
+  const nodes = [];
+  const listStack = [];
+  let paragraph = [];
+
+  const flushParagraph = () => {
+    if (paragraph.length === 0) return;
+    nodes.push({ type: "paragraph", text: paragraph.join(" ") });
+    paragraph = [];
+  };
+
+  const appendParagraphToCurrentListItem = (text) => {
+    const currentList = listStack[listStack.length - 1];
+    const currentItem = currentList?.items?.[currentList.items.length - 1];
+    if (!currentItem) {
+      nodes.push({ type: "paragraph", text });
+      return;
+    }
+
+    const lastChild = currentItem.children[currentItem.children.length - 1];
+    if (lastChild?.type === "paragraph") {
+      lastChild.text = `${lastChild.text} ${text}`;
+      return;
+    }
+
+    currentItem.children.push({ type: "paragraph", text });
+  };
+
+  const closeListFrame = () => {
+    const frame = listStack.pop();
+    if (!frame) return;
+
+    const listNode = { type: "list", listType: frame.listType, items: frame.items };
+    const parent = listStack[listStack.length - 1];
+    if (parent) {
+      parent.items[parent.items.length - 1].children.push(listNode);
+      return;
+    }
+
+    nodes.push(listNode);
+  };
+
+  const closeListsToIndent = (indent) => {
+    while (listStack.length > 0 && listStack[listStack.length - 1].indent > indent) {
+      closeListFrame();
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trimEnd();
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      closeListsToIndent(-1);
+      continue;
+    }
+
+    const listMatch = line.match(PREVIEW_LIST_ITEM_PATTERN);
+    if (!listMatch) {
+      if (listStack.length > 0) {
+        appendParagraphToCurrentListItem(trimmed);
+        continue;
+      }
+
+      closeListsToIndent(-1);
+      paragraph.push(trimmed);
+      continue;
+    }
+
+    flushParagraph();
+
+    const indent = listMatch[1].replaceAll("\t", "  ").length;
+    const listType = /\d+\./.test(listMatch[2]) ? "ol" : "ul";
+    const content = listMatch[3];
+
+    closeListsToIndent(indent);
+
+    const current = listStack[listStack.length - 1];
+    if (!current || indent > current.indent) {
+      listStack.push({ listType, indent, items: [{ text: content, children: [] }] });
+      continue;
+    }
+
+    if (current.listType !== listType) {
+      closeListFrame();
+      listStack.push({ listType, indent, items: [{ text: content, children: [] }] });
+      continue;
+    }
+
+    current.items.push({ text: content, children: [] });
+  }
+
+  flushParagraph();
+  while (listStack.length > 0) {
+    closeListFrame();
+  }
+
+  return renderPreviewNodes(nodes);
 }
 
 function escapeHtml(text) {

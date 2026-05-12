@@ -20,8 +20,20 @@ highlights:
   - Reduced overall e-commerce customer support tickets by more than 30%.
   - Coordinated a multi-month delivery across dev, design, and business stakeholders.
 problem: "Manual refund handling drove high CS ticket volume, slow response times, and inconsistent player outcomes. Every refund needing human review created a bottleneck and a poor player experience."
-approach: "Worked with dev, design, and business teams to define rules-based refund eligibility, then built the automation against the Tecsys order management system so qualifying refunds could be processed without agent intervention. Iterated on edge cases and exception handling over a multi-month build."
-outcome: "30%+ reduction in overall e-commerce CS tickets, faster refund turnaround for players who met the criteria, and freed-up agent capacity for higher-complexity issues."
+approach: |
+  I worked with dev, design, and business teams to turn a manual refund bottleneck into a rules-based automation flow inside Tecsys.
+
+  The delivery centered on three steps:
+  1. **Define refund eligibility rules** so qualifying cases could be separated from exceptions
+  2. **Build the automation flow** against the Tecsys order management system so eligible refunds could process without agent intervention
+  3. **Iterate on edge cases** over a multi-month build so exception handling stayed practical and safe
+
+  The goal was to reduce ticket volume without creating a brittle rules engine that broke on real customer scenarios.
+outcome: |
+  The automated flow delivered:
+  - a **30%+ reduction** in overall e-commerce CS tickets
+  - faster refund turnaround for players who met the criteria
+  - more agent capacity available for higher-complexity issues
 skills:
   - Process Engineering
   - Automation Design

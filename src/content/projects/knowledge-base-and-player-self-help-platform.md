@@ -20,8 +20,20 @@ highlights:
   - Drove adoption of the KB across frontline reps as the canonical knowledge source.
   - Authored and edited KB articles and FAQs to reduce repeat questions and shorten resolution time.
 problem: "Frontline reps and players needed the same answers from different angles, but knowledge was inconsistent, duplicated, or missing, driving repeat questions and longer ticket handle times."
-approach: "Worked from the frontline floor inward, identifying high-volume questions and structural gaps in the KB. Wrote and edited articles for both internal CS and public FAQ use, and pushed adoption across the rep team so the KB became the actual first stop for answers."
-outcome: "A more useful KB used as a real working tool by CS reps and as a self-help surface for players, reducing repeat questions and improving handle time on common issues."
+approach: |
+  I worked from the frontline floor inward so the KB reflected the questions reps and players were actually asking instead of what looked complete on paper.
+
+  The work focused on three areas:
+  - **identify high-volume questions and structural gaps** in the KB
+  - **write and edit articles** for both internal CS use and public-facing FAQ use
+  - **drive rep adoption** so the KB became the real first stop for answers rather than a side reference
+
+  The goal was to make the KB operationally useful, not just technically available.
+outcome: |
+  The KB became:
+  - a more useful working tool for CS reps
+  - a stronger self-help surface for players
+  - a contributor to lower repeat-question volume and better handle time on common issues
 skills:
   - Knowledge Base Authoring
   - Content Operations

@@ -14,8 +14,24 @@ highlights:
   - "Supported a full day of presentations, activities, and fan-focused programming for the Star Citizen community."
   - "Supported developer relations for Cloud Imperium Games guests and special attendees, helping coordinate communication, expectations, and on-site needs."
 problem: "Star Citizen's community spans players, creators, organizations, and developers across the world. Creating a meaningful in-person gathering required careful coordination between fan organizers, venue staff, sponsors, special guests, Cloud Imperium Games developers, Bar Citizen organizers, and more than 200 attendees while maintaining a polished attendee experience."
-approach: "Served as a Co-Producer for Quantum Vegas 2955, supporting planning and execution across developer relations, sponsor coordination, venue communication, Bar Citizen meetup coordination, and on-site operations. Helped bridge communication between organizers, guests, AREA15, Bar Citizen International, and other stakeholders while assisting with logistics, scheduling needs, attendee flow, programming support, and real-time coordination during the event."
-outcome: "Helped deliver a successful fan-run Star Citizen convention in Las Vegas that brought over 200 community members together with content creators, special guests, and several Cloud Imperium Games developers. Contributed to a full day of presentations and fan activities, supported a related Bar Citizen International meetup at AREA15 the day before, and helped create a smoother, more professional event environment for attendees, partners, and invited guests."
+approach: |
+  I served as a **Co-Producer** across the planning and execution work needed to make Quantum Vegas 2955 feel organized, credible, and guest-ready.
+
+  The role spanned five core workstreams:
+  1. **Developer relations** for Cloud Imperium Games guests and special attendees
+  2. **Sponsor coordination** to align partner expectations with event logistics
+  3. **Venue communication** with AREA15 around timing, infrastructure, and support needs
+  4. **Bar Citizen meetup coordination** for the related community event tied to the convention weekend
+  5. **On-site operations** covering logistics, attendee flow, scheduling support, and real-time issue handling
+
+  A large part of the value was acting as connective tissue between organizers, guests, venue staff, Bar Citizen International, and the broader event ecosystem.
+outcome: |
+  Helped deliver a successful fan-run Star Citizen convention in Las Vegas that brought **200+ community members** together with content creators, special guests, and several Cloud Imperium Games developers.
+
+  The event outcome included:
+  - a full day of presentations and community programming
+  - a connected Bar Citizen International meetup at AREA15 the day before
+  - a smoother, more professional event experience for attendees, partners, and invited guests
 skills:
   - Event Production
   - Developer Relations

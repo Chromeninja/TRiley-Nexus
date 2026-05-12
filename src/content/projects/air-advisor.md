@@ -20,8 +20,20 @@ highlights:
   - "Applies ATC and airfield operations expertise to train partner nation forces on tower operations, airspace management, and expeditionary airfield procedures."
   - Supports U.S. security cooperation and foreign internal defense objectives through aviation capacity building.
 problem: "Partner nation air forces often require development of institutional knowledge, operational procedures, and technical expertise across aviation disciplines. Building that capacity requires advisors who can operate credibly within partner organizations, understand cultural and procedural differences, and transfer real operational knowledge, not just classroom instruction."
-approach: "Completed Air Advisor qualification training through the formal USAF Air Advisor program in November 2024. The training covers advising methodology, cultural awareness, partner nation engagement, and the skills needed to embed with foreign counterparts and build genuine operational capability. Brings direct ATC, airfield operations, and landing zone expertise to the advisor role, enabling credible technical training in those specific disciplines rather than generalist advising."
-outcome: "Adds Air Advisor capability to the 235th CAOS mission portfolio, supporting potential security cooperation and partner nation capacity-building deployments. Extends the value of ATC and airfield operations expertise beyond U.S. airfields to partner nation aviation development."
+approach: |
+  I completed Air Advisor qualification through the formal USAF Air Advisor program in November 2024 to add advising capability on top of my operational airfield background.
+
+  The training covered:
+  1. **advising methodology** for building genuine partner capability instead of just delivering classroom instruction
+  2. **cultural awareness and partner engagement** needed to work credibly inside foreign organizations
+  3. **technical application** of my ATC, airfield operations, and landing zone experience in advisor settings
+
+  That combination makes the role useful as a technical advisor, not just a generalist representative.
+outcome: |
+  The qualification adds:
+  - Air Advisor capability to the 235th CAOS mission portfolio
+  - support for future security cooperation and partner nation capacity-building deployments
+  - a way to extend ATC and airfield operations expertise beyond U.S. airfields into partner nation aviation development
 skills:
   - Air Advisor
   - Partner Nation Capacity Building

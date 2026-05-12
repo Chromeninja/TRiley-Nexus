@@ -20,8 +20,23 @@ highlights:
   - Owned support-side migration planning across order processing, refund flows, and CS escalation paths.
   - "Coordinated test coverage across order types: game keys, direct entitlements, and physical merch."
 problem: "Mercury couldn't keep up with the integrated needs of digital key delivery, direct game entitlement, and physical merch fulfillment as Ubisoft's commerce footprint grew, and migrating order management without disrupting CS workflows was non-trivial."
-approach: "Partnered with Tecsys' dev teams to extend their cloud solution for Ubisoft's specific order types, mapped legacy Mercury workflows to the new Tecsys flows, and tested CS-impacting paths end-to-end before cutover. Coordinated cross-functionally across e-commerce dev, business, and CS to manage the transition."
-outcome: "Successful migration to Tecsys Order Dynamics with order management capable of handling key delivery, direct game entitlement, and physical merch. That established the platform foundation that the automated refund flow later sat on top of."
+approach: |
+  I led the support-side migration effort by turning a risky platform cutover into a more structured transition plan.
+
+  The approach broke into four workstreams:
+  1. **Vendor partnership** with Tecsys development teams to extend the cloud solution for Ubisoft's order types
+  2. **Legacy workflow mapping** from Mercury into the new Tecsys order flows
+  3. **End-to-end test coverage** for CS-impacting paths before cutover
+  4. **Cross-functional transition management** across e-commerce development, business stakeholders, and customer support
+
+  The goal was to migrate without breaking the order types and support workflows players depended on.
+outcome: |
+  Successfully migrated order management to **Tecsys Order Dynamics** with support for:
+  - digital key delivery
+  - direct game entitlement
+  - physical merchandise fulfillment
+
+  The migration also established the platform foundation that the automated refund flow later built on top of.
 skills:
   - Platform Migration Strategy
   - Vendor Coordination
