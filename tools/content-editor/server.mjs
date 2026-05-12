@@ -1570,7 +1570,7 @@ async function deletePublicAsset(publicPath) {
     stat = await fs.stat(resolved.absolutePath);
   } catch (error) {
     if (error?.code === "ENOENT") {
-      throw new Error("Media file not found.");
+        throw new Error("Media file not found.", { cause: error });
     }
     throw error;
   }
