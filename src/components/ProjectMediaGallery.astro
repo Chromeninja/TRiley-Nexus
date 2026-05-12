@@ -101,15 +101,6 @@ const orderedMedia =
               →
             </button>
           </div>
-
-          <div class="project-gallery__progress" aria-hidden="true">
-            {orderedMedia.map((_, index) => (
-              <span
-                class={`project-gallery__progress-segment ${index === 0 ? "is-active" : ""}`}
-                data-gallery-progress
-              />
-            ))}
-          </div>
         </div>
       )}
     </section>
@@ -129,9 +120,6 @@ const orderedMedia =
     );
     const prevBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-prev]");
     const nextBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
-    const progressSegments = Array.from(
-      gallery.querySelectorAll<HTMLElement>("[data-gallery-progress]"),
-    );
 
     if (!viewport || slides.length <= 1) {
       return;
@@ -141,6 +129,11 @@ const orderedMedia =
     let scrollFrame = 0;
     let autoAdvanceId: number | undefined;
     let isPaused = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const MIN_SWIPE_DISTANCE = 40;
+    const MAX_VERTICAL_DRIFT = 80;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -183,10 +176,6 @@ const orderedMedia =
         const isActive = dotIndex === currentIndex;
         dot.classList.toggle("is-active", isActive);
         dot.setAttribute("aria-pressed", isActive ? "true" : "false");
-      });
-
-      progressSegments.forEach((segment, segmentIndex) => {
-        segment.classList.toggle("is-active", segmentIndex === currentIndex);
       });
 
       syncActiveVideo();
@@ -257,6 +246,56 @@ const orderedMedia =
       scrollFrame = window.requestAnimationFrame(syncIndexFromScroll);
     });
 
+    viewport.addEventListener(
+      "touchstart",
+      (event: TouchEvent) => {
+        const touch = event.changedTouches[0];
+        if (!touch) {
+          return;
+        }
+
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        isPaused = true;
+        clearAutoAdvance();
+      },
+      { passive: true },
+    );
+
+    viewport.addEventListener(
+      "touchend",
+      (event: TouchEvent) => {
+        const touch = event.changedTouches[0];
+        if (!touch) {
+          return;
+        }
+
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const horizontalDistance = Math.abs(deltaX);
+        const verticalDistance = Math.abs(deltaY);
+
+        isPaused = false;
+
+        if (
+          horizontalDistance >= MIN_SWIPE_DISTANCE &&
+          verticalDistance <= MAX_VERTICAL_DRIFT &&
+          horizontalDistance > verticalDistance
+        ) {
+          if (deltaX < 0) {
+            scrollToIndex((currentIndex + 1) % slides.length);
+            return;
+          }
+
+          scrollToIndex((currentIndex - 1 + slides.length) % slides.length);
+          return;
+        }
+
+        startAutoAdvance();
+      },
+      { passive: true },
+    );
+
     gallery.addEventListener("keydown", (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft") {
         event.preventDefault();
@@ -323,7 +362,8 @@ const orderedMedia =
     box-shadow: var(--shadow-card);
     scrollbar-width: none;
     -ms-overflow-style: none;
-    touch-action: pan-y;
+    touch-action: pan-x pan-y pinch-zoom;
+    overscroll-behavior-x: contain;
   }
 
   .project-gallery__viewport::-webkit-scrollbar {
@@ -414,24 +454,6 @@ const orderedMedia =
     border-color: var(--color-accent);
     background: var(--color-accent);
     transform: scale(1.15);
-  }
-
-  .project-gallery__progress {
-    display: flex;
-    gap: var(--space-xs);
-    width: 100%;
-  }
-
-  .project-gallery__progress-segment {
-    flex: 1 1 0;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--color-accent-dim);
-    transition: background var(--transition-fast);
-  }
-
-  .project-gallery__progress-segment.is-active {
-    background: var(--color-accent);
   }
 
   .sr-only {

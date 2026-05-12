@@ -6,43 +6,73 @@ organization: VR Villa
 roleTitle: Event Operations Manager / Producer / Product Lead
 timeframe: "2024 - Present"
 startedAt: "2024-01"
-summary: "Led VR Villa's event operations program across scheduling, staffing, payout operations, and live community event delivery. Also built Event Ops Manager, an internal automation platform for attendee check-in, workflow coordination, and real-time event-day visibility."
-cardSummary: "Led VR Villa event operations with repeatable systems for staffing, scheduling, payouts, and event delivery — including building Event Ops Manager to automate check-in and coordination at scale."
+summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used to run live VR event operations. Designed it as an offline-first platform for attendee check-in, digital waivers, live player information, and staff-facing operations management. Led the product from architecture through production use, building the system to reduce staff overhead, improve event-day visibility, and create a smoother attendee experience."
+cardSummary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow with an offline-first platform for check-in, waivers, live player information, and staff operations management."
 highlights:
-  - "Managed end-to-end event delivery including staff scheduling, pay tracking, and event-day coordination."
-  - "Built Event Ops Manager, an internal automation platform replacing manual check-in and fragmented coordination workflows."
-  - "Scaled 2025 operations to 16,297 players, 21,151 sessions, and 12,378 gameplay hours across recurring events."
-problem: "As event volume grew, running multiple VR events required both stronger management systems for schedules, staffing, and payouts, and better tooling to handle attendee check-in and real-time event-day coordination without manual overhead."
-approach: "Centralized event operations under a single program model with structured workflows and performance tracking. In parallel, designed and built Event Ops Manager — an automation-first internal platform with structured check-in flows, operator dashboards, and cleaner handoffs for event-day teams."
-outcome: "In 2025, supported 16,297 players across 21,151 sessions with 12,378 gameplay hours and 24.7% first-time VR participants. Planning averages include 2,971 sqft room size, 33 VR systems deployed, 21,400 average event attendance, and 705 sessions per event. Portfolio KPIs: 1.30 sessions per player, 0.76 gameplay hours per player, 35.1 gameplay minutes per session, and about 4,025 first-time VR participants served. Audience profile: 66.1% male, 28.6% female; key age bands 10-18 (31.6%), 19-25 (28.4%), 26-34 (23.3%), 35-59 (16.3%). Event Ops Manager reduced operational friction at events, improved check-in consistency, and created a stronger foundation for scaling support workflows. If you would like a demo of the product, please reach out."
+  - "Replaced a manual Google Forms and Google Sheets process that slowed check-in and increased staff overhead during live events."
+  - "Built the system as an offline-first platform so event operations could continue reliably when venue connectivity was inconsistent."
+  - "Owned the product from architecture through production use, improving event-day visibility for staff and the attendee experience on the floor."
+problem: |
+  Before this system existed, event operations depended on Google Forms and Google Sheets.
+
+  Players filled out a Google Form that served as a waiver and legal document. Staff then manually transferred that information into a Google Sheet to track each player's selected game and start time.
+
+  That process worked for smaller events, but it broke down as attendance increased.
+
+  **Main issues**
+  - Staff spent too much time moving data between tools instead of helping players and managing the floor.
+  - The workflow created bottlenecks during busy arrival windows.
+  - Check-in status, queue progress, and session timing were difficult to track in real time.
+  - Players had limited visibility into available games, event information, and what to expect next.
+
+approach: |
+  I designed and built Event Ops Manager as an offline-first platform so it could run reliably at live venues, even when connectivity was inconsistent.
+
+  **Core capabilities**
+  - Attendee check-in with integrated digital waiver signing
+  - Live staff dashboards for check-in progress, queue management, and player status
+  - Game and event information displays for attendees
+  - Local-first data capture with synchronization support when connectivity returns
+
+  The system replaced a fragmented manual workflow with a single operational tool. Players enter their information once, staff get immediate visibility into event activity, and the check-in flow becomes faster and easier to manage.
+
+outcome: |
+  Event Ops Manager replaced the manual process with a system built for live event operations.
+
+  **What improved**
+  - Staff no longer spend event time re-entering information by hand.
+  - Check-in became faster and more consistent.
+  - Operational visibility improved across player flow, queue status, and session progress.
+  - Players gained direct access to game information, event content, and live status updates.
+
+  The platform continued to evolve through live use and direct feedback from staff and attendees, but the core result was clear: it removed operational friction and gave the team a more reliable way to run events at scale.
 skills:
-  - Live Event Operations
-  - Production Management
-  - Staff Coordination
-  - Scheduling Systems
-  - Pay Operations
-  - Event Analytics
-  - Community Leadership
-  - Product Strategy
-  - Workflow Design
-  - Producer Coordination
+  - Live event operations
+  - Workflow automation
+  - Product design
+  - Staff operations systems
+  - Real-time operations visibility
+  - Cross-functional execution
+  - Systems thinking
+  - Process design
 tools:
-  - Airtable
-  - Google Sheets
-  - Notion
-  - Discord
-  - Event Ops Manager
+  - TypeScript
+  - Node.js
+  - Express
+  - SQLite
+  - Socket.io
+  - Vite
+  - Vanilla TS
+  - Offline-first LAN app
 tags:
-  - Event Production
-  - Event Operations
-  - "Multi-Event Management"
-  - Community Experience
-  - Staffing Operations
-  - Event Analytics
-  - "Check-In Operations"
-  - Operations Automation
-  - Internal Tooling
-  - Workflow Design
+  - Event operations
+  - Workflow automation
+  - Offline-first systems
+  - Check-in operations
+  - Operational tooling
+  - Real-time dashboards
+  - Staff tooling
+  - Queue management
 cover:
   src: "/media/projects/event-ops-manager-cover.png"
   alt: VR Villa Event Operations Program

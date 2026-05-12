@@ -1,7 +1,15 @@
 ---
 metaDescription: "About T. Riley: systems builder, technical program manager, Air National Guard Air Traffic Controller, BarCitizen International COO, community leader, and father."
 backgroundParagraphs:
-  - "I am a systems builder, technical program manager, and operations-focused problem solver. My background spans military service, game industry operations, customer support systems, tools development, user research, live events, community leadership, and AI-assisted workflow design."
+  - |
+    I am a **systems builder**, technical program manager, and operations-focused problem solver.
+
+    My background spans:
+    - military service
+    - game industry operations
+    - customer support systems
+    - tools development and user research
+    - live events, community leadership, and AI-assisted workflow design
 
   - "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That path has taken me through a wide range of environments: tactical operations, precision work under pressure, leadership in ambiguous situations, and circumstances where the stakes were real and the playbook did not exist. Military service shaped how I think more than anything else in my career. You learn to stay calm, build structure, communicate clearly, and keep the mission moving even when the situation keeps changing."
 
@@ -13,7 +21,14 @@ backgroundParagraphs:
 
 thinkItems:
   - title: Systems first
-    text: "I usually do not see problems as isolated issues. I look for the surrounding system: the people involved, the incentives, the process, the tooling, the bottlenecks, and the failure points."
+    text: |
+      I usually do not see problems as isolated issues.
+
+      I look for the surrounding system:
+      - the people involved
+      - the incentives
+      - the process and tooling
+      - the bottlenecks and likely failure points
 
   - title: Clarity matters
     text: "I care a lot about making things clear. A good plan, meeting, document, or decision should leave people less confused than they were before."
@@ -37,7 +52,15 @@ personalItems:
 
   - icon: ⬡
     title: Star Citizen
-    body: "I am deeply involved in the Star Citizen community as an org leader and operations builder for TEST Squadron, one of the largest player organizations in the game with over 24,000 members. I also serve as COO of BarCitizen International, an NPO focused on organizing and supporting in-person BarCitizen events around the world. I run or support over four of those events per year. The Discord bots, websites, and community infrastructure I have built there are real systems operating at real scale."
+    body: |
+      I am deeply involved in the **Star Citizen** community as an org leader and operations builder for **TEST Squadron**, one of the largest player organizations in the game with more than 24,000 members.
+
+      I also serve as **COO of BarCitizen International**, where I help organize and support in-person BarCitizen events around the world.
+
+      That work includes:
+      - running or supporting more than four live events per year
+      - building Discord bots, websites, and community infrastructure
+      - operating real systems at real community scale
 
   - icon: ◆
     title: Japan and Travel

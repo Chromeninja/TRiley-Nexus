@@ -3,8 +3,23 @@ profiles:
   Ubisoft:
     summary: "Player support, e-commerce operations, and program management work spanning 10+ years at Ubisoft, from frontline contract CSR through Senior Program Manager."
     companyInfo: "Ubisoft is a global game publisher and live-service operator supporting large player communities across multiple titles, subscription products, and support platforms."
-    myTimeInfo: "From October 2013 to April 2024, I grew through seven roles at Ubisoft, starting as a contract CSR and ending as a Senior Program Manager owning the Help program and Customer Experience research. Along the way I led the worldwide e-commerce CS team through the Ubisoft+ launch, the Mercury → Tecsys order management migration, the Gear Store launch, cloud gaming partnerships with GeForce Now / Luna / Stadia, and an automated refund flow that cut e-commerce CS tickets by more than 30%."
-    longSummary: "10+ years across Ubisoft's player-facing operations, scaling from frontline support into program leadership. Owned the Help program and Customer Experience research as Senior Program Manager, ran worldwide e-commerce CS operations through Ubisoft+, Gear Store, and cloud gaming launches as a Supervisor, and built the automation, dashboards, and KB foundations earlier in my career that those programs later sat on top of."
+    myTimeInfo: |
+      From **October 2013 to April 2024**, I grew through seven roles at Ubisoft, starting as a contract CSR and ending as a **Senior Program Manager** owning the Help program and Customer Experience research.
+
+      Along the way, I led or supported:
+      - the worldwide e-commerce CS team through the **Ubisoft+** launch
+      - the **Mercury → Tecsys** order management migration
+      - the **Gear Store** launch
+      - cloud gaming partnerships with **GeForce Now, Luna, and Stadia**
+      - an automated refund flow that cut e-commerce CS tickets by **30%+**
+    longSummary: |
+      **10+ years across Ubisoft's player-facing operations**, scaling from frontline support into program leadership.
+
+      The progression looked like this:
+      - frontline support and escalation work close to real player issues
+      - automation, dashboards, and KB foundations earlier in my career
+      - worldwide e-commerce CS operations through Ubisoft+, Gear Store, and cloud gaming launches as a Supervisor
+      - ownership of the Help program and Customer Experience research as Senior Program Manager
     roleSummary: "Frontline CSR → Senior Program Manager (7 roles, 10+ years)"
     achievements:
       - "Led Ubisoft Help program (CS portal, in-game help, bug reporting, guides) as Senior Program Manager."

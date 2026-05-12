@@ -3,6 +3,7 @@ import type { CareerAtlasCompanyNode } from "../data/projects";
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
 import ProjectBar from "./ProjectBar.astro";
 import { toBasePath } from "../utils/paths";
+import { renderRichText } from "../utils/richText";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
@@ -95,7 +96,10 @@ function resolveLogoSrc(src: string): string {
       id={`${company.id}-panel`}
       title={`${company.organization} details`}
     >
-      <p>{company.longSummary || company.summary}</p>
+      <div
+        class="company-row__rich-text"
+        set:html={renderRichText(company.longSummary || company.summary)}
+      />
       {
         company.roles.length > 0 && (
           <p>
@@ -104,11 +108,21 @@ function resolveLogoSrc(src: string): string {
         )
       }
       {
+        company.myTimeInfo && (
+          <div
+            class="company-row__rich-text company-row__rich-text--compact"
+            set:html={renderRichText(company.myTimeInfo)}
+          />
+        )
+      }
+      {
         company.achievements.length > 0 && (
-          <p>
-            <span class="text-accent">Achievements:</span>{" "}
-            {company.achievements.join(" ")}
-          </p>
+          <div>
+            <p><span class="text-accent">Achievements:</span></p>
+            <ul class="company-row__achievements">
+              {company.achievements.map((achievement) => <li>{achievement}</li>)}
+            </ul>
+          </div>
         )
       }
       <p><span class="text-accent">Projects:</span> {company.projectCount}</p>
@@ -364,6 +378,48 @@ function resolveLogoSrc(src: string): string {
     opacity: 1;
     transform: translate(-50%, 0);
     filter: saturate(1);
+  }
+
+  .company-row__rich-text {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .company-row__rich-text > :first-child {
+    margin-top: 0;
+  }
+
+  .company-row__rich-text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .company-row__rich-text :global(p) {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .company-row__rich-text :global(ul),
+  .company-row__rich-text :global(ol) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.25rem;
+  }
+
+  .company-row__rich-text :global(li) {
+    margin-bottom: 0.35rem;
+  }
+
+  .company-row__rich-text :global(strong) {
+    color: var(--color-text);
+  }
+
+  .company-row__achievements {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .company-row__achievements li + li {
+    margin-top: var(--space-xs);
   }
 
   .company-row__projects {

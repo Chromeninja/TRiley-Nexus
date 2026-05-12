@@ -99,6 +99,7 @@ export interface CareerAtlasCompanyNode {
   color: string;
   summary: string;
   longSummary?: string;
+  myTimeInfo?: string;
   rangeLabel: string;
   roleSummary: string;
   roles: string[];
@@ -1127,6 +1128,7 @@ export async function getCareerAtlasData(): Promise<
         color,
         summary: profile?.summary || group.companySummary || "",
         longSummary: profile?.longSummary || group.myTimeInfo,
+        myTimeInfo: profile?.myTimeInfo,
         rangeLabel: group.timeline.rangeLabel,
         roleSummary,
         roles,

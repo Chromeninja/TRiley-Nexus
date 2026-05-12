@@ -7,6 +7,7 @@ import {
   type Project,
 } from "../data/projects";
 import { toBasePath, resolveMediaPath, normalizeWhitespace } from "../utils/paths";
+import { richTextToPlainText } from "../utils/richText";
 
 interface Props {
   project: Project;
@@ -19,7 +20,7 @@ const actionLinks = project.links?.slice(0, 2) ?? [];
 const projectDateRange = formatProjectDateRange(project);
 
 function firstSentence(value: string): string {
-  const normalized = normalizeWhitespace(value);
+  const normalized = normalizeWhitespace(richTextToPlainText(value));
   const match = normalized.match(/^[^.!?]+[.!?]?/);
   return (match ? match[0] : normalized).trim();
 }

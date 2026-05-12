@@ -5,6 +5,7 @@ import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { resolveMediaPath } from "../utils/paths";
+import { renderRichText } from "../utils/richText";
 import {
   getAboutContentData,
   type AboutMediaItem,
@@ -92,7 +93,11 @@ const leadershipSnapshot = [
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
       <div class="prose">
-        {aboutBackgroundParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {
+          aboutBackgroundParagraphs.map((paragraph) => (
+            <div class="about-rich-text" set:html={renderRichText(paragraph)} />
+          ))
+        }
       </div>
     </div>
   </section>
@@ -150,7 +155,10 @@ const leadershipSnapshot = [
           aboutThinkItems.map((item) => (
             <div class="think-card">
               <h3 class="think-card__title">{item.title}</h3>
-              <p class="think-card__text">{item.text}</p>
+              <div
+                class="think-card__text about-rich-text about-rich-text--compact"
+                set:html={renderRichText(item.text)}
+              />
             </div>
           ))
         }
@@ -176,7 +184,10 @@ const leadershipSnapshot = [
             <div class="personal-card">
               <span class="personal-card__icon">{item.icon}</span>
               <h3>{item.title}</h3>
-              <p>{item.body}</p>
+              <div
+                class="personal-card__body about-rich-text about-rich-text--compact"
+                set:html={renderRichText(item.body)}
+              />
             </div>
           ))
         }
@@ -365,6 +376,61 @@ const leadershipSnapshot = [
     color: var(--color-text-muted);
     line-height: 1.65;
     margin: 0;
+  }
+
+  .personal-card__body {
+    margin: 0;
+  }
+
+  .about-rich-text {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  .about-rich-text > :first-child {
+    margin-top: 0;
+  }
+
+  .about-rich-text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .about-rich-text :global(p) {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .about-rich-text :global(ul),
+  .about-rich-text :global(ol) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.25rem;
+  }
+
+  .about-rich-text :global(li) {
+    margin-bottom: 0.45rem;
+  }
+
+  .about-rich-text :global(li + li) {
+    margin-top: 0.3rem;
+  }
+
+  .about-rich-text :global(li > p) {
+    margin: var(--space-xs) 0 0;
+  }
+
+  .about-rich-text :global(strong) {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .about-rich-text :global(em) {
+    color: var(--color-text);
+    font-style: italic;
+  }
+
+  .about-rich-text--compact :global(p),
+  .about-rich-text--compact :global(ul),
+  .about-rich-text--compact :global(ol) {
+    margin-bottom: var(--space-xs);
   }
 
   /* Skills */

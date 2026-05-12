@@ -10,6 +10,7 @@ import {
   type Project,
 } from "../../data/projects";
 import { toBasePath } from "../../utils/paths";
+import { renderRichText } from "../../utils/richText";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -23,8 +24,9 @@ interface Props {
   project: Project;
 }
 
-const { project } = Astro.props;
+const { project } = Astro.props as Props;
 const projectDateRange = formatProjectDateRange(project);
+
 const normalizedProjectMedia = (() => {
   const media = Array.isArray(project.media) ? [...project.media] : [];
   const legacyCoverSrc = String(project.cover?.src ?? "").trim();
@@ -127,7 +129,7 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">01 //</span> The Problem
                 </h2>
-                <p>{project.problem}</p>
+                <div class="rich-text" set:html={renderRichText(project.problem)} />
               </section>
             )
           }
@@ -139,7 +141,7 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">02 //</span> Approach
                 </h2>
-                <p>{project.approach}</p>
+                <div class="rich-text" set:html={renderRichText(project.approach)} />
               </section>
             )
           }
@@ -151,7 +153,7 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">03 //</span> Outcome
                 </h2>
-                <p>{project.outcome}</p>
+                <div class="rich-text" set:html={renderRichText(project.outcome)} />
               </section>
             )
           }
@@ -162,7 +164,7 @@ const normalizedProjectMedia = (() => {
               <section class="detail-section">
                 <h2 class="detail-section__title">Links</h2>
                 <div class="project-links">
-                  {project.links.map((link) => (
+                  {project.links.map((link: { label: string; url: string }) => (
                     <a
                       href={link.url}
                       target="_blank"
@@ -186,7 +188,7 @@ const normalizedProjectMedia = (() => {
               <div class="sidebar-card">
                 <h3 class="sidebar-card__title">Skills</h3>
                 <ul class="sidebar-list">
-                  {project.skills.map((skill) => (
+                  {project.skills.map((skill: string) => (
                     <li class="sidebar-list__item">
                       <span
                         class="sidebar-list__dot text-accent"
@@ -208,7 +210,7 @@ const normalizedProjectMedia = (() => {
               <div class="sidebar-card">
                 <h3 class="sidebar-card__title">Tools & Stack</h3>
                 <div class="tag-cloud">
-                  {project.tools.map((tool) => (
+                  {project.tools.map((tool: string) => (
                     <span class="badge badge-cyan">{tool}</span>
                   ))}
                 </div>
@@ -222,7 +224,7 @@ const normalizedProjectMedia = (() => {
               <div class="sidebar-card">
                 <h3 class="sidebar-card__title">Tags</h3>
                 <div class="tag-cloud">
-                  {project.tags.map((tag) => (
+                  {project.tags.map((tag: string) => (
                     <span class="badge badge-purple">{tag}</span>
                   ))}
                 </div>
@@ -365,6 +367,60 @@ const normalizedProjectMedia = (() => {
     max-width: 70ch;
   }
 
+  .rich-text {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    max-width: 70ch;
+  }
+
+  .rich-text > :first-child {
+    margin-top: 0;
+  }
+
+  .rich-text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .rich-text :global(p) {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .rich-text :global(ul),
+  .rich-text :global(ol) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.25rem;
+  }
+
+  .rich-text :global(li > ul),
+  .rich-text :global(li > ol) {
+    margin: var(--space-xs) 0 0;
+    margin-left: 1rem;
+    padding-left: 1rem;
+  }
+
+  .rich-text :global(li > p) {
+    margin: var(--space-xs) 0 0;
+    max-width: none;
+  }
+
+  .rich-text :global(li) {
+    margin-bottom: 0.55rem;
+  }
+
+  .rich-text :global(li + li) {
+    margin-top: 0.45rem;
+  }
+
+  .rich-text :global(strong) {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .rich-text :global(em) {
+    color: var(--color-text);
+    font-style: italic;
+  }
+
   .project-links {
     display: flex;
     flex-wrap: wrap;
@@ -457,6 +513,11 @@ const normalizedProjectMedia = (() => {
     }
 
     .detail-section p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .rich-text {
       font-size: 0.95rem;
       line-height: 1.7;
     }

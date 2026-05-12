@@ -5,6 +5,7 @@ import {
   type CareerNarrativeData,
 } from "../data/projects";
 import { toBasePath } from "../utils/paths";
+import { renderRichText } from "../utils/richText";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
@@ -161,8 +162,18 @@ const {
           >
             <div class="narrative-company__panel-top">
               <div class="narrative-company__story">
-                <p>{company.longSummary || company.summary}</p>
-                {company.myTimeInfo && <p>{company.myTimeInfo}</p>}
+                <div
+                  class="narrative-rich-text"
+                  set:html={renderRichText(company.longSummary || company.summary)}
+                />
+                {
+                  company.myTimeInfo && (
+                    <div
+                      class="narrative-rich-text narrative-rich-text--compact"
+                      set:html={renderRichText(company.myTimeInfo)}
+                    />
+                  )
+                }
               </div>
 
               <div class="narrative-company__facts">
@@ -177,7 +188,11 @@ const {
                     <span class="narrative-fact-label text-mono">
                       Highlights
                     </span>
-                    <p>{company.achievements.join(" ")}</p>
+                    <ul class="narrative-fact-list">
+                      {company.achievements.map((achievement) => (
+                        <li>{achievement}</li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>
@@ -682,6 +697,37 @@ const {
     gap: var(--space-sm);
   }
 
+  .narrative-rich-text {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .narrative-rich-text > :first-child {
+    margin-top: 0;
+  }
+
+  .narrative-rich-text > :last-child {
+    margin-bottom: 0;
+  }
+
+  .narrative-rich-text :global(p) {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .narrative-rich-text :global(ul),
+  .narrative-rich-text :global(ol) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.25rem;
+  }
+
+  .narrative-rich-text :global(li) {
+    margin-bottom: 0.35rem;
+  }
+
+  .narrative-rich-text :global(strong) {
+    color: var(--color-text);
+  }
+
   .narrative-fact-block {
     border-left: 1px solid color-mix(in srgb, var(--color-border), white 8%);
     padding-left: 0.9rem;
@@ -694,6 +740,17 @@ const {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-dim);
+  }
+
+  .narrative-fact-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .narrative-fact-list li + li {
+    margin-top: var(--space-xs);
   }
 
   .narrative-projects {

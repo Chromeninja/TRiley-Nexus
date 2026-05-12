@@ -1,15 +1,16 @@
 ---
 profiles:
   VR Villa:
-    summary: "Large-scale VR event production and operations delivery across recurring community-first live experiences."
-    companyInfo: "VR Villa is a free-to-play VR event environment built around community-first programming, developer relations, and recurring immersive live experiences."
-    myTimeInfo: "Since January 2024, I have managed production across multiple VR Villa shows while supporting staffing, scheduling, delivery systems, and developer-facing coordination for recurring events."
-    longSummary: "The work centers on scaling repeatable live operations for a community-first VR environment. That includes supporting multiple shows, coordinating with developers to access and demo games, and building practical systems that keep recurring events reliable and approachable for players."
-    roleSummary: "Event production and operations leadership"
+    summary: "National live event production for a free-to-play VR activation platform built around community, developer visibility, and hands-on guest experience."
+    companyInfo: "VR Villa is a free-to-play VR and AR event program that travels to conventions and pop-culture events across the United States, creating approachable gaming experiences while promoting studios, hardware partners, sponsors, and the broader VR ecosystem."
+    myTimeInfo: "Since 2024, I have led production and event operations support for VR Villa activations, coordinating staffing, run-of-show readiness, floor operations, attendee flow, and partner alignment across recurring live events."
+    longSummary: "The work is centered on making touring VR activations feel consistent, welcoming, and operationally reliable at scale. That includes coordinating with event organizers, developers, hardware partners, sponsors, and on-site staff; supporting the full player journey from waiver capture and game selection through onboarding, headset turnover, and sanitation; and protecting a community-first, free-to-play model across a national event footprint."
+    roleSummary: "Producer and live event operations lead"
     achievements:
-      - "Supported repeatable delivery across multiple live VR shows and community programs."
-      - "Helped coordinate developer relations to secure game access and demo support for events."
-      - "Built operations support around staffing, scheduling, and recurring event delivery at 2025 scale: 16,297 players, 21,151 sessions, and 12,378 gameplay hours."
+      - "Helped support a repeatable live event operating model used across 60+ events throughout the United States."
+      - "Coordinated production needs across event teams, developers, hardware partners, sponsors, and on-site staff to keep activations operationally consistent."
+      - "Supported a hands-on attendee experience designed for both returning players and newcomers to VR, including onboarding, gameplay flow, and equipment turnover."
+      - "Contributed to a program footprint highlighted by 55k+ players, 77k+ game sessions, 50+ VR studios, and 100+ events."
     logo:
       src: "/media/companies/vr-villa-logo.jpg"
       alt: "VR Villa logo"
