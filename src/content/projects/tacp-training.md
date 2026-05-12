@@ -22,7 +22,7 @@ approach: |
   - radio communications across joint nets
   - the operating environment TACPs work in alongside Army ground forces
   - the discipline required to connect ground maneuver needs with air support capabilities
-outcome: "Built a joint operations foundation and understanding of air-ground integration that directly informed my transition into airfield operations and air traffic control with the 235th ATCS in April 2015."
+outcome: "Built a joint operations foundation and understanding of air-ground integration that directly informed my transition into airfield operations and air traffic control with the 235th CAOS in April 2015."
 skills:
   - Joint Operations Familiarization
   - Radio Communications
