@@ -3,7 +3,7 @@ title: Event Operations Program
 status: active
 category: Events & Community Operations
 organization: VR Villa
-roleTitle: Event Operations Manager / Producer / Product Lead
+roleTitle: Event Operations and Product Lead
 timeframe: "2024 - Present"
 startedAt: "2024-01"
 summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used during live VR activations. Designed the product as an offline-first operations platform for check-in, digital waivers, live player information, and staff coordination, then led it from architecture through production use."
@@ -48,6 +48,7 @@ tools:
   - Socket.io
   - Vite
   - Vanilla TS
+  - Meta Quest
   - "Offline-first LAN app"
 tags:
   - Event operations

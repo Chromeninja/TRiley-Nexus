@@ -28,6 +28,7 @@ skills:
 tools:
   - Google Sheets
   - Discord
+  - Meta Quest
   - Run of Show Planning
   - Staffing Schedules
   - Operations Checklists

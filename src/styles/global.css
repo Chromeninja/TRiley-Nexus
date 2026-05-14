@@ -22,16 +22,20 @@
   --color-bg-secondary: #091327;
   --color-bg-card: #0c1830;
   --color-bg-card-hover: #12203b;
+  --color-bg-gradient-top: #07101e;
+  --color-bg-gradient-mid: #040b19;
+  --color-bg-gradient-bottom: #020611;
 
   /* Text Colors */
-  --color-text: #d9e7ff;
-  --color-text-muted: #91a4c7;
-  --color-text-dim: #5d7398;
+  --color-text: #e6efff;
+  --color-text-muted: #b2c2df;
+  --color-text-dim: #88a0c5;
   --color-text-heading: #f4f8ff;
 
   /* Borders */
   --color-border: rgba(87, 166, 255, 0.16);
   --color-border-strong: rgba(87, 166, 255, 0.34);
+  --color-featured-border: rgba(124, 211, 137, 0.26);
 
   /* Primary accent: electric blue */
   --color-accent: #57a6ff;
@@ -42,6 +46,27 @@
   --color-accent2: #22d3ee;
   --color-accent2-dim: rgba(34, 211, 238, 0.14);
   --color-accent2-glow: rgba(34, 211, 238, 0.26);
+
+  /* Surface overlays and decorative gradients */
+  --color-surface-sheen: rgba(255, 255, 255, 0.02);
+  --color-surface-sheen-soft: rgba(255, 255, 255, 0.012);
+  --color-overlay-grid: rgba(87, 166, 255, 0.03);
+  --color-overlay-grid-soft: rgba(255, 255, 255, 0.012);
+  --color-nav-bg-start: rgba(6, 14, 28, 0.96);
+  --color-nav-bg-end: rgba(9, 19, 39, 0.92);
+  --color-nav-mobile-bg-start: rgba(9, 19, 39, 0.98);
+  --color-nav-mobile-bg-end: rgba(12, 24, 48, 0.96);
+  --color-footer-bg-start: rgba(9, 19, 39, 0.96);
+  --color-footer-bg-end: rgba(4, 11, 25, 0.98);
+  --color-project-corner-accent: rgba(87, 166, 255, 0.22);
+  --color-project-media-chip-bg: rgba(4, 11, 25, 0.52);
+  --color-project-media-tag-bg: rgba(4, 11, 25, 0.42);
+  --color-timeline-card-bg: rgba(9, 19, 39, 0.72);
+  --color-timeline-track-bg: color-mix(in srgb, var(--color-bg-card), transparent 35%);
+  --color-timeline-bar-text: rgba(244, 248, 255, 0.92);
+  --color-now-marker-text: color-mix(in srgb, var(--color-success), white 10%);
+  --color-link-hover: #f4f8ff;
+  --color-focus-ring: #8dc0ff;
 
   /* Status colors */
   --color-success: #4ade80;
@@ -60,9 +85,9 @@
   --color-era-accent-strong: rgba(124, 211, 137, 0.12);
 
   /* Text */
-  --color-text: #d9e7ff;
-  --color-text-muted: #91a4c7;
-  --color-text-dim: #5d7398;
+  --color-text: #e6efff;
+  --color-text-muted: #b2c2df;
+  --color-text-dim: #88a0c5;
   --color-text-heading: #f4f8ff;
 
   /* Typography */
@@ -84,6 +109,8 @@
   --container-max: 1200px;
   --container-md: 900px;
   --container-sm: 680px;
+  --container-page: 980px;
+  --container-reading: 760px;
   --nav-height: 64px;
 
   /* Border radius */
@@ -98,11 +125,56 @@
   --glow-accent2: 0 10px 28px rgba(34, 211, 238, 0.12);
   --shadow-card: 0 14px 34px rgba(1, 8, 22, 0.34);
   --shadow-card-hover: 0 24px 58px rgba(1, 8, 22, 0.46);
+  --shadow-nav: 0 8px 24px rgba(0, 0, 0, 0.18);
 
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
   --transition-slow: 400ms ease;
+
+  /* Shared type scale */
+  --font-size-label: 0.75rem;
+  --font-size-meta: 0.8125rem;
+  --font-size-body: 0.9375rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-card-title: 1rem;
+  --font-size-lead: 1.0625rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f5f8ff;
+    --color-bg-secondary: #eaf0fb;
+    --color-bg-card: #ffffff;
+    --color-bg-card-hover: #f3f7ff;
+    --color-bg-gradient-top: #f7faff;
+    --color-bg-gradient-mid: #eef3ff;
+    --color-bg-gradient-bottom: #e5edf9;
+    --color-text: #12203a;
+    --color-text-muted: #334867;
+    --color-text-dim: #4a6288;
+    --color-text-heading: #0f1f3b;
+    --color-border: rgba(43, 98, 174, 0.2);
+    --color-border-strong: rgba(43, 98, 174, 0.36);
+    --color-surface-sheen: rgba(255, 255, 255, 0.65);
+    --color-surface-sheen-soft: rgba(255, 255, 255, 0.42);
+    --color-overlay-grid: rgba(43, 98, 174, 0.05);
+    --color-overlay-grid-soft: rgba(43, 98, 174, 0.03);
+    --color-nav-bg-start: rgba(245, 248, 255, 0.94);
+    --color-nav-bg-end: rgba(234, 240, 251, 0.95);
+    --color-nav-mobile-bg-start: rgba(245, 248, 255, 0.98);
+    --color-nav-mobile-bg-end: rgba(234, 240, 251, 0.98);
+    --color-footer-bg-start: rgba(234, 240, 251, 0.98);
+    --color-footer-bg-end: rgba(224, 233, 246, 0.98);
+    --color-project-corner-accent: rgba(87, 166, 255, 0.2);
+    --color-project-media-chip-bg: rgba(255, 255, 255, 0.74);
+    --color-project-media-tag-bg: rgba(255, 255, 255, 0.72);
+    --color-timeline-card-bg: rgba(255, 255, 255, 0.8);
+    --color-timeline-track-bg: color-mix(in srgb, var(--color-bg-secondary), transparent 8%);
+    --color-timeline-bar-text: rgba(248, 251, 255, 0.98);
+    --color-now-marker-text: color-mix(in srgb, var(--color-success), black 18%);
+    --shadow-nav: 0 8px 22px rgba(19, 33, 55, 0.12);
+  }
 }
 
 /* --- Reset & Base --- */
@@ -128,10 +200,15 @@ body {
       rgba(34, 211, 238, 0.08),
       transparent 24%
     ),
-    linear-gradient(180deg, #07101e 0%, #040b19 48%, #020611 100%);
+    linear-gradient(
+      180deg,
+      var(--color-bg-gradient-top) 0%,
+      var(--color-bg-gradient-mid) 48%,
+      var(--color-bg-gradient-bottom) 100%
+    );
   color: var(--color-text);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.7;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -154,7 +231,7 @@ body::before {
       90deg,
       transparent,
       transparent 0 42px,
-      rgba(87, 166, 255, 0.03) 42px 43px
+      var(--color-overlay-grid) 42px 43px
     );
   pointer-events: none;
   z-index: 0;
@@ -174,7 +251,7 @@ body::after {
       0deg,
       transparent,
       transparent 0 28px,
-      rgba(255, 255, 255, 0.012) 28px 29px
+      var(--color-overlay-grid-soft) 28px 29px
     );
   mix-blend-mode: screen;
   opacity: 0.55;
@@ -225,7 +302,7 @@ a {
   transition: color var(--transition-fast);
 }
 a:hover {
-  color: #fff;
+  color: var(--color-link-hover);
 }
 
 code,
@@ -259,12 +336,25 @@ pre {
   max-width: var(--container-sm);
 }
 
+.container--page {
+  max-width: var(--container-page);
+}
+
+.container--reading {
+  max-width: var(--container-reading);
+}
+
 .section {
   padding-block: var(--space-4xl);
 }
 
 .section--sm {
   padding-block: var(--space-3xl);
+}
+
+.section--alt {
+  background: var(--color-bg-secondary);
+  border-block: 1px solid var(--color-border);
 }
 
 /* --- Grid Utilities --- */
@@ -301,7 +391,7 @@ pre {
 /* --- Panel (borderless card variant) --- */
 .panel {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 25%),
+    linear-gradient(180deg, var(--color-surface-sheen-soft), transparent 25%),
     var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -330,7 +420,7 @@ pre {
   padding: 0.625rem 1.25rem;
   border-radius: var(--radius-md);
   font-family: var(--font-heading);
-  font-size: 0.8125rem;
+  font-size: 0.84rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -373,7 +463,7 @@ pre {
 .btn-ghost:hover {
   color: var(--color-text);
   border-color: var(--color-border-strong);
-  background: rgba(87, 166, 255, 0.05);
+  background: var(--color-accent-dim);
 }
 
 .btn-sm {
@@ -458,7 +548,7 @@ pre {
 
 .prose p {
   color: var(--color-text-muted);
-  line-height: 1.8;
+  line-height: 1.9;
   max-width: 70ch;
   margin-bottom: var(--space-lg);
 }
@@ -491,7 +581,7 @@ pre {
 
 /* --- Focus Styles (Accessibility) --- */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -583,6 +673,9 @@ pre {
 }
 .text-muted {
   color: var(--color-text-muted);
+}
+.text-dim {
+  color: var(--color-text-dim);
 }
 .text-mono {
   font-family: var(--font-mono);

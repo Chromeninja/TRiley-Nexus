@@ -121,7 +121,7 @@ const projectFocusAreas = [
        WHAT I SOLVE
   ═══════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// WHAT I SOLVE"
         title="Where I Create Leverage"
@@ -147,11 +147,8 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        HOW I LEAD PROGRAMS
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// HOW I LEAD PROGRAMS"
         title="The Operating Model, In Brief"
@@ -183,7 +180,7 @@ const projectFocusAreas = [
        CORE STRENGTHS
   ═══════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// CAPABILITIES"
         title="How I Add Value"
@@ -211,11 +208,8 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        PROJECT FOCUS
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// PROJECT SCOPE"
         title="The work clusters around four lanes"
@@ -252,11 +246,8 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// CAREER ARC"
         title="See the progression behind the outcomes"
@@ -282,11 +273,8 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <div class="intro-grid">
         <div class="intro__text">
           <p class="section-label">// BACKGROUND</p>
@@ -300,8 +288,7 @@ const projectFocusAreas = [
           </p>
           <a
             href={toBasePath("/about")}
-            class="btn btn-outline"
-            style="margin-top: var(--space-md);">Read the background</a
+            class="btn btn-outline intro__action">Read the background</a
           >
         </div>
 
@@ -323,7 +310,7 @@ const projectFocusAreas = [
        CTA
   ═══════════════════════════════════════════ -->
   <section class="section section--sm">
-    <div class="container">
+    <div class="container container--reading">
       <div class="cta-panel">
         <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
@@ -369,7 +356,7 @@ const projectFocusAreas = [
   .hero__role-line {
     margin: 0 0 var(--space-md);
     color: var(--color-accent);
-    font-size: 0.82rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -386,7 +373,7 @@ const projectFocusAreas = [
   }
 
   .hero__subtext {
-    font-size: 1.0625rem;
+    font-size: var(--font-size-lead);
     color: var(--color-text-muted);
     line-height: 1.7;
     max-width: 52ch;
@@ -465,7 +452,7 @@ const projectFocusAreas = [
 
   .hero__evidence-label {
     margin: 0;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.14em;
     color: var(--color-text-muted);
   }
@@ -477,7 +464,7 @@ const projectFocusAreas = [
     border: 1px solid rgba(87, 166, 255, 0.28);
     border-radius: 999px;
     padding: 0.35rem 0.75rem;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-heading);
@@ -500,7 +487,7 @@ const projectFocusAreas = [
 
   .hero__evidence-title {
     margin: 0 0 var(--space-sm);
-    font-size: 1.1rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
   }
 
@@ -546,7 +533,7 @@ const projectFocusAreas = [
   }
 
   .hero__evidence-card-label {
-    font-size: 0.78rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
@@ -554,7 +541,7 @@ const projectFocusAreas = [
 
   .hero__evidence-card-detail {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.55;
   }
@@ -572,14 +559,14 @@ const projectFocusAreas = [
 
   .profile-card__kicker {
     margin: 0 0 var(--space-md);
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     color: var(--color-accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .profile-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
     margin-bottom: var(--space-sm);
   }
@@ -651,13 +638,13 @@ const projectFocusAreas = [
   }
 
   .strength-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-sm);
     color: var(--color-text-heading);
   }
 
   .strength-card__desc {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.65;
     margin: 0;
@@ -681,21 +668,21 @@ const projectFocusAreas = [
     display: block;
     margin-bottom: var(--space-md);
     color: var(--color-accent);
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
   }
 
   .project-focus-card h3 {
     margin-bottom: var(--space-sm);
     color: var(--color-text-heading);
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
   }
 
   .project-focus-card p {
     margin: 0;
     color: var(--color-text-muted);
     line-height: 1.65;
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
   }
 
   .project-focus-actions {
@@ -739,6 +726,10 @@ const projectFocusAreas = [
 
   .intro__text h2 {
     margin-bottom: var(--space-lg);
+  }
+
+  .intro__action {
+    margin-top: var(--space-md);
   }
 
   .intro__stats {

@@ -12,7 +12,7 @@ const hasMetaSlot = Astro.slots.has("meta");
 ---
 
 <section class="page-hero">
-  <div class="container">
+  <div class="container container--page">
     <div
       class:list={[
         "page-hero__layout",
@@ -64,16 +64,24 @@ const hasMetaSlot = Astro.slots.has("meta");
     align-items: center;
   }
 
+  .page-hero__content {
+    max-width: 60ch;
+  }
+
+  .page-hero__layout--with-aside .page-hero__content {
+    max-width: 52ch;
+  }
+
   .page-hero__sub {
     color: var(--color-text-muted);
-    font-size: 1.125rem;
+    font-size: var(--font-size-lead);
     max-width: 55ch;
     margin-top: var(--space-md);
     margin-bottom: 0;
   }
 
   .page-hero__meta {
-    font-size: 0.8rem;
+    font-size: var(--font-size-meta);
     margin-top: var(--space-md);
     margin-bottom: 0;
     letter-spacing: 0.04em;
@@ -86,6 +94,11 @@ const hasMetaSlot = Astro.slots.has("meta");
 
     .page-hero__layout--with-aside {
       grid-template-columns: 1fr;
+    }
+
+    .page-hero__content,
+    .page-hero__layout--with-aside .page-hero__content {
+      max-width: none;
     }
   }
 </style>

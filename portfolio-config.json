@@ -702,9 +702,9 @@
       "bgCard": "#0c1830",
       "bgCardHover": "#12203b",
       "_comment_text": "Text colors: main body text, muted secondary text, and heading text",
-      "textPrimary": "#d9e7ff",
-      "textMuted": "#91a4c7",
-      "textDim": "#5d7398",
+      "textPrimary": "#e6efff",
+      "textMuted": "#b2c2df",
+      "textDim": "#88a0c5",
       "textHeading": "#f4f8ff"
     },
     "fonts": {

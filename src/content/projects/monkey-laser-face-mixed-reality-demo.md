@@ -1,21 +1,15 @@
 ---
-title: Monkey Laser Face Mixed Reality Demo
+title: Monkey Laser Face
 status: completed
 category: Digital Products & Platforms
-tags:
-  - VR
-  - Mixed Reality
-  - Hand Tracking
-  - Prototype Development
-  - Demo Production
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 roleTitle: Producer
 timeframe: Demo Sprint
 startedAt: "2026-01"
 endedAt: "2026-02"
-summary: "Built and delivered Monkey Laser Face as a side demo project to expand mixed reality mode capabilities and hand-tracking support for future Nope Challenge features."
-cardSummary: "Producer on Monkey Laser Face demo work focused on mixed reality and hand-tracking feature expansion."
+summary: "Built and delivered Monkey Laser Face as a demo project to expand mixed reality mode capabilities and hand-tracking support for future Nope Challenge features."
+cardSummary: "Produced Monkey Laser Face as a mixed-reality demo sprint to validate hand-tracking interactions, align cross-discipline testing, and deliver decisions that de-risked feature rollout priorities for Nope Challenge."
 highlights:
   - "Coordinated demo priorities for mixed reality mode and hand-tracking feature implementation."
   - "Supported cross-discipline testing and iteration to validate interaction design choices."
@@ -26,14 +20,21 @@ outcome: "Delivered a practical demo that reduced uncertainty for hand-tracking 
 skills:
   - Production
   - Prototype Planning
-  - Cross-Team Coordination
+  - "Cross-Team Coordination"
   - Jira Prioritization
   - Community Testing
 tools:
   - Unreal Engine
-  - Meta Quest Platform
+  - Meta Quest
   - Jira
   - Discord
+tags:
+  - VR
+  - Mixed Reality
+  - Hand Tracking
+  - Prototype Development
+  - Demo Production
 featured: false
 order: 25
 ---
+

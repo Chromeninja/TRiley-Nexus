@@ -10,6 +10,7 @@ tags:
   - Aviation Training
   - Air National Guard
 organization: 235th Combat Airfield Operations Squadron
+organizationShortName: "235 CAOS"
 timeframe: Ongoing
 roleTitle: Air Advisor
 startedAt: "2024-11"

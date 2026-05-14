@@ -1,5 +1,5 @@
 ---
-title: Salute the Troops Campaign
+title: Salute the Troops
 status: completed
 category: Military Operations
 organization: North Carolina National Guard Joint Force Headquarters
@@ -12,25 +12,10 @@ cardSummary: "Led statewide Salute the Troops pop-up events across 13+ Kangaroo 
 highlights:
   - "Coordinated pop-up USO events across 13+ Kangaroo Express convenience store locations."
   - "Balanced partner expectations, military representation, event setup, and public engagement."
-  - "Supported awareness and fundraising efforts for military service members and their families."
+  - Supported awareness and fundraising efforts for military service members and their families.
 problem: "The Salute the Troops program needed strong regional execution in North Carolina to drive awareness, fundraising, and community engagement with military families and service members through a retail partnership."
 approach: |
-  I executed the North Carolina portion of the campaign through a structured retail-event model that balanced public engagement, partner coordination, and military community representation.
-
-  The approach centered on four workstreams:
-  1. **Partner alignment** with Kangaroo Express and the USO to define campaign expectations, location coverage, and support needs
-  2. **Multi-location event coordination** across 13+ convenience store sites throughout North Carolina
-  3. **On-site setup and public engagement** to create approachable, visible support points for local communities
-  4. **Fundraising and awareness support** so the campaign reinforced both donation goals and public understanding of military family programs
-
-  The goal was to make the campaign feel coordinated and credible at every location, not like a disconnected series of pop-up appearances.
 outcome: |
-  Successfully executed a statewide pop-up campaign that strengthened public support for military families.
-
-  The campaign helped:
-  - raise awareness of USO programs
-  - reinforce Kangaroo Express's military-support commitment
-  - contribute to regional fundraising goals across the southeastern United States
 skills:
   - Event Coordination & Logistics
   - Public Engagement & Outreach
@@ -60,5 +45,6 @@ cover:
   alt: North Carolina National Guard Salute the Troops Campaign
 featured: false
 order: 10
+organizationShortName: "NCNG JFHQ"
 ---
 
