@@ -3,7 +3,7 @@
     "name": "T.Riley",
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
-    "description": "Systems builder. Technical Program Manager. Operations architect. I build the infrastructure, technical and human, that makes complex work actually work.",
+    "description": "Director-level program and operations leader focused on event management, Star Citizen community systems, and the operating structure behind complex work.",
     "canonicalUrl": "https://chromeninja.github.io",
     "repository": {
       "owner": "Chromeninja",
@@ -27,23 +27,23 @@
     "email": "t.riley.garrett@gmail.com"
   },
   "footer": {
-    "tagline": "Program leadership for teams, systems, and innovation work in motion.",
-    "focusLine": "FOCUS: PROGRAMS, PROCESS, SYSTEMS"
+    "tagline": "Director-level program leadership for events, communities, and complex operations.",
+    "focusLine": "FOCUS: EVENTS, PROGRAMS, LEADERSHIP, STAR CITIZEN"
   },
   "home": {
-    "metaDescription": "Systems builder. Technical Program Manager. Operations architect. I build the infrastructure, technical and human, that makes complex work actually work.",
+    "metaDescription": "Director-level program and operations leader focused on event management, leadership, program management, and Star Citizen community systems.",
     "hero": {
-      "eyebrow": "// DIRECTOR-LEVEL PROGRAM LEADERSHIP",
+      "eyebrow": "// DIRECTOR-LEVEL PROJECT LEADERSHIP",
       "roleLine": "Director of Technical Program Management | Systems Builder | Operations Architect",
-      "headlineLead": "I lead cross-functional programs and build the",
-      "headlineAccent": "systems",
-      "headlineTail": "that make complex work scale.",
-      "subtext": "I operate at the layer where strategy, execution, and operating design meet, turning ambiguous initiatives into aligned programs with clear ownership, repeatable process, and durable delivery.",
-      "supportingText": "My value is not just shipping work. It is creating the structure, decision-making rhythm, and technical leverage that let teams keep shipping under pressure without depending on heroics.",
+      "headlineLead": "I lead the programs behind ",
+      "headlineAccent": "complex operations",
+      "headlineTail": " at scale.",
+      "subtext": "Director-level program, event, and operations leader focused on live experiences, Star Citizen community systems, and technical programs where people, process, and tools have to move together.",
+      "supportingText": "This site is built around project scope: event management, leadership, program management, community operations, and the systems that make ambitious work repeatable.",
       "proofPoints": [
+        "Director-level ownership across programs, events, communities, and technical operating systems",
         "7 roles across 10+ years at Ubisoft, ending as Senior Program Manager",
-        "30%+ reduction in Ubisoft e-commerce support tickets through refund automation",
-        "Discord governance and operations leadership for a 40,000-member community",
+        "Star Citizen community and operations leadership across large-scale coordination work",
         "15+ years of military service in high-pressure operational environments"
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
@@ -92,22 +92,22 @@
     "principles": [
       {
         "num": "01",
-        "text": "Diagnose the real problem before moving resources, process, or tooling."
+        "text": "Lead with outcomes before moving resources, process, or tooling."
       },
       {
         "num": "02",
-        "text": "Build systems other people can run, not hero-dependent one-off fixes."
+        "text": "Build operating systems other people can run, not hero-dependent one-off fixes."
       },
       {
         "num": "03",
-        "text": "Create clarity, ownership, and momentum across cross-functional teams."
+        "text": "Create clarity, ownership, and momentum across teams, stakeholders, and communities."
       }
     ],
     "stats": [
-      { "value": "10+", "label": "Years in gaming and platform operations" },
-      { "value": "15+", "label": "Years of military service and leadership" },
-      { "value": "30%+", "label": "Reduction in Ubisoft e-commerce support tickets" },
-      { "value": "40K", "label": "Members supported through community systems" }
+      { "value": "15+", "label": "Years military experience" },
+      { "value": "10+", "label": "Years in gaming industry" },
+      { "value": "40+", "label": "Operations planned and executed" },
+      { "value": "12+", "label": "Large-scale events led" }
     ]
   },
   "about": {
@@ -252,33 +252,33 @@
     "coreStrengths": [
       {
         "icon": "⬡",
-        "title": "Systems Thinking",
-        "description": "I see the whole board - how processes, people, and tools interact - and design solutions that hold up under real-world conditions."
+        "title": "Program Leadership",
+        "description": "I connect strategy, planning, owners, risks, and delivery so complex work can move with executive-level clarity."
       },
       {
         "icon": "◈",
-        "title": "Operational Clarity",
-        "description": "I turn messy, ambiguous problems into structured plans with clear ownership, defined outcomes, and measurable progress."
+        "title": "Event Management",
+        "description": "I design and lead live-event operations with clear roles, staffing models, runbooks, and real-time decision paths."
       },
       {
         "icon": "◉",
-        "title": "Community Architecture",
-        "description": "I build the systems that keep communities running - governance, automation, culture, and the quiet infrastructure most people never see."
+        "title": "Star Citizen Operations",
+        "description": "I build community systems, event structures, and leadership models shaped by years inside the Star Citizen ecosystem."
       },
       {
         "icon": "▣",
-        "title": "Automation and Tooling",
-        "description": "If a process can be systematized, I find a way to do it - reducing manual overhead and letting humans focus on judgment work."
+        "title": "Operating Systems",
+        "description": "I turn scattered work into durable processes with visibility, cadence, accountability, and room to scale."
       },
       {
         "icon": "◆",
-        "title": "Program Execution",
-        "description": "From concept to delivery: I plan, coordinate, adapt, and ship - whether it is a live event, a migration, or a long-running product initiative."
+        "title": "Technical Enablement",
+        "description": "I use automation, content tooling, and workflow design to remove friction without making the tools the point."
       },
       {
         "icon": "⊕",
         "title": "Leadership Under Pressure",
-        "description": "Military background and years of leading teams through high-stakes, time-critical environments built a foundation that holds when things get hard."
+        "description": "Military service and years of event, gaming, and community leadership shaped how I lead through ambiguity and pressure."
       }
     ]
   },

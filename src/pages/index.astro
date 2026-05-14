@@ -11,6 +11,25 @@ const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
 const featuredEvidence = siteConfig.home.featuredEvidence;
 const featuredStrengths = coreStrengths.slice(0, 4);
+
+const projectFocusAreas = [
+  {
+    title: "Event management",
+    text: "Live-event systems, staffing models, check-in operations, runbooks, and the decision structure needed when people are moving in real time.",
+  },
+  {
+    title: "Leadership",
+    text: "Director-level ownership across teams, communities, vendors, volunteers, and stakeholders with clear accountability for outcomes.",
+  },
+  {
+    title: "Program management",
+    text: "Roadmaps, risk management, launch readiness, platform support, production pipelines, and cross-functional delivery across overlapping workstreams.",
+  },
+  {
+    title: "Star Citizen",
+    text: "Community operations, organization leadership, large-scale coordination, event production, and systems built inside one of my most active personal ecosystems.",
+  },
+];
 ---
 
 <Layout
@@ -171,7 +190,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
       <SectionHeader
         label="// CAPABILITIES"
         title="How I Add Value"
-        subtitle="The through-line is consistent across domains: systems thinking, execution clarity, technical leverage, and leadership that holds under pressure."
+        subtitle="I work across the director-level operating stack: strategy, programs, events, communities, and the tools that help them scale."
       />
 
       <div class="grid-3 strengths-grid">
@@ -188,6 +207,47 @@ const featuredStrengths = coreStrengths.slice(0, 4);
             </div>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PROJECT FOCUS
+  ═══════════════════════════════════════════ -->
+  <section
+    class="section"
+    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
+  >
+    <div class="container">
+      <SectionHeader
+        label="// PROJECT SCOPE"
+        title="The work clusters around four lanes"
+        subtitle="The projects on this site are broad, but they share a practical center: leading complex work, building operational systems, and helping groups execute under real constraints."
+      />
+
+      <div class="project-focus-grid">
+        {
+          projectFocusAreas.map((area, i) => (
+            <article
+              class={`project-focus-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            >
+              <span class="project-focus-card__index text-mono">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3>{area.title}</h3>
+              <p>{area.text}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="project-focus-actions">
+        <a href={toBasePath("/projects")} class="btn btn-primary"
+          >Explore Project Portfolio</a
+        >
+        <a href={toBasePath("/career")} class="btn btn-outline"
+          >View Career Context</a
+        >
       </div>
     </div>
   </section>
@@ -248,7 +308,8 @@ const featuredStrengths = coreStrengths.slice(0, 4);
           <p>
             That mix is why I tend to operate well above a narrow title line. I
             am comfortable in the strategy layer, the execution layer, and the
-            system-design layer at the same time.
+            system-design layer at the same time, especially when multiple
+            projects are moving at once.
           </p>
           <p>
             If you want the fuller version, the About page explains where that
@@ -285,10 +346,10 @@ const featuredStrengths = coreStrengths.slice(0, 4);
         <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
         <p>
-          I'm open to roles in technical program management, operations
-          leadership, and innovation-focused systems work. If you're building
-          something complex and need someone who can align people, process, and
-          execution, reach out.
+          I'm focused on director-level and above roles in event management,
+          program management, operations leadership, and community systems. If
+          you need someone who can own scope, align people, and turn complex
+          work into execution, reach out.
         </p>
         <div class="cta-panel__actions">
           <a href={toBasePath("/contact")} class="btn btn-primary"
@@ -622,6 +683,48 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     margin: 0;
   }
 
+  /* ── Project Focus ── */
+  .project-focus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .project-focus-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .project-focus-card__index {
+    display: block;
+    margin-bottom: var(--space-md);
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .project-focus-card h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-heading);
+    font-size: 1rem;
+  }
+
+  .project-focus-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    font-size: 0.875rem;
+  }
+
+  .project-focus-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+  }
+
   /* ── Principles ── */
   .principles-list {
     display: flex;
@@ -754,6 +857,10 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     .intro-grid {
       grid-template-columns: 1fr;
     }
+
+    .project-focus-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 640px) {
@@ -780,6 +887,15 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
     .intro__stats {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .project-focus-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-focus-actions {
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .cta-panel {
