@@ -10,7 +10,7 @@ import { siteConfig } from "../data/siteConfig";
 const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
 const featuredEvidence = siteConfig.home.featuredEvidence;
-const featuredStrengths = coreStrengths.slice(0, 4);
+const featuredStrengths = coreStrengths.filter(s => s.title !== "Star Citizen Operations").slice(0, 4);
 
 const projectFocusAreas = [
   {
@@ -26,8 +26,8 @@ const projectFocusAreas = [
     text: "Roadmaps, risk management, launch readiness, platform support, production pipelines, and cross-functional delivery across overlapping workstreams.",
   },
   {
-    title: "Star Citizen",
-    text: "Community operations, organization leadership, large-scale coordination, event production, and systems built inside one of my most active personal ecosystems.",
+    title: "Community",
+    text: "Community operations, organization leadership, large-scale coordination, and event production built around clear governance and repeatable systems.",
   },
 ];
 ---
@@ -54,9 +54,6 @@ const projectFocusAreas = [
           </h1>
           <p class="hero__subtext">
             {homeHero.subtext}
-          </p>
-          <p class="hero__supporting-text">
-            {homeHero.supportingText}
           </p>
           <ul class="hero__proof-list" aria-label="Selected proof points">
             {
@@ -92,7 +89,7 @@ const projectFocusAreas = [
 
           <div class="hero__evidence-intro">
             <h2 class="hero__evidence-title">
-              Director-level range, backed by shipped work.
+              Backed by shipped work.
             </h2>
             <p class="hero__evidence-copy">
               The pattern across my career is consistent: diagnose quickly,
@@ -190,7 +187,7 @@ const projectFocusAreas = [
       <SectionHeader
         label="// CAPABILITIES"
         title="How I Add Value"
-        subtitle="I work across the director-level operating stack: strategy, programs, events, communities, and the tools that help them scale."
+        subtitle="Event operations, program management, community systems, and the tools that enable execution."
       />
 
       <div class="grid-3 strengths-grid">
@@ -263,14 +260,10 @@ const projectFocusAreas = [
       <SectionHeader
         label="// CAREER ARC"
         title="See the progression behind the outcomes"
-        subtitle="The career page now brings the full arc together, from frontline support and military operations to senior program leadership, community systems, and live-event execution."
+        subtitle="Browse the full arc — from military roots to senior program leadership."
       />
 
       <div class="career-hub-card panel">
-        <p class="career-hub-card__copy text-muted">
-          Use narrative view for the director-level story, gantt for role and
-          project overlap, or scroll for the full progression in one pass.
-        </p>
         <div class="career-hub-card__actions">
           <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
             >Open Narrative View</a
@@ -300,21 +293,10 @@ const projectFocusAreas = [
           <span class="accent-line"></span>
           <h2>Why this perspective holds up in real environments</h2>
           <p>
-            My background is broad on purpose. Military service taught me how
-            to lead under pressure, Ubisoft taught me how large organizations
-            actually move work, and community and event systems gave me places
-            to keep building beyond formal job boundaries.
-          </p>
-          <p>
             That mix is why I tend to operate well above a narrow title line. I
             am comfortable in the strategy layer, the execution layer, and the
             system-design layer at the same time, especially when multiple
             projects are moving at once.
-          </p>
-          <p>
-            If you want the fuller version, the About page explains where that
-            operating style came from and why I keep getting pulled toward
-            systems that need to be clarified, rebuilt, or scaled.
           </p>
           <a
             href={toBasePath("/about")}
@@ -346,9 +328,7 @@ const projectFocusAreas = [
         <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
         <p>
-          I'm focused on director-level and above roles in event management,
-          program management, operations leadership, and community systems. If
-          you need someone who can own scope, align people, and turn complex
+          If you need someone who can own scope, align teams, and turn complex
           work into execution, reach out.
         </p>
         <div class="cta-panel__actions">

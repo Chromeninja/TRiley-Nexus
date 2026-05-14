@@ -11,7 +11,7 @@ tags:
   - Personal Branding
 timeframe: Ongoing
 roleTitle: Creator and Product Builder
-startedAt: 2026
+startedAt: "2026"
 summary: "Built this portfolio platform to solve a core problem: a typical resume does not capture the real scope of my work across multiple simultaneous projects. The goal was to create a clean, fast site that shows who I am, what I have worked on, and gives people a clear way to connect and collaborate with me."
 cardSummary: "Built this repo as a clean Astro-based portfolio platform to show multi-project work beyond what a standard resume can communicate."
 highlights:

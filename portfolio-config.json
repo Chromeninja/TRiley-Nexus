@@ -3,7 +3,7 @@
     "name": "T.Riley",
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
-    "description": "Director-level program and operations leader focused on event management, Star Citizen community systems, and the operating structure behind complex work.",
+    "description": "Director-level program and operations leader focused on event management, community systems, and the operating structure behind complex work.",
     "canonicalUrl": "https://chromeninja.github.io",
     "repository": {
       "owner": "Chromeninja",
@@ -28,22 +28,20 @@
   },
   "footer": {
     "tagline": "Director-level program leadership for events, communities, and complex operations.",
-    "focusLine": "FOCUS: EVENTS, PROGRAMS, LEADERSHIP, STAR CITIZEN"
+    "focusLine": "FOCUS: EVENTS, PROGRAMS, LEADERSHIP, COMMUNITY"
   },
   "home": {
-    "metaDescription": "Director-level program and operations leader focused on event management, leadership, program management, and Star Citizen community systems.",
+    "metaDescription": "Director-level program and operations leader focused on event management, leadership, program management, and community systems.",
     "hero": {
       "eyebrow": "// DIRECTOR-LEVEL PROJECT LEADERSHIP",
-      "roleLine": "Director of Technical Program Management | Systems Builder | Operations Architect",
+      "roleLine": "Program and Operations Leader | Systems Builder | Event and Community Leadership",
       "headlineLead": "I lead the programs behind ",
       "headlineAccent": "complex operations",
       "headlineTail": " at scale.",
-      "subtext": "Director-level program, event, and operations leader focused on live experiences, Star Citizen community systems, and technical programs where people, process, and tools have to move together.",
-      "supportingText": "This site is built around project scope: event management, leadership, program management, community operations, and the systems that make ambitious work repeatable.",
+      "subtext": "Program and operations leader — live events, community systems, and technical programs where people, process, and tools have to move together.",
       "proofPoints": [
-        "Director-level ownership across programs, events, communities, and technical operating systems",
         "7 roles across 10+ years at Ubisoft, ending as Senior Program Manager",
-        "Star Citizen community and operations leadership across large-scale coordination work",
+        "Community and operations leadership across large-scale coordination work",
         "15+ years of military service in high-pressure operational environments"
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
