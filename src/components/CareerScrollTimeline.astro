@@ -5,20 +5,10 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
+import {
+  type TimelineYearGroup,
+} from "../data/careerTimeline";
 import { toBasePath, normalizeWhitespace } from "../utils/paths";
-
-interface TimelineMonthGroup {
-  key: string;
-  month: number;
-  monthLabel: string;
-  projects: Project[];
-}
-
-interface TimelineYearGroup {
-  year: number;
-  key: string;
-  months: TimelineMonthGroup[];
-}
 
 interface Props {
   currentProjects: Project[];

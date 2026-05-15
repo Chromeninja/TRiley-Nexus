@@ -1,0 +1,48 @@
+---
+import ProjectBar from "./ProjectBar.astro";
+import type { CareerAtlasProjectNode } from "../data/projects";
+
+interface Props {
+  organization: string;
+  projects: CareerAtlasProjectNode[];
+  safeCompanyColor: string;
+}
+
+const { organization, projects, safeCompanyColor } = Astro.props;
+---
+
+<ul class="company-row__projects" aria-label={`${organization} projects`}>
+  {
+    projects.map((project) => (
+      <ProjectBar project={project} color={safeCompanyColor} />
+    ))
+  }
+</ul>
+
+<style is:global>
+  .company-row__projects {
+    list-style: none;
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    margin-top: var(--space-md);
+    overflow: hidden;
+  }
+
+  .company-row[data-expanded="false"] .company-row__projects {
+    display: none;
+  }
+
+  .company-row[data-expanded="false"] .company-row__projects [data-major="false"] {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .company-row__projects {
+      opacity: 1;
+      max-height: none;
+      margin-top: var(--space-sm);
+    }
+  }
+</style>

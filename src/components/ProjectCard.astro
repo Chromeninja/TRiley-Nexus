@@ -7,6 +7,7 @@ import {
   type Project,
 } from "../data/projects";
 import { toBasePath, resolveMediaPath } from "../utils/paths";
+import { getOrganizationLabel } from "../utils/organizationLabels";
 
 interface Props {
   project: Project;
@@ -19,58 +20,12 @@ const actionLinks = project.links?.slice(0, 2) ?? [];
 const projectDateRange = formatProjectDateRange(project);
 
 const MAX_ORGANIZATION_LABEL_CHARS = 18;
-const organizationShortLabels: Record<string, string> = {
-  "118th Air Support Operations Squadron": "118 ASOS",
-  "235th Combat Airfield Operations Squadron": "235 CAOS",
-  "878th Engineer Company": "878 EN CO",
-  "Bar Citizen International": "BCI",
-  "North Carolina National Guard Joint Force Headquarters": "NCNG JFHQ",
-};
-
-function toOrganizationLabel(value: string, maxChars: number): string {
-  const fullName = value.trim();
-  const override = organizationShortLabels[fullName];
-  if (override) {
-    return override;
-  }
-
-  if (fullName.length <= maxChars) {
-    return fullName;
-  }
-
-  const compactName = fullName
-    .replace(
-      /\b(International|Corporation|Company|Group|Systems|Solutions|Operations|Squadron|Services|Technologies|Technology|Institute|Organization)\b/gi,
-      "",
-    )
-    .replace(/\s{2,}/g, " ")
-    .trim();
-
-  if (compactName.length > 0 && compactName.length <= maxChars) {
-    return compactName;
-  }
-
-  const acronym = fullName
-    .split(/[\s/&-]+/)
-    .filter(Boolean)
-    .map((part) => part.replace(/[^A-Za-z0-9]/g, ""))
-    .filter(Boolean)
-    .map((part) => (/[0-9]/.test(part) ? part : part[0]?.toUpperCase() ?? ""))
-    .join("");
-
-  if (acronym.length >= 2 && acronym.length <= maxChars) {
-    return acronym;
-  }
-
-  return `${fullName.slice(0, Math.max(0, maxChars - 1)).trim()}…`;
-}
-
 const organizationName = project.organization?.trim();
 const organizationShortName = project.organizationShortName?.trim();
 const organizationLabel = organizationShortName
   ? organizationShortName
   : organizationName
-  ? toOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
+  ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
   : undefined;
 
 const summaryText = (project.cardSummary ?? project.summary).trim();

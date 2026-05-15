@@ -20,19 +20,10 @@ import {
   type Project,
   type ProjectOrganizationGroup,
 } from "../../data/projects";
-
-interface TimelineMonthGroup {
-  key: string;
-  month: number;
-  monthLabel: string;
-  projects: Project[];
-}
-
-interface TimelineYearGroup {
-  year: number;
-  key: string;
-  months: TimelineMonthGroup[];
-}
+import {
+  type TimelineMonthGroup,
+  type TimelineYearGroup,
+} from "../../data/careerTimeline";
 
 const timelineViewModes: TimelineViewMode[] = [
   "gantt",

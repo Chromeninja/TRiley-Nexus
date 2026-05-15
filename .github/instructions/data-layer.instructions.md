@@ -40,6 +40,17 @@ const myCollection = defineCollection({
 
 ## Data File Patterns
 
+## File Size Guard Rails
+
+- Soft limit: keep each `src/data/*.ts` file at or below 6000 characters
+- Hard trigger: once a data file exceeds 9000 characters, split it before adding new logic
+- Split decomposition order:
+  - 1. Move constants/maps/enums into `*Themes.ts` or `*Constants.ts`
+  - 2. Move pure formatting/parsing/sorting helpers into `*Helpers.ts`
+  - 3. Keep orchestration and exported data loaders in the primary file
+- Re-export moved symbols from the original file when needed to preserve import compatibility
+- Avoid duplicated interfaces across pages/components, centralize shared types in `src/data/`
+
 ### Enriched Types
 
 Collection entries get enriched with computed fields before being passed to components:
@@ -104,3 +115,10 @@ Every `src/data/*.ts` file must export:
 ## Utilities
 
 Shared utility functions go in `src/utils/`. Keep data files focused on data transformation, not string formatting or DOM utilities.
+
+## Refactor Validation
+
+- After data-layer splits, run:
+  - `npm run check`
+  - `npm run build`
+- If imports were moved, run a workspace search to confirm no stale import paths remain

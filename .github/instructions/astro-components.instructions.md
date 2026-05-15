@@ -91,6 +91,24 @@ Vanilla JS only in `<script>` blocks, with no framework imports:
 - Import order: Astro builtins → data layer imports → component imports → utils
 - Reference [`src/components/PageHero.astro`](../../src/components/PageHero.astro) as a structural template
 
+## File Size Guard Rails
+
+- Soft limit: keep each component at or below 5000 characters
+- Hard trigger: once a component exceeds 7000 characters, split it before adding new behavior
+- Split extraction order:
+  - 1. Extract pure UI fragments into new subcomponents (props-only, no side effects)
+  - 2. Extract long inline scripts into `src/utils/` helper modules
+  - 3. Extract duplicated interfaces/types into `src/data/` or shared type modules
+- Prefer composition over additional inline conditionals in oversized files
+- Keep parent components focused on orchestration, child components focused on rendering
+
+## Refactor Validation
+
+- After every split, run both checks from project root:
+  - `npm run check`
+  - `npm run build`
+- Confirm that extracted components preserve existing `data-*` hooks used by scripts
+
 ## Accessibility
 
 - All interactive elements need keyboard support and visible focus states

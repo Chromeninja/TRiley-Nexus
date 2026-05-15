@@ -3,6 +3,18 @@ import { getCompanyProfiles } from "./companyProfiles";
 import { careerAtlasEras } from "./careerAtlas";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 import type { CompanyProfile } from "./siteConfig";
+import {
+  projectStatusLabels,
+  projectStatusSortOrder,
+  atlasFallbackColors,
+} from "./projectThemes";
+import {
+  parseProjectDateValue,
+  hashStringToIndex,
+  toSlugId,
+  rangeLengthInMonths,
+  formatProjectDateRange,
+} from "./projectHelpers";
 
 type ProjectCollectionEntry = CollectionEntry<"projects">;
 
@@ -202,86 +214,14 @@ export interface ProjectsPageData {
   totalProjectCount: number;
 }
 
-const monthLookup: Record<string, number> = {
-  jan: 0,
-  feb: 1,
-  mar: 2,
-  apr: 3,
-  may: 4,
-  jun: 5,
-  jul: 6,
-  aug: 7,
-  sep: 8,
-  oct: 9,
-  nov: 10,
-  dec: 11,
-};
-
-const monthAbbreviations = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-export const projectStatusColors: Record<Project["status"], string> = {
-  active: "badge-green",
-  completed: "badge-cyan",
-  archived: "badge-gray",
-  concept: "badge-yellow",
-};
-
-export const projectStatusLabels: Record<Project["status"], string> = {
-  active: "Active",
-  completed: "Completed",
-  archived: "Archived",
-  concept: "Concept",
-};
-
-const projectStatusSortOrder: Record<Project["status"], number> = {
-  active: 0,
-  concept: 1,
-  completed: 2,
-  archived: 3,
-};
-
-const atlasFallbackColors = [
-  "#5cc8ff",
-  "#8be36d",
-  "#f5a65b",
-  "#de87ff",
-  "#5eead4",
-  "#f38ba8",
-  "#c4b5fd",
-  "#facc15",
-  "#22d3ee",
-];
+// Re-export theme constants and helpers for backward compatibility
+export { projectStatusColors, projectStatusLabels } from "./projectThemes";
+export { formatProjectDateRange, parseProjectDateValue } from "./projectHelpers";
 
 let currentCompanyProfiles: Record<string, CompanyProfile> = {};
 
-function toSlugId(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 function getFallbackColor(label: string): string {
-  let hash = 0;
-
-  for (let index = 0; index < label.length; index++) {
-    hash = (hash * 31 + label.charCodeAt(index)) >>> 0;
-  }
-
-  return atlasFallbackColors[hash % atlasFallbackColors.length];
+  return atlasFallbackColors[hashStringToIndex(label, atlasFallbackColors.length)];
 }
 
 function toPositioning(
@@ -426,68 +366,6 @@ export async function getProjectsPageData(
     categoryGroups,
     totalProjectCount: projects.length,
   };
-}
-
-export function formatProjectDateRange(
-  project: Pick<Project, "startedAt" | "endedAt" | "timeframe">,
-): string | undefined {
-  const startedAt = project.startedAt?.trim();
-  const endedAt = project.endedAt?.trim();
-
-  if (startedAt && endedAt) {
-    return `${formatMonthYear(startedAt)} - ${formatMonthYear(endedAt)}`;
-  }
-
-  if (startedAt) {
-    return `${formatMonthYear(startedAt)} - Present`;
-  }
-
-  return project.timeframe?.trim();
-}
-
-function formatMonthYear(dateString: string): string {
-  const match = /^(\d{4})-(\d{2})$/.exec(dateString.trim());
-  if (match) {
-    const year = match[1];
-    const monthNum = Number.parseInt(match[2], 10) - 1;
-    if (monthNum >= 0 && monthNum <= 11) {
-      return `${monthAbbreviations[monthNum]} ${year}`;
-    }
-  }
-  return dateString;
-}
-
-export function parseProjectDateValue(
-  value: string,
-  boundary: "start" | "end" = "start",
-): Date | undefined {
-  const trimmed = value.trim();
-
-  const monthYearMatch = /^(\w+)\s+(\d{4})$/i.exec(trimmed);
-  if (monthYearMatch) {
-    const monthValue = monthLookup[monthYearMatch[1].slice(0, 3).toLowerCase()];
-    if (monthValue === undefined) {
-      return undefined;
-    }
-
-    const yearValue = Number.parseInt(monthYearMatch[2], 10);
-    const dayValue =
-      boundary === "start"
-        ? 1
-        : new Date(yearValue, monthValue + 1, 0).getDate();
-    return new Date(yearValue, monthValue, dayValue);
-  }
-
-  const yearOnlyMatch = /^(\d{4})$/.exec(trimmed);
-  if (yearOnlyMatch) {
-    const yearValue = Number.parseInt(yearOnlyMatch[1], 10);
-    if (boundary === "start") {
-      return new Date(yearValue, 0, 1);
-    }
-    return new Date(yearValue, 11, 31);
-  }
-
-  return undefined;
 }
 
 function getProjectDateRange(projects: Project[]): DateRange | undefined {
@@ -861,13 +739,6 @@ function buildCompanyTimeline(
       toRenderSegment(segment, mergedRange),
     ),
   };
-}
-
-function rangeLengthInMonths(range: DateRange): number {
-  return (
-    (range.end.getFullYear() - range.start.getFullYear()) * 12 +
-    (range.end.getMonth() - range.start.getMonth())
-  );
 }
 
 function selectLongerRange(
