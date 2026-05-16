@@ -1,7 +1,7 @@
 ---
 import type { CareerAtlasCompanyNode } from "../data/projects";
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
-import ProjectBar from "./ProjectBar.astro";
+import CompanyRowProjects from "./CompanyRowProjects.astro";
 import { toBasePath } from "../utils/paths";
 import { renderRichText } from "../utils/richText";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
@@ -128,16 +128,11 @@ function resolveLogoSrc(src: string): string {
       <p><span class="text-accent">Projects:</span> {company.projectCount}</p>
     </ExpandableDetailPanel>
 
-    <ul
-      class="company-row__projects"
-      aria-label={`${company.organization} projects`}
-    >
-      {
-        company.projects.map((project) => (
-          <ProjectBar project={project} color={safeCompanyColor} />
-        ))
-      }
-    </ul>
+    <CompanyRowProjects
+      organization={company.organization}
+      projects={company.projects}
+      safeCompanyColor={safeCompanyColor}
+    />
   </div>
 </article>
 
@@ -422,20 +417,6 @@ function resolveLogoSrc(src: string): string {
     margin-top: var(--space-xs);
   }
 
-  .company-row__projects {
-    list-style: none;
-    display: grid;
-    gap: var(--space-sm);
-    margin: 0;
-    padding: 0;
-    margin-top: var(--space-md);
-    overflow: hidden;
-  }
-
-  .company-row[data-expanded="false"] .company-row__projects {
-    display: none;
-  }
-
   :global(.career-atlas[data-view="overview"]) .company-row {
     grid-template-columns: 1fr;
     gap: 0;
@@ -449,12 +430,6 @@ function resolveLogoSrc(src: string): string {
 
   :global(.career-atlas[data-view="overview"]) .company-row:first-child {
     margin-top: 0.2rem;
-  }
-
-  .company-row[data-expanded="false"]
-    .company-row__projects
-    [data-major="false"] {
-    display: none;
   }
 
   @media (max-width: 640px) {
@@ -487,10 +462,5 @@ function resolveLogoSrc(src: string): string {
       display: none;
     }
 
-    .company-row__projects {
-      opacity: 1;
-      max-height: none;
-      margin-top: var(--space-sm);
-    }
   }
 </style>

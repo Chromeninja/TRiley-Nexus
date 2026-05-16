@@ -3,6 +3,7 @@ title: Engineering Operations
 status: completed
 category: Military Operations
 organization: 878th Engineer Company
+organizationShortName: "878 EN CO"
 roleTitle: Plumber / Engineering Specialist
 timeframe: Past
 startedAt: "2011-02"

@@ -1,6 +1,7 @@
 ---
 // contact.astro: Contact page
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 ---
 
@@ -8,21 +9,14 @@ import SectionHeader from "../components/SectionHeader.astro";
   title="Contact"
   description="Get in touch with T.Riley for roles, collaborations, and conversations about systems, operations, and building things."
 >
-  <!-- Page Hero -->
-  <section class="page-hero">
-    <div class="container">
-      <p class="section-label">// CONTACT</p>
-      <span class="accent-line"></span>
-      <h1>Get in Touch</h1>
-      <p class="page-hero__sub">
-        I'm open to conversations about roles, collaborations, and meaningful
-        systems work. Reach out through any of the channels below.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    label="// CONTACT"
+    title="Get in Touch"
+    subtitle="I'm open to conversations about roles, collaborations, and meaningful systems work. Reach out through any of the channels below."
+  />
 
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <div class="contact-layout">
         <!-- Contact options -->
         <div class="contact-cards">
@@ -168,10 +162,7 @@ import SectionHeader from "../components/SectionHeader.astro";
           <div class="status-panel">
             <div class="status-row">
               <span class="status-dot-sm" aria-hidden="true"></span>
-              <span
-                class="text-mono"
-                style="font-size: 0.8rem; letter-spacing: 0.06em;"
-              >
+              <span class="text-mono status-row__text">
                 Status: <span class="text-accent">Open to opportunities</span>
               </span>
             </div>
@@ -187,20 +178,6 @@ import SectionHeader from "../components/SectionHeader.astro";
 </Layout>
 
 <style>
-  .page-hero {
-    padding-block: var(--space-3xl);
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg-secondary);
-  }
-
-  .page-hero__sub {
-    color: var(--color-text-muted);
-    font-size: 1.125rem;
-    max-width: 55ch;
-    margin-top: var(--space-md);
-    margin-bottom: 0;
-  }
-
   /* Layout */
   .contact-layout {
     display: grid;
@@ -254,7 +231,7 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   .channel-card__label {
-    font-size: 0.7rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -262,14 +239,14 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   .channel-card__value {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     font-weight: 500;
     color: var(--color-text-heading);
     margin-bottom: var(--space-xs);
   }
 
   .channel-card__hint {
-    font-size: 0.8rem;
+    font-size: var(--font-size-meta);
     line-height: 1.4;
     margin: 0;
   }
@@ -300,7 +277,7 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   .response-panel__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-md);
     border-bottom: 1px solid var(--color-border);
@@ -319,13 +296,13 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   .response-item__label {
-    font-size: 0.7rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .response-item p {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.6;
     margin: 0;
@@ -346,6 +323,11 @@ import SectionHeader from "../components/SectionHeader.astro";
     margin-bottom: var(--space-sm);
   }
 
+  .status-row__text {
+    font-size: var(--font-size-meta);
+    letter-spacing: 0.06em;
+  }
+
   .status-dot-sm {
     width: 7px;
     height: 7px;
@@ -356,7 +338,7 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   .status-note {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-meta);
     line-height: 1.55;
     margin: 0;
   }
@@ -374,10 +356,6 @@ import SectionHeader from "../components/SectionHeader.astro";
   }
 
   @media (max-width: 560px) {
-    .page-hero {
-      padding-block: var(--space-2xl);
-    }
-
     .channel-card {
       grid-template-columns: 40px 1fr;
       gap: var(--space-md);
@@ -394,13 +372,8 @@ import SectionHeader from "../components/SectionHeader.astro";
     }
 
     .channel-card__hint {
-      font-size: 0.84rem;
+      font-size: var(--font-size-body-sm);
       line-height: 1.55;
-    }
-
-    .page-hero__sub {
-      font-size: 1rem;
-      line-height: 1.65;
     }
 
     .response-panel,

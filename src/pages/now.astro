@@ -31,7 +31,7 @@ const lastUpdated = nowLastUpdated;
 
   <!-- Status indicator -->
   <section class="status-banner">
-    <div class="container">
+    <div class="container container--page">
       <div class="status-display">
         <span class="status-dot" aria-hidden="true"></span>
         <span class="status-display__primary text-mono">
@@ -48,7 +48,7 @@ const lastUpdated = nowLastUpdated;
 
   <!-- Active Projects -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader label="// ACTIVE WORKSTREAMS" title="Current Projects" />
 
       <div class="active-projects">
@@ -57,10 +57,7 @@ const lastUpdated = nowLastUpdated;
             <div class="active-project-card">
               <div class="active-project-card__header">
                 <div>
-                  <span
-                    class="badge badge-green"
-                    style="margin-bottom: var(--space-sm); display: inline-flex;"
-                  >
+                  <span class="badge badge-green active-project-card__status">
                     Active
                   </span>
                   <h3 class="active-project-card__title">
@@ -99,11 +96,8 @@ const lastUpdated = nowLastUpdated;
   </section>
 
   <!-- Areas of Exploration -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader label="// EXPLORATION AREAS" title="Areas I'm Exploring" />
 
       <div class="exploration-grid">
@@ -124,17 +118,14 @@ const lastUpdated = nowLastUpdated;
 
   <!-- Current Priorities -->
   <section class="section">
-    <div class="container container--sm">
+    <div class="container container--reading">
       <SectionHeader label="// PRIORITIES" title="Current Priorities" />
 
       <div class="priority-list">
         {
           priorityItems.map((item) => (
             <div class="priority-item">
-              <span
-                class={`badge ${item.color}`}
-                style="flex-shrink: 0; min-width: 50px; justify-content: center;"
-              >
+              <span class={`badge ${item.color} priority-item__badge`}>
                 {item.label}
               </span>
               <p>{item.text}</p>
@@ -146,11 +137,8 @@ const lastUpdated = nowLastUpdated;
   </section>
 
   <!-- What I'm Open To -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader label="// WHAT I'M OPEN TO" title="What I'm Open To" />
 
       <div class="open-to-grid">
@@ -174,8 +162,7 @@ const lastUpdated = nowLastUpdated;
         from you.
         <a
           href={toBasePath("/contact")}
-          class="btn btn-primary"
-          style="margin-top: var(--space-md); display: inline-flex;"
+          class="btn btn-primary open-to-cta__action"
         >
           Get in Touch
         </a>
@@ -209,12 +196,17 @@ const lastUpdated = nowLastUpdated;
   }
 
   .status-display__primary {
-    font-size: 0.8rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.06em;
   }
 
   .status-display__secondary {
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
+  }
+
+  .active-project-card__status {
+    display: inline-flex;
+    margin-bottom: var(--space-sm);
   }
 
   /* Active projects */
@@ -262,13 +254,13 @@ const lastUpdated = nowLastUpdated;
 
   .active-project-card__summary {
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: var(--font-size-body);
     line-height: 1.65;
     margin-bottom: var(--space-md);
   }
 
   .active-project-card__meta {
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.04em;
     display: flex;
     gap: var(--space-sm);
@@ -311,12 +303,12 @@ const lastUpdated = nowLastUpdated;
   }
 
   .explore-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-sm);
   }
 
   .explore-card__body {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.65;
     margin: 0;
@@ -339,8 +331,14 @@ const lastUpdated = nowLastUpdated;
     padding: var(--space-md) var(--space-lg);
   }
 
+  .priority-item__badge {
+    flex-shrink: 0;
+    min-width: 50px;
+    justify-content: center;
+  }
+
   .priority-item p {
-    font-size: 0.9rem;
+    font-size: var(--font-size-body);
     color: var(--color-text-muted);
     margin: 0;
     line-height: 1.4;
@@ -369,7 +367,7 @@ const lastUpdated = nowLastUpdated;
   }
 
   .open-to-card h3 {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     font-family: var(--font-mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -393,7 +391,7 @@ const lastUpdated = nowLastUpdated;
   }
 
   .open-to-card li {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.4;
     padding-left: var(--space-md);
@@ -418,11 +416,15 @@ const lastUpdated = nowLastUpdated;
 
   .open-to-cta {
     color: var(--color-text-muted);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-body);
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: var(--space-md);
+  }
+
+  .open-to-cta__action {
+    display: inline-flex;
   }
 
   @media (max-width: 640px) {

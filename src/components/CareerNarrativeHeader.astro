@@ -1,0 +1,71 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  subtitle: string;
+  companyCount: number;
+  projectCount: number;
+  rangeLabel: string;
+  showControls?: boolean;
+}
+
+const {
+  label,
+  title,
+  subtitle,
+  companyCount,
+  projectCount,
+  rangeLabel,
+  showControls = true,
+} = Astro.props;
+---
+
+<div class="career-narrative__header">
+  <div class="career-narrative__header-copy">
+    <p class="career-narrative__label section-label">{label}</p>
+    <h2 class="career-narrative__title">{title}</h2>
+    <p class="career-narrative__subtitle">{subtitle}</p>
+  </div>
+
+  <div class="career-narrative__summary" aria-label="Career narrative summary">
+    <div class="career-narrative__metric">
+      <span class="career-narrative__metric-value">{companyCount}</span>
+      <span class="career-narrative__metric-label">Companies</span>
+    </div>
+    <div class="career-narrative__metric">
+      <span class="career-narrative__metric-value">{projectCount}</span>
+      <span class="career-narrative__metric-label">Projects</span>
+    </div>
+    <div class="career-narrative__metric career-narrative__metric--coverage">
+      <span class="career-narrative__metric-value">{rangeLabel}</span>
+      <span class="career-narrative__metric-label">Coverage</span>
+    </div>
+  </div>
+</div>
+
+{
+  showControls && (
+    <div
+      class="career-narrative__controls"
+      role="group"
+      aria-label="Career narrative controls"
+    >
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        data-narrative-control="expand-all"
+      >
+        Expand all
+      </button>
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        data-narrative-control="collapse-all"
+      >
+        Collapse all
+      </button>
+    </div>
+  )
+}
+
+<div class="career-narrative__rail" aria-hidden="true"></div>

@@ -29,6 +29,7 @@ const TOKEN_TTL_MS = 10 * 60 * 1000;
 // Fields handled explicitly by renderFrontmatterPreview: excluded from the fallback scalar table.
 const RESERVED_FM_FIELDS = new Set([
   "title", "organization", "roleTitle", "status", "category",
+  "organizationShortName",
   "startedAt", "endedAt", "summary", "cardSummary", "longSummary", "problem", "approach",
   "outcome", "skills", "tags", "metaDescription", "featured", "order", "color",
   "organizationUrl", "timeframe", "backgroundParagraphs", "thinkItems", "personalItems",
@@ -42,6 +43,7 @@ const FORM_SCHEMAS = {
     { key: "status", label: "Status", type: "select", required: true, options: ["active", "completed", "archived", "concept"] },
     { key: "category", label: "Category", type: "text", required: true, placeholder: "Project category" },
     { key: "organization", label: "Organization", type: "text", placeholder: "Company or team" },
+    { key: "organizationShortName", label: "Organization Short Name", type: "text", placeholder: "Short label for cards (e.g. BCI)" },
     { key: "organizationUrl", label: "Organization URL", type: "text", placeholder: "https://example.com" },
     { key: "roleTitle", label: "Role Title", type: "text", placeholder: "Your role on this project" },
     { key: "timeframe", label: "Timeframe", type: "text", placeholder: "Ongoing or Jan 2024 - Mar 2025" },

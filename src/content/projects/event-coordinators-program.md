@@ -7,7 +7,7 @@ organizationUrl: "https://testsquadron.com/"
 roleTitle: Program Lead / Community Operations
 timeframe: Ongoing
 summary: "Built and led the TEST Squadron Event Coordinators program, organizing a trusted team to run recurring operations, training, and story-driven events that kept members engaged and active."
-cardSummary: "Built and lead a 15+ coordinator program that runs recurring operations, training, and RP events for 30-50 members."
+cardSummary: "Built and lead a 15-plus person Event Coordinators program that delivers recurring operations, training, and RP events for 30 to 50 members, creating reliable cadence and clearer ownership across hosts."
 highlights:
   - "Established and managed a 15+ person Event Coordinators team with clear ownership, planning standards, and delivery expectations."
   - "Built event handbooks, guidelines, and policy documentation to standardize quality, safety, and execution across event leads."

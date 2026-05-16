@@ -1,9 +1,10 @@
 ---
-title: The Nope Challenge VR Game
+title: Nope Challange
 status: active
 category: Digital Products & Platforms
 tags:
   - VR
+  - Video Game
   - Production
   - Mixed Reality
   - Community Testing
@@ -34,7 +35,7 @@ tools:
   - Perforce
   - Jira
   - Discord
-  - Meta Quest Platform
+  - Meta Quest
 cover:
   src: "/media/projects/nope-cover.webp"
   alt: Nope Challenge logo and project cover image

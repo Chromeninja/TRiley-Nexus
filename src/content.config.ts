@@ -13,6 +13,7 @@ const projectsCollection = defineCollection({
     category: z.string(),
     tags: z.array(z.string()),
     organization: z.string().optional(),
+    organizationShortName: z.string().optional(),
     organizationUrl: z.url().optional(),
     roleTitle: z.string().optional(),
     startedAt: z.string().optional(),

@@ -14,7 +14,7 @@ organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
 roleTitle: Discord Operations and Governance Lead
 summary: "Led end-to-end Discord operations for a partnered TEST Squadron community of roughly 40,000 members, combining structured governance, automation tooling, and custom bot-powered workflows to keep moderation, access control, and member experience consistent at scale."
-cardSummary: "Managed governance, permissions, and automation strategy for a 40k-member partnered Discord community."
+cardSummary: "Led governance and automation for a 40k-member partnered Discord, redesigning permissions, moderation workflows, and onboarding standards to improve safety consistency while reducing manual staff overhead."
 highlights:
   - Owned role and permission architecture for a partnered Discord with about 40,000 members, maintaining secure and consistent access patterns.
   - Implemented automation workflows with tools like MEE6 for role removals, auto-banning, ticketing, and moderation support.

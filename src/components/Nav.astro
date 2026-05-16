@@ -84,14 +84,14 @@ const navItems = enabledNavItems.map((link) => ({
     z-index: 100;
     background: linear-gradient(
       180deg,
-      rgba(8, 17, 13, 0.96),
-      rgba(16, 26, 22, 0.92)
+      var(--color-nav-bg-start),
+      var(--color-nav-bg-end)
     );
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
     height: var(--nav-height);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--shadow-nav);
   }
 
   .nav__inner {
@@ -142,9 +142,9 @@ const navItems = enabledNavItems.map((link) => ({
 
   .nav__link {
     font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
     text-decoration: none;
@@ -162,6 +162,15 @@ const navItems = enabledNavItems.map((link) => ({
       90deg,
       rgba(87, 166, 255, 0.08),
       rgba(34, 211, 238, 0.06)
+    );
+  }
+
+  .nav__link:focus-visible {
+    color: var(--color-text);
+    background: linear-gradient(
+      90deg,
+      var(--color-accent-dim),
+      var(--color-accent2-dim)
     );
   }
 
@@ -212,8 +221,8 @@ const navItems = enabledNavItems.map((link) => ({
     display: none;
     background: linear-gradient(
       180deg,
-      rgba(16, 26, 22, 0.98),
-      rgba(21, 35, 29, 0.96)
+      var(--color-nav-mobile-bg-start),
+      var(--color-nav-mobile-bg-end)
     );
     border-top: 1px solid var(--color-border);
     padding: var(--space-md) var(--space-xl);

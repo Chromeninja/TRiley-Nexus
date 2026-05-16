@@ -12,7 +12,7 @@ timeframe: Ongoing
 roleTitle: Community Manager
 startedAt: "2025"
 summary: "Improved VR Villa community operations in Discord by reorganizing server structure, strengthening moderation workflows, improving event communication paths, and adding practical automation."
-cardSummary: "Improved VR Villa Discord operations with clearer structure, safer moderation workflows, and practical automation."
+cardSummary: "Rebuilt VR Villa Discord operations with clearer channel structure, stronger moderation standards, and targeted automation, reducing daily admin load while improving safety and event communication flow."
 highlights:
   - Reorganized channels and categories to improve discoverability and reduce member confusion.
   - Implemented moderation automations for repeat policy and safety workflows.
@@ -34,9 +34,9 @@ skills:
   - Workflow Automation
 tools:
   - Discord
-  - Discord AutoMod
   - Moderation Bots
   - Notion
+  - Meta Quest
 featured: false
 order: 18
 ---

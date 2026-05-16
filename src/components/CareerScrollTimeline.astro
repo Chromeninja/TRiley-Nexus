@@ -5,20 +5,10 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
+import {
+  type TimelineYearGroup,
+} from "../data/careerTimeline";
 import { toBasePath, normalizeWhitespace } from "../utils/paths";
-
-interface TimelineMonthGroup {
-  key: string;
-  month: number;
-  monthLabel: string;
-  projects: Project[];
-}
-
-interface TimelineYearGroup {
-  year: number;
-  key: string;
-  months: TimelineMonthGroup[];
-}
 
 interface Props {
   currentProjects: Project[];
@@ -369,22 +359,22 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
   .career-scroll__eyebrow {
     margin: 0 0 var(--space-xs);
     color: var(--color-text-dim);
-    font-size: 0.68rem;
-    letter-spacing: 0.09em;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .career-scroll__rail-copy {
     margin: 0;
     color: var(--color-text-muted);
-    font-size: 0.87rem;
-    line-height: 1.5;
+    font-size: 0.92rem;
+    line-height: 1.7;
   }
 
   .career-scroll__year-block {
     margin-top: var(--space-sm);
     padding-left: var(--space-sm);
-    border-left: 1px solid rgba(87, 166, 255, 0.2);
+    border-left: 1px solid var(--color-border-strong);
   }
 
   .career-scroll__month-list,
@@ -414,7 +404,7 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
     color: var(--color-text-dim);
     text-align: left;
     width: 100%;
-    padding: 0.26rem 0.4rem;
+    padding: 0.34rem 0.5rem;
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition:
@@ -433,21 +423,21 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
 
   .career-scroll__jump--year {
     font-family: var(--font-heading);
-    font-size: 0.86rem;
-    letter-spacing: 0.06em;
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-top: var(--space-xs);
   }
 
   .career-scroll__jump--month {
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     color: var(--color-text-muted);
   }
 
   .career-scroll__jump--project {
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     color: var(--color-text-dim);
-    line-height: 1.35;
+    line-height: 1.5;
   }
 
   .career-scroll__content {
@@ -471,8 +461,8 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
   .career-scroll__section-label {
     margin: 0;
     color: var(--color-text-dim);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
+    font-size: 0.74rem;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
 
@@ -484,7 +474,7 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
 
   .career-scroll__month {
     scroll-margin-top: calc(var(--nav-height) + var(--space-md));
-    border-top: 1px solid rgba(87, 166, 255, 0.18);
+    border-top: 1px solid var(--color-border);
     padding-top: var(--space-md);
   }
 
@@ -502,8 +492,8 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
 
   .career-scroll__month-head span {
     color: var(--color-text-dim);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
 
@@ -516,7 +506,7 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-md);
-    background: rgba(16, 26, 22, 0.45);
+    background: var(--color-timeline-card-bg);
     scroll-margin-top: calc(var(--nav-height) + var(--space-md));
   }
 
@@ -548,8 +538,8 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
   .career-scroll__card-range {
     margin: 0;
     color: var(--color-text-dim);
-    font-size: 0.76rem;
-    letter-spacing: 0.06em;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 

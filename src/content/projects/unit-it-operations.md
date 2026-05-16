@@ -10,11 +10,12 @@ tags:
   - Digital Modernization
   - Air National Guard
 organization: 235th Combat Airfield Operations Squadron
+organizationShortName: "235 CAOS"
 timeframe: Ongoing
 roleTitle: Informal Unit IT Specialist
 startedAt: "2015-04"
 summary: "Serve as the 235th CAOS's informal IT resource, maintaining SharePoint, Teams, and Microsoft 365 tools that support documentation, meetings, permissions, and day-to-day unit operations."
-cardSummary: "Keep the unit's SharePoint, Teams, and Microsoft 365 workflows usable without dedicated local IT support."
+cardSummary: "Serve as the unit's informal IT lead, keeping SharePoint, Teams, and Microsoft 365 workflows operational so training, documentation, and meetings stay usable despite limited local IT support."
 highlights:
   - "Designs and builds SharePoint pages for squadron operations, documentation, and information management with no formal IT role or budget."
   - "Resolves Microsoft Teams configuration issues for unit members, including channels, permissions, meeting rooms, and connectivity, and provides first-line Microsoft 365 troubleshooting."

@@ -10,7 +10,26 @@ import { siteConfig } from "../data/siteConfig";
 const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
 const featuredEvidence = siteConfig.home.featuredEvidence;
-const featuredStrengths = coreStrengths.slice(0, 4);
+const featuredStrengths = coreStrengths.filter(s => s.title !== "Star Citizen Operations").slice(0, 4);
+
+const projectFocusAreas = [
+  {
+    title: "Event management",
+    text: "Live-event systems, staffing models, check-in operations, runbooks, and the decision structure needed when people are moving in real time.",
+  },
+  {
+    title: "Leadership",
+    text: "Director-level ownership across teams, communities, vendors, volunteers, and stakeholders with clear accountability for outcomes.",
+  },
+  {
+    title: "Program management",
+    text: "Roadmaps, risk management, launch readiness, platform support, production pipelines, and cross-functional delivery across overlapping workstreams.",
+  },
+  {
+    title: "Community",
+    text: "Community operations, organization leadership, large-scale coordination, and event production built around clear governance and repeatable systems.",
+  },
+];
 ---
 
 <Layout
@@ -35,9 +54,6 @@ const featuredStrengths = coreStrengths.slice(0, 4);
           </h1>
           <p class="hero__subtext">
             {homeHero.subtext}
-          </p>
-          <p class="hero__supporting-text">
-            {homeHero.supportingText}
           </p>
           <ul class="hero__proof-list" aria-label="Selected proof points">
             {
@@ -73,7 +89,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
           <div class="hero__evidence-intro">
             <h2 class="hero__evidence-title">
-              Director-level range, backed by shipped work.
+              Backed by shipped work.
             </h2>
             <p class="hero__evidence-copy">
               The pattern across my career is consistent: diagnose quickly,
@@ -105,7 +121,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
        WHAT I SOLVE
   ═══════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// WHAT I SOLVE"
         title="Where I Create Leverage"
@@ -131,11 +147,8 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   <!-- ═══════════════════════════════════════════
        HOW I LEAD PROGRAMS
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// HOW I LEAD PROGRAMS"
         title="The Operating Model, In Brief"
@@ -167,11 +180,11 @@ const featuredStrengths = coreStrengths.slice(0, 4);
        CORE STRENGTHS
   ═══════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// CAPABILITIES"
         title="How I Add Value"
-        subtitle="The through-line is consistent across domains: systems thinking, execution clarity, technical leverage, and leadership that holds under pressure."
+        subtitle="Event operations, program management, community systems, and the tools that enable execution."
       />
 
       <div class="grid-3 strengths-grid">
@@ -193,24 +206,55 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   </section>
 
   <!-- ═══════════════════════════════════════════
+       PROJECT FOCUS
+  ═══════════════════════════════════════════ -->
+  <section class="section section--alt">
+    <div class="container container--page">
+      <SectionHeader
+        label="// PROJECT SCOPE"
+        title="The work clusters around four lanes"
+        subtitle="The projects on this site are broad, but they share a practical center: leading complex work, building operational systems, and helping groups execute under real constraints."
+      />
+
+      <div class="project-focus-grid">
+        {
+          projectFocusAreas.map((area, i) => (
+            <article
+              class={`project-focus-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            >
+              <span class="project-focus-card__index text-mono">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3>{area.title}</h3>
+              <p>{area.text}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="project-focus-actions">
+        <a href={toBasePath("/projects")} class="btn btn-primary"
+          >Explore Project Portfolio</a
+        >
+        <a href={toBasePath("/career")} class="btn btn-outline"
+          >View Career Context</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// CAREER ARC"
         title="See the progression behind the outcomes"
-        subtitle="The career page now brings the full arc together, from frontline support and military operations to senior program leadership, community systems, and live-event execution."
+        subtitle="Browse the full arc — from military roots to senior program leadership."
       />
 
       <div class="career-hub-card panel">
-        <p class="career-hub-card__copy text-muted">
-          Use narrative view for the director-level story, gantt for role and
-          project overlap, or scroll for the full progression in one pass.
-        </p>
         <div class="career-hub-card__actions">
           <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
             >Open Narrative View</a
@@ -229,36 +273,22 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <div class="intro-grid">
         <div class="intro__text">
           <p class="section-label">// BACKGROUND</p>
           <span class="accent-line"></span>
           <h2>Why this perspective holds up in real environments</h2>
           <p>
-            My background is broad on purpose. Military service taught me how
-            to lead under pressure, Ubisoft taught me how large organizations
-            actually move work, and community and event systems gave me places
-            to keep building beyond formal job boundaries.
-          </p>
-          <p>
             That mix is why I tend to operate well above a narrow title line. I
             am comfortable in the strategy layer, the execution layer, and the
-            system-design layer at the same time.
-          </p>
-          <p>
-            If you want the fuller version, the About page explains where that
-            operating style came from and why I keep getting pulled toward
-            systems that need to be clarified, rebuilt, or scaled.
+            system-design layer at the same time, especially when multiple
+            projects are moving at once.
           </p>
           <a
             href={toBasePath("/about")}
-            class="btn btn-outline"
-            style="margin-top: var(--space-md);">Read the background</a
+            class="btn btn-outline intro__action">Read the background</a
           >
         </div>
 
@@ -280,15 +310,13 @@ const featuredStrengths = coreStrengths.slice(0, 4);
        CTA
   ═══════════════════════════════════════════ -->
   <section class="section section--sm">
-    <div class="container">
+    <div class="container container--reading">
       <div class="cta-panel">
         <p class="section-label">// WORK TOGETHER</p>
         <h2>Let's build something together.</h2>
         <p>
-          I'm open to roles in technical program management, operations
-          leadership, and innovation-focused systems work. If you're building
-          something complex and need someone who can align people, process, and
-          execution, reach out.
+          If you need someone who can own scope, align teams, and turn complex
+          work into execution, reach out.
         </p>
         <div class="cta-panel__actions">
           <a href={toBasePath("/contact")} class="btn btn-primary"
@@ -328,7 +356,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   .hero__role-line {
     margin: 0 0 var(--space-md);
     color: var(--color-accent);
-    font-size: 0.82rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -345,7 +373,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   }
 
   .hero__subtext {
-    font-size: 1.0625rem;
+    font-size: var(--font-size-lead);
     color: var(--color-text-muted);
     line-height: 1.7;
     max-width: 52ch;
@@ -424,7 +452,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-label {
     margin: 0;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.14em;
     color: var(--color-text-muted);
   }
@@ -436,7 +464,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     border: 1px solid rgba(87, 166, 255, 0.28);
     border-radius: 999px;
     padding: 0.35rem 0.75rem;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-heading);
@@ -459,7 +487,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-title {
     margin: 0 0 var(--space-sm);
-    font-size: 1.1rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
   }
 
@@ -505,7 +533,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   }
 
   .hero__evidence-card-label {
-    font-size: 0.78rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
@@ -513,7 +541,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-card-detail {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.55;
   }
@@ -531,14 +559,14 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .profile-card__kicker {
     margin: 0 0 var(--space-md);
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     color: var(--color-accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .profile-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
     margin-bottom: var(--space-sm);
   }
@@ -610,16 +638,58 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   }
 
   .strength-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-sm);
     color: var(--color-text-heading);
   }
 
   .strength-card__desc {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.65;
     margin: 0;
+  }
+
+  /* ── Project Focus ── */
+  .project-focus-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .project-focus-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .project-focus-card__index {
+    display: block;
+    margin-bottom: var(--space-md);
+    color: var(--color-accent);
+    font-size: var(--font-size-label);
+    letter-spacing: 0.08em;
+  }
+
+  .project-focus-card h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-heading);
+    font-size: var(--font-size-card-title);
+  }
+
+  .project-focus-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    font-size: var(--font-size-body-sm);
+  }
+
+  .project-focus-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
   }
 
   /* ── Principles ── */
@@ -656,6 +726,10 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .intro__text h2 {
     margin-bottom: var(--space-lg);
+  }
+
+  .intro__action {
+    margin-top: var(--space-md);
   }
 
   .intro__stats {
@@ -754,6 +828,10 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     .intro-grid {
       grid-template-columns: 1fr;
     }
+
+    .project-focus-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 640px) {
@@ -780,6 +858,15 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
     .intro__stats {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .project-focus-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-focus-actions {
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .cta-panel {

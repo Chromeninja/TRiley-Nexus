@@ -3,6 +3,7 @@ title: Bar Citizen 2.0 Launch
 status: completed
 category: Events & Community Operations
 organization: Bar Citizen International
+organizationShortName: "BCI"
 organizationUrl: "https://www.barcitizen.org/"
 roleTitle: Delivery Lead / Community Operations
 timeframe: "2025"

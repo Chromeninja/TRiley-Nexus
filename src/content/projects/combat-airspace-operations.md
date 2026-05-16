@@ -9,11 +9,12 @@ tags:
   - Joint Operations
   - Air National Guard
 organization: 235th Combat Airfield Operations Squadron
+organizationShortName: "235 CAOS"
 timeframe: Ongoing
 roleTitle: Combat Airspace Operator (AOC)
 startedAt: "2025-06"
 summary: "Qualified in June 2025 to manage and deconflict airspace inside a Combat Air Operations Center for deployed and contingency missions."
-cardSummary: "Qualified to manage and deconflict joint airspace inside a deployed Combat Air Operations Center."
+cardSummary: "Qualified in 2025 for Combat Air Operations Center airspace control, deconflicting joint fixed-wing, rotary-wing, and UAS activity to reduce conflict risk and keep deployed missions synchronized."
 highlights:
   - "Completed formal Combat Airspace qualification training in June 2025, qualifying to operate within a Combat Air Operations Center (AOC) in deployed and contingency environments."
   - "Performs airspace deconfliction across simultaneous fixed-wing, rotary-wing, and UAS operations in complex joint airspace, coordinating between theater and tactical-level assets."
