@@ -23,7 +23,7 @@ approach: |
   - radio communications across joint nets
   - the operating environment TACPs work in alongside Army ground forces
   - the discipline required to connect ground maneuver needs with air support capabilities
-outcome: "Built a joint operations foundation and understanding of air-ground integration that directly informed my transition into airfield operations and air traffic control with the 235th CAOS in April 2015."
+outcome: "Established the air-ground coordination and communications foundation that supported my transition into airfield operations and air traffic control in April 2015. The training strengthened mission-context awareness that continued to inform later expeditionary, landing zone, and combat airspace responsibilities."
 skills:
   - Joint Operations Familiarization
   - Radio Communications
@@ -31,6 +31,10 @@ skills:
   - Military Training
   - Adaptability
   - Team Integration
+tools:
+  - Joint Radio Procedures
+  - CAS Training Materials
+  - Mission Planning Checklists
 tags:
   - Air National Guard
   - Tactical Air Control Party

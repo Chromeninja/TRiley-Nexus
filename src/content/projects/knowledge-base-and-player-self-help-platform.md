@@ -33,7 +33,7 @@ outcome: |
   The KB became:
   - a more useful working tool for CS reps
   - a stronger self-help surface for players
-  - a contributor to lower repeat-question volume and better handle time on common issues
+  - a contributor to lower repeat-question volume and better handle time on common issues across high-frequency ticket categories
 skills:
   - Knowledge Base Authoring
   - Content Operations

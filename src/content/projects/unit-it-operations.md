@@ -28,7 +28,7 @@ approach: |
   - building and maintaining SharePoint pages for documentation, rosters, training tracking, and information management
   - resolving Teams issues across channels, permissions, meeting rooms, connectivity, and guest access
   - providing first-line Microsoft 365 troubleshooting when official channels are too slow for routine unit needs
-outcome: "Kept the unit's Microsoft 365 environment more usable, reduced friction for members dealing with technology issues, and improved the quality of digital information management inside the squadron."
+outcome: "Sustained day-to-day digital reliability for the unit by reducing avoidable Microsoft 365 disruptions and keeping SharePoint and Teams workflows usable for operations. This improved access to mission information, reduced time lost to routine tooling issues, and gave members a more dependable collaboration baseline despite limited formal IT support."
 skills:
   - SharePoint Administration
   - Microsoft Teams Administration

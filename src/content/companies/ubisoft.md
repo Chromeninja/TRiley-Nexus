@@ -11,7 +11,7 @@ profiles:
       - the **Mercury → Tecsys** order management migration
       - the **Gear Store** launch
       - cloud gaming partnerships with **GeForce Now, Luna, and Stadia**
-      - an automated refund flow that cut e-commerce CS tickets by **30%+**
+      - an automated refund flow that materially reduced e-commerce CS ticket pressure
     longSummary: |
       **10+ years across Ubisoft's player-facing operations**, scaling from frontline support into program leadership.
 
@@ -24,9 +24,9 @@ profiles:
     achievements:
       - "Led Ubisoft Help program (CS portal, in-game help, bug reporting, guides) as Senior Program Manager."
       - "Drove customer experience and player research strike teams improving onboarding and journey flows."
-      - "Helped launch Ubisoft+ supporting 100+ games on day one across worldwide regions."
+      - "Helped launch Ubisoft+ across worldwide regions with support-readiness, refund-flow validation, and subscription edge-case coverage."
       - "Onboarded Ubisoft titles to GeForce Now, Amazon Luna, and Google Stadia."
-      - "Built an automated refund flow that reduced e-commerce CS tickets by 30%+."
+      - "Built an automated refund flow that reduced e-commerce CS ticket pressure and improved turnaround for eligible cases."
       - "Led the Mercury → Tecsys Order Dynamics order management migration."
       - "Authored Salesforce, MicroStrategy, and Tableau dashboards used by Ubisoft worldwide CS."
     logo:

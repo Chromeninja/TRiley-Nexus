@@ -14,7 +14,7 @@ highlights:
   - Expanded the scope into a reusable template others can clone to launch their own portfolio sites.
 problem: "Traditional resumes flatten complex careers into short bullets and timelines, which made it hard to represent the depth and overlap of my work across multiple projects at once."
 approach: "I designed and iterated on this Astro site as a product, starting with core storytelling pages and gradually adding practical tooling for content workflows. As the project grew, I introduced image upload support, a local content editor, and a more reusable structure so the same foundation could support other creators too."
-outcome: "The result is a cleaner and more complete view of my work and how I think, plus a platform that can now be forked and customized by others. This project was my first deep build in Astro, created with a mix of AI support and my own experience. It is still a work in progress, and I am open to feedback."
+outcome: "The result is a clearer, contract-ready and hiring-ready portfolio that explains scope, ownership, and outcomes better than a resume alone. It now supports faster content updates, cleaner storytelling across concurrent projects, and a reusable template structure others can fork. The site continues to evolve through ongoing iteration and feedback."
 skills:
   - Product Thinking
   - Information Architecture

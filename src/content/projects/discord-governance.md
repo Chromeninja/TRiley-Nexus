@@ -16,9 +16,9 @@ roleTitle: Discord Operations and Governance Lead
 summary: "Led end-to-end Discord operations for a partnered TEST Squadron community of roughly 40,000 members, combining structured governance, automation tooling, and custom bot-powered workflows to keep moderation, access control, and member experience consistent at scale."
 cardSummary: "Led governance and automation for a 40k-member partnered Discord, redesigning permissions, moderation workflows, and onboarding standards to improve safety consistency while reducing manual staff overhead."
 highlights:
-  - Owned role and permission architecture for a partnered Discord with about 40,000 members, maintaining secure and consistent access patterns.
+  - Owned role and permission architecture for a partnered Discord with about 40,000 members, connected to a 24,000-member TEST Squadron org.
   - Implemented automation workflows with tools like MEE6 for role removals, auto-banning, ticketing, and moderation support.
-  - Revamped server foundations including rules, member guides, and channel structure to improve clarity and operational consistency.
+  - Revamped server foundations including rules, member guides, and channel structure to improve clarity and operational consistency, while supporting 1,400+ bot-registered users.
 problem: "At large community scale, inconsistent governance patterns and manual moderation workflows create policy drift, staff overhead, and slower response to member and safety issues."
 approach: |
   I established a **governance-first Discord operations model** so moderation, permissions, and member experience could stay consistent at large community scale.
@@ -37,6 +37,10 @@ outcome: |
   - lower manual administration load through automation
   - more consistent permission and moderation patterns
   - a clearer member experience through structured rules, guides, and channel design
+
+  In a recent 30-day window, operational telemetry tracked:
+  - **14,411 hours** of voice activity across **6,694 unique users**
+  - **19,097 messages** from **5,252 unique senders**
 skills:
   - Discord Governance
   - Permission Architecture

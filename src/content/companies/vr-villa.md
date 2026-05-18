@@ -7,11 +7,11 @@ profiles:
     longSummary: "The work is centered on making touring VR activations feel consistent, welcoming, and operationally reliable at scale. That includes coordinating with event organizers, developers, hardware partners, sponsors, and on-site staff; supporting the full player journey from waiver capture and game selection through onboarding, headset turnover, and sanitation; and building practical systems that help staff manage check-in, waivers, schedules, pay, and live event visibility."
     roleSummary: "Producer and event operations systems lead"
     achievements:
-      - "Helped support a repeatable live event operating model used across 60+ events throughout the United States."
+      - "Helped support a repeatable live event operating model used across roughly 50 to 60 events per year throughout the United States."
       - "Coordinated production needs across event teams, developers, hardware partners, sponsors, and on-site staff to keep activations operationally consistent."
       - "Supported a hands-on attendee experience designed for both returning players and newcomers to VR, including onboarding, gameplay flow, and equipment turnover."
       - "Built internal operations systems for check-in, waivers, staffing, payroll, and event-day visibility."
-      - "Contributed to a program footprint highlighted by 55k+ players, 77k+ game sessions, 50+ VR studios, and 100+ events."
+      - "Improved staff operations workflows in Discord primarily for team coordination and giveaway execution rather than public community growth."
     logo:
       src: "/media/companies/vr-villa-logo.jpg"
       alt: "VR Villa logo"

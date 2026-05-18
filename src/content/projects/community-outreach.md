@@ -37,6 +37,10 @@ skills:
   - Volunteer Coordination
   - Event Support
   - Public Representation
+tools:
+  - Unit Volunteer Coordination
+  - Event Run Sheets
+  - Community Partner Communication
 featured: false
 order: 12
 ---

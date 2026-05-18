@@ -23,7 +23,7 @@ approach: |
   - design and content feedback focused on clarity, trust, and service fit
   - milestone tracking to keep delivery moving toward launch
   - post-launch iteration on service messaging and booking paths
-outcome: "Delivered a business-aligned website with clearer service communication, appointment-booking support, and a practical improvement path that continued through 2025."
+outcome: "Launched a client-facing website and booking flow that improved service clarity and made first-contact conversion easier for prospective customers. Continued iteration through 2025 created a stronger operating baseline for messaging, QA, and booking-path improvements without reworking the full site architecture."
 skills:
   - Project Coordination
   - Website QA Testing

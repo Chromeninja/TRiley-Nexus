@@ -15,7 +15,22 @@ highlights:
   - Supported awareness and fundraising efforts for military service members and their families.
 problem: "The Salute the Troops program needed strong regional execution in North Carolina to drive awareness, fundraising, and community engagement with military families and service members through a retail partnership."
 approach: |
+  I led local execution as a multi-site campaign operation with shared standards across every stop.
+
+  The delivery framework included:
+  1. **location-by-location planning** across 13+ stores for staffing, setup, and schedule timing
+  2. **partner alignment** between Kangaroo Express teams, USO representatives, and Guard participants
+  3. **public engagement readiness** for respectful military representation and attendee interaction
+  4. **day-of issue handling** to keep each activation on schedule and community focused
+
+  The emphasis was consistent execution quality across all locations, not one-off event success.
 outcome: |
+  Delivered a coordinated regional campaign presence across North Carolina that strengthened visibility for service-member support efforts and kept partner operations aligned.
+
+  The campaign outcomes included:
+  - dependable multi-location event execution
+  - stronger public-facing engagement with military families and community members
+  - a repeatable operating model for future partner-supported outreach events
 skills:
   - Event Coordination & Logistics
   - Public Engagement & Outreach

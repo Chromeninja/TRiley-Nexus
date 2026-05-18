@@ -16,7 +16,7 @@ highlights:
   - "Applied demo learnings to ongoing hand-tracking work in the base Nope Challenge experience."
 problem: "The team needed a focused prototype space to test hand-tracking and mixed reality interaction ideas before committing those decisions to the live game."
 approach: "Ran a side demo effort with developers and testers to scope, prioritize, and validate hand-tracking and mixed reality interactions in Monkey Laser Face, then translated findings into implementation guidance for the base game roadmap."
-outcome: "Delivered a practical demo that reduced uncertainty for hand-tracking rollout decisions and provided validated direction now used in ongoing Nope Challenge base-version feature development."
+outcome: "Delivered a focused validation demo that reduced decision risk for mixed reality and hand-tracking rollout priorities. The sprint gave the team clearer implementation direction, improved confidence in interaction choices, and accelerated translation of prototype learning into the live Nope Challenge roadmap."
 skills:
   - Production
   - Prototype Planning

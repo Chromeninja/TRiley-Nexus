@@ -46,6 +46,11 @@ skills:
   - Vehicle Operations
   - Field Operations
   - Operational Readiness
+tools:
+  - Unit Training SOPs
+  - Motorpool Workflows
+  - Logistics and Inventory Tracking
+  - Field Readiness Checklists
 tags:
   - Army National Guard
   - Engineering Operations

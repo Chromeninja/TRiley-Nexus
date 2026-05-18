@@ -15,7 +15,22 @@ highlights:
   - "Tested and helped roll out Salesforce live chat support and known-issue automation flows."
 problem: "CS reps repeated themselves on the same handful of issues, bulk player communications were slow, and Ubisoft was missing the automation surface a modern CS org needed."
 approach: |
+  I focused on removing repetitive manual work while keeping reps in control of player communication quality.
+
+  The implementation covered:
+  1. **response acceleration tooling** through auto-complete and curated canned responses
+  2. **campaign operations support** for bulk player notifications during launches and incidents
+  3. **Salesforce workflow improvements** including mass-edit patterns and live chat rollout testing
+  4. **knowledge and workspace support** through SharePoint and known-issue automation updates
+
+  Each change targeted high-frequency support pain points with the largest operational drag.
 outcome: |
+  Established a more scalable CS operating layer that reduced repeated manual tasks and improved response consistency during high-volume periods.
+
+  The results included:
+  - faster response preparation for common issue types
+  - quicker player communications during incidents and launch windows
+  - stronger operational readiness for live chat and automation-supported support workflows
 skills:
   - Automation Design
   - Salesforce Configuration

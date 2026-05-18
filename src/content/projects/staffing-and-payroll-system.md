@@ -21,7 +21,7 @@ approach: |
   - role mapping for event coverage
   - hour tracking tied to pay formulas
   - expense visibility and payout-ready summaries
-outcome: "Reduced scheduling confusion, improved payroll accuracy, and gave event leadership a cleaner path from staffing plans to post-event settlement."
+outcome: "Created a repeatable staffing-to-settlement workflow that made role coverage planning clearer before events and payout preparation faster after events. The system reduced avoidable spreadsheet errors, improved payroll confidence, and gave operations leadership a shared source of truth for staffing and cost decisions."
 skills:
   - Workforce Scheduling
   - Operations Finance

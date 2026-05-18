@@ -31,6 +31,8 @@ outcome: |
   - waiver visibility and player record handling
   - staff awareness during active event operations
   - resilience when venues had inconsistent internet access
+
+  The system now supports an annual cadence of roughly **50 to 60 events** with more consistent event-day execution.
 skills:
   - Live event operations
   - Workflow automation

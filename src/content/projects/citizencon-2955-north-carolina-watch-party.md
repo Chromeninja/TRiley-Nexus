@@ -17,7 +17,23 @@ highlights:
   - "Coordinated with Cloud Imperium Games, local content creators, and local businesses to secure giveaway support and create a more engaging event experience."
 problem: "A digital-first CitizenCon still needed a strong in-person community experience. To make that work locally, the event had to be affordable, clearly organized, engaging for attendees, and supported by reliable venue, ticketing, travel, and follow-up meetup logistics."
 approach: |
+  I treated the watch party like a full event program, not a casual meetup.
+
+  The delivery plan covered five areas:
+  1. **venue negotiation and budget control** so ticket prices stayed community friendly
+  2. **ticketing and communications operations** through Eventbrite and Discord
+  3. **donation and giveaway coordination** with partners, creators, and local businesses
+  4. **attendee support** for travel, arrival timing, and day-of expectations
+  5. **experience extension** through a post-show meetup to keep community momentum going
+
+  That operating model reduced day-of friction and made responsibilities clear for everyone involved.
 outcome: |
+  Delivered a sold-out local CitizenCon experience with a cleaner attendee journey from ticket purchase through post-show meetup.
+
+  The event produced:
+  - reliable attendance planning and day-of execution
+  - stronger partner engagement across giveaways and community support
+  - a repeatable planning model for future local watch-party activations
 skills:
   - Event Production
   - Venue Negotiation
