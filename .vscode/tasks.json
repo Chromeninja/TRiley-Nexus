@@ -4,7 +4,7 @@
     {
       "label": "Astro: Dev Server",
       "type": "shell",
-      "command": "npm run dev -- --host localhost --port 4321",
+      "command": "npm run dev:node22 -- --host localhost --port 4321",
       "options": {
         "cwd": "${workspaceFolder}"
       },
