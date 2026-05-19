@@ -4,10 +4,10 @@
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
     "description": "Director-level program and operations leader focused on event management, community systems, and the operating structure behind complex work.",
-    "canonicalUrl": "https://chromeninja.github.io",
+    "canonicalUrl": "https://chromeninja.com",
     "repository": {
       "owner": "Chromeninja",
-      "name": "TRiley-Nexus"
+      "name": "chromeninja.github.io"
     },
     "themeColor": "#040b19",
     "ogImage": "/og-image.png"
@@ -702,9 +702,9 @@
       "bgCard": "#0c1830",
       "bgCardHover": "#12203b",
       "_comment_text": "Text colors: main body text, muted secondary text, and heading text",
-      "textPrimary": "#e6efff",
-      "textMuted": "#b2c2df",
-      "textDim": "#88a0c5",
+      "textPrimary": "#d9e7ff",
+      "textMuted": "#91a4c7",
+      "textDim": "#5d7398",
       "textHeading": "#f4f8ff"
     },
     "fonts": {
