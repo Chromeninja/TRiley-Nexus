@@ -215,6 +215,10 @@ body {
   position: relative;
 }
 
+:where(.prose, .rich-text, .company-row__rich-text) :where(p, li, a) {
+  overflow-wrap: anywhere;
+}
+
 /* Subtle technical canopy overlay */
 body::before {
   content: "";
@@ -325,7 +329,8 @@ pre {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: var(--space-xl);
+  padding-left: max(var(--space-xl), env(safe-area-inset-left));
+  padding-right: max(var(--space-xl), env(safe-area-inset-right));
 }
 
 .container--md {
@@ -589,7 +594,8 @@ pre {
 /* --- Responsive --- */
 @media (max-width: 768px) {
   .container {
-    padding-inline: var(--space-lg);
+    padding-left: max(var(--space-lg), env(safe-area-inset-left));
+    padding-right: max(var(--space-lg), env(safe-area-inset-right));
   }
   .section {
     padding-block: var(--space-3xl);
@@ -614,7 +620,8 @@ pre {
 
 @media (max-width: 480px) {
   .container {
-    padding-inline: var(--space-md);
+    padding-left: max(var(--space-md), env(safe-area-inset-left));
+    padding-right: max(var(--space-md), env(safe-area-inset-right));
   }
 
   .btn {
