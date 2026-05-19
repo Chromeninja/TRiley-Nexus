@@ -4,12 +4,12 @@ status: completed
 category: Events & Community Operations
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
-roleTitle: Event Operations Lead
+roleTitle: Director of Operations & Community Strategy
 timeframe: October 2024
 startedAt: "2024-10"
 endedAt: "2024-10"
-summary: "Led end-to-end booth operations for TEST Squadron at CitizenCon 2954 in Manchester, coordinating buildout, staffing for 20+ volunteers, livestream visibility, vendor-delivered merchandise, and community meetup execution with Bar Citizen International and TEST-led activations."
-cardSummary: "Built and operated the TEST Squadron CitizenCon 2954 booth, coordinating staffing, merch, livestreaming, and high-volume community engagement."
+summary: "Led end-to-end booth operations for TEST Squadron at CitizenCon 2954 in Manchester as Director of Operations & Community Strategy, coordinating buildout, staffing for 20+ volunteers, livestream visibility, vendor-delivered merchandise, and community meetup execution with Bar Citizen International and TEST-led activations."
+cardSummary: "Ran the TEST Squadron CitizenCon 2954 activation, coordinating booth buildout, staffing, merch, livestreaming, and high-volume community engagement."
 highlights:
   - "Built a full convention booth in one day with three additional team members, including prop sourcing, paint and stencil prep, and local transport coordination."
   - "Operated the booth for two full event days with a published volunteer shift schedule for 20+ volunteers and a live booth stream for remote community visibility, supporting more than 4,000 attendees passing through the area."
@@ -24,7 +24,7 @@ approach: |
   3. **Buildout and logistics** including materials sourcing, local support, and transport planning
   4. **Merchandise production management** across external vendors and internal contributors shipping to one transport point before travel
 
-  That preparation made the booth easier to operate once the event started and reduced avoidable execution risk.
+  That preparation made the booth easier to operate once the event started, reduced avoidable execution risk, and turned the activation into a stronger community and brand moment instead of just a staffed presence.
 outcome: |
   Delivered a high-visibility TEST Squadron presence at CitizenCon 2954 with reliable booth operations, strong attendee engagement, and visible community goodwill.
 
