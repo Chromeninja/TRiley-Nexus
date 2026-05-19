@@ -317,11 +317,54 @@ const navItems = enabledNavItems.map((link) => ({
     ".nav__toggle",
   ) as HTMLButtonElement | null;
   const menu = document.getElementById("mobile-menu");
+  const menuLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>(".nav__mobile-link"),
+  );
+
+  const setMenuState = (isOpen: boolean) => {
+    if (!toggle || !menu) {
+      return;
+    }
+
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    menu.classList.toggle("is-open", isOpen);
+    menu.setAttribute("aria-hidden", String(!isOpen));
+  };
+
+  const closeMenu = ({ restoreFocus = true }: { restoreFocus?: boolean } = {}) => {
+    if (!toggle || !menu) {
+      return;
+    }
+
+    setMenuState(false);
+
+    if (restoreFocus) {
+      toggle.focus();
+    }
+  };
 
   toggle?.addEventListener("click", () => {
     const expanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!expanded));
-    menu?.classList.toggle("is-open");
-    if (menu) menu.setAttribute("aria-hidden", String(expanded));
+    setMenuState(!expanded);
+
+    if (!expanded) {
+      menuLinks[0]?.focus();
+    }
+  });
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      closeMenu({ restoreFocus: false });
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    if (toggle?.getAttribute("aria-expanded") === "true") {
+      closeMenu();
+    }
   });
 </script>

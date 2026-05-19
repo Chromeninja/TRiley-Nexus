@@ -206,4 +206,30 @@ const hiddenProjectCount =
       font-size: 0.78rem;
     }
   }
+
+  @media (max-width: 640px) {
+    .company-timeline {
+      overflow-x: visible;
+      gap: var(--space-sm);
+    }
+
+    .company-timeline__axis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(3.25rem, 1fr));
+      gap: var(--space-xs);
+    }
+
+    .company-timeline__row {
+      grid-template-columns: 1fr;
+      gap: var(--space-xs);
+    }
+
+    .company-timeline__track {
+      height: 1rem;
+    }
+
+    .company-timeline__bar-label {
+      font-size: 0.58rem;
+    }
+  }
 </style>

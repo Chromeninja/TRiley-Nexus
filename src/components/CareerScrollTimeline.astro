@@ -575,4 +575,34 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
       padding-left: 0;
     }
   }
+
+  @media (max-width: 640px) {
+    .career-scroll__rail {
+      padding-right: 0;
+    }
+
+    .career-scroll__rail-copy {
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .career-scroll__month-list {
+      grid-template-columns: 1fr;
+    }
+
+    .career-scroll__project-list {
+      display: none;
+    }
+
+    .career-scroll__month-head,
+    .career-scroll__card-top {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .career-scroll__card {
+      padding: var(--space-sm) var(--space-md);
+    }
+  }
 </style>

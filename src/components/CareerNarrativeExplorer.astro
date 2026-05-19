@@ -547,14 +547,26 @@ const {
     justify-content: end;
   }
 
+  .narrative-project__detail-actions .btn {
+    flex: 0 1 auto;
+  }
+
   .career-narrative--compact .career-narrative__summary {
     width: auto;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     .narrative-company__panel-top,
     .narrative-project__detail-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .narrative-fact-block {
+      border-left: none;
+      border-top: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+      padding-left: 0;
+      padding-top: 0.9rem;
     }
 
     .narrative-project__detail-actions {
@@ -610,8 +622,14 @@ const {
     }
 
     .narrative-company__header-meta,
-    .narrative-project__summary-meta {
+    .narrative-project__summary-meta,
+    .narrative-project__detail-actions {
       justify-items: start;
+    }
+
+    .narrative-project__detail-actions .btn {
+      flex: 1 1 11rem;
+      justify-content: center;
     }
 
     .narrative-company__chips {
@@ -668,6 +686,20 @@ const {
     .narrative-company__header,
     .narrative-company > .expandable-detail {
       grid-column: 1 / -1;
+    }
+
+    .narrative-company__panel-top,
+    .narrative-project__detail-grid {
+      gap: var(--space-sm);
+    }
+
+    .narrative-project__detail-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-project__detail-actions .btn {
+      width: 100%;
     }
 
     .narrative-company__node {
