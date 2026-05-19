@@ -6,8 +6,8 @@ organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 roleTitle: Director of Operations & Community Strategy
 timeframe: Ongoing
-summary: "Built and lead the TEST Squadron Event Coordinators program as Director of Operations & Community Strategy, organizing a trusted team to run 5 to 10 weekly operations, training, and story-driven events, plus 1 to 2 larger monthly activations that keep members engaged and active."
-cardSummary: "Built and lead a 15-plus person Event Coordinators program that delivers 5 to 10 weekly events and 1 to 2 larger monthly activations, with regular attendance ranging from 15 to 60 members."
+summary: "Built and led the TEST Squadron Event Coordinators program as Director of Operations & Community Strategy, organizing a trusted team to run 5 to 10 weekly operations, training, and story-driven events, plus 1 to 2 larger monthly activations that keep members engaged and active."
+cardSummary: "Built and led a 15-plus person Event Coordinators program that delivers 5 to 10 weekly events and 1 to 2 larger monthly activations, with regular attendance ranging from 15 to 60 members."
 highlights:
   - "Established and managed a 15+ person Event Coordinators team with clear ownership, planning standards, and delivery expectations."
   - "Built event handbooks, guidelines, and policy documentation to standardize quality, safety, and execution across event leads."

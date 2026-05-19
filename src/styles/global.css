@@ -215,9 +215,7 @@ body {
   position: relative;
 }
 
-p,
-li,
-a {
+:where(.prose, .rich-text, .company-row__rich-text) :where(p, li, a) {
   overflow-wrap: anywhere;
 }
 
