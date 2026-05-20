@@ -420,13 +420,17 @@ const projectFocusAreas = [
     gap: var(--space-lg);
     position: relative;
     background:
-      radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
+      radial-gradient(circle at top, rgba(87, 166, 255, 0.14), transparent 35%),
       radial-gradient(
         circle at 85% 20%,
-        rgba(34, 211, 238, 0.14),
+        rgba(34, 211, 238, 0.1),
         transparent 28%
       ),
-      linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-bg-card), white 8%),
+        color-mix(in srgb, var(--color-bg-secondary), white 4%)
+      );
   }
 
   .hero__evidence::after {
@@ -513,8 +517,8 @@ const projectFocusAreas = [
     padding: var(--space-md);
     border: 1px solid rgba(87, 166, 255, 0.16);
     border-radius: var(--radius-md);
-    background: rgba(6, 13, 18, 0.68);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background: color-mix(in srgb, var(--color-bg-card), var(--color-bg) 22%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border), transparent 30%);
     text-decoration: none;
     transition:
       border-color var(--transition-fast),
