@@ -1,0 +1,303 @@
+---
+// /about/skill-atlas: Interactive skill radar derived from project evidence.
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import SkillAtlasRadar from "../../components/SkillAtlasRadar.astro";
+import { getAboutContentData } from "../../data/aboutContent";
+import { getSkillAtlasData } from "../../data/skillAtlas";
+
+const aboutContent = await getAboutContentData();
+const atlasConfig = aboutContent.skillAtlas;
+const atlas = await getSkillAtlasData(atlasConfig);
+
+const heroTitle = atlasConfig?.title?.trim() || "Skill Atlas";
+const heroIntro =
+  atlasConfig?.intro?.trim() ||
+  "An evidence-weighted view of capability strength, scored from the projects in this portfolio. Each axis is a skill cluster; the score reflects how often, how recently, and how prominently that cluster shows up across documented work.";
+const baseHref = import.meta.env.BASE_URL.replace(/\/$/, "");
+const backHref = `${baseHref}/about`;
+const projectHref = (slug: string) => `${baseHref}/projects/${slug}`;
+const statusLabel: Record<string, string> = {
+  active: "Active",
+  completed: "Completed",
+  archived: "Archived",
+  concept: "Concept",
+};
+---
+
+<Layout
+  title="Skill Atlas"
+  description="Interactive radar visualization of T. Riley's capability clusters, scored from documented project evidence across military, gaming, and platform operations work."
+>
+  <PageHero
+    label="// SKILL ATLAS"
+    title={heroTitle}
+    subtitle={heroIntro}
+    meta={`${atlas.totalProjectsAnalyzed} projects analyzed • ${atlas.totalSkillsAnalyzed} skill tags scored • ${atlas.axes.length} capability axes`}
+  >
+    <a slot="actions" class="btn btn-ghost" href={backHref}>← Back to About</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container container--page">
+      <SectionHeader
+        label="// RADAR"
+        title="Capability Atlas"
+        subtitle="A five-axis radar of documented strengths. Each icon on the chart maps to a named axis in the panel — click any axis or button to see the projects behind it."
+      />
+      <SkillAtlasRadar data={atlas} />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container--page">
+      <SectionHeader
+        label="// EVIDENCE"
+        title="What feeds each axis"
+        subtitle="Scoring weights status (active and completed lead), recency (last 36 months count more), featured emphasis, and highlight density."
+      />
+      <div class="atlas-detail" data-skill-detail>
+        {
+          atlas.axes.map((axis, index) => (
+            <article
+              id={`axis-${index}-panel`}
+              class="atlas-detail__panel panel"
+              data-axis-panel
+              data-axis-index={index}
+              tabindex="-1"
+              hidden={index !== 0}
+              aria-labelledby={`axis-${index}-heading`}
+            >
+              <header class="atlas-detail__header">
+                <span class="atlas-detail__icon text-accent" aria-hidden="true">
+                  {axis.icon}
+                </span>
+                <div>
+                  <h3 id={`axis-${index}-heading`} class="atlas-detail__title">
+                    {axis.group}
+                  </h3>
+                  <p class="atlas-detail__meta text-mono text-muted">
+                    Score {axis.normalizedScore}/100 • {axis.projectCount}{" "}
+                    contributing project{axis.projectCount === 1 ? "" : "s"} •{" "}
+                    {axis.skills.length} mapped skill
+                    {axis.skills.length === 1 ? "" : "s"}
+                  </p>
+                </div>
+              </header>
+
+              {axis.topEvidence.length > 0 ? (
+                <ol class="atlas-detail__list">
+                  {axis.topEvidence.map((evidence) => (
+                    <li class="atlas-detail__item">
+                      <div class="atlas-detail__item-head">
+                        <a
+                          class="atlas-detail__item-title"
+                          href={projectHref(evidence.slug)}
+                        >
+                          {evidence.title}
+                        </a>
+                        <span class="atlas-detail__item-status text-mono">
+                          {statusLabel[evidence.status] ?? evidence.status}
+                        </span>
+                      </div>
+                      {evidence.organization && (
+                        <p class="atlas-detail__item-org text-muted">
+                          {evidence.organization}
+                        </p>
+                      )}
+                      <ul
+                        class="atlas-detail__skill-list"
+                        aria-label="Matched skills"
+                      >
+                        {evidence.matchedSkills.slice(0, 4).map((skill) => (
+                          <li>{skill}</li>
+                        ))}
+                        {evidence.matchedSkills.length > 4 && (
+                          <li>+{evidence.matchedSkills.length - 4} more</li>
+                        )}
+                      </ul>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p class="text-muted">
+                  No projects in this portfolio currently map to this axis.
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    atlas.unmappedSkills.length > 0 && (
+      <section class="section">
+        <div class="container container--page">
+          <SectionHeader
+            label="// ADDITIONAL"
+            title="Additional Skills"
+            subtitle="Specific skills that appear across project records but sit outside the five broad atlas axes."
+          />
+          <ul class="atlas-additional" aria-label="Additional skills">
+            {atlas.unmappedSkills.slice(0, 24).map((entry) => (
+              <li class="atlas-additional__item">
+                <span class="atlas-additional__skill">{entry.skill}</span>
+                <span class="atlas-additional__count text-mono">
+                  x{entry.count}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+</Layout>
+
+<style>
+  .atlas-detail {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .atlas-detail__panel[hidden] {
+    display: none;
+  }
+
+  .atlas-detail__panel {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-lg));
+  }
+
+  .atlas-detail__panel:focus {
+    outline: none;
+  }
+
+  .atlas-detail__header {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+  }
+
+  .atlas-detail__icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .atlas-detail__title {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  .atlas-detail__meta {
+    margin: 4px 0 0;
+    font-size: var(--font-size-meta);
+  }
+
+  .atlas-detail__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .atlas-detail__item {
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-secondary);
+  }
+
+  .atlas-detail__item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .atlas-detail__item-title {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .atlas-detail__item-status {
+    font-size: var(--font-size-meta);
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+
+  .atlas-detail__item-org {
+    margin: 4px 0 6px;
+    font-size: var(--font-size-meta);
+  }
+
+  .atlas-detail__skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .atlas-detail__skill-list li {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-meta);
+    overflow-wrap: anywhere;
+  }
+
+  .atlas-additional {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .atlas-additional__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-secondary);
+    font-size: var(--font-size-body-sm);
+  }
+
+  .atlas-additional__skill {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .atlas-additional__count {
+    flex: none;
+    color: var(--color-accent);
+    font-size: var(--font-size-meta);
+  }
+</style>
+
+<script>
+  import { initSkillAtlas } from "../../utils/skillAtlasInteractions";
+
+  function ready(): void {
+    initSkillAtlas(document);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready, { once: true });
+  } else {
+    ready();
+  }
+</script>

@@ -177,6 +177,49 @@
           </div>
         </section>
 
+        <section class="panel-block skill-atlas-impact" id="skill-atlas-impact">
+          <div class="skill-atlas-impact__header">
+            <h3>Skill Atlas Impact</h3>
+            <button
+              id="skill-atlas-refresh"
+              type="button"
+              class="skill-atlas-impact__refresh"
+            >
+              Refresh
+            </button>
+          </div>
+          <p class="muted">
+            Read-only preview of how your current edits map to the radar on
+            <code>/about/skill-atlas</code>. Pulls live from your project
+            frontmatter and the active About draft.
+          </p>
+          <p
+            id="skill-atlas-impact-meta"
+            class="muted skill-atlas-impact__meta"
+          ></p>
+          <ol
+            id="skill-atlas-impact-axes"
+            class="skill-atlas-impact__axes"
+          ></ol>
+          <details class="skill-atlas-impact__unmapped">
+            <summary>
+              Additional skills
+              <span id="skill-atlas-impact-unmapped-count">(0)</span>
+            </summary>
+            <p class="muted">
+              Skills tracked in project content that sit outside the five broad
+              atlas axes. Keep them as supporting context, or add aliases under
+              <code>skillAtlas.aliases</code> in <code>about.md</code> when they
+              should affect an axis.
+            </p>
+            <ul id="skill-atlas-impact-unmapped"></ul>
+          </details>
+          <p
+            id="skill-atlas-impact-status"
+            class="muted skill-atlas-impact__status"
+          ></p>
+        </section>
+
         <section class="actions">
           <button id="validate-button" type="button">Validate</button>
           <button id="preview-button" type="button">Preview Changes</button>

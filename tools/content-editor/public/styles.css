@@ -871,3 +871,97 @@ textarea#markdown-editor {
     grid-template-columns: 1fr;
   }
 }
+
+.skill-atlas-impact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.skill-atlas-impact__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.skill-atlas-impact__refresh {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+.skill-atlas-impact__refresh:hover {
+  border-color: var(--accent);
+}
+.skill-atlas-impact__meta,
+.skill-atlas-impact__status {
+  font-size: 0.85rem;
+  margin: 0;
+}
+.skill-atlas-impact__axes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.skill-atlas-impact__axis {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+.skill-atlas-impact__axis-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.skill-atlas-impact__icon {
+  color: var(--accent);
+  font-size: 1.1rem;
+  width: 1.25rem;
+  text-align: center;
+}
+.skill-atlas-impact__group {
+  flex: 1;
+  font-weight: 600;
+}
+.skill-atlas-impact__score {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  font-weight: 700;
+}
+.skill-atlas-impact__bar {
+  margin-top: 0.4rem;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.skill-atlas-impact__bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--success));
+  transition: width 0.3s ease;
+}
+.skill-atlas-impact__count {
+  font-size: 0.8rem;
+  margin: 0.3rem 0 0;
+}
+.skill-atlas-impact__unmapped {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+}
+.skill-atlas-impact__unmapped summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.skill-atlas-impact__unmapped ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+}

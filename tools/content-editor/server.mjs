@@ -65,6 +65,7 @@ const RESERVED_FM_FIELDS = new Set([
   "profileMedia",
   "additionalMedia",
   "resume",
+  "skillAtlas",
   "highlights",
   "achievements",
   "timelineRoles",
@@ -1278,6 +1279,7 @@ function createFormModel(relativePath, content) {
     knownKeys.add("profileMedia");
     knownKeys.add("additionalMedia");
     knownKeys.add("resume");
+    knownKeys.add("skillAtlas");
   }
   if (section === "companies") {
     knownKeys.add("profiles");
@@ -1359,6 +1361,7 @@ function createFormModel(relativePath, content) {
         profileMedia: parsed.profileMedia,
         additionalMedia: parsed.additionalMedia,
         resume: parsed.resume,
+        skillAtlas: parsed.skillAtlas,
       },
     };
   }
@@ -1527,6 +1530,8 @@ function composeMarkdownFromForm(
       out.additionalMedia = preserved.additionalMedia;
     if (preserved.resume && typeof preserved.resume === "object")
       out.resume = preserved.resume;
+    if (preserved.skillAtlas && typeof preserved.skillAtlas === "object")
+      out.skillAtlas = preserved.skillAtlas;
   }
 
   if (section === "companies") {
@@ -2668,6 +2673,331 @@ async function appendAboutInfo(body) {
   return { path: ABOUT_FILE_PATH };
 }
 
+// --- Skill Atlas preview (mirrors src/data/skillAtlas.ts). Read-only. ---
+const SKILL_ATLAS_STATUS_WEIGHT = {
+  active: 1.5,
+  completed: 1.0,
+  archived: 0.5,
+  concept: 0.4,
+};
+const SKILL_ATLAS_FEATURED_BOOST = 2;
+const SKILL_ATLAS_HIGHLIGHT_BOOST_PER_ITEM = 0.1;
+const SKILL_ATLAS_HIGHLIGHT_BOOST_CAP = 1.3;
+const SKILL_ATLAS_RECENCY_HALF_LIFE_MONTHS = 36;
+const SKILL_ATLAS_DEFAULT_KEYWORDS = {
+  "Technical Program Management": [
+    "program",
+    "roadmap",
+    "risk",
+    "stakeholder",
+    "dependency",
+    "okr",
+    "kpi",
+    "cross-functional",
+    "cross functional",
+    "planning",
+    "schedule",
+    "budget",
+    "delivery",
+    "project management",
+  ],
+  "Operations and Systems": [
+    "operations",
+    "ops ",
+    "process",
+    "automation",
+    "infrastructure",
+    "incident",
+    "runbook",
+    "change management",
+    "workflow",
+    "systems design",
+    "logistics",
+    "deployment",
+    "migration",
+    "cloud",
+    "backend",
+    "security",
+  ],
+  "Community and Event Leadership": [
+    "community",
+    "event",
+    "governance",
+    "moderation",
+    "member",
+    "fundraising",
+    "meetup",
+    "ceremon",
+    "attendee",
+    "organizer",
+    "venue",
+    "live event",
+    "hosting",
+  ],
+  "Technology and Tools": [
+    "bot",
+    "api",
+    "llm",
+    "ai",
+    "visualization",
+    "static site",
+    "automation design",
+    "discord",
+    "data ",
+    "analytics",
+    "integration",
+    "tooling",
+    "crm",
+  ],
+  "Leadership and Strategy": [
+    "leadership",
+    "coach",
+    "strategic",
+    "mission",
+    "decision",
+    "after action",
+    "military",
+    "command",
+    "training",
+    "policy",
+    "protocol",
+    "mentoring",
+    "team building",
+  ],
+};
+
+function parseSkillAtlasDate(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (!s) return null;
+  let m = /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/.exec(s);
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3] ?? 1));
+  m = /^(\d{4})$/.exec(s);
+  if (m) return new Date(Number(m[1]), 0, 1);
+  const d = new Date(s);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function computeSkillAtlasRecencyBoost(project, now) {
+  if (project.status === "active") return 1.2;
+  const dateStr = (project.endedAt ?? project.startedAt ?? "").trim();
+  if (!dateStr) return 0.9;
+  const parsed = parseSkillAtlasDate(dateStr);
+  if (!parsed) return 0.9;
+  const months =
+    (now.getFullYear() - parsed.getFullYear()) * 12 +
+    (now.getMonth() - parsed.getMonth());
+  if (months <= 0) return 1.2;
+  const decay = Math.pow(0.5, months / SKILL_ATLAS_RECENCY_HALF_LIFE_MONTHS);
+  return 0.6 + 0.6 * decay;
+}
+
+function computeSkillAtlasProjectWeight(project, now) {
+  const statusWeight = SKILL_ATLAS_STATUS_WEIGHT[project.status] ?? 1;
+  const featuredBoost = project.featured ? SKILL_ATLAS_FEATURED_BOOST : 1;
+  const highlightCount = project.highlights?.length ?? 0;
+  const highlightBoost = Math.min(
+    1 + SKILL_ATLAS_HIGHLIGHT_BOOST_PER_ITEM * highlightCount,
+    SKILL_ATLAS_HIGHLIGHT_BOOST_CAP,
+  );
+  return (
+    statusWeight *
+    featuredBoost *
+    highlightBoost *
+    computeSkillAtlasRecencyBoost(project, now)
+  );
+}
+
+function resolveSkillAtlasAliases(skillAtlasFm) {
+  const byGroup = new Map();
+  for (const [g, kw] of Object.entries(SKILL_ATLAS_DEFAULT_KEYWORDS)) {
+    byGroup.set(g, [...kw]);
+  }
+  const weighted = [];
+  const overrides = Array.isArray(skillAtlasFm?.aliases)
+    ? skillAtlasFm.aliases
+    : [];
+  for (const ov of overrides) {
+    const group = String(ov?.group ?? "").trim();
+    const label = String(ov?.label ?? "")
+      .trim()
+      .toLowerCase();
+    if (!group || !label) continue;
+    const list = byGroup.get(group) ?? [];
+    list.push(label);
+    byGroup.set(group, list);
+    const w = Number(ov?.weight);
+    if (Number.isFinite(w) && w > 0 && w !== 1) {
+      weighted.push({ pattern: label, group, weight: w });
+    }
+  }
+  return { byGroup, weighted };
+}
+
+function matchSkillToSkillAtlasGroups(skill, aliases) {
+  const haystack = skill.toLowerCase();
+  const matches = [];
+  for (const [group, keywords] of aliases.byGroup.entries()) {
+    for (const keyword of keywords) {
+      if (haystack.includes(keyword)) {
+        const override = aliases.weighted.find(
+          (w) => w.group === group && haystack.includes(w.pattern),
+        );
+        matches.push({ group, aliasWeight: override?.weight ?? 1 });
+        break;
+      }
+    }
+  }
+  return matches;
+}
+
+async function loadSkillAtlasProjects() {
+  const projectsDir = path.join(CONTENT_BASE_DIR, "projects");
+  const files = [];
+  await walkDirectory(projectsDir, files);
+  const projects = [];
+  for (const rel of files) {
+    const abs = path.join(ROOT_DIR, rel);
+    let raw;
+    try {
+      raw = await fs.readFile(abs, "utf-8");
+    } catch {
+      continue;
+    }
+    const { rawFm } = splitFrontmatter(raw);
+    const fm = parseFrontmatterYaml(rawFm) ?? {};
+    projects.push({
+      slug: path.basename(rel, ".md"),
+      title: String(fm.title ?? path.basename(rel, ".md")),
+      organization: fm.organization ? String(fm.organization) : undefined,
+      status: String(fm.status ?? "completed"),
+      featured: Boolean(fm.featured),
+      skills: Array.isArray(fm.skills) ? fm.skills.map(String) : [],
+      highlights: Array.isArray(fm.highlights) ? fm.highlights : [],
+      startedAt: fm.startedAt ? String(fm.startedAt) : undefined,
+      endedAt: fm.endedAt ? String(fm.endedAt) : undefined,
+    });
+  }
+  return projects;
+}
+
+async function computeSkillAtlasPreview(aboutContentOverride) {
+  const configPath = path.join(ROOT_DIR, "portfolio-config.json");
+  const config = JSON.parse(await fs.readFile(configPath, "utf-8"));
+  const groups = Array.isArray(config?.skills?.groups)
+    ? config.skills.groups
+    : [];
+
+  let aboutFm;
+  try {
+    const raw = aboutContentOverride
+      ? String(aboutContentOverride)
+      : await fs.readFile(path.join(ROOT_DIR, ABOUT_FILE_PATH), "utf-8");
+    const { rawFm } = splitFrontmatter(raw);
+    aboutFm = parseFrontmatterYaml(rawFm) ?? {};
+  } catch {
+    aboutFm = {};
+  }
+
+  const aliases = resolveSkillAtlasAliases(aboutFm.skillAtlas);
+  const projects = await loadSkillAtlasProjects();
+  const now = new Date();
+
+  const axisAcc = new Map();
+  for (const g of groups) {
+    axisAcc.set(String(g.label), {
+      icon: String(g.icon ?? ""),
+      raw: 0,
+      skills: new Set(),
+      evidence: new Map(),
+    });
+  }
+  const unmappedCounts = new Map();
+  let totalSkillsAnalyzed = 0;
+
+  for (const project of projects) {
+    if (project.skills.length === 0) continue;
+    const baseWeight = computeSkillAtlasProjectWeight(project, now);
+    for (const skill of project.skills) {
+      const cleaned = String(skill).trim();
+      if (!cleaned) continue;
+      totalSkillsAnalyzed += 1;
+      const matches = matchSkillToSkillAtlasGroups(cleaned, aliases);
+      if (matches.length === 0) {
+        unmappedCounts.set(cleaned, (unmappedCounts.get(cleaned) ?? 0) + 1);
+        continue;
+      }
+      const per = baseWeight / matches.length;
+      for (const { group, aliasWeight } of matches) {
+        const bucket = axisAcc.get(group);
+        if (!bucket) continue;
+        const contrib = per * aliasWeight;
+        bucket.raw += contrib;
+        bucket.skills.add(cleaned);
+        const prior = bucket.evidence.get(project.slug);
+        if (prior) {
+          prior.contribution += contrib;
+          if (!prior.matchedSkills.includes(cleaned)) {
+            prior.matchedSkills.push(cleaned);
+          }
+        } else {
+          bucket.evidence.set(project.slug, {
+            slug: project.slug,
+            title: project.title,
+            organization: project.organization,
+            status: project.status,
+            contribution: contrib,
+            matchedSkills: [cleaned],
+          });
+        }
+      }
+    }
+  }
+
+  const rawMax = Math.max(1, ...Array.from(axisAcc.values()).map((a) => a.raw));
+
+  const axes = groups.map((g) => {
+    const bucket = axisAcc.get(String(g.label));
+    if (!bucket) {
+      return {
+        group: String(g.label),
+        icon: String(g.icon ?? ""),
+        rawScore: 0,
+        normalizedScore: 0,
+        projectCount: 0,
+        topEvidence: [],
+      };
+    }
+    const topEvidence = Array.from(bucket.evidence.values())
+      .sort((a, b) => b.contribution - a.contribution)
+      .slice(0, 5)
+      .map((e) => ({
+        ...e,
+        contribution: Math.round(e.contribution * 100) / 100,
+      }));
+    return {
+      group: String(g.label),
+      icon: String(g.icon ?? ""),
+      rawScore: Math.round(bucket.raw * 100) / 100,
+      normalizedScore: Math.round((bucket.raw / rawMax) * 100),
+      projectCount: bucket.evidence.size,
+      topEvidence,
+    };
+  });
+
+  const unmappedSkills = Array.from(unmappedCounts.entries())
+    .map(([skill, count]) => ({ skill, count }))
+    .sort((a, b) => b.count - a.count || a.skill.localeCompare(b.skill));
+
+  return {
+    axes,
+    unmappedSkills,
+    totalProjectsAnalyzed: projects.length,
+    totalSkillsAnalyzed,
+    generatedAt: new Date().toISOString(),
+  };
+}
+
 async function handleApi(req, res, url) {
   if (req.method === "GET" && url.pathname === "/api/files") {
     try {
@@ -2687,6 +3017,29 @@ async function handleApi(req, res, url) {
       sendJson(res, 200, { path: normalized, content });
     } catch (error) {
       sendJson(res, 400, { error: `Failed to read file: ${error.message}` });
+    }
+    return;
+  }
+
+  if (url.pathname === "/api/skill-atlas-preview") {
+    if (req.method !== "GET" && req.method !== "POST") {
+      sendJson(res, 405, { error: "Method not allowed." });
+      return;
+    }
+    try {
+      let aboutContent;
+      if (req.method === "POST") {
+        const body = await parseJsonBody(req);
+        if (body && typeof body.aboutContent === "string") {
+          aboutContent = body.aboutContent;
+        }
+      }
+      const data = await computeSkillAtlasPreview(aboutContent);
+      sendJson(res, 200, data);
+    } catch (error) {
+      sendJson(res, 500, {
+        error: `Skill atlas preview failed: ${error.message}`,
+      });
     }
     return;
   }

@@ -57,6 +57,14 @@ const elements = {
   newCompanySummary: document.getElementById("new-company-summary"),
   aboutSection: document.getElementById("about-section"),
   aboutText: document.getElementById("about-text"),
+  skillAtlasRefresh: document.getElementById("skill-atlas-refresh"),
+  skillAtlasMeta: document.getElementById("skill-atlas-impact-meta"),
+  skillAtlasAxes: document.getElementById("skill-atlas-impact-axes"),
+  skillAtlasUnmapped: document.getElementById("skill-atlas-impact-unmapped"),
+  skillAtlasUnmappedCount: document.getElementById(
+    "skill-atlas-impact-unmapped-count",
+  ),
+  skillAtlasStatus: document.getElementById("skill-atlas-impact-status"),
 };
 
 let renderDebounce = null;
@@ -1138,6 +1146,105 @@ async function init() {
   } catch (error) {
     renderMessages([error.message], []);
   }
+  refreshSkillAtlasImpact().catch(() => {});
+}
+
+function renderSkillAtlasImpact(data) {
+  if (!elements.skillAtlasAxes) return;
+  elements.skillAtlasAxes.innerHTML = "";
+  const axes = Array.isArray(data?.axes) ? data.axes : [];
+  for (const axis of axes) {
+    const li = document.createElement("li");
+    li.className = "skill-atlas-impact__axis";
+    const score = Number(axis.normalizedScore ?? 0);
+    li.innerHTML = `
+      <div class="skill-atlas-impact__axis-head">
+        <span class="skill-atlas-impact__icon" aria-hidden="true">${escapeHtmlText(axis.icon ?? "")}</span>
+        <span class="skill-atlas-impact__group">${escapeHtmlText(axis.group ?? "")}</span>
+        <span class="skill-atlas-impact__score">${score}</span>
+      </div>
+      <div
+        class="skill-atlas-impact__bar"
+        role="progressbar"
+        aria-valuenow="${score}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <span style="width:${Math.max(0, Math.min(100, score))}%"></span>
+      </div>
+      <p class="muted skill-atlas-impact__count">
+        ${axis.projectCount ?? 0} project${(axis.projectCount ?? 0) === 1 ? "" : "s"}
+        ${
+          Array.isArray(axis.topEvidence) && axis.topEvidence.length
+            ? `&middot; Top: ${escapeHtmlText(axis.topEvidence[0].title)}`
+            : ""
+        }
+      </p>
+    `;
+    elements.skillAtlasAxes.appendChild(li);
+  }
+
+  const unmapped = Array.isArray(data?.unmappedSkills)
+    ? data.unmappedSkills
+    : [];
+  if (elements.skillAtlasUnmappedCount) {
+    elements.skillAtlasUnmappedCount.textContent = `(${unmapped.length})`;
+  }
+  if (elements.skillAtlasUnmapped) {
+    elements.skillAtlasUnmapped.innerHTML = "";
+    unmapped.slice(0, 50).forEach((entry) => {
+      const li = document.createElement("li");
+      li.textContent = `${entry.skill} (x${entry.count})`;
+      elements.skillAtlasUnmapped.appendChild(li);
+    });
+  }
+  if (elements.skillAtlasMeta) {
+    const total = data?.totalProjectsAnalyzed ?? 0;
+    const skills = data?.totalSkillsAnalyzed ?? 0;
+    elements.skillAtlasMeta.textContent = `${total} project${total === 1 ? "" : "s"} analyzed, ${skills} skill mention${skills === 1 ? "" : "s"}.`;
+  }
+  if (elements.skillAtlasStatus) {
+    const when = data?.generatedAt
+      ? new Date(data.generatedAt).toLocaleTimeString()
+      : "now";
+    elements.skillAtlasStatus.textContent = `Updated ${when}`;
+  }
+}
+
+function escapeHtmlText(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+async function refreshSkillAtlasImpact() {
+  if (!elements.skillAtlasAxes) return;
+  if (elements.skillAtlasStatus) {
+    elements.skillAtlasStatus.textContent = "Loading…";
+  }
+  try {
+    const isAboutDraft =
+      typeof state.activePath === "string" &&
+      state.activePath.endsWith("/about/about.md");
+    let data;
+    if (isAboutDraft && elements.markdownEditor.value) {
+      data = await apiPost("/api/skill-atlas-preview", {
+        aboutContent: elements.markdownEditor.value,
+      });
+    } else {
+      const res = await fetch("/api/skill-atlas-preview");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      data = await res.json();
+    }
+    renderSkillAtlasImpact(data);
+  } catch (error) {
+    if (elements.skillAtlasStatus) {
+      elements.skillAtlasStatus.textContent = `Preview failed: ${error.message}`;
+    }
+  }
 }
 
 elements.modeFormButton.addEventListener("click", () => {
@@ -1217,5 +1324,11 @@ elements.createAboutForm.addEventListener("submit", (event) => {
     elements.createResult.textContent = err.message;
   });
 });
+
+if (elements.skillAtlasRefresh) {
+  elements.skillAtlasRefresh.addEventListener("click", () => {
+    refreshSkillAtlasImpact().catch(() => {});
+  });
+}
 
 init();
