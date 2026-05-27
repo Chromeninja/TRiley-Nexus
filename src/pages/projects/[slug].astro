@@ -5,6 +5,7 @@ import ProjectMediaGallery from "../../components/ProjectMediaGallery.astro";
 import {
   formatProjectDateRange,
   getProjects,
+  hasDetailedProjectWriteup,
   projectStatusColors,
   projectStatusLabels,
   type Project,
@@ -31,11 +32,7 @@ const projectHighlights =
     ?.map((highlight) => normalizeWhitespace(highlight))
     .filter(Boolean)
     .slice(0, 3) ?? [];
-const hasDetailedWriteup = Boolean(
-  project.problem?.trim() &&
-  project.approach?.trim() &&
-  project.outcome?.trim(),
-);
+const hasDetailedWriteup = hasDetailedProjectWriteup(project);
 
 const normalizedProjectMedia = (() => {
   const media = Array.isArray(project.media) ? [...project.media] : [];

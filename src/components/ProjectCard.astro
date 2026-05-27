@@ -2,6 +2,7 @@
 // ProjectCard.astro: Reusable project card component
 import {
   formatProjectDateRange,
+  hasDetailedProjectWriteup,
   projectStatusColors,
   projectStatusLabels,
   type Project,
@@ -38,11 +39,7 @@ const projectHighlights = (
     ?.filter(Boolean) ?? fallbackHighlights
 ).slice(0, 3);
 const cardHighlights = featured ? projectHighlights : [];
-const hasDetailedWriteup = Boolean(
-  project.problem?.trim() &&
-  project.approach?.trim() &&
-  project.outcome?.trim(),
-);
+const hasDetailedWriteup = hasDetailedProjectWriteup(project);
 const cardCtaLabel = hasDetailedWriteup ? "Read the story" : "View details";
 
 const coverMediaItem = project.media?.find(
@@ -92,10 +89,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
 <article
   class={`project-card ${featured ? "project-card--featured" : ""} ${hasDetailedWriteup ? "project-card--with-writeup" : ""}`}
-  data-project-card-link={projectPath}
-  tabindex="0"
-  role="link"
-  aria-label={`View project: ${project.title}`}
 >
   <div class="project-card__header">
     <div class="project-card__meta">
@@ -260,10 +253,11 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       card.addEventListener("mouseleave", stopPreview);
       card.addEventListener("focusin", playPreview);
       card.addEventListener("focusout", (event) => {
-        const focusEvent = event as FocusEvent;
+        const relatedTarget =
+          event instanceof FocusEvent ? event.relatedTarget : null;
         if (
-          focusEvent.relatedTarget instanceof Node &&
-          card.contains(focusEvent.relatedTarget)
+          relatedTarget instanceof Node &&
+          card.contains(relatedTarget)
         ) {
           return;
         }
@@ -271,43 +265,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       });
     });
   }
-
-  const projectCards = document.querySelectorAll("[data-project-card-link]");
-
-  projectCards.forEach((projectCard) => {
-    if (!(projectCard instanceof HTMLElement)) {
-      return;
-    }
-
-    const card = projectCard;
-    const link = card.getAttribute("data-project-card-link");
-
-    if (!link || card.getAttribute("data-project-card-link-bound") === "true") {
-      return;
-    }
-
-    card.setAttribute("data-project-card-link-bound", "true");
-
-    card.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target instanceof Element && target.closest("a, button")) {
-        return;
-      }
-
-      window.location.href = link;
-    });
-
-    card.addEventListener("keydown", (event: KeyboardEvent) => {
-      const keyboardEvent = event as KeyboardEvent;
-
-      if (keyboardEvent.key !== "Enter" && keyboardEvent.key !== " ") {
-        return;
-      }
-
-      keyboardEvent.preventDefault();
-      window.location.href = link;
-    });
-  });
 </script>
 
 <style>

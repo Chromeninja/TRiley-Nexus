@@ -3,7 +3,10 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { getProjectsPageData } from "../../data/projects";
+import {
+  getProjectsPageData,
+  hasDetailedProjectWriteup,
+} from "../../data/projects";
 
 const projectsPageData = await getProjectsPageData(6);
 const listedProjects = [
@@ -11,7 +14,7 @@ const listedProjects = [
   ...projectsPageData.categoryGroups.flatMap((group) => group.projects),
 ];
 const detailedWriteupCount = listedProjects.filter(
-  (project) => project.problem && project.approach && project.outcome,
+  (project) => hasDetailedProjectWriteup(project),
 ).length;
 ---
 
