@@ -1,6 +1,7 @@
 ---
 applyTo: "{src/data/**/*.ts,src/content.config.ts}"
 ---
+
 <!-- Last reviewed: 2026-05-06; update when new collections or data patterns are added -->
 
 # Data Layer Rules
@@ -100,6 +101,7 @@ export async function getCompanyProfiles() {
 ## Exports
 
 Every `src/data/*.ts` file must export:
+
 1. **Typed interfaces** for all data shapes used in components
 2. **Helper functions** (async where collection access is needed)
 3. No default exports: named exports only

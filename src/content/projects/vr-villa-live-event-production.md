@@ -67,4 +67,3 @@ At the operational level, the work includes staffing coverage, role assignments,
 The role also sits at the intersection of multiple partner groups. VR Villa depends on alignment between event organizers, developers, hardware partners, sponsors, and on-site staff, so production has to support both audience experience and partner value at the same time.
 
 What makes the model work is that it protects the mission while staying operationally practical. The activations remain free to play, approachable for first-time users, and useful to developers who want genuine player feedback and live visibility. My contribution is helping that mission survive the real constraints of touring production so each event feels organized, welcoming, and worth returning to.
-

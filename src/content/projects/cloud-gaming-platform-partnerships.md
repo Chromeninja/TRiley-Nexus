@@ -53,7 +53,6 @@ tags:
 cover:
   src: "/media/projects/ubisoft-cloud-gaming-platform-partnerships-cover.webp"
   alt: Cloud Gaming Platform Partnerships
-featured: true
+featured: false
 order: 13
 ---
-

@@ -142,8 +142,7 @@ const companyTimelineGroups = organizationGroups
   )
   .sort(
     (groupA, groupB) =>
-      groupB.timeline.rangeEnd.getTime() -
-        groupA.timeline.rangeEnd.getTime() ||
+      groupB.timeline.rangeEnd.getTime() - groupA.timeline.rangeEnd.getTime() ||
       groupB.timeline.rangeStart.getTime() -
         groupA.timeline.rangeStart.getTime(),
   );

@@ -70,4 +70,3 @@ media:
 featured: false
 order: 21
 ---
-

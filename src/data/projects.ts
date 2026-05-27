@@ -216,12 +216,17 @@ export interface ProjectsPageData {
 
 // Re-export theme constants and helpers for backward compatibility
 export { projectStatusColors, projectStatusLabels } from "./projectThemes";
-export { formatProjectDateRange, parseProjectDateValue } from "./projectHelpers";
+export {
+  formatProjectDateRange,
+  parseProjectDateValue,
+} from "./projectHelpers";
 
 let currentCompanyProfiles: Record<string, CompanyProfile> = {};
 
 function getFallbackColor(label: string): string {
-  return atlasFallbackColors[hashStringToIndex(label, atlasFallbackColors.length)];
+  return atlasFallbackColors[
+    hashStringToIndex(label, atlasFallbackColors.length)
+  ];
 }
 
 function toPositioning(
@@ -768,7 +773,8 @@ export async function getProjectOrganizationGroups(): Promise<
   const grouped = new Map<string, Project[]>();
 
   for (const project of projects) {
-    const organization = project.organization?.trim() || "Unspecified Organization";
+    const organization =
+      project.organization?.trim() || "Unspecified Organization";
 
     if (!grouped.has(organization)) {
       grouped.set(organization, []);
@@ -1116,8 +1122,8 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
       const narrativeProjects = [...group.projects]
         .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow))
         .map((project) =>
-        buildNarrativeProjectNode(project, group.organization),
-      );
+          buildNarrativeProjectNode(project, group.organization),
+        );
       const featuredProjectCount = narrativeProjects.filter(
         (project) => project.isFeatured,
       ).length;

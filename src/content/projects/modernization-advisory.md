@@ -42,7 +42,6 @@ links:
     url: "https://shepherdtech.io"
   - label: GitHub
     url: "https://github.com/Chromeninja"
-featured: true
+featured: false
 order: 4
 ---
-

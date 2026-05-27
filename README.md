@@ -1,24 +1,20 @@
-# TRiley-Nexus Portfolio Template
+# TRiley-Nexus
 
-A customizable Astro portfolio template designed for GitHub Pages.
+A personal portfolio and operating-system-style career site for T. Riley Garrett.
 
-## Who This Is For
+This site documents work across event operations, community systems, military operations, program leadership, and automation. The through-line is building practical systems for complex work: tools, workflows, teams, and operating models that other people can actually run.
 
-- People who want a personal portfolio site with no paid hosting
-- Non-technical users who want a guided setup process
-- Developers who want to customize locally in VS Code
+## What the Site Highlights
 
-## Start Here
+- Event operations systems, including the VR Villa Event Ops Manager for check-in, waivers, live player visibility, and staff coordination
+- Community platforms, including the TEST Squadron Discord operations bot and governance systems
+- Live event and volunteer leadership across TEST Squadron, Bar Citizen, and VR Villa
+- Military operations experience, including air traffic control and Landing Zone Safety Officer work
+- Automation and workflow tooling across civilian and military contexts
 
-1. Beginner setup: docs/GETTING-STARTED.md
-2. GitHub Pages publish steps: docs/SETUP-GITHUB-PAGES.md
-3. Optional local testing in VS Code: docs/LOCAL-DEVELOPMENT.md
-4. Project content reference: docs/CONTENT-WIKI.md
-5. Content taxonomy and writing standards: docs/CONTENT-TAXONOMY.md
+## Template and Forking Notes
 
-## Configuration Model
-
-Most site content is configurable in one file:
+This site is built with Astro on GitHub Pages. Most site content is configurable in one file:
 
 - portfolio-config.json
 

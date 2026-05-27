@@ -68,7 +68,6 @@ media:
     src: "/media/projects/test-squadron-event-coordinators-program-and-community-engagement-media.mp4"
     poster: "/media/projects/test-squadron-event-coordinators-program-and-community-engagement-cover.jpg"
     caption: Event Coordinators program footage showing organized community event delivery.
-featured: false
-order: 19
+featured: true
+order: 4
 ---
-

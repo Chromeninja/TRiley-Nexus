@@ -22,8 +22,8 @@ const projectsPageData = await getProjectsPageData(6);
 
       <div class="projects-topline panel" aria-label="Projects summary">
         <p class="projects-topline__intro">
-          {projectsPageData.totalProjectCount} projects, grouped into a few
-          high-level focus areas.
+          {projectsPageData.totalProjectCount} projects, grouped into a few high-level
+          focus areas.
         </p>
         <div class="projects-topline__chips" aria-label="Project focus areas">
           {
@@ -33,7 +33,9 @@ const projectsPageData = await getProjectsPageData(6);
                 class="projects-chip"
               >
                 <span>{group.category}</span>
-                <span class="projects-chip__count">{group.projects.length}</span>
+                <span class="projects-chip__count">
+                  {group.projects.length}
+                </span>
               </a>
             ))
           }

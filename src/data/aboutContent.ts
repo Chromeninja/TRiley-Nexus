@@ -22,6 +22,19 @@ export interface AboutResumeItem {
   summary?: string;
 }
 
+export interface AboutSkillAtlasAlias {
+  label: string;
+  group: string;
+  weight?: number;
+}
+
+export interface AboutSkillAtlasConfig {
+  title?: string;
+  intro?: string;
+  ctaLabel?: string;
+  aliases?: AboutSkillAtlasAlias[];
+}
+
 export interface AboutContentData {
   metaDescription: string;
   backgroundParagraphs: string[];
@@ -31,6 +44,7 @@ export interface AboutContentData {
   profileMedia: AboutMediaItem | null;
   additionalMedia: AboutMediaItem[];
   resume?: AboutResumeItem;
+  skillAtlas?: AboutSkillAtlasConfig;
 }
 
 import { getCollection } from "astro:content";
@@ -64,6 +78,7 @@ export async function getAboutContentData(): Promise<AboutContentData> {
         entry.data.profileMedia === undefined
           ? fallbackAboutContent.profileMedia
           : entry.data.profileMedia,
+      skillAtlas: entry.data.skillAtlas ?? fallbackAboutContent.skillAtlas,
     };
   } catch {
     return fallbackAboutContent;

@@ -1,6 +1,7 @@
 ---
 applyTo: "tools/**"
 ---
+
 <!-- Last reviewed: 2026-05-06; update when content editor endpoints or schemas change -->
 
 # Content Editor Tools Rules

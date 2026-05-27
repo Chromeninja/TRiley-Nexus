@@ -1,6 +1,9 @@
 ---
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
-import { projectStatusColors, type CareerNarrativeCompanyNode } from "../data/projects";
+import {
+  projectStatusColors,
+  type CareerNarrativeCompanyNode,
+} from "../data/projects";
 import { toBasePath } from "../utils/paths";
 import { renderRichText } from "../utils/richText";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
@@ -25,7 +28,7 @@ const { company, companyIndex } = Astro.props;
     <span class="narrative-company__node-index text-mono">
       {String(companyIndex + 1).padStart(2, "0")}
     </span>
-    <span class="narrative-company__node-dot" />
+    <span class="narrative-company__node-dot"></span>
   </div>
 
   <button
@@ -37,14 +40,16 @@ const { company, companyIndex } = Astro.props;
   >
     <div class="narrative-company__header-main">
       <div class="narrative-company__identity">
-        {company.logo && (
-          <img
-            class="narrative-company__logo"
-            src={toBasePath(company.logo.src)}
-            alt={company.logo.alt}
-            loading="lazy"
-          />
-        )}
+        {
+          company.logo && (
+            <img
+              class="narrative-company__logo"
+              src={toBasePath(company.logo.src)}
+              alt={company.logo.alt}
+              loading="lazy"
+            />
+          )
+        }
         <div class="narrative-company__identity-copy">
           <span class="narrative-company__eyebrow text-mono">
             {company.rangeLabel}
@@ -58,12 +63,18 @@ const { company, companyIndex } = Astro.props;
     <div class="narrative-company__header-meta">
       <div class="narrative-company__chips">
         <span class="narrative-chip">{company.projectCount} projects</span>
-        {company.featuredProjectCount > 0 && (
-          <span class="narrative-chip">{company.featuredProjectCount} featured</span>
-        )}
-        {company.isActive && (
-          <span class="narrative-chip narrative-chip--live">active</span>
-        )}
+        {
+          company.featuredProjectCount > 0 && (
+            <span class="narrative-chip">
+              {company.featuredProjectCount} featured
+            </span>
+          )
+        }
+        {
+          company.isActive && (
+            <span class="narrative-chip narrative-chip--live">active</span>
+          )
+        }
       </div>
       <span class="narrative-company__chevron" aria-hidden="true">↘</span>
     </div>
@@ -90,110 +101,123 @@ const { company, companyIndex } = Astro.props;
       </div>
 
       <div class="narrative-company__facts">
-        {company.roles.length > 0 && (
-          <div class="narrative-fact-block">
-            <span class="narrative-fact-label text-mono">Roles</span>
-            <p>{company.roles.join(" / ")}</p>
-          </div>
-        )}
-        {company.achievements.length > 0 && (
-          <div class="narrative-fact-block">
-            <span class="narrative-fact-label text-mono">Highlights</span>
-            <ul class="narrative-fact-list">
-              {company.achievements.map((achievement) => (
-                <li>{achievement}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {
+          company.roles.length > 0 && (
+            <div class="narrative-fact-block">
+              <span class="narrative-fact-label text-mono">Roles</span>
+              <p>{company.roles.join(" / ")}</p>
+            </div>
+          )
+        }
+        {
+          company.achievements.length > 0 && (
+            <div class="narrative-fact-block">
+              <span class="narrative-fact-label text-mono">Highlights</span>
+              <ul class="narrative-fact-list">
+                {company.achievements.map((achievement) => (
+                  <li>{achievement}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </div>
     </div>
 
-    <div class="narrative-projects" aria-label={`${company.organization} projects`}>
-      {company.projects.map((project) => (
-        <article
-          id={project.id}
-          class="narrative-project"
-          data-narrative-project
-          data-category={project.category}
-          data-status={project.status}
-          data-expanded="false"
-        >
-          <button
-            type="button"
-            class="narrative-project__summary"
-            data-narrative-project-toggle
-            aria-expanded="false"
-            aria-controls={`${project.id}-panel`}
+    <div
+      class="narrative-projects"
+      aria-label={`${company.organization} projects`}
+    >
+      {
+        company.projects.map((project) => (
+          <article
+            id={project.id}
+            class="narrative-project"
+            data-narrative-project
+            data-category={project.category}
+            data-status={project.status}
+            data-expanded="false"
           >
-            <div class="narrative-project__summary-main">
-              <div>
-                <span class="narrative-project__timeframe text-mono">
-                  {project.timeframeLabel}
+            <button
+              type="button"
+              class="narrative-project__summary"
+              data-narrative-project-toggle
+              aria-expanded="false"
+              aria-controls={`${project.id}-panel`}
+            >
+              <div class="narrative-project__summary-main">
+                <div>
+                  <span class="narrative-project__timeframe text-mono">
+                    {project.timeframeLabel}
+                  </span>
+                  <h4 class="narrative-project__title">{project.title}</h4>
+                </div>
+                <p class="narrative-project__role">{project.roleTitle}</p>
+              </div>
+
+              <div class="narrative-project__summary-meta">
+                <span class={`badge ${projectStatusColors[project.status]}`}>
+                  {project.statusLabel}
                 </span>
-                <h4 class="narrative-project__title">{project.title}</h4>
-              </div>
-              <p class="narrative-project__role">{project.roleTitle}</p>
-            </div>
-
-            <div class="narrative-project__summary-meta">
-              <span class={`badge ${projectStatusColors[project.status]}`}>
-                {project.statusLabel}
-              </span>
-              <span class="narrative-project__chevron" aria-hidden="true">+</span>
-            </div>
-
-            <div class="narrative-project__hover">
-              <div class="narrative-project__hover-meta text-mono">
-                <span>{project.category}</span>
-                {project.mediaCount > 0 && <span>{project.mediaCount} media</span>}
-                {project.isFeatured && <span>featured</span>}
-              </div>
-              <div class="narrative-project__hover-tags">
-                {project.tags.map((tag) => (
-                  <span class="narrative-tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          </button>
-
-          <ExpandableDetailPanel
-            id={`${project.id}-panel`}
-            title={`${project.title} details`}
-          >
-            <div class="narrative-project__detail-grid">
-              <div class="narrative-project__detail-copy">
-                <p>{project.detailSummary}</p>
-                {project.tools.length > 0 && (
-                  <p>
-                    <span class="text-accent">Tools:</span>{" "}
-                    {project.tools.join(" • ")}
-                  </p>
-                )}
+                <span class="narrative-project__chevron" aria-hidden="true">
+                  +
+                </span>
               </div>
 
-              <div class="narrative-project__detail-actions">
-                <a
-                  href={toBasePath(`/projects/${project.slug}`)}
-                  class="btn btn-outline btn-sm"
-                >
-                  Open case study
-                </a>
-                {project.links.slice(0, 2).map((link) => (
+              <div class="narrative-project__hover">
+                <div class="narrative-project__hover-meta text-mono">
+                  <span>{project.category}</span>
+                  {project.mediaCount > 0 && (
+                    <span>{project.mediaCount} media</span>
+                  )}
+                  {project.isFeatured && <span>featured</span>}
+                </div>
+                <div class="narrative-project__hover-tags">
+                  {project.tags.map((tag) => (
+                    <span class="narrative-tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </button>
+
+            <ExpandableDetailPanel
+              id={`${project.id}-panel`}
+              title={`${project.title} details`}
+            >
+              <div class="narrative-project__detail-grid">
+                <div class="narrative-project__detail-copy">
+                  <p>{project.detailSummary}</p>
+                  {project.tools.length > 0 && (
+                    <p>
+                      <span class="text-accent">Tools:</span>{" "}
+                      {project.tools.join(" • ")}
+                    </p>
+                  )}
+                </div>
+
+                <div class="narrative-project__detail-actions">
                   <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-ghost btn-sm"
+                    href={toBasePath(`/projects/${project.slug}`)}
+                    class="btn btn-outline btn-sm"
                   >
-                    {link.label} ↗
+                    Open case study
                   </a>
-                ))}
+                  {project.links.slice(0, 2).map((link) => (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-ghost btn-sm"
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          </ExpandableDetailPanel>
-        </article>
-      ))}
+            </ExpandableDetailPanel>
+          </article>
+        ))
+      }
     </div>
   </ExpandableDetailPanel>
 </article>

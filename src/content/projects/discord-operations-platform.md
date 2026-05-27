@@ -8,7 +8,7 @@ roleTitle: Director of Operations & Community Strategy
 timeframe: Ongoing
 startedAt: "2024-10"
 summary: "Built and continue to operate an open-source Discord bot platform for TEST Squadron as Director of Operations & Community Strategy, creating the systems layer behind verification, role assignment, voice channel orchestration, analytics, and staff workflows while preserving member privacy. I owned full design, development, testing, and deployment, including selecting the cloud hosting provider."
-cardSummary: "Built and run the systems layer behind TEST Squadron community operations, covering verification, moderation workflows, analytics, and voice management at scale through a solo-developed bot platform."
+cardSummary: "Designed, built, and operate an open-source bot platform for TEST Squadron covering verification, role workflows, voice orchestration, and analytics for a 40k-member Discord."
 highlights:
   - "Implemented token-based member verification with role assignment, cooldown controls, and support for staff-led recheck operations, with 1.4k+ registered users through the bot."
   - Shipped voice channel lifecycle tooling so members can create and manage channels through bot commands without broad direct permissions.
@@ -48,7 +48,6 @@ media:
   - type: image
     src: "/media/projects/test-squadron-discord-bot-community-operations-platform-cover-2.png"
     alt: TEST Squadron Discord Bot / Community Operations Platform
-featured: false
-order: 17
+featured: true
+order: 2
 ---
-

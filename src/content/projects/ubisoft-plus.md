@@ -36,7 +36,6 @@ tags:
 cover:
   src: "/media/projects/ubisoft-plus-subscription-launch-cover.png"
   alt: Ubisoft+
-featured: true
+featured: false
 order: 12
 ---
-

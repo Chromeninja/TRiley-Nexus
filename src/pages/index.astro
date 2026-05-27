@@ -10,24 +10,31 @@ import { siteConfig } from "../data/siteConfig";
 const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
 const featuredEvidence = siteConfig.home.featuredEvidence;
-const featuredStrengths = coreStrengths.filter(s => s.title !== "Star Citizen Operations").slice(0, 4);
+const featuredStrengths = coreStrengths.filter((s) =>
+  [
+    "Event Management",
+    "Star Citizen Operations",
+    "Operating Systems",
+    "Leadership Under Pressure",
+  ].includes(s.title),
+);
 
 const projectFocusAreas = [
   {
-    title: "Event management",
-    text: "Live-event systems, staffing models, check-in operations, runbooks, and the decision structure needed when people are moving in real time.",
+    title: "Event operations systems",
+    text: "Offline-first platforms, check-in tooling, staff visibility, and real-time decision support built for live events where the internet is unreliable and errors have consequences.",
   },
   {
-    title: "Leadership",
-    text: "Director-level ownership across teams, communities, vendors, volunteers, and stakeholders with clear accountability for outcomes.",
+    title: "Community platforms and governance",
+    text: "Discord bot systems, verification workflows, role management, analytics, and governance design for large-scale communities that need to run without constant manual intervention.",
   },
   {
-    title: "Program management",
-    text: "Roadmaps, risk management, launch readiness, platform support, production pipelines, and cross-functional delivery across overlapping workstreams.",
+    title: "People and live event leadership",
+    text: "Director-level ownership across volunteer coordinators, vendors, and stakeholders when schedules are live, people are moving, and someone has to hold the operating picture.",
   },
   {
-    title: "Community",
-    text: "Community operations, organization leadership, large-scale coordination, and event production built around clear governance and repeatable systems.",
+    title: "Military operations under pressure",
+    text: "ATC, landing zone safety, and expeditionary airfield operations built the execution habits that carry into every high-stakes environment: calm, systematic, and hazard-aware.",
   },
 ];
 ---
@@ -65,13 +72,11 @@ const projectFocusAreas = [
           <div class="hero__actions">
             <a
               href={toBasePath(homeHero.primaryAction.href)}
-              class="btn btn-primary"
-              >{homeHero.primaryAction.label}</a
+              class="btn btn-primary">{homeHero.primaryAction.label}</a
             >
             <a
               href={toBasePath(homeHero.secondaryAction.href)}
-              class="btn btn-outline"
-              >{homeHero.secondaryAction.label}</a
+              class="btn btn-outline">{homeHero.secondaryAction.label}</a
             >
           </div>
         </div>
@@ -88,9 +93,7 @@ const projectFocusAreas = [
           </div>
 
           <div class="hero__evidence-intro">
-            <h2 class="hero__evidence-title">
-              Backed by shipped work.
-            </h2>
+            <h2 class="hero__evidence-title">Backed by shipped work.</h2>
             <p class="hero__evidence-copy">
               The pattern across my career is consistent: diagnose quickly,
               align the work, build the system, and leave the organization with
@@ -286,9 +289,8 @@ const projectFocusAreas = [
             system-design layer at the same time, especially when multiple
             projects are moving at once.
           </p>
-          <a
-            href={toBasePath("/about")}
-            class="btn btn-outline intro__action">Read the background</a
+          <a href={toBasePath("/about")} class="btn btn-outline intro__action"
+            >Read the background</a
           >
         </div>
 
@@ -518,7 +520,8 @@ const projectFocusAreas = [
     border: 1px solid rgba(87, 166, 255, 0.16);
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--color-bg-card), var(--color-bg) 22%);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border), transparent 30%);
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--color-border), transparent 30%);
     text-decoration: none;
     transition:
       border-color var(--transition-fast),

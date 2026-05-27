@@ -12,9 +12,9 @@ endedAt: "2025-09"
 summary: "Led community-driven delivery of the Bar Citizen 2.0 website migration to Wix through volunteer coordination, structured task management, and direct site editing focused on readability and user feedback."
 cardSummary: "Led volunteer delivery of the Bar Citizen 2.0 Wix migration through structured coordination and direct UX-focused site edits."
 highlights:
-  - "Managed community delivery tasks in Trello, prioritized milestone work, and facilitated meetings to keep progress on track."
+  - "Coordinated a volunteer team of community contributors to maintain delivery momentum and keep a shared migration effort on track from start to launch."
   - "Made direct edits in Wix to improve site readability, information clarity, and user flow quality."
-  - Coordinated with board members and community volunteers to complete migration and launch as a shared community effort.
+  - Facilitated board and volunteer alignment through recurring meetings, backlog prioritization, and clear shared decisions.
 problem: "The legacy website needed a refreshed platform and clearer content structure, but delivery had to happen through a volunteer-led community model with limited centralized capacity."
 approach: |
   I ran a lightweight but disciplined delivery cadence that kept a volunteer-led website migration moving without requiring a heavy formal project structure.
@@ -45,17 +45,16 @@ tools:
   - Trello
   - Discord
   - Collaborative Planning Docs
+  - Wix
 tags:
   - Website Delivery
   - Community Operations
   - Volunteer Coordination
   - Task Prioritization
   - Content UX
-  - Wix
 cover:
   src: "/media/projects/bar-citizen-2-0-website-deployment-and-community-delivery-cover.png"
   alt: Bar Citizen 2.0 Website Deployment and Community Delivery
 featured: false
 order: 23
 ---
-

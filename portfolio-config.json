@@ -3,7 +3,7 @@
     "name": "T.Riley",
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
-    "description": "Director-level program and operations leader focused on event management, community systems, and the operating structure behind complex work.",
+    "description": "Systems builder and operations leader focused on event operations, community platforms, military-tested execution, and the automation that helps complex work hold together.",
     "canonicalUrl": "https://chromeninja.com",
     "repository": {
       "owner": "Chromeninja",
@@ -27,22 +27,25 @@
     "email": "t.riley.garrett@gmail.com"
   },
   "footer": {
-    "tagline": "Director-level program leadership for events, communities, and complex operations.",
-    "focusLine": "FOCUS: EVENTS, PROGRAMS, LEADERSHIP, COMMUNITY"
+    "tagline": "Systems builder for event operations, community platforms, and complex work.",
+    "focusLine": "FOCUS: EVENT OPERATIONS, COMMUNITY PLATFORMS, MILITARY OPERATIONS"
   },
   "home": {
-    "metaDescription": "Director-level program and operations leader focused on event management, leadership, program management, and community systems.",
+    "metaDescription": "Systems builder and operations leader: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
     "hero": {
-      "eyebrow": "// DIRECTOR-LEVEL PROJECT LEADERSHIP",
-      "roleLine": "Program and Operations Leader | Systems Builder | Event and Community Leadership",
-      "headlineLead": "I lead the programs behind ",
-      "headlineAccent": "complex operations",
-      "headlineTail": " at scale.",
-      "subtext": "Program and operations leader — live events, community systems, and technical programs where people, process, and tools have to move together.",
+      "eyebrow": "// SYSTEMS BUILDER + OPERATIONS LEADER",
+      "roleLine": "Systems Builder | Event Operations | Community Platforms | Military Operations",
+      "headlineLead": "I build the operating systems behind ",
+      "headlineAccent": "messy work",
+      "headlineTail": ".",
+      "subtext": "I turn messy, high-context work into systems people can run: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
       "proofPoints": [
-        "7 roles across 10+ years at Ubisoft, ending as Senior Program Manager",
-        "Community and operations leadership across large-scale coordination work",
-        "15+ years of military service in high-pressure operational environments"
+        "Built offline software solution for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
+        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
+        "13+ years in the game industry, including program manager experience leading cross-functional delivery and live operations",
+        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
+        "Lead event operations across volunteers, vendors, booths, schedules, and community activations",
+        "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm"
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
       "secondaryAction": { "label": "About Me", "href": "/about" }
@@ -63,28 +66,28 @@
     ],
     "featuredEvidence": [
       {
-        "value": "30%+",
-        "label": "Ticket reduction",
-        "detail": "Reduced Ubisoft e-commerce customer support tickets by building and delivering an automated refund flow.",
-        "href": "/projects/automated-refund-flow"
-      },
-      {
-        "value": "7 Roles",
-        "label": "Ubisoft progression",
-        "detail": "Grew from frontline support into Senior Program Manager over a 10+ year run inside a global game publisher.",
-        "href": "/career?view=narrative"
+        "value": "50+",
+        "label": "Events per year",
+        "detail": "Built VR Villa's offline-first event operations platform to support 50+ annual events, with room to scale further as the program grows.",
+        "href": "/projects/event-operations-program"
       },
       {
         "value": "40K",
-        "label": "Community scale",
-        "detail": "Led governance, permissions, and automation strategy for a partnered Discord community operating at large scale.",
-        "href": "/projects/discord-governance"
+        "label": "Discord community",
+        "detail": "Built and operate the systems layer behind TEST Squadron verification, roles, voice workflows, and privacy-conscious activity visibility.",
+        "href": "/projects/discord-operations-platform"
       },
       {
-        "value": "15+ Years",
-        "label": "Operational discipline",
-        "detail": "Military service and air traffic control work shaped a leadership style built for ambiguity, precision, and pressure.",
-        "href": "/projects/air-traffic-control"
+        "value": "13+",
+        "label": "Years in gaming",
+        "detail": "13+ years in the gaming industry spanning player support, program management, live operations, and community systems at Ubisoft and beyond.",
+        "href": "/career"
+      },
+      {
+        "value": "15+",
+        "label": "Years military service",
+        "detail": "Military ATC and LZSO work shaped a leadership style built around calm execution, hazard awareness, and tight timelines.",
+        "href": "/projects/landing-zone-safety"
       }
     ],
     "principles": [
@@ -103,13 +106,13 @@
     ],
     "stats": [
       { "value": "15+", "label": "Years military experience" },
-      { "value": "10+", "label": "Years in gaming industry" },
+      { "value": "13+", "label": "Years in gaming industry" },
       { "value": "40+", "label": "Operations planned and executed" },
       { "value": "12+", "label": "Large-scale events led" }
     ]
   },
   "about": {
-    "metaDescription": "Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations.",
+    "metaDescription": "Who I am, how I think, and how I work. Background spanning military service, event operations, community systems, technical program management, and the automation that connects them.",
     "backgroundParagraphs": [
       "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That experience fundamentally shaped how I approach complex work. I default to structure, clear communication, and planning for contingencies before they happen.",
       "After military service, I moved into technical program management and operations leadership in the gaming and community space. Over the past several years, I have designed and operated systems for communities with thousands of members - building the governance structures, automation infrastructure, event frameworks, and moderation pipelines that keep large-scale organizations running.",
@@ -417,8 +420,8 @@
     }
   },
   "now": {
-    "metaDescription": "What T.Riley is currently working on, exploring, and focused on right now.",
-    "lastUpdated": "April 2025",
+    "metaDescription": "What T.Riley is currently working on, exploring, and focused on in May 2026.",
+    "lastUpdated": "May 2026",
     "statusHeadline": "CURRENT FOCUS",
     "statusValue": "OPEN TO OPPORTUNITIES",
     "statusSupport": "Program work, systems improvement, and innovation tooling",
@@ -447,7 +450,7 @@
     "priorityItems": [
       {
         "label": "HIGH",
-        "text": "Complete this portfolio site and deploy to GitHub Pages",
+        "text": "Continue refining the portfolio around systems-builder positioning",
         "color": "badge-green"
       },
       {
@@ -457,17 +460,17 @@
       },
       {
         "label": "MED",
-        "text": "Document community operations patterns for public sharing",
+        "text": "Expand documentation for event operations and community platform patterns",
         "color": "badge-yellow"
       },
       {
         "label": "MED",
-        "text": "Deepen TypeScript and Astro proficiency through production use",
+        "text": "Continue building practical AI-assisted workflow tools",
         "color": "badge-yellow"
       },
       {
         "label": "LOW",
-        "text": "Begin formal TPM certification study track",
+        "text": "Deepen Astro, TypeScript, and automation capability through production use",
         "color": "badge-gray"
       }
     ],
@@ -540,7 +543,10 @@
         "Strengthened delivery structure around ongoing Nope Challenge work.",
         "Improved testing signal quality through community feedback workflows."
       ],
-      "logo": { "src": "/media/companies/happy-manic-logo.png", "alt": "Happy Manic logo" },
+      "logo": {
+        "src": "/media/companies/happy-manic-logo.png",
+        "alt": "Happy Manic logo"
+      },
       "color": "#8be36d",
       "tenureStart": "Oct 2025",
       "tenureEnd": "Present",
@@ -549,31 +555,39 @@
       ]
     },
     "TEST Squadron": {
-      "summary": "Community tooling and internal systems spanning dashboards, API services, and bot automation.",
-      "companyInfo": "TEST Squadron represents a community-focused operating model with lightweight product development and platform tooling.",
-      "myTimeInfo": "Built and coordinated internal admin systems, Discord automation, and API service layers for operations.",
-      "roleSummary": "Systems builder for community operations",
+      "summary": "Director-level operations and community strategy spanning event programs, Discord governance, automation platforms, and member-facing commerce for a large org and partnered Discord ecosystem.",
+      "companyInfo": "TEST Squadron is a large Star Citizen organization and partnered Discord community with member programs, events, community systems, and volunteer-led operating needs at significant scale.",
+      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including a 15+ person Event Coordinators program and a custom Discord bot platform for a roughly 40k-member Discord tied to a 24k-member organization.",
+      "roleSummary": "Director of Operations and Community Strategy",
       "achievements": [
-        "Connected moderation workflows with actionable system tooling.",
-        "Reduced manual effort through service-layer and bot automation."
+        "Built and lead a 15+ person Event Coordinators program delivering 5 to 10 weekly events and 1 to 2 large monthly activations.",
+        "Built and operate an open-source Discord bot platform for verification, role management, voice channel orchestration, analytics, and staff workflows."
       ],
       "color": "#de87ff",
       "tenureStart": "2020",
       "tenureEnd": "Present",
       "timelineRoles": [
-        { "label": "Platform Engineer", "start": "2020", "end": "Present" }
+        {
+          "label": "Director of Operations and Community Strategy",
+          "start": "2020",
+          "end": "Present"
+        }
       ]
     },
     "Bar Citizen": {
-      "summary": "Community event and operations support initiatives.",
-      "companyInfo": "Community-led operations and collaboration across event contexts.",
-      "myTimeInfo": "Supported operations and program execution in community-facing settings.",
-      "roleSummary": "Community operations contributor",
+      "summary": "Community event coordination and operations support for recurring North Carolina meetups, international organizer collaboration, website delivery, and larger Star Citizen community activations.",
+      "companyInfo": "Bar Citizen International supports community-first event coordination, organizer collaboration, and live meetup operations for Star Citizen players across multiple regions.",
+      "myTimeInfo": "Since 2021, I have organized recurring North Carolina meetups, supported international operations planning, led volunteer delivery of the Bar Citizen 2.0 website migration, and produced larger community activations.",
+      "roleSummary": "Bar Citizen Coordinator",
       "color": "#5eead4",
-      "tenureStart": "2019",
-      "tenureEnd": "2022",
+      "tenureStart": "2021",
+      "tenureEnd": "Present",
       "timelineRoles": [
-        { "label": "Community Operations Lead", "start": "2019", "end": "2022" }
+        {
+          "label": "Bar Citizen Coordinator",
+          "start": "2021",
+          "end": "Present"
+        }
       ]
     },
     "North Carolina Army National Guard": {
@@ -585,7 +599,11 @@
       "tenureStart": "2011",
       "tenureEnd": "2013",
       "timelineRoles": [
-        { "label": "12K Plumber / Engineering Specialist", "start": "2011", "end": "2013" }
+        {
+          "label": "12K Plumber / Engineering Specialist",
+          "start": "2011",
+          "end": "2013"
+        }
       ]
     },
     "North Carolina Air National Guard": {
@@ -602,7 +620,11 @@
       "tenureEnd": "Present",
       "timelineRoles": [
         { "label": "TACP (118th ASOS)", "start": "2013", "end": "2015" },
-        { "label": "Air Traffic Controller (235th CAOS)", "start": "2015", "end": "Present" }
+        {
+          "label": "Air Traffic Controller (235th CAOS)",
+          "start": "2015",
+          "end": "Present"
+        }
       ]
     },
     "Quantum Vegas": {
@@ -622,7 +644,10 @@
       "companyInfo": "Applied technology partner for systems and process improvements.",
       "myTimeInfo": "Delivered tooling and process outcomes for operational contexts.",
       "roleSummary": "Applied systems delivery",
-      "logo": { "src": "/media/companies/shepherdtech-logo.jpeg", "alt": "ShepherdTech logo" },
+      "logo": {
+        "src": "/media/companies/shepherdtech-logo.jpeg",
+        "alt": "ShepherdTech logo"
+      },
       "color": "#22d3ee",
       "tenureStart": "2024",
       "tenureEnd": "Present",
@@ -635,11 +660,14 @@
       ]
     },
     "VR Villa": {
-      "summary": "Live event production and operations delivery across recurring VR community experiences.",
-      "companyInfo": "VR Villa is a community-driven event environment centered on immersive experiences, programming, and live operations.",
-      "myTimeInfo": "Since January 2024, I have managed event production across multiple VR Villa events and supported operational systems for recurring community experiences.",
-      "roleSummary": "Event production and operations leadership",
-      "logo": { "src": "/media/companies/vr-villa-logo.jpg", "alt": "VR Villa logo" },
+      "summary": "Live event production and operations systems for a touring VR activation program, including Event Ops Manager for check-in, waivers, live player visibility, staff coordination, and staffing and payroll workflows.",
+      "companyInfo": "VR Villa is a free-to-play VR and AR event program that travels to conventions and pop-culture events across the United States.",
+      "myTimeInfo": "Since 2024, I have led production, event operations, and internal tooling support for VR Villa, building the Event Ops Manager platform and a staffing and payroll system that support roughly 50 to 60 events per year.",
+      "roleSummary": "Producer and event operations systems lead",
+      "logo": {
+        "src": "/media/companies/vr-villa-logo.jpg",
+        "alt": "VR Villa logo"
+      },
       "color": "#f5a65b",
       "tenureStart": "2024",
       "tenureEnd": "Present",
