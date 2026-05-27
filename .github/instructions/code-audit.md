@@ -1,6 +1,7 @@
 ---
 applyTo: "{src/components/**/*.astro,src/data/**/*.ts,src/pages/**/*.astro,src/utils/**/*.ts}"
 ---
+
 <!-- Last reviewed: 2026-05-14; update when size thresholds or audit cadence changes -->
 
 # Code Audit Guard Rails

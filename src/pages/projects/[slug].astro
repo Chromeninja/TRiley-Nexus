@@ -34,7 +34,9 @@ const normalizedProjectMedia = (() => {
     return media;
   }
 
-  const existingCoverIndex = media.findIndex((item) => item.type === "image" && item.src === legacyCoverSrc);
+  const existingCoverIndex = media.findIndex(
+    (item) => item.type === "image" && item.src === legacyCoverSrc,
+  );
   if (existingCoverIndex >= 0) {
     media[existingCoverIndex] = {
       ...media[existingCoverIndex],
@@ -120,7 +122,11 @@ const normalizedProjectMedia = (() => {
             <p class="project-header__summary">{project.summary}</p>
           </header>
 
-          {normalizedProjectMedia.length > 0 && <ProjectMediaGallery media={normalizedProjectMedia} />}
+          {
+            normalizedProjectMedia.length > 0 && (
+              <ProjectMediaGallery media={normalizedProjectMedia} />
+            )
+          }
 
           <!-- Problem -->
           {
@@ -129,7 +135,10 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">01 //</span> The Problem
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.problem)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.problem)}
+                />
               </section>
             )
           }
@@ -141,7 +150,10 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">02 //</span> Approach
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.approach)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.approach)}
+                />
               </section>
             )
           }
@@ -153,7 +165,10 @@ const normalizedProjectMedia = (() => {
                 <h2 class="detail-section__title">
                   <span class="text-accent text-mono">03 //</span> Outcome
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.outcome)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.outcome)}
+                />
               </section>
             )
           }

@@ -10,39 +10,41 @@ const { orderedMedia } = Astro.props;
 ---
 
 <div class="project-gallery__viewport" data-gallery-viewport tabindex="0">
-  {orderedMedia.map((item, index) => (
-    <figure
-      class={`project-gallery__slide ${index === 0 ? "is-active" : ""}`}
-      role="group"
-      aria-roledescription="slide"
-      data-gallery-slide
-      data-gallery-index={index}
-      aria-label={`Media item ${index + 1} of ${orderedMedia.length}`}
-      aria-hidden={index === 0 ? "false" : "true"}
-      aria-current={index === 0 ? "true" : undefined}
-      inert={index !== 0}
-    >
-      {item.type === "video" ? (
-        <video
-          class="project-gallery__media"
-          controls
-          loop
-          muted
-          preload="metadata"
-          playsinline
-          poster={item.poster ? resolveMediaPath(item.poster) : undefined}
-        >
-          <source src={resolveMediaPath(item.src)} />
-        </video>
-      ) : (
-        <img
-          class="project-gallery__media"
-          src={resolveMediaPath(item.src)}
-          alt={item.alt}
-          loading={index === 0 ? "eager" : "lazy"}
-          decoding="async"
-        />
-      )}
-    </figure>
-  ))}
+  {
+    orderedMedia.map((item, index) => (
+      <figure
+        class={`project-gallery__slide ${index === 0 ? "is-active" : ""}`}
+        role="group"
+        aria-roledescription="slide"
+        data-gallery-slide
+        data-gallery-index={index}
+        aria-label={`Media item ${index + 1} of ${orderedMedia.length}`}
+        aria-hidden={index === 0 ? "false" : "true"}
+        aria-current={index === 0 ? "true" : undefined}
+        inert={index !== 0}
+      >
+        {item.type === "video" ? (
+          <video
+            class="project-gallery__media"
+            controls
+            loop
+            muted
+            preload="metadata"
+            playsinline
+            poster={item.poster ? resolveMediaPath(item.poster) : undefined}
+          >
+            <source src={resolveMediaPath(item.src)} />
+          </video>
+        ) : (
+          <img
+            class="project-gallery__media"
+            src={resolveMediaPath(item.src)}
+            alt={item.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        )}
+      </figure>
+    ))
+  }
 </div>

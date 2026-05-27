@@ -328,7 +328,9 @@ const navItems = enabledNavItems.map((link) => ({
     const toggle = nav.querySelector<HTMLButtonElement>("[data-nav-toggle]");
     const menu = nav.querySelector<HTMLElement>("[data-nav-menu]");
     const menuLinks = menu
-      ? Array.from(menu.querySelectorAll<HTMLAnchorElement>(".nav__mobile-link"))
+      ? Array.from(
+          menu.querySelectorAll<HTMLAnchorElement>(".nav__mobile-link"),
+        )
       : [];
 
     const setMenuState = (isOpen: boolean) => {

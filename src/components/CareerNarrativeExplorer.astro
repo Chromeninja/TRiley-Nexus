@@ -42,7 +42,10 @@ const {
   <div class="career-narrative__companies">
     {
       data.companies.map((company, companyIndex) => (
-        <CareerNarrativeCompanyRow company={company} companyIndex={companyIndex} />
+        <CareerNarrativeCompanyRow
+          company={company}
+          companyIndex={companyIndex}
+        />
       ))
     }
   </div>

@@ -75,7 +75,6 @@ media:
     src: "/media/projects/test-squadron-citizencon-2954-manchester-booth-operations-and-community-activation-media.jpg"
     alt: TEST Squadron CitizenCon 2954 Booth Operations and Community Activation
     caption: Crowd-facing booth angle showing signage, merch, and attendee engagement.
-featured: false
-order: 24
+featured: true
+order: 2
 ---
-

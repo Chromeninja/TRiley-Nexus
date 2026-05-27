@@ -1,12 +1,24 @@
 export function initProjectGalleryInteractions(): void {
-  const galleries = document.querySelectorAll<HTMLElement>("[data-project-gallery]");
+  const galleries = document.querySelectorAll<HTMLElement>(
+    "[data-project-gallery]",
+  );
 
   galleries.forEach((gallery) => {
-    const viewport = gallery.querySelector<HTMLElement>("[data-gallery-viewport]");
-    const slides = Array.from(gallery.querySelectorAll<HTMLElement>("[data-gallery-slide]"));
-    const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"));
-    const prevBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-prev]");
-    const nextBtn = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const viewport = gallery.querySelector<HTMLElement>(
+      "[data-gallery-viewport]",
+    );
+    const slides = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-gallery-slide]"),
+    );
+    const dots = Array.from(
+      gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"),
+    );
+    const prevBtn = gallery.querySelector<HTMLButtonElement>(
+      "[data-gallery-prev]",
+    );
+    const nextBtn = gallery.querySelector<HTMLButtonElement>(
+      "[data-gallery-next]",
+    );
 
     if (!viewport || slides.length <= 1) {
       return;

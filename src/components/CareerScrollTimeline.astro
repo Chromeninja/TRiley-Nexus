@@ -5,9 +5,7 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import {
-  type TimelineYearGroup,
-} from "../data/careerTimeline";
+import { type TimelineYearGroup } from "../data/careerTimeline";
 import { toBasePath, normalizeWhitespace } from "../utils/paths";
 
 interface Props {
@@ -144,7 +142,8 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
                       {formatProjectDateRange(project)}
                     </p>
                   )}
-                  <p>{normalizeWhitespace(project.summary)}</p>\n                </li>
+                  <p>{normalizeWhitespace(project.summary)}</p>\n{" "}
+                </li>
               ))}
             </ul>
           )

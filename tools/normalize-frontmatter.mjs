@@ -35,12 +35,16 @@ function scalarToYaml(value) {
 
   const text = String(value ?? "");
   if (!text) return '""';
-  if (/^(true|false|null|~|-?\d+(\.\d+)?)$/i.test(text)) return quoteYamlString(text);
+  if (/^(true|false|null|~|-?\d+(\.\d+)?)$/i.test(text))
+    return quoteYamlString(text);
   if (
     /[:#\n\-,]|^\s|\s$/.test(text) ||
-    text.includes("[") || text.includes("]") ||
-    text.includes("{") || text.includes("}")
-  ) return quoteYamlString(text);
+    text.includes("[") ||
+    text.includes("]") ||
+    text.includes("{") ||
+    text.includes("}")
+  )
+    return quoteYamlString(text);
   return text;
 }
 
@@ -55,7 +59,9 @@ function serializeYaml(value, indent = 0) {
           const entries = Object.entries(item);
           if (entries.length === 0) return `${space}- {}`;
           const [firstKey, firstValue] = entries[0];
-          const rendered = [`${space}- ${firstKey}: ${scalarToYaml(firstValue)}`];
+          const rendered = [
+            `${space}- ${firstKey}: ${scalarToYaml(firstValue)}`,
+          ];
           for (const [key, itemValue] of entries.slice(1)) {
             rendered.push(`${space}  ${key}: ${scalarToYaml(itemValue)}`);
           }
@@ -73,14 +79,24 @@ function serializeYaml(value, indent = 0) {
     for (const [key, child] of entries) {
       if (child === undefined) continue;
       if (Array.isArray(child)) {
-        if (child.length === 0) { out.push(`${space}${key}: []`); }
-        else { out.push(`${space}${key}:`); out.push(serializeYaml(child, indent + 2)); }
+        if (child.length === 0) {
+          out.push(`${space}${key}: []`);
+        } else {
+          out.push(`${space}${key}:`);
+          out.push(serializeYaml(child, indent + 2));
+        }
         continue;
       }
       if (child && typeof child === "object") {
-        const childEntries = Object.entries(child).filter(([, v]) => v !== undefined);
-        if (childEntries.length === 0) { out.push(`${space}${key}: {}`); }
-        else { out.push(`${space}${key}:`); out.push(serializeYaml(child, indent + 2)); }
+        const childEntries = Object.entries(child).filter(
+          ([, v]) => v !== undefined,
+        );
+        if (childEntries.length === 0) {
+          out.push(`${space}${key}: {}`);
+        } else {
+          out.push(`${space}${key}:`);
+          out.push(serializeYaml(child, indent + 2));
+        }
         continue;
       }
       out.push(`${space}${key}: ${scalarToYaml(child)}`);
@@ -96,8 +112,11 @@ function splitFrontmatter(rawContent) {
   const startMatch = normalized.match(/^---\r?\n/);
   if (!startMatch) return { rawFm: null, body: normalized };
 
-  const endMatch = normalized.slice(startMatch[0].length).match(/\r?\n---(\r?\n|$)/);
-  if (!endMatch || endMatch.index === undefined) return { rawFm: null, body: normalized };
+  const endMatch = normalized
+    .slice(startMatch[0].length)
+    .match(/\r?\n---(\r?\n|$)/);
+  if (!endMatch || endMatch.index === undefined)
+    return { rawFm: null, body: normalized };
 
   const startLen = startMatch[0].length;
   const rawFm = normalized.slice(startLen, startLen + endMatch.index);
@@ -106,23 +125,40 @@ function splitFrontmatter(rawContent) {
 }
 
 function parseFrontmatterYaml(rawFm) {
-  const unq = (s) => String(s ?? "").replace(/^["']|["']$/g, "").trim();
+  const unq = (s) =>
+    String(s ?? "")
+      .replace(/^["']|["']$/g, "")
+      .trim();
   const result = {};
   const lines = rawFm.split("\n");
   let i = 0;
 
   while (i < lines.length) {
     const line = lines[i];
-    if (!line.trim()) { i += 1; continue; }
+    if (!line.trim()) {
+      i += 1;
+      continue;
+    }
 
     const topKey = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-    if (!topKey) { i += 1; continue; }
+    if (!topKey) {
+      i += 1;
+      continue;
+    }
 
     const key = topKey[1];
     const rest = topKey[2].trim();
 
-    if (rest === "[]") { result[key] = []; i += 1; continue; }
-    if (rest) { result[key] = unq(rest); i += 1; continue; }
+    if (rest === "[]") {
+      result[key] = [];
+      i += 1;
+      continue;
+    }
+    if (rest) {
+      result[key] = unq(rest);
+      i += 1;
+      continue;
+    }
 
     i += 1;
     const items = [];
@@ -131,7 +167,10 @@ function parseFrontmatterYaml(rawFm) {
 
     while (i < lines.length) {
       const next = lines[i];
-      if (!next.trim()) { i += 1; continue; }
+      if (!next.trim()) {
+        i += 1;
+        continue;
+      }
 
       const indent = next.match(/^(\s*)/)[1].length;
       if (indent === 0) break;
@@ -142,11 +181,16 @@ function parseFrontmatterYaml(rawFm) {
         i += 1;
         while (i < lines.length) {
           const prop = lines[i];
-          if (!prop.trim()) { i += 1; continue; }
+          if (!prop.trim()) {
+            i += 1;
+            continue;
+          }
           const propIndent = prop.match(/^(\s*)/)[1].length;
           if (propIndent <= indent) break;
           const kv = prop.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-          if (kv) { obj[kv[1]] = unq(kv[2]); }
+          if (kv) {
+            obj[kv[1]] = unq(kv[2]);
+          }
           i += 1;
         }
         items.push(obj);
@@ -154,10 +198,19 @@ function parseFrontmatterYaml(rawFm) {
       }
 
       const scalarItem = next.match(/^\s+-\s+(.+)$/);
-      if (scalarItem) { items.push(unq(scalarItem[1])); i += 1; continue; }
+      if (scalarItem) {
+        items.push(unq(scalarItem[1]));
+        i += 1;
+        continue;
+      }
 
       const nested = next.match(/^\s+([A-Za-z_][A-Za-z0-9_-]*):\s*(.*)$/);
-      if (nested) { isNestedObj = true; nestedObj[nested[1]] = unq(nested[2]); i += 1; continue; }
+      if (nested) {
+        isNestedObj = true;
+        nestedObj[nested[1]] = unq(nested[2]);
+        i += 1;
+        continue;
+      }
 
       break;
     }
@@ -230,11 +283,14 @@ async function main() {
 
   console.log(
     `\nDone. ${changed} file(s) ${DRY_RUN ? "would be" : "were"} normalized, ` +
-    `${skipped} already clean, ${errored} error(s).`
+      `${skipped} already clean, ${errored} error(s).`,
   );
   if (DRY_RUN && changed > 0) {
-    console.log('\nRun with --write to apply changes.');
+    console.log("\nRun with --write to apply changes.");
   }
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

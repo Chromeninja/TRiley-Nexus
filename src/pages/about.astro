@@ -6,10 +6,7 @@ import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { resolveMediaPath } from "../utils/paths";
 import { renderRichText } from "../utils/richText";
-import {
-  getAboutContentData,
-  type AboutMediaItem,
-} from "../data/aboutContent";
+import { getAboutContentData, type AboutMediaItem } from "../data/aboutContent";
 
 const aboutContent = await getAboutContentData();
 const aboutAdditionalMedia = aboutContent.additionalMedia;

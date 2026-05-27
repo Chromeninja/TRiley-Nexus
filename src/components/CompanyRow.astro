@@ -118,9 +118,13 @@ function resolveLogoSrc(src: string): string {
       {
         company.achievements.length > 0 && (
           <div>
-            <p><span class="text-accent">Achievements:</span></p>
+            <p>
+              <span class="text-accent">Achievements:</span>
+            </p>
             <ul class="company-row__achievements">
-              {company.achievements.map((achievement) => <li>{achievement}</li>)}
+              {company.achievements.map((achievement) => (
+                <li>{achievement}</li>
+              ))}
             </ul>
           </div>
         )
@@ -461,6 +465,5 @@ function resolveLogoSrc(src: string): string {
     .company-row__preview {
       display: none;
     }
-
   }
 </style>

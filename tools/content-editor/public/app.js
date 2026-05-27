@@ -20,7 +20,9 @@ const elements = {
   activePath: document.getElementById("active-path"),
   markdownEditor: document.getElementById("markdown-editor"),
   bodyEditor: document.getElementById("body-editor"),
-  unknownFrontmatterEditor: document.getElementById("unknown-frontmatter-editor"),
+  unknownFrontmatterEditor: document.getElementById(
+    "unknown-frontmatter-editor",
+  ),
   renderedPreview: document.getElementById("rendered-preview"),
   editorToolbar: document.getElementById("editor-toolbar"),
   formEditor: document.getElementById("form-editor"),
@@ -248,7 +250,10 @@ function setUploadTargets() {
     elements.uploadTarget.appendChild(option);
   });
 
-  if (previousValue && state.mediaTargets.some((target) => target.id === previousValue)) {
+  if (
+    previousValue &&
+    state.mediaTargets.some((target) => target.id === previousValue)
+  ) {
     elements.uploadTarget.value = previousValue;
   }
 }
@@ -280,7 +285,9 @@ async function removeMediaFile(item) {
     return;
   }
 
-  const confirmed = window.confirm(`Delete this file from public assets?\n\n${sourcePath}`);
+  const confirmed = window.confirm(
+    `Delete this file from public assets?\n\n${sourcePath}`,
+  );
   if (!confirmed) return;
 
   try {
@@ -314,9 +321,10 @@ async function removeMediaFile(item) {
       await refreshConfiguredMediaPreview(elements.markdownEditor.value);
     }
 
-    const referencesNote = removedCount > 0
-      ? ` Removed ${removedCount} reference(s) from the open file.`
-      : "";
+    const referencesNote =
+      removedCount > 0
+        ? ` Removed ${removedCount} reference(s) from the open file.`
+        : "";
     elements.uploadResult.textContent = `Deleted ${sourcePath}.${referencesNote}`;
   } catch (error) {
     elements.uploadResult.textContent = `Delete failed: ${error.message}`;
@@ -377,10 +385,14 @@ function renderConfiguredMediaPreview(section, items = []) {
   if (!Array.isArray(items) || items.length === 0) {
     const empty = document.createElement("p");
     empty.className = "media-library__empty";
-    const sectionLabel = section === "projects" ? "project"
-      : section === "companies" ? "company"
-      : section === "about" ? "about"
-      : "current";
+    const sectionLabel =
+      section === "projects"
+        ? "project"
+        : section === "companies"
+          ? "company"
+          : section === "about"
+            ? "about"
+            : "current";
     empty.textContent = `No media configured for this ${sectionLabel} yet.`;
     elements.mediaLibrary.appendChild(empty);
     return;
@@ -389,7 +401,8 @@ function renderConfiguredMediaPreview(section, items = []) {
   items.forEach((item) => {
     const card = document.createElement("div");
     card.className = "media-library__item";
-    const isProjectMediaItem = section === "projects" && Number.isInteger(item.mediaIndex);
+    const isProjectMediaItem =
+      section === "projects" && Number.isInteger(item.mediaIndex);
 
     const dragHandle = document.createElement("div");
     dragHandle.className = "media-library__drag-handle";
@@ -416,7 +429,10 @@ function renderConfiguredMediaPreview(section, items = []) {
       });
 
       card.addEventListener("dragover", (event) => {
-        if (!Number.isInteger(dragMediaIndex) || dragMediaIndex === item.mediaIndex) {
+        if (
+          !Number.isInteger(dragMediaIndex) ||
+          dragMediaIndex === item.mediaIndex
+        ) {
           return;
         }
 
@@ -432,12 +448,16 @@ function renderConfiguredMediaPreview(section, items = []) {
         event.preventDefault();
         card.classList.remove("is-drop-target");
 
-        if (!Number.isInteger(dragMediaIndex) || dragMediaIndex === item.mediaIndex) {
+        if (
+          !Number.isInteger(dragMediaIndex) ||
+          dragMediaIndex === item.mediaIndex
+        ) {
           return;
         }
 
-        const projectItems = state.configuredMediaItems
-          .filter((entry) => Number.isInteger(entry.mediaIndex));
+        const projectItems = state.configuredMediaItems.filter((entry) =>
+          Number.isInteger(entry.mediaIndex),
+        );
         const currentOrder = projectItems.map((entry) => entry.mediaIndex);
         const fromPosition = currentOrder.indexOf(dragMediaIndex);
         const toPosition = currentOrder.indexOf(item.mediaIndex);
@@ -521,7 +541,8 @@ function renderConfiguredMediaPreview(section, items = []) {
     deleteButton.type = "button";
     deleteButton.className = "media-library__delete";
     deleteButton.textContent = "Delete File";
-    deleteButton.title = "Delete this file from public assets and remove references in this file";
+    deleteButton.title =
+      "Delete this file from public assets and remove references in this file";
     deleteButton.addEventListener("click", () => {
       removeMediaFile(item).catch((error) => {
         elements.uploadResult.textContent = `Delete failed: ${error.message}`;
@@ -593,17 +614,27 @@ function scheduleRawRender() {
 function scheduleFormCompose() {
   if (composeDebounce) window.clearTimeout(composeDebounce);
   composeDebounce = window.setTimeout(() => {
-    composeMarkdownFromForm().catch((error) => renderMessages([error.message], []));
+    composeMarkdownFromForm().catch((error) =>
+      renderMessages([error.message], []),
+    );
   }, 140);
 }
 
 function setModeButtonStates() {
-  elements.modeFormButton.classList.toggle("is-active", state.editorMode === MODE_FORM);
-  elements.modeRawButton.classList.toggle("is-active", state.editorMode === MODE_RAW);
+  elements.modeFormButton.classList.toggle(
+    "is-active",
+    state.editorMode === MODE_FORM,
+  );
+  elements.modeRawButton.classList.toggle(
+    "is-active",
+    state.editorMode === MODE_RAW,
+  );
 }
 
 function getActiveTextarea() {
-  return state.editorMode === MODE_RAW ? elements.markdownEditor : elements.bodyEditor;
+  return state.editorMode === MODE_RAW
+    ? elements.markdownEditor
+    : elements.bodyEditor;
 }
 
 async function setEditorMode(mode) {
@@ -669,7 +700,9 @@ function renderFormFields(model) {
 
     const label = document.createElement("label");
     label.htmlFor = `fm-${field.key}`;
-    label.textContent = field.required ? `${field.label} (required)` : field.label;
+    label.textContent = field.required
+      ? `${field.label} (required)`
+      : field.label;
     fieldWrap.appendChild(label);
 
     const value = model.values[field.key];
@@ -704,7 +737,8 @@ function renderFormFields(model) {
       });
 
       fieldWrap.appendChild(checkboxWrap);
-      if (field.placeholder) fieldWrap.appendChild(createFieldHelp(field.placeholder));
+      if (field.placeholder)
+        fieldWrap.appendChild(createFieldHelp(field.placeholder));
       grid.appendChild(fieldWrap);
       continue;
     } else if (field.type === "select") {
@@ -759,7 +793,8 @@ async function loadFormModel(pathValue, content) {
 }
 
 async function composeMarkdownFromForm(options = { render: true }) {
-  if (!state.activePath || !state.formModel) return elements.markdownEditor.value;
+  if (!state.activePath || !state.formModel)
+    return elements.markdownEditor.value;
 
   state.formModel.body = elements.bodyEditor.value;
   state.formModel.unknownFrontmatter = elements.unknownFrontmatterEditor.value;
@@ -781,7 +816,9 @@ async function composeMarkdownFromForm(options = { render: true }) {
 }
 
 async function loadFile(pathValue) {
-  const payload = await apiGet(`/api/file?path=${encodeURIComponent(pathValue)}`);
+  const payload = await apiGet(
+    `/api/file?path=${encodeURIComponent(pathValue)}`,
+  );
   const file = state.files.find((entry) => entry.path === payload.path);
 
   state.activePath = payload.path;
@@ -874,7 +911,10 @@ async function saveDraft() {
     if (payload.skipped) {
       renderMessages([], [`No changes to save in ${payload.path}.`]);
     } else {
-      renderMessages([], [`Saved ${payload.path}. Backup: ${payload.backupFile}`]);
+      renderMessages(
+        [],
+        [`Saved ${payload.path}. Backup: ${payload.backupFile}`],
+      );
     }
   } catch (error) {
     const errors = error.payload?.errors ?? [error.message];
@@ -897,7 +937,10 @@ function insertLinePrefix(textarea, prefix) {
   const start = textarea.selectionStart;
   const end = textarea.selectionEnd;
   const selected = textarea.value.slice(start, end) || "item";
-  const lines = selected.split("\n").map((line) => `${prefix}${line}`).join("\n");
+  const lines = selected
+    .split("\n")
+    .map((line) => `${prefix}${line}`)
+    .join("\n");
 
   textarea.setRangeText(lines, start, end, "end");
   textarea.focus();
@@ -912,8 +955,10 @@ function runToolbarAction(action) {
   if (action === "h2") insertLinePrefix(textarea, "## ");
   if (action === "list") insertLinePrefix(textarea, "- ");
   if (action === "code") insertAtCursor(textarea, "`", "`", "code");
-  if (action === "link") insertAtCursor(textarea, "[", "](https://example.com)", "link text");
-  if (action === "html") insertAtCursor(textarea, "<div>", "</div>", "html block");
+  if (action === "link")
+    insertAtCursor(textarea, "[", "](https://example.com)", "link text");
+  if (action === "html")
+    insertAtCursor(textarea, "<div>", "</div>", "html block");
 
   resetPreview();
   if (state.editorMode === MODE_FORM) {
@@ -968,7 +1013,11 @@ async function uploadFile() {
 
     let uploadMessage = `Uploaded ${payload.relativePath}. Use ${payload.publicPath} in frontmatter.`;
 
-    if (targetId === "projects" && inferSectionFromActivePath() === "projects" && state.activePath) {
+    if (
+      targetId === "projects" &&
+      inferSectionFromActivePath() === "projects" &&
+      state.activePath
+    ) {
       const linkPayload = await apiPost("/api/link-project-media", {
         path: state.activePath,
         content: elements.markdownEditor.value,
@@ -1075,7 +1124,8 @@ async function refreshFileTree(preferredPath) {
   renderFileTree();
   setUploadTargets();
 
-  const targetPath = preferredPath || state.activePath || payload.files[0]?.path;
+  const targetPath =
+    preferredPath || state.activePath || payload.files[0]?.path;
   if (targetPath) {
     await loadFile(targetPath);
   }
@@ -1135,7 +1185,9 @@ elements.saveButton.addEventListener("click", () => {
 });
 
 elements.uploadButton.addEventListener("click", () => {
-  uploadFile().catch((err) => { elements.uploadResult.textContent = err.message; });
+  uploadFile().catch((err) => {
+    elements.uploadResult.textContent = err.message;
+  });
 });
 
 elements.refreshMediaButton.addEventListener("click", () => {
@@ -1149,15 +1201,21 @@ elements.toggleCreateButton.addEventListener("click", () => {
 });
 
 elements.createProjectForm.addEventListener("submit", (event) => {
-  createProject(event).catch((err) => { elements.createResult.textContent = err.message; });
+  createProject(event).catch((err) => {
+    elements.createResult.textContent = err.message;
+  });
 });
 
 elements.createCompanyForm.addEventListener("submit", (event) => {
-  createCompany(event).catch((err) => { elements.createResult.textContent = err.message; });
+  createCompany(event).catch((err) => {
+    elements.createResult.textContent = err.message;
+  });
 });
 
 elements.createAboutForm.addEventListener("submit", (event) => {
-  createAbout(event).catch((err) => { elements.createResult.textContent = err.message; });
+  createAbout(event).catch((err) => {
+    elements.createResult.textContent = err.message;
+  });
 });
 
 init();

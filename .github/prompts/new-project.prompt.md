@@ -34,24 +34,24 @@ Produce a complete `.md` file at `src/content/projects/{slug}.md`:
 ```md
 ---
 title: "{title}"
-status: {status}
+status: { status }
 category: "{category}"
-tags: [{tags as quoted array}]
-organization: "{organization}"    # omit line if not provided
-roleTitle: "{roleTitle}"          # omit line if not provided
-startedAt: "{startedAt}"          # omit line if not provided
-endedAt: "{endedAt}"              # omit line if not provided
+tags: [{ tags as quoted array }]
+organization: "{organization}" # omit line if not provided
+roleTitle: "{roleTitle}" # omit line if not provided
+startedAt: "{startedAt}" # omit line if not provided
+endedAt: "{endedAt}" # omit line if not provided
 summary: >
   {summary}
-cardSummary: "{cardSummary}"      # omit line if same as summary
+cardSummary: "{cardSummary}" # omit line if same as summary
 problem: >
   {problem}                       # omit block if not provided
 approach: >
   {approach}                      # omit block if not provided
 outcome: >
   {outcome}                       # omit block if not provided
-skills: [{skills as quoted array}]  # omit line if not provided
-featured: {featured}
+skills: [{ skills as quoted array }] # omit line if not provided
+featured: { featured }
 ---
 ```
 

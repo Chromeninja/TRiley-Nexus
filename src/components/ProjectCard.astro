@@ -25,16 +25,18 @@ const organizationShortName = project.organizationShortName?.trim();
 const organizationLabel = organizationShortName
   ? organizationShortName
   : organizationName
-  ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
-  : undefined;
+    ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
+    : undefined;
 
 const summaryText = (project.cardSummary ?? project.summary).trim();
 
 const coverMediaItem = project.media?.find(
   (
     item,
-  ): item is Extract<NonNullable<Project["media"]>[number], { type: "image" }> =>
-    item.type === "image" && item.isCover === true,
+  ): item is Extract<
+    NonNullable<Project["media"]>[number],
+    { type: "image" }
+  > => item.type === "image" && item.isCover === true,
 );
 const firstVideo = project.media?.find((item) => item.type === "video");
 const firstImage = project.media?.find((item) => item.type === "image");
@@ -44,26 +46,28 @@ const coverMedia = coverMediaItem
       alt: coverMediaItem.alt,
     }
   : project.cover
-  ? {
-      src: resolveMediaPath(project.cover.src),
-      alt: project.cover.alt,
-    }
-  : firstVideo?.poster
     ? {
-        src: resolveMediaPath(firstVideo.poster),
-        alt: `${project.title} video preview`,
+        src: resolveMediaPath(project.cover.src),
+        alt: project.cover.alt,
       }
-    : firstImage
+    : firstVideo?.poster
       ? {
-          src: resolveMediaPath(firstImage.src),
-          alt: firstImage.alt,
+          src: resolveMediaPath(firstVideo.poster),
+          alt: `${project.title} video preview`,
         }
-      : undefined;
+      : firstImage
+        ? {
+            src: resolveMediaPath(firstImage.src),
+            alt: firstImage.alt,
+          }
+        : undefined;
 
 const previewVideo = firstVideo
   ? {
       src: resolveMediaPath(firstVideo.src),
-      poster: firstVideo.poster ? resolveMediaPath(firstVideo.poster) : undefined,
+      poster: firstVideo.poster
+        ? resolveMediaPath(firstVideo.poster)
+        : undefined,
     }
   : undefined;
 
@@ -120,35 +124,43 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
       aria-hidden={hasMedia ? undefined : "true"}
     >
-      {coverMedia && (
-        <img
-          class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
-          src={coverMedia.src}
-          alt={coverMedia.alt}
-          loading="lazy"
-          decoding="async"
-        />
-      )}
-      {previewVideo && (
-        <video
-          class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
-          src={previewVideo.src}
-          poster={previewVideo.poster}
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-label={`${project.title} video preview`}
-          autoplay={!hasHoverPreview}
-        />
-      )}
+      {
+        coverMedia && (
+          <img
+            class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
+            src={coverMedia.src}
+            alt={coverMedia.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+      {
+        previewVideo && (
+          <video
+            class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
+            src={previewVideo.src}
+            poster={previewVideo.poster}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label={`${project.title} video preview`}
+            autoplay={!hasHoverPreview}
+          />
+        )
+      }
       {
         !hasMedia && (
           <div class="project-card__media-empty-shell">
-            <span class="project-card__media-kicker text-mono">{project.category}</span>
+            <span class="project-card__media-kicker text-mono">
+              {project.category}
+            </span>
             <div class="project-card__media-orbit" />
             <div class="project-card__media-tags">
-              {project.tags.slice(0, 2).map((tag) => <span>{tag}</span>)}
+              {project.tags.slice(0, 2).map((tag) => (
+                <span>{tag}</span>
+              ))}
             </div>
           </div>
         )
@@ -160,9 +172,13 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     {
       (project.roleTitle || projectDateRange) && (
         <p class="project-card__meta-line text-mono text-muted">
-          {project.roleTitle && <span class="project-card__role">{project.roleTitle}</span>}
+          {project.roleTitle && (
+            <span class="project-card__role">{project.roleTitle}</span>
+          )}
           {project.roleTitle && projectDateRange && (
-            <span class="project-card__meta-divider" aria-hidden="true">•</span>
+            <span class="project-card__meta-divider" aria-hidden="true">
+              •
+            </span>
           )}
           {projectDateRange && (
             <span class="project-card__timeframe">{projectDateRange}</span>
@@ -415,7 +431,11 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
   .project-card__media--empty {
     background:
-      radial-gradient(circle at top right, var(--color-accent-glow), transparent 40%),
+      radial-gradient(
+        circle at top right,
+        var(--color-accent-glow),
+        transparent 40%
+      ),
       linear-gradient(135deg, var(--color-accent-dim), transparent 58%),
       linear-gradient(180deg, var(--color-surface-sheen), transparent 55%),
       var(--color-bg);

@@ -55,7 +55,6 @@ media:
     src: "/media/projects/nope-trailer.mp4"
     poster: "/media/projects/nope-cover.webp"
     caption: Nope Challenge trailer
-featured: true
+featured: false
 order: 2
 ---
-

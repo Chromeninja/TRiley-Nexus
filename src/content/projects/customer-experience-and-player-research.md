@@ -45,6 +45,6 @@ tools:
   - Tableau
   - Salesforce
   - SharePoint
-featured: true
+featured: false
 order: 11
 ---

@@ -50,7 +50,6 @@ media:
   - type: image
     src: "/media/projects/air-traffic-control-media.jpg"
     alt: Air Traffic Control
-featured: true
+featured: false
 order: 1
 ---
-
