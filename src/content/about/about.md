@@ -4,20 +4,20 @@ backgroundParagraphs:
   - |
     I am a **systems builder**, technical program manager, and operations-focused problem solver.
 
-    My background spans:
+    My work sits at the intersection of:
     - military service
-    - game industry operations
+    - game industry operations and customer support
     - customer support systems
-    - tools development and user research
+    - tools development, research, and process improvement
     - live events, community leadership, and AI-assisted workflow design
 
-  - "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That path has taken me through a wide range of environments: tactical operations, precision work under pressure, leadership in ambiguous situations, and circumstances where the stakes were real and the playbook did not exist. Military service shaped how I think more than anything else in my career. You learn to stay calm, build structure, communicate clearly, and keep the mission moving even when the situation keeps changing."
+  - "My more than 15 years of military experience started in 2011, when I joined the Army National Guard as an engineer. That path later continued into the Air National Guard, where I now serve as an Air Traffic Controller. Across those roles, I have worked in tactical environments, learned precision under pressure, led through ambiguity, and operated in situations where the stakes were real and the playbook was incomplete. Military service shaped how I think more than anything else in my career. It taught me to stay calm, build structure, communicate clearly, and keep the mission moving when conditions change."
 
-  - "My civilian career started while I was still serving. The National Guard gave me the ability to keep serving while building something outside of it. I started at Ubisoft in 2013 in customer support, where I got close to real player problems and saw how support systems worked from the ground up. Over the next decade I moved into tools development, user research, process improvement, and eventually into senior program management. My final role was Sr. Program Manager. One initiative I am especially proud of was building out automated refunds for the Ubisoft Store, a project that required aligning complex systems, multiple stakeholders, and operational processes across teams to actually ship."
+  - "My civilian career started while I was still serving. The National Guard gave me room to keep serving while building a career outside of it. I started at Ubisoft in 2013 in customer support, close to real player problems and the systems built to solve them. Over the next decade, I moved into tools development, user research, process improvement, and senior program management. One initiative I am especially proud of was the automated refund flow for the Ubisoft Store, a project that required aligning complex systems, stakeholders, and operational processes across teams so the work could actually ship."
 
-  - "The clearest pattern in my career is this: I notice problems that other people walk past, and I do not just flag them. I start building. A good example is VR Villa. I joined as a VR Tech, helping people into headsets. Within months I had expanded into staffing and scheduling systems, data tracking, and eventually built a custom check-in software solution from scratch. Nobody asked me to. I just saw what needed to exist and built it. That instinct has shown up everywhere I have worked."
+  - "The clearest pattern in my career is that I notice problems other people walk past, then start building the structure needed to solve them. At VR Villa, I joined as a VR Tech helping guests into headsets. Within months, I had expanded into staffing, scheduling, data tracking, and eventually built a custom check-in system from scratch. Nobody asked me to build it. I saw what needed to exist, then made it real. That instinct has followed me everywhere I have worked."
 
-  - "Today I am focused on growing as a leader and getting faster as a builder. I am leaning into AI-assisted development tools to accelerate how quickly I can turn an idea into working software, and I am thinking seriously about where to apply that capability next. The goal is director-level leadership or higher, building cross-functional systems and teams that genuinely change how an organization operates."
+  - "Today I am focused on growing as a leader and getting faster as a builder. I am using AI-assisted development tools to shorten the path from idea to working software, while staying focused on the operating model behind the work. My goal is director-level leadership or higher, building cross-functional systems and teams that genuinely improve how an organization operates."
 
 thinkItems:
   - title: Systems first
