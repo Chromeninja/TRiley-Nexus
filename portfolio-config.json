@@ -36,13 +36,15 @@
       "eyebrow": "// SYSTEMS BUILDER + OPERATIONS LEADER",
       "roleLine": "Systems Builder | Event Operations | Community Platforms | Military Operations",
       "headlineLead": "I build the operating systems behind ",
-      "headlineAccent": "complex work",
+      "headlineAccent": "messy work",
       "headlineTail": ".",
       "subtext": "I turn messy, high-context work into systems people can run: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
       "proofPoints": [
-        "Built VR Villa Event Ops Manager for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
+        "Built offline software solution for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
         "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
-        "Led TEST and Bar Citizen event operations across volunteers, vendors, booths, schedules, and community activations",
+        "13+ years in the game industry, including program manager experience leading cross-functional delivery and live operations",
+        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
+        "Lead event operations across volunteers, vendors, booths, schedules, and community activations",
         "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm"
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
@@ -64,9 +66,9 @@
     ],
     "featuredEvidence": [
       {
-        "value": "50 to 60",
-        "label": "Events supported",
-        "detail": "Built VR Villa's offline-first event operations platform for check-in, waivers, live player visibility, and staff coordination.",
+        "value": "50+",
+        "label": "Events per year",
+        "detail": "Built VR Villa's offline-first event operations platform to support 50+ annual events, with room to scale further as the program grows.",
         "href": "/projects/event-operations-program"
       },
       {
@@ -76,10 +78,10 @@
         "href": "/projects/discord-operations-platform"
       },
       {
-        "value": "15+",
-        "label": "Event coordinators",
-        "detail": "Built and led a TEST Squadron coordinator program supporting weekly events, larger monthly activations, and repeatable community operations.",
-        "href": "/projects/event-coordinators-program"
+        "value": "13+",
+        "label": "Years in gaming",
+        "detail": "13+ years in the gaming industry spanning player support, program management, live operations, and community systems at Ubisoft and beyond.",
+        "href": "/career"
       },
       {
         "value": "15+",
@@ -104,7 +106,7 @@
     ],
     "stats": [
       { "value": "15+", "label": "Years military experience" },
-      { "value": "10+", "label": "Years in gaming industry" },
+      { "value": "13+", "label": "Years in gaming industry" },
       { "value": "40+", "label": "Operations planned and executed" },
       { "value": "12+", "label": "Large-scale events led" }
     ]
