@@ -12,7 +12,6 @@ const { label, title, subtitle, centered = false } = Astro.props;
 
 <div class={`section-header ${centered ? "section-header--centered" : ""}`}>
   {label && <p class="section-label">{label}</p>}
-  <span class="accent-line"></span>
   <h2>{title}</h2>
   {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
 </div>
@@ -23,32 +22,16 @@ const { label, title, subtitle, centered = false } = Astro.props;
     position: relative;
   }
 
-  .section-header::after {
-    content: "";
-    position: absolute;
-    top: 0.45rem;
-    left: 0;
-    width: 140px;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      rgba(87, 166, 255, 0.28),
-      rgba(34, 211, 238, 0.24),
-      transparent
-    );
-    transform: translateY(-1.4rem);
+  .section-header h2 {
+    max-width: 16ch;
+    margin: 0;
   }
 
   .section-header--centered {
     text-align: center;
   }
 
-  .section-header--centered::after {
-    left: 50%;
-    transform: translate(-50%, -1.4rem);
-  }
-
-  .section-header--centered .accent-line {
+  .section-header--centered h2 {
     margin-inline: auto;
   }
 
@@ -67,15 +50,6 @@ const { label, title, subtitle, centered = false } = Astro.props;
   @media (max-width: 640px) {
     .section-header {
       margin-bottom: var(--space-xl);
-    }
-
-    .section-header::after {
-      width: 96px;
-      transform: translateY(-1.1rem);
-    }
-
-    .section-header--centered::after {
-      transform: translate(-50%, -1.1rem);
     }
 
     .section-header__subtitle {

@@ -6,10 +6,7 @@ import SectionHeader from "../components/SectionHeader.astro";
 import { skillGroups } from "../data/skills";
 import { resolveMediaPath } from "../utils/paths";
 import { renderRichText } from "../utils/richText";
-import {
-  getAboutContentData,
-  type AboutMediaItem,
-} from "../data/aboutContent";
+import { getAboutContentData, type AboutMediaItem } from "../data/aboutContent";
 
 const aboutContent = await getAboutContentData();
 const aboutAdditionalMedia = aboutContent.additionalMedia;
@@ -85,10 +82,7 @@ const leadershipSnapshot = [
   </section>
 
   <!-- Background -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section section--alt">
     <div class="container">
       <SectionHeader label="// ORIGIN STORY" title="Background" />
 
@@ -139,10 +133,7 @@ const leadershipSnapshot = [
   </section>
 
   <!-- How I Think -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section section--alt">
     <div class="container container--md">
       <SectionHeader
         label="// MENTAL MODELS"
@@ -167,10 +158,7 @@ const leadershipSnapshot = [
   </section>
 
   <!-- Personal -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section section--alt">
     <div class="container container--md">
       <SectionHeader
         label="// LIFE OUTSIDE WORK"
@@ -242,10 +230,7 @@ const leadershipSnapshot = [
 
   {
     resumeConfig && resumePath && (
-      <section
-        class="section"
-        style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-      >
+      <section class="section section--alt">
         <div class="container container--sm">
           <SectionHeader label="// RESUME" title={resumeConfig.title} />
 

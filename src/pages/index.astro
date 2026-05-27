@@ -2,15 +2,20 @@
 // index.astro: Homepage
 import Layout from "../layouts/Layout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
-import { homePrinciples, homeStats } from "../data/homeContent";
-import { coreStrengths } from "../data/skills";
+import {
+  homeFeaturedStrengths,
+  homePrinciples,
+  homeProjectFocusAreas,
+  homeStats,
+} from "../data/homeContent";
 import { toBasePath } from "../utils/paths";
 import { siteConfig } from "../data/siteConfig";
 
 const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
 const featuredEvidence = siteConfig.home.featuredEvidence;
-const featuredStrengths = coreStrengths.slice(0, 4);
+const featuredStrengths = homeFeaturedStrengths;
+const projectFocusAreas = homeProjectFocusAreas;
 ---
 
 <Layout
@@ -49,13 +54,11 @@ const featuredStrengths = coreStrengths.slice(0, 4);
           <div class="hero__actions">
             <a
               href={toBasePath(homeHero.primaryAction.href)}
-              class="btn btn-primary"
-              >{homeHero.primaryAction.label}</a
+              class="btn btn-primary">{homeHero.primaryAction.label}</a
             >
             <a
               href={toBasePath(homeHero.secondaryAction.href)}
-              class="btn btn-outline"
-              >{homeHero.secondaryAction.label}</a
+              class="btn btn-outline">{homeHero.secondaryAction.label}</a
             >
           </div>
         </div>
@@ -65,20 +68,16 @@ const featuredStrengths = coreStrengths.slice(0, 4);
           aria-label="Selected proof of impact"
         >
           <div class="hero__evidence-head">
-            <p class="hero__evidence-label text-mono">
-              EXECUTIVE SNAPSHOT // SELECTED PROOF
-            </p>
-            <span class="hero__evidence-status">Verified</span>
+            <p class="hero__evidence-label text-mono">PROOF LEDGER</p>
+            <span class="hero__evidence-status">Evidence</span>
           </div>
 
           <div class="hero__evidence-intro">
-            <h2 class="hero__evidence-title">
-              Director-level range, backed by shipped work.
-            </h2>
+            <h2 class="hero__evidence-title">Evidence before adjectives.</h2>
             <p class="hero__evidence-copy">
-              The pattern across my career is consistent: diagnose quickly,
-              align the work, build the system, and leave the organization with
-              more leverage than it had before.
+              The portfolio is broad, but the proof follows one pattern: clarify
+              ownership, design the operating system, and leave people with a
+              cleaner way to execute.
             </p>
           </div>
 
@@ -96,32 +95,31 @@ const featuredStrengths = coreStrengths.slice(0, 4);
         </div>
       </div>
     </div>
-
-    <!-- Background decoration -->
-    <div class="hero__bg-grid" aria-hidden="true"></div>
   </section>
 
   <!-- ═══════════════════════════════════════════
        WHAT I SOLVE
   ═══════════════════════════════════════════ -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// WHAT I SOLVE"
         title="Where I Create Leverage"
         subtitle="I am most useful when an organization needs one operator who can clarify the problem, align the work, and build systems that keep holding after launch."
       />
 
-      <div class="grid-3 profile-grid">
+      <div class="leverage-list">
         {
           hiringProfiles.map((profile, i) => (
-            <div
-              class={`profile-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            <article
+              class={`leverage-item animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
             >
-              <p class="profile-card__kicker text-mono">Focus {i + 1}</p>
-              <h3 class="profile-card__title">{profile.title}</h3>
-              <p class="profile-card__desc">{profile.text}</p>
-            </div>
+              <p class="leverage-item__kicker text-mono">
+                Focus {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 class="leverage-item__title">{profile.title}</h3>
+              <p class="leverage-item__desc">{profile.text}</p>
+            </article>
           ))
         }
       </div>
@@ -131,26 +129,23 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   <!-- ═══════════════════════════════════════════
        HOW I LEAD PROGRAMS
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// HOW I LEAD PROGRAMS"
         title="The Operating Model, In Brief"
         subtitle="This is the short version of how I approach director-level program work before you dive into the full methodology page."
       />
 
-      <div class="principles-list principles-list--grid">
+      <div class="principles-list">
         {
           homePrinciples.map((principle) => (
-            <div class="principle principle--card">
+            <article class="principle">
               <span class="principle__num text-mono text-accent">
                 {principle.num}
               </span>
               <p class="principle__text">{principle.text}</p>
-            </div>
+            </article>
           ))
         }
       </div>
@@ -166,26 +161,26 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   <!-- ═══════════════════════════════════════════
        CORE STRENGTHS
   ═══════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
+  <section class="section capabilities-section">
+    <div class="container container--page">
       <SectionHeader
         label="// CAPABILITIES"
         title="How I Add Value"
         subtitle="The through-line is consistent across domains: systems thinking, execution clarity, technical leverage, and leadership that holds under pressure."
       />
 
-      <div class="grid-3 strengths-grid">
+      <div class="capability-list">
         {
           featuredStrengths.map((strength, i) => (
-            <div
-              class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            <article
+              class={`capability-item animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
             >
-              <span class="strength-card__icon" aria-hidden="true">
+              <span class="capability-item__icon" aria-hidden="true">
                 {strength.icon}
               </span>
-              <h3 class="strength-card__title">{strength.title}</h3>
-              <p class="strength-card__desc">{strength.description}</p>
-            </div>
+              <h3 class="capability-item__title">{strength.title}</h3>
+              <p class="capability-item__desc">{strength.description}</p>
+            </article>
           ))
         }
       </div>
@@ -193,13 +188,52 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   </section>
 
   <!-- ═══════════════════════════════════════════
+       PROJECT SCOPE
+  ═══════════════════════════════════════════ -->
+  <section class="section section--alt">
+    <div class="container container--page">
+      <SectionHeader
+        label="// PROJECT SCOPE"
+        title="The projects are evidence, not decoration"
+        subtitle="Each lane connects back to the same operating habit: make the work legible, make ownership explicit, and build the system people need when the stakes are real."
+      />
+
+      <div class="project-focus-list">
+        {
+          projectFocusAreas.map((area, i) => (
+            <article class="project-focus-item">
+              <div>
+                <p class="project-focus-item__index text-mono">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3>{area.title}</h3>
+                <p>{area.text}</p>
+              </div>
+              <a href={toBasePath(area.href)} class="project-focus-item__proof">
+                <span class="text-mono">Proof</span>
+                {area.proof}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="project-focus-actions">
+        <a href={toBasePath("/projects")} class="btn btn-primary"
+          >Explore Project Portfolio</a
+        >
+        <a href={toBasePath("/career")} class="btn btn-outline"
+          >View Career Context</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
        CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section">
+    <div class="container container--page">
       <SectionHeader
         label="// CAREER ARC"
         title="See the progression behind the outcomes"
@@ -229,19 +263,15 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <div class="intro-grid">
         <div class="intro__text">
           <p class="section-label">// BACKGROUND</p>
-          <span class="accent-line"></span>
           <h2>Why this perspective holds up in real environments</h2>
           <p>
-            My background is broad on purpose. Military service taught me how
-            to lead under pressure, Ubisoft taught me how large organizations
+            My background is broad on purpose. Military service taught me how to
+            lead under pressure, Ubisoft taught me how large organizations
             actually move work, and community and event systems gave me places
             to keep building beyond formal job boundaries.
           </p>
@@ -255,10 +285,8 @@ const featuredStrengths = coreStrengths.slice(0, 4);
             operating style came from and why I keep getting pulled toward
             systems that need to be clarified, rebuilt, or scaled.
           </p>
-          <a
-            href={toBasePath("/about")}
-            class="btn btn-outline"
-            style="margin-top: var(--space-md);">Read the background</a
+          <a href={toBasePath("/about")} class="btn btn-outline intro__action"
+            >Read the background</a
           >
         </div>
 
@@ -328,7 +356,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   .hero__role-line {
     margin: 0 0 var(--space-md);
     color: var(--color-accent);
-    font-size: 0.82rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -345,7 +373,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   }
 
   .hero__subtext {
-    font-size: 1.0625rem;
+    font-size: var(--font-size-lead);
     color: var(--color-text-muted);
     line-height: 1.7;
     max-width: 52ch;
@@ -378,9 +406,9 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: 999px;
-    background: rgba(87, 166, 255, 0.08);
+    background: var(--color-accent-dim);
     color: var(--color-text);
-    font-size: 0.8rem;
+    font-size: var(--font-size-meta);
     line-height: 1.5;
   }
 
@@ -392,25 +420,8 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     gap: var(--space-lg);
     position: relative;
     background:
-      radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
-      radial-gradient(
-        circle at 85% 20%,
-        rgba(34, 211, 238, 0.14),
-        transparent 28%
-      ),
-      linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
-  }
-
-  .hero__evidence::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(rgba(87, 166, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(87, 166, 255, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    pointer-events: none;
+      linear-gradient(180deg, var(--color-accent-dim), transparent 36%),
+      var(--color-bg-secondary);
   }
 
   .hero__evidence-head {
@@ -424,7 +435,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-label {
     margin: 0;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.14em;
     color: var(--color-text-muted);
   }
@@ -433,14 +444,14 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
-    border: 1px solid rgba(87, 166, 255, 0.28);
+    border: 1px solid var(--color-border-strong);
     border-radius: 999px;
     padding: 0.35rem 0.75rem;
-    font-size: 0.72rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-heading);
-    background: rgba(87, 166, 255, 0.08);
+    background: var(--color-accent-dim);
   }
 
   .hero__evidence-status::before {
@@ -449,7 +460,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     height: 0.55rem;
     border-radius: 999px;
     background: var(--color-success);
-    box-shadow: 0 0 14px rgba(87, 166, 255, 0.55);
+    box-shadow: var(--glow-accent);
   }
 
   .hero__evidence-intro {
@@ -459,7 +470,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-title {
     margin: 0 0 var(--space-sm);
-    font-size: 1.1rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
   }
 
@@ -483,10 +494,9 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     flex-direction: column;
     gap: var(--space-sm);
     padding: var(--space-md);
-    border: 1px solid rgba(87, 166, 255, 0.16);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: rgba(6, 13, 18, 0.68);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background: color-mix(in srgb, var(--color-bg-card), var(--color-bg) 24%);
     text-decoration: none;
     transition:
       border-color var(--transition-fast),
@@ -505,7 +515,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   }
 
   .hero__evidence-card-label {
-    font-size: 0.78rem;
+    font-size: var(--font-size-meta);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
@@ -513,127 +523,117 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .hero__evidence-card-detail {
     margin: 0;
-    font-size: 0.8rem;
+    font-size: var(--font-size-meta);
     color: var(--color-text-muted);
     line-height: 1.55;
   }
 
-  .profile-grid {
-    align-items: stretch;
+  .leverage-list {
+    display: grid;
+    gap: var(--space-lg);
   }
 
-  .profile-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
+  .leverage-item {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.35fr) minmax(12rem, 0.55fr) 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
   }
 
-  .profile-card__kicker {
-    margin: 0 0 var(--space-md);
-    font-size: 0.72rem;
+  .leverage-item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .leverage-item__kicker {
+    margin: 0;
+    font-size: var(--font-size-label);
     color: var(--color-accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .profile-card__title {
-    font-size: 1rem;
+  .leverage-item__title {
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
-    margin-bottom: var(--space-sm);
+    margin: 0;
   }
 
-  .profile-card__desc {
+  .leverage-item__desc {
     color: var(--color-text-muted);
     margin: 0;
     line-height: 1.7;
-  }
-
-  .principles-list--grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .principle--card {
-    height: 100%;
-    padding: var(--space-lg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg-card);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
   }
 
   .section-actions {
     margin-top: var(--space-2xl);
   }
 
-  .hero__bg-grid {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image:
-      linear-gradient(rgba(87, 166, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(
-      ellipse 80% 80% at 50% 50%,
-      black 40%,
-      transparent 100%
-    );
-  }
-
   /* ── Strengths ── */
-  .strength-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    transition:
-      border-color var(--transition-base),
-      box-shadow var(--transition-base);
+  .capabilities-section {
+    padding-block: var(--space-lg);
   }
 
-  .strength-card:hover {
-    border-color: var(--color-border-strong);
-    box-shadow: var(--glow-accent);
+  .capabilities-section :global(.section-header) {
+    margin-bottom: var(--space-lg);
   }
 
-  .strength-card__icon {
+  .capability-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm) var(--space-xl);
+  }
+
+  .capability-item {
+    display: grid;
+    grid-template-columns: 1.3rem minmax(0, 1fr);
+    grid-template-areas:
+      "icon title"
+      ". desc";
+    column-gap: var(--space-sm);
+    row-gap: var(--space-xs);
+    align-items: baseline;
+    padding-block: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .capability-item__icon {
     display: block;
-    font-size: 1.5rem;
+    grid-area: icon;
     color: var(--color-accent);
-    margin-bottom: var(--space-md);
-    line-height: 1;
+    font-size: 0.9rem;
+    line-height: 1.2;
   }
 
-  .strength-card__title {
-    font-size: 1rem;
-    margin-bottom: var(--space-sm);
+  .capability-item__title {
+    grid-area: title;
+    font-size: var(--font-size-card-title);
+    margin: 0;
     color: var(--color-text-heading);
   }
 
-  .strength-card__desc {
-    font-size: 0.875rem;
+  .capability-item__desc {
+    grid-area: desc;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
-    line-height: 1.65;
+    line-height: 1.5;
     margin: 0;
   }
 
   /* ── Principles ── */
   .principles-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+    display: grid;
+    gap: var(--space-md);
   }
 
   .principle {
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
-    gap: var(--space-md);
+    grid-template-columns: 3rem 1fr;
+    gap: var(--space-lg);
     align-items: start;
+    padding-block: var(--space-md);
+    border-top: 1px solid var(--color-border);
   }
 
   .principle:last-child {
@@ -646,6 +646,75 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     margin: 0;
   }
 
+  /* ── Project focus ── */
+  .project-focus-list {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .project-focus-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.42fr);
+    gap: var(--space-xl);
+    align-items: center;
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-focus-item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-focus-item__index {
+    margin: 0 0 var(--space-sm);
+    color: var(--color-accent);
+    font-size: var(--font-size-label);
+    letter-spacing: 0.08em;
+  }
+
+  .project-focus-item h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-heading);
+    font-size: var(--font-size-card-title);
+  }
+
+  .project-focus-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .project-focus-item__proof {
+    display: grid;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    background: var(--color-bg-card);
+    text-decoration: none;
+  }
+
+  .project-focus-item__proof span {
+    color: var(--color-accent);
+    font-size: var(--font-size-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-focus-item__proof:hover,
+  .project-focus-item__proof:focus-visible {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-heading);
+  }
+
+  .project-focus-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+  }
+
   /* ── Intro ── */
   .intro-grid {
     display: grid;
@@ -656,6 +725,10 @@ const featuredStrengths = coreStrengths.slice(0, 4);
 
   .intro__text h2 {
     margin-bottom: var(--space-lg);
+  }
+
+  .intro__action {
+    margin-top: var(--space-md);
   }
 
   .intro__stats {
@@ -706,7 +779,7 @@ const featuredStrengths = coreStrengths.slice(0, 4);
   /* ── CTA ── */
   .cta-panel {
     background: var(--color-bg-card);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-xl);
     padding: var(--space-3xl);
     text-align: center;
@@ -754,32 +827,40 @@ const featuredStrengths = coreStrengths.slice(0, 4);
     .intro-grid {
       grid-template-columns: 1fr;
     }
+
+    .leverage-item,
+    .project-focus-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .capability-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 640px) {
-    .hero__signal {
-      padding: var(--space-lg);
-    }
-
-    .hero__signal-head {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .hero__signal-node,
-    .hero__signal-node--center,
-    .hero__signal-node--left,
-    .hero__signal-node--right {
-      justify-self: stretch;
-      width: 100%;
-    }
-
-    .hero__signal-metrics {
+    .hero__evidence-grid {
       grid-template-columns: 1fr;
+    }
+
+    .hero__evidence-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .principle {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
     }
 
     .intro__stats {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .project-focus-actions {
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .cta-panel {

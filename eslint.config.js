@@ -28,6 +28,20 @@ export default [
     },
   },
   {
+    files: ["inventory_script.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "commonjs",
+      globals: {
+        console: "readonly",
+        require: "readonly",
+      },
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+    },
+  },
+  {
     files: ["tools/content-editor/public/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",

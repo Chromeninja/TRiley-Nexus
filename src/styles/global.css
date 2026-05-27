@@ -82,9 +82,18 @@
 
   /* Layout */
   --container-max: 1200px;
+  --container-page: 1040px;
+  --container-reading: 760px;
   --container-md: 900px;
   --container-sm: 680px;
   --nav-height: 64px;
+
+  /* Typography scale */
+  --font-size-label: 0.72rem;
+  --font-size-meta: 0.8rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-lead: 1.0625rem;
+  --font-size-card-title: 1rem;
 
   /* Border radius */
   --radius-sm: 4px;
@@ -138,50 +147,6 @@ body {
   position: relative;
 }
 
-/* Subtle technical canopy overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(87, 166, 255, 0.05), transparent 32%),
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(34, 211, 238, 0.06),
-      transparent 14%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 0 42px,
-      rgba(87, 166, 255, 0.03) 42px 43px
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(
-      circle at bottom right,
-      rgba(34, 211, 238, 0.06),
-      transparent 22%
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 0 28px,
-      rgba(255, 255, 255, 0.012) 28px 29px
-    );
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 0;
-}
-
 /* --- Typography --- */
 h1,
 h2,
@@ -225,7 +190,7 @@ a {
   transition: color var(--transition-fast);
 }
 a:hover {
-  color: #fff;
+  color: var(--color-text-heading);
 }
 
 code,
@@ -255,6 +220,14 @@ pre {
   max-width: var(--container-md);
 }
 
+.container--page {
+  max-width: var(--container-page);
+}
+
+.container--reading {
+  max-width: var(--container-reading);
+}
+
 .container--sm {
   max-width: var(--container-sm);
 }
@@ -265,6 +238,11 @@ pre {
 
 .section--sm {
   padding-block: var(--space-3xl);
+}
+
+.section--alt {
+  background: var(--color-bg-secondary);
+  border-block: 1px solid var(--color-border);
 }
 
 /* --- Grid Utilities --- */
@@ -301,25 +279,17 @@ pre {
 /* --- Panel (borderless card variant) --- */
 .panel {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 25%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-text-heading), transparent 99%),
+      transparent 25%
+    ),
     var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   position: relative;
   overflow: hidden;
-}
-
-/* Corner accent decoration */
-.panel::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, rgba(87, 166, 255, 0.2), transparent 64%);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
 /* --- Buttons --- */
@@ -343,12 +313,12 @@ pre {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #06101f;
+  color: var(--color-bg);
   box-shadow: 0 8px 24px rgba(87, 166, 255, 0.2);
 }
 .btn-primary:hover {
-  background: #7db8ff;
-  color: #06101f;
+  background: color-mix(in srgb, var(--color-accent), white 24%);
+  color: var(--color-bg);
   box-shadow: var(--glow-accent-strong);
   transform: translateY(-1px);
 }

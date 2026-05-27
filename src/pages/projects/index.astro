@@ -2,10 +2,13 @@
 // projects/index.astro: Projects listing page
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { getProjectsPageData } from "../../data/projects";
 
 const projectsPageData = await getProjectsPageData(6);
+const showcaseProjects = projectsPageData.featuredProjects.slice(0, 3);
+const supportingFeaturedProjects = projectsPageData.featuredProjects.slice(3);
 ---
 
 <Layout
@@ -17,13 +20,13 @@ const projectsPageData = await getProjectsPageData(6);
       <SectionHeader
         label="// PROJECTS"
         title="Projects"
-        subtitle="Featured work first, then the full catalog grouped into high-level focus areas so you can scan quickly and dive deeper where needed."
+        subtitle="The featured work reads like case studies first. The broader catalog follows by focus area so you can scan the range without losing the evidence."
       />
 
       <div class="projects-topline panel" aria-label="Projects summary">
         <p class="projects-topline__intro">
-          {projectsPageData.totalProjectCount} projects, grouped into a few
-          high-level focus areas.
+          {projectsPageData.totalProjectCount} projects, grouped into a few high-level
+          focus areas.
         </p>
         <div class="projects-topline__chips" aria-label="Project focus areas">
           {
@@ -33,7 +36,9 @@ const projectsPageData = await getProjectsPageData(6);
                 class="projects-chip"
               >
                 <span>{group.category}</span>
-                <span class="projects-chip__count">{group.projects.length}</span>
+                <span class="projects-chip__count">
+                  {group.projects.length}
+                </span>
               </a>
             ))
           }
@@ -47,17 +52,31 @@ const projectsPageData = await getProjectsPageData(6);
         <div class="projects-section__header">
           <p class="projects-section__label text-mono">01 // Featured</p>
           <h2 id="featured-projects-heading" class="projects-section__title">
-            Most relevant recent work
+            Case-study proof
           </h2>
+          <p class="projects-section__copy">
+            These projects show the clearest pattern: a messy operating problem,
+            an owned approach, and an outcome that made the work easier to run.
+          </p>
         </div>
 
-        <div class="projects-grid">
+        <div class="case-study-list">
           {
-            projectsPageData.featuredProjects.map((project) => (
-              <ProjectCard project={project} featured />
+            showcaseProjects.map((project, index) => (
+              <CaseStudyCard project={project} rank={index + 1} />
             ))
           }
         </div>
+
+        {
+          supportingFeaturedProjects.length > 0 && (
+            <div class="projects-grid projects-grid--supporting">
+              {supportingFeaturedProjects.map((project) => (
+                <ProjectCard project={project} featured />
+              ))}
+            </div>
+          )
+        }
       </section>
 
       {
@@ -174,10 +193,26 @@ const projectsPageData = await getProjectsPageData(6);
     font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   }
 
+  .projects-section__copy {
+    max-width: 64ch;
+    margin: var(--space-sm) 0 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .case-study-list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: var(--space-lg);
+  }
+
+  .projects-grid--supporting {
+    margin-top: var(--space-lg);
   }
 
   @media (max-width: 640px) {

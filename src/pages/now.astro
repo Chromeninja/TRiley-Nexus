@@ -57,10 +57,7 @@ const lastUpdated = nowLastUpdated;
             <div class="active-project-card">
               <div class="active-project-card__header">
                 <div>
-                  <span
-                    class="badge badge-green"
-                    style="margin-bottom: var(--space-sm); display: inline-flex;"
-                  >
+                  <span class="badge badge-green active-project-card__status">
                     Active
                   </span>
                   <h3 class="active-project-card__title">
@@ -99,10 +96,7 @@ const lastUpdated = nowLastUpdated;
   </section>
 
   <!-- Areas of Exploration -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section section--alt">
     <div class="container container--md">
       <SectionHeader label="// EXPLORATION AREAS" title="Areas I'm Exploring" />
 
@@ -131,10 +125,7 @@ const lastUpdated = nowLastUpdated;
         {
           priorityItems.map((item) => (
             <div class="priority-item">
-              <span
-                class={`badge ${item.color}`}
-                style="flex-shrink: 0; min-width: 50px; justify-content: center;"
-              >
+              <span class={`badge ${item.color} priority-item__badge`}>
                 {item.label}
               </span>
               <p>{item.text}</p>
@@ -146,10 +137,7 @@ const lastUpdated = nowLastUpdated;
   </section>
 
   <!-- What I'm Open To -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="section section--alt">
     <div class="container container--md">
       <SectionHeader label="// WHAT I'M OPEN TO" title="What I'm Open To" />
 
@@ -174,8 +162,7 @@ const lastUpdated = nowLastUpdated;
         from you.
         <a
           href={toBasePath("/contact")}
-          class="btn btn-primary"
-          style="margin-top: var(--space-md); display: inline-flex;"
+          class="btn btn-primary open-to-cta__action"
         >
           Get in Touch
         </a>
@@ -218,6 +205,11 @@ const lastUpdated = nowLastUpdated;
   }
 
   /* Active projects */
+  .active-project-card__status {
+    display: inline-flex;
+    margin-bottom: var(--space-sm);
+  }
+
   .active-projects {
     display: flex;
     flex-direction: column;
@@ -346,6 +338,12 @@ const lastUpdated = nowLastUpdated;
     line-height: 1.4;
   }
 
+  .priority-item__badge {
+    flex-shrink: 0;
+    justify-content: center;
+    min-width: 3.2rem;
+  }
+
   /* Open to */
   .open-to-grid {
     display: grid;
@@ -423,6 +421,11 @@ const lastUpdated = nowLastUpdated;
     flex-direction: column;
     align-items: start;
     gap: var(--space-md);
+  }
+
+  .open-to-cta__action {
+    display: inline-flex;
+    margin-top: var(--space-md);
   }
 
   @media (max-width: 640px) {
