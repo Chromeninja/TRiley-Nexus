@@ -13,7 +13,7 @@ highlights:
   - "Implemented token-based member verification with role assignment, cooldown controls, and support for staff-led recheck operations."
   - Shipped voice channel lifecycle tooling so members can create and manage channels through bot commands without broad direct permissions.
   - "Added activity metrics dashboards for voice, message counts, and game activity with manager-gated access and privacy-first data handling."
-problem: "As TEST Squadron scaled, manual verification and voice moderation workflows created inconsistent governance outcomes, elevated staff workload, and slower response during high activity windows."
+problem: "As TEST Squadron scaled, manual verification and voice moderation workflows created uneven moderation results, extra staff workload, and slower response during high activity windows."
 approach: "Designed the bot as an operations platform with modular cogs, a resilient database-backed settings layer, role-hierarchy permission checks, and a companion web dashboard for policy-aligned staff actions. Added structured logging, retry-safe helpers, and explicit privacy constraints so activity data supports leadership decisions without collecting message content."
 outcome: "Standardized core community operations, reduced repetitive moderation overhead, improved onboarding/verification consistency, and gave leadership clearer operational visibility through secure, role-scoped dashboards."
 skills:

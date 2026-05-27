@@ -9,7 +9,7 @@ import {
   projectStatusLabels,
   type Project,
 } from "../../data/projects";
-import { toBasePath } from "../../utils/paths";
+import { normalizeWhitespace, toBasePath } from "../../utils/paths";
 import { renderRichText } from "../../utils/richText";
 
 export async function getStaticPaths() {
@@ -26,6 +26,16 @@ interface Props {
 
 const { project } = Astro.props as Props;
 const projectDateRange = formatProjectDateRange(project);
+const projectHighlights =
+  project.highlights
+    ?.map((highlight) => normalizeWhitespace(highlight))
+    .filter(Boolean)
+    .slice(0, 3) ?? [];
+const hasDetailedWriteup = Boolean(
+  project.problem?.trim() &&
+  project.approach?.trim() &&
+  project.outcome?.trim(),
+);
 
 const normalizedProjectMedia = (() => {
   const media = Array.isArray(project.media) ? [...project.media] : [];
@@ -34,7 +44,9 @@ const normalizedProjectMedia = (() => {
     return media;
   }
 
-  const existingCoverIndex = media.findIndex((item) => item.type === "image" && item.src === legacyCoverSrc);
+  const existingCoverIndex = media.findIndex(
+    (item) => item.type === "image" && item.src === legacyCoverSrc,
+  );
   if (existingCoverIndex >= 0) {
     media[existingCoverIndex] = {
       ...media[existingCoverIndex],
@@ -82,7 +94,16 @@ const normalizedProjectMedia = (() => {
               <span class={`badge ${projectStatusColors[project.status]}`}
                 >{projectStatusLabels[project.status]}</span
               >
-              <span class="badge badge-purple">{project.category}</span>
+              <span class="project-header__meta-text text-mono">
+                {project.category}
+              </span>
+              {
+                hasDetailedWriteup && (
+                  <span class="project-header__writeup text-mono">
+                    Longer writeup
+                  </span>
+                )
+              }
             </div>
             <h1 class="project-header__title">{project.title}</h1>
             {
@@ -120,16 +141,42 @@ const normalizedProjectMedia = (() => {
             <p class="project-header__summary">{project.summary}</p>
           </header>
 
-          {normalizedProjectMedia.length > 0 && <ProjectMediaGallery media={normalizedProjectMedia} />}
+          {
+            projectHighlights.length > 0 && (
+              <section
+                class="project-notes"
+                aria-labelledby="project-notes-heading"
+              >
+                <p class="project-notes__label text-mono">Worth noting</p>
+                <h2 id="project-notes-heading" class="project-notes__title">
+                  A few things I would call out
+                </h2>
+                <ol class="project-notes__list">
+                  {projectHighlights.map((highlight) => (
+                    <li>{highlight}</li>
+                  ))}
+                </ol>
+              </section>
+            )
+          }
+
+          {
+            normalizedProjectMedia.length > 0 && (
+              <ProjectMediaGallery media={normalizedProjectMedia} />
+            )
+          }
 
           <!-- Problem -->
           {
             project.problem && (
               <section class="detail-section">
                 <h2 class="detail-section__title">
-                  <span class="text-accent text-mono">01 //</span> The Problem
+                  <span class="text-accent text-mono">01 //</span> What was getting in the way
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.problem)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.problem)}
+                />
               </section>
             )
           }
@@ -139,9 +186,12 @@ const normalizedProjectMedia = (() => {
             project.approach && (
               <section class="detail-section">
                 <h2 class="detail-section__title">
-                  <span class="text-accent text-mono">02 //</span> Approach
+                  <span class="text-accent text-mono">02 //</span> What I did
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.approach)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.approach)}
+                />
               </section>
             )
           }
@@ -151,9 +201,12 @@ const normalizedProjectMedia = (() => {
             project.outcome && (
               <section class="detail-section">
                 <h2 class="detail-section__title">
-                  <span class="text-accent text-mono">03 //</span> Outcome
+                  <span class="text-accent text-mono">03 //</span> What changed
                 </h2>
-                <div class="rich-text" set:html={renderRichText(project.outcome)} />
+                <div
+                  class="rich-text"
+                  set:html={renderRichText(project.outcome)}
+                />
               </section>
             )
           }
@@ -211,7 +264,7 @@ const normalizedProjectMedia = (() => {
                 <h3 class="sidebar-card__title">Tools & Stack</h3>
                 <div class="tag-cloud">
                   {project.tools.map((tool: string) => (
-                    <span class="badge badge-cyan">{tool}</span>
+                    <span class="metadata-token">{tool}</span>
                   ))}
                 </div>
               </div>
@@ -225,7 +278,7 @@ const normalizedProjectMedia = (() => {
                 <h3 class="sidebar-card__title">Tags</h3>
                 <div class="tag-cloud">
                   {project.tags.map((tag: string) => (
-                    <span class="badge badge-purple">{tag}</span>
+                    <span class="metadata-token">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -296,9 +349,24 @@ const normalizedProjectMedia = (() => {
 
   .project-header__meta {
     display: flex;
+    align-items: center;
     gap: var(--space-sm);
     flex-wrap: wrap;
     margin-bottom: var(--space-lg);
+  }
+
+  .project-header__meta-text {
+    color: var(--color-text-dim);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-header__writeup {
+    color: var(--color-text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .project-header__title {
@@ -340,6 +408,41 @@ const normalizedProjectMedia = (() => {
     line-height: 1.7;
     max-width: 70ch;
     margin: 0;
+  }
+
+  .project-notes {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.25fr) minmax(0, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+    padding-block: var(--space-xl);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .project-notes__label {
+    margin: 0;
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-notes__title {
+    grid-column: 2;
+    margin: 0 0 var(--space-lg);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+  }
+
+  .project-notes__list {
+    grid-column: 2;
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .project-notes__list li + li {
+    margin-top: var(--space-sm);
   }
 
   /* Detail sections */
@@ -442,10 +545,8 @@ const normalizedProjectMedia = (() => {
   }
 
   .sidebar-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-lg);
   }
 
   .sidebar-card__title {
@@ -455,6 +556,18 @@ const normalizedProjectMedia = (() => {
     text-transform: uppercase;
     color: var(--color-accent);
     margin-bottom: var(--space-md);
+  }
+
+  .metadata-token {
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .metadata-token + .metadata-token::before {
+    content: "/";
+    margin-inline: var(--space-xs);
+    color: var(--color-text-dim);
   }
 
   .sidebar-list {
@@ -488,6 +601,12 @@ const normalizedProjectMedia = (() => {
     .project-sidebar {
       position: static;
       order: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-sidebar > div:last-child {
+      grid-column: 1 / -1;
     }
   }
 
@@ -507,9 +626,29 @@ const normalizedProjectMedia = (() => {
       line-height: 1.65;
     }
 
+    .project-notes {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-2xl);
+      padding-block: var(--space-lg);
+    }
+
+    .project-notes__title,
+    .project-notes__list {
+      grid-column: auto;
+    }
+
     .detail-section__title {
       align-items: flex-start;
       gap: var(--space-sm);
+    }
+
+    .project-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .project-sidebar > div:last-child {
+      grid-column: auto;
     }
 
     .detail-section p {

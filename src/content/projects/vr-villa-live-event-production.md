@@ -15,7 +15,7 @@ highlights:
   - "Work across developers, hardware partners, sponsors, and event teams to keep each activation operationally consistent while adapting to venue, travel, and staffing realities."
 problem: "VR Villa operates free-to-play VR activations that have to feel polished, welcoming, and reliable across a national event circuit. Each show demands the same production quality while adapting to different venues, staffing mixes, sponsor needs, equipment footprints, and audience experience levels, including a large share of players who are brand new to VR."
 approach: "Built repeatable live event operations around staffing plans, role coverage, run-of-show coordination, asset readiness, and attendee throughput. The model supports VR Villa's community-first format by aligning developers, hardware partners, and event organizers; guiding players through waiver collection, game selection, onboarding, offboarding, and sanitation; and preserving a free-to-play experience that can scale from local conventions to major multi-day events nationwide."
-outcome: "Helped strengthen a national operating model for VR Villa activations that supports more than 60 events across the United States and reinforces the organization's broader footprint of 55k+ players, 77k+ game sessions, 50+ VR studios, and 100+ events. The result is a more dependable event program that turns live shows into consistent community touchpoints for players, developers, sponsors, and event partners."
+outcome: "Helped strengthen a national live-event playbook for VR Villa activations that supports more than 60 events across the United States and reinforces the organization's broader footprint of 55k+ players, 77k+ game sessions, 50+ VR studios, and 100+ events. The result is a more dependable event program that turns live shows into consistent community touchpoints for players, developers, sponsors, and event partners."
 skills:
   - Event Production
   - Convention Operations
@@ -53,8 +53,8 @@ media:
   - type: image
     src: "/media/projects/vr-villa-live-event-production-media.jpg"
     alt: VR Villa Live Event Production
-featured: false
-order: 27
+featured: true
+order: 4
 ---
 
 VR Villa is not just a booth presence. It is a traveling, community-first VR program designed to make immersive gaming approachable for players at conventions and pop-culture events across the country.
@@ -65,5 +65,5 @@ At the operational level, the work includes staffing coverage, role assignments,
 
 The role also sits at the intersection of multiple partner groups. VR Villa depends on alignment between event organizers, developers, hardware partners, sponsors, and on-site staff, so production has to support both audience experience and partner value at the same time.
 
-What makes the model work is that it protects the mission while staying operationally practical. The activations remain free to play, approachable for first-time users, and useful to developers who want genuine player feedback and live visibility. My contribution is helping that mission survive the real constraints of touring production so each event feels organized, welcoming, and worth returning to.
+What makes the setup work is that it protects the mission while staying practical on the floor. The activations remain free to play, approachable for first-time users, and useful to developers who want genuine player feedback and live visibility. My contribution is helping that mission survive the real constraints of touring production so each event feels organized, welcoming, and worth returning to.
 

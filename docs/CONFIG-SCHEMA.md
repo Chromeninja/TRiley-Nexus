@@ -159,7 +159,7 @@ Meta description for SEO.
 | `headlineTail`          | string | `"to use"`               | Final part of headline            |
 | `subtext`               | string | `"Full description..."`  | Larger description                |
 | `supportingText`        | string | `"2-3 sentence summary"` | Supporting context                |
-| `proofPoints`           | string[] | `["Signal 1", "Signal 2"]` | Short proof bullets for the hero |
+| `quickNotes`            | string[] | `["Signal 1", "Signal 2"]` | Short highlight bullets for the hero |
 | `primaryAction.label`   | string | `"View My Work"`         | Primary button text               |
 | `primaryAction.href`    | string | `"/projects"`            | Primary button link               |
 | `secondaryAction.label` | string | `"Learn More"`           | Secondary button text             |
@@ -172,9 +172,9 @@ Array of recruiter-facing role/problem statements. Each item has:
 - `title`: string
 - `text`: string
 
-### `home.featuredEvidence`
+### `home.featuredHighlights`
 
-Array of top proof cards used on the homepage. Each item has:
+Array of top highlight cards used on the homepage. Each item has:
 
 - `value`: string
 - `label`: string
@@ -209,7 +209,7 @@ Array of statistics. Each item has:
       "headlineTail": "tools for developers",
       "subtext": "Full-stack engineer with 10+ years building developer tools...",
       "supportingText": "I focus on simplicity, performance, and developer experience.",
-      "proofPoints": [
+      "quickNotes": [
         "Scaled platform used by 50K+ developers",
         "Reduced onboarding time by 35%"
       ],
@@ -222,7 +222,7 @@ Array of statistics. Each item has:
         "text": "For engineering organizations that need clearer execution across teams and systems."
       }
     ],
-    "featuredEvidence": [
+    "featuredHighlights": [
       {
         "value": "35%",
         "label": "Faster onboarding",
@@ -364,7 +364,7 @@ Array of core strengths. Each item:
 
 ## `howIWork`: How I Work Page
 
-Your methodology, work principles, and tools.
+Your working style, principles, and tools.
 
 | Field                    | Type     | Example                                |
 | ------------------------ | -------- | -------------------------------------- |
@@ -381,7 +381,7 @@ Your methodology, work principles, and tools.
 ```json
 {
   "howIWork": {
-    "metaDescription": "My methodology and approach",
+    "metaDescription": "How I work and what I value",
     "coreApproachParagraphs": ["I believe in..."],
     "workPrinciples": [
       {

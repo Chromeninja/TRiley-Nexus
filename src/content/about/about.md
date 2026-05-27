@@ -17,7 +17,7 @@ backgroundParagraphs:
 
   - "The clearest pattern in my career is this: I notice problems that other people walk past, and I do not just flag them. I start building. A good example is VR Villa. I joined as a VR Tech, helping people into headsets. Within months I had expanded into staffing and scheduling systems, data tracking, and eventually built a custom check-in software solution from scratch. Nobody asked me to. I just saw what needed to exist and built it. That instinct has shown up everywhere I have worked."
 
-  - "Today I am focused on growing as a leader and getting faster as a builder. I am leaning into AI-assisted development tools to accelerate how quickly I can turn an idea into working software, and I am thinking seriously about where to apply that capability next. The goal is director-level leadership or higher, building cross-functional systems and teams that genuinely change how an organization operates."
+  - "Today I am focused on growing as a leader and getting faster as a builder. I am leaning into AI-assisted development tools to move from idea to working software faster, and I am thinking seriously about where to apply that capability next. I want to keep building teams and systems that make real work feel clearer, lighter, and more useful."
 
 thinkItems:
   - title: Systems first
@@ -33,8 +33,8 @@ thinkItems:
   - title: Clarity matters
     text: "I care a lot about making things clear. A good plan, meeting, document, or decision should leave people less confused than they were before."
 
-  - title: Diagnose before designing
-    text: "The first problem someone describes is not always the real problem. I would rather slow down long enough to understand what is actually happening than build the wrong solution quickly."
+  - title: Understand before fixing
+    text: "The first problem someone describes is not always the real problem. I would rather slow down long enough to understand what is actually happening than build the wrong thing quickly."
 
   - title: Repeatable over clever
     text: "I like boring systems that work. Clever is fine, but reliable matters more. If something only works when everything goes perfectly, it probably is not finished."
@@ -84,7 +84,7 @@ values:
   - "Building for the people who actually have to use the system"
   - "Leaving things better than I found them"
   - "Not confusing busyness with progress"
-  - "Owning outcomes, not just activities"
+  - "Owning the result, not just the activity"
   - "Making the lives of the people around me measurably better"
 
 profileMedia:

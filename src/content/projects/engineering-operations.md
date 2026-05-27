@@ -15,7 +15,7 @@ highlights:
   - "Worked across supply coordination, QRF readiness, and vehicle qualification training."
 problem: Engineering units depend on cross-trained, mission-ready personnel who can sustain infrastructure, supply chains, and rapid response capabilities alongside ongoing field training demands.
 approach: |
-  After Army basic training and **12K Advanced Individual Training**, I contributed across several parts of the unit's day-to-day operating model.
+  After Army basic training and **12K Advanced Individual Training**, I contributed across several parts of the unit's day-to-day work.
 
   The role included:
   - **training incoming soldiers** on unit procedures and field expectations

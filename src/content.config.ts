@@ -116,6 +116,7 @@ const aboutCollection = defineCollection({
 });
 
 const companyProfileSchema = z.object({
+  shortName: z.string().optional(),
   summary: z.string(),
   companyInfo: z.string(),
   myTimeInfo: z.string(),

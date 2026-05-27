@@ -6,7 +6,11 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import { toBasePath, resolveMediaPath, normalizeWhitespace } from "../utils/paths";
+import {
+  toBasePath,
+  resolveMediaPath,
+  normalizeWhitespace,
+} from "../utils/paths";
 import { richTextToPlainText } from "../utils/richText";
 
 interface Props {
@@ -16,7 +20,6 @@ interface Props {
 
 const { project, featured = false } = Astro.props;
 const projectPath = toBasePath(`/projects/${project.slug}`);
-const actionLinks = project.links?.slice(0, 2) ?? [];
 const projectDateRange = formatProjectDateRange(project);
 
 function firstSentence(value: string): string {
@@ -29,16 +32,26 @@ const summaryText = (project.cardSummary ?? project.summary).trim();
 const fallbackHighlights = [project.problem, project.approach, project.outcome]
   .filter((entry): entry is string => Boolean(entry && entry.trim()))
   .map((entry) => firstSentence(entry));
-const cardHighlights = (
-  project.highlights?.map((entry) => normalizeWhitespace(entry))?.filter(Boolean) ??
-  fallbackHighlights
+const projectHighlights = (
+  project.highlights
+    ?.map((entry) => normalizeWhitespace(entry))
+    ?.filter(Boolean) ?? fallbackHighlights
 ).slice(0, 3);
+const cardHighlights = featured ? projectHighlights : [];
+const hasDetailedWriteup = Boolean(
+  project.problem?.trim() &&
+  project.approach?.trim() &&
+  project.outcome?.trim(),
+);
+const cardCtaLabel = hasDetailedWriteup ? "Read the story" : "View details";
 
 const coverMediaItem = project.media?.find(
   (
     item,
-  ): item is Extract<NonNullable<Project["media"]>[number], { type: "image" }> =>
-    item.type === "image" && item.isCover === true,
+  ): item is Extract<
+    NonNullable<Project["media"]>[number],
+    { type: "image" }
+  > => item.type === "image" && item.isCover === true,
 );
 const firstVideo = project.media?.find((item) => item.type === "video");
 const firstImage = project.media?.find((item) => item.type === "image");
@@ -48,26 +61,28 @@ const coverMedia = coverMediaItem
       alt: coverMediaItem.alt,
     }
   : project.cover
-  ? {
-      src: resolveMediaPath(project.cover.src),
-      alt: project.cover.alt,
-    }
-  : firstVideo?.poster
     ? {
-        src: resolveMediaPath(firstVideo.poster),
-        alt: `${project.title} video preview`,
+        src: resolveMediaPath(project.cover.src),
+        alt: project.cover.alt,
       }
-    : firstImage
+    : firstVideo?.poster
       ? {
-          src: resolveMediaPath(firstImage.src),
-          alt: firstImage.alt,
+          src: resolveMediaPath(firstVideo.poster),
+          alt: `${project.title} video preview`,
         }
-      : undefined;
+      : firstImage
+        ? {
+            src: resolveMediaPath(firstImage.src),
+            alt: firstImage.alt,
+          }
+        : undefined;
 
 const previewVideo = firstVideo
   ? {
       src: resolveMediaPath(firstVideo.src),
-      poster: firstVideo.poster ? resolveMediaPath(firstVideo.poster) : undefined,
+      poster: firstVideo.poster
+        ? resolveMediaPath(firstVideo.poster)
+        : undefined,
     }
   : undefined;
 
@@ -75,7 +90,13 @@ const hasMedia = Boolean(coverMedia || previewVideo);
 const hasHoverPreview = Boolean(coverMedia && previewVideo);
 ---
 
-<article class={`project-card ${featured ? "project-card--featured" : ""}`}>
+<article
+  class={`project-card ${featured ? "project-card--featured" : ""} ${hasDetailedWriteup ? "project-card--with-writeup" : ""}`}
+  data-project-card-link={projectPath}
+  tabindex="0"
+  role="link"
+  aria-label={`View project: ${project.title}`}
+>
   <div class="project-card__header">
     <div class="project-card__meta">
       <span class={`badge ${projectStatusColors[project.status]}`}
@@ -91,22 +112,21 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
               rel="noopener noreferrer"
               aria-label={`${project.organization} website`}
             >
-              {project.organization}
+              {project.organizationShortName ?? project.organization}
             </a>
           ) : (
             <span class="project-card__org text-mono text-muted">
-              {project.organization}
+              {project.organizationShortName ?? project.organization}
             </span>
           ))
       }
     </div>
-    <a
-      href={projectPath}
+    <span
       class="project-card__arrow-link"
-      aria-label={`View project: ${project.title}`}
+      aria-hidden="true"
     >
       <span class="project-card__arrow" aria-hidden="true">→</span>
-    </a>
+    </span>
   </div>
 
   <a
@@ -119,35 +139,42 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
       aria-hidden={hasMedia ? undefined : "true"}
     >
-      {coverMedia && (
-        <img
-          class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
-          src={coverMedia.src}
-          alt={coverMedia.alt}
-          loading="lazy"
-          decoding="async"
-        />
-      )}
-      {previewVideo && (
-        <video
-          class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
-          src={previewVideo.src}
-          poster={previewVideo.poster}
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-label={`${project.title} video preview`}
-          autoplay={!hasHoverPreview}
-        />
-      )}
+      {
+        coverMedia && (
+          <img
+            class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
+            src={coverMedia.src}
+            alt={coverMedia.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        )
+      }
+      {
+        previewVideo && (
+          <video
+            class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
+            src={previewVideo.src}
+            poster={previewVideo.poster}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label={`${project.title} video preview`}
+            autoplay={!hasHoverPreview}
+          />
+        )
+      }
       {
         !hasMedia && (
           <div class="project-card__media-empty-shell">
-            <span class="project-card__media-kicker text-mono">{project.category}</span>
-            <div class="project-card__media-orbit" />
+            <span class="project-card__media-kicker text-mono">
+              {project.category}
+            </span>
             <div class="project-card__media-tags">
-              {project.tags.slice(0, 2).map((tag) => <span>{tag}</span>)}
+              {project.tags.slice(0, 2).map((tag) => (
+                <span>{tag}</span>
+              ))}
             </div>
           </div>
         )
@@ -187,40 +214,13 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       )
     }
 
+    <span class="project-card__writeup-cue text-mono">{cardCtaLabel}</span>
+
     <div class="project-card__tags">
-      {
-        project.tags
-          .slice(0, 4)
-          .map((tag) => <span class="badge badge-purple">{tag}</span>)
-      }
-      {
-        project.tags.length > 4 && (
-          <span class="badge badge-gray">+{project.tags.length - 4}</span>
-        )
-      }
+      {project.tags.slice(0, 4).map((tag) => <span>{tag}</span>)}
+      {project.tags.length > 4 && <span>+{project.tags.length - 4}</span>}
     </div>
   </a>
-
-  <div class="project-card__actions">
-    {
-      actionLinks.length > 0 ? (
-        actionLinks.map((link) => (
-          <a
-            href={link.url}
-            class="btn btn-outline btn-sm"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {link.label} ↗
-          </a>
-        ))
-      ) : (
-        <a href={projectPath} class="btn btn-ghost btn-sm">
-          View Details
-        </a>
-      )
-    }
-  </div>
 </article>
 
 <script>
@@ -271,6 +271,43 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       });
     });
   }
+
+  const projectCards = document.querySelectorAll("[data-project-card-link]");
+
+  projectCards.forEach((projectCard) => {
+    if (!(projectCard instanceof HTMLElement)) {
+      return;
+    }
+
+    const card = projectCard;
+    const link = card.getAttribute("data-project-card-link");
+
+    if (!link || card.getAttribute("data-project-card-link-bound") === "true") {
+      return;
+    }
+
+    card.setAttribute("data-project-card-link-bound", "true");
+
+    card.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("a, button")) {
+        return;
+      }
+
+      window.location.href = link;
+    });
+
+    card.addEventListener("keydown", (event: KeyboardEvent) => {
+      const keyboardEvent = event as KeyboardEvent;
+
+      if (keyboardEvent.key !== "Enter" && keyboardEvent.key !== " ") {
+        return;
+      }
+
+      keyboardEvent.preventDefault();
+      window.location.href = link;
+    });
+  });
 </script>
 
 <style>
@@ -279,7 +316,11 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     flex-direction: column;
     gap: var(--space-lg);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent 28%),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-accent), transparent 97%),
+        transparent 34%
+      ),
       var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -311,40 +352,32 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     z-index: 1;
   }
 
-  /* Corner accent */
-  .project-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 88px;
-    height: 88px;
-    background: linear-gradient(
-      135deg,
-      rgba(201, 122, 43, 0.22),
-      transparent 62%
-    );
-    clip-path: polygon(100% 0, 0 0, 100% 100%);
-    transition:
-      opacity var(--transition-base),
-      transform var(--transition-base);
-    opacity: 0.65;
-  }
-
   .project-card:hover {
     border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-card-hover), var(--glow-accent);
-    background: var(--color-bg-card-hover);
+    box-shadow: var(--shadow-card);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-accent), transparent 94%),
+        transparent 42%
+      ),
+      var(--color-bg-card-hover);
     transform: translateY(-2px);
   }
 
-  .project-card:hover::before {
-    opacity: 1;
-    transform: scale(1.04);
+  .project-card--featured {
+    border-color: color-mix(in srgb, var(--color-accent), transparent 58%);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-accent), transparent 93%),
+        transparent 36%
+      ),
+      var(--color-bg-card);
   }
 
-  .project-card--featured {
-    border-color: rgba(124, 211, 137, 0.24);
+  .project-card--featured:hover {
+    box-shadow: var(--shadow-card);
   }
 
   .project-card__header {
@@ -367,6 +400,11 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     font-size: 0.7rem;
     letter-spacing: 0.04em;
     text-decoration: none;
+  }
+
+  .project-card:focus-visible {
+    outline: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-card);
   }
 
   a.project-card__org:hover,
@@ -420,19 +458,17 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
   .project-card__media--empty {
     background:
-      radial-gradient(circle at top right, var(--color-accent-glow), transparent 40%),
-      linear-gradient(135deg, var(--color-accent-dim), transparent 58%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 55%),
       var(--color-bg);
   }
 
   .project-card__media-empty-shell {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      "kicker orbit"
-      ". orbit"
-      "tags orbit";
+      "kicker"
+      "."
+      "tags";
     align-items: stretch;
     height: 100%;
     padding: var(--space-md);
@@ -447,37 +483,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
-    padding: 0.35rem 0.55rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: rgba(4, 11, 25, 0.45);
-  }
-
-  .project-card__media-orbit {
-    grid-area: orbit;
-    align-self: center;
-    justify-self: end;
-    width: clamp(4.5rem, 20vw, 6.5rem);
-    aspect-ratio: 1;
-    border-radius: 999px;
-    border: 1px solid var(--color-border-strong);
-    box-shadow: inset 0 0 0 1px var(--color-border);
-    opacity: 0.8;
-    position: relative;
-  }
-
-  .project-card__media-orbit::before,
-  .project-card__media-orbit::after {
-    content: "";
-    position: absolute;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    inset: 12%;
-  }
-
-  .project-card__media-orbit::after {
-    inset: 28%;
-    background: var(--color-accent-dim);
   }
 
   .project-card__media-tags {
@@ -493,10 +498,12 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     font-size: 0.72rem;
     line-height: 1;
     color: var(--color-text-muted);
-    padding: 0.4rem 0.5rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background: rgba(4, 11, 25, 0.35);
+  }
+
+  .project-card__media-tags span + span::before {
+    content: "/";
+    margin-inline-end: var(--space-xs);
+    color: var(--color-text-dim);
   }
 
   .project-card__media--hover-preview {
@@ -559,19 +566,34 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     overflow: hidden;
   }
 
+  .project-card--featured .project-card__summary {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    -webkit-line-clamp: 3;
+  }
+
   .project-card__highlights {
     margin: 0;
     padding-left: 1rem;
     display: grid;
-    gap: 0.4rem;
+    gap: var(--space-sm);
     color: var(--color-text-muted);
     font-size: 0.82rem;
     line-height: 1.5;
-    min-height: 5.1rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-md);
   }
 
   .project-card__highlights li {
     margin: 0;
+  }
+
+  .project-card__writeup-cue {
+    width: fit-content;
+    color: var(--color-text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .project-card__tags {
@@ -581,19 +603,18 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     margin-top: auto;
     position: relative;
     z-index: 1;
+    color: var(--color-text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    text-transform: uppercase;
   }
 
-  .project-card__actions {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    position: relative;
-    z-index: 1;
-  }
-
-  .project-card__actions .btn {
-    text-decoration: none;
+  .project-card__tags span + span::before {
+    content: "/";
+    margin-inline-end: var(--space-xs);
+    color: var(--color-border-strong);
   }
 
   @media (max-width: 640px) {
@@ -604,10 +625,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
     .project-card__media-empty-shell {
       padding: var(--space-sm);
-    }
-
-    .project-card__media-orbit {
-      width: clamp(4rem, 24vw, 5rem);
     }
 
     .project-card__media-tags {
@@ -627,12 +644,8 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
     .project-card__highlights {
       font-size: 0.82rem;
-      gap: 0.35rem;
-      min-height: 0;
-    }
-
-    .project-card__actions {
       gap: var(--space-xs);
     }
+
   }
 </style>

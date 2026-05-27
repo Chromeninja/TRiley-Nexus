@@ -15,7 +15,7 @@ highlights:
   - "Built policies and FAQs for refunds, returns, and other customer service issues."
 problem: "The Ubisoft Workshop model relied on physical warehouse inventory, which limited product flexibility and created extra support and fulfillment overhead. The Gear Store needed a scalable on-demand model with stronger QA, reporting, and customer support coverage."
 approach: |
-  I supported the Gear Store transition by helping turn a merchandising concept into an operating model that could be launched, tested, and supported at scale.
+  I supported the Gear Store transition by helping turn a merchandising concept into a real store experience that could be launched, tested, and supported at scale.
 
   The work fell into three areas:
   1. **Platform transition support** through BigCommerce for site building and order management
