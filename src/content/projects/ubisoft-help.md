@@ -20,10 +20,10 @@ approach: |
   The work centered on four responsibilities:
   1. **Program unification** across the full Help surface area
   2. **Shared roadmap alignment** between QA, Dev, and Design teams
-  3. **Stakeholder negotiation** with game production, CRC, accounts, and IT to prioritize the highest-leverage work
+  3. **Stakeholder negotiation** with game production, CRC, accounts, and IT to prioritize the work that would help players most
   4. **Program operations** through budget management, QA testing plans, and roadmap reviews
 
-  That structure made it easier to keep delivery predictable while balancing player impact against internal stakeholder priorities.
+  That structure made it easier to keep delivery predictable while balancing player needs against internal stakeholder priorities.
 outcome: |
   Established a coordinated Help program roadmap with clearer ownership and prioritization across the player support surface.
 

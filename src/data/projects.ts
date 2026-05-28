@@ -20,6 +20,7 @@ type ProjectCollectionEntry = CollectionEntry<"projects">;
 
 export type Project = ProjectCollectionEntry["data"] & {
   slug: string;
+  organizationShortName?: string;
 };
 
 export interface ProjectOrganizationGroup {
@@ -291,9 +292,38 @@ export function sortProjectsByOrderThenRecency(
   return a.title.localeCompare(b.title);
 }
 
+export function hasDetailedProjectWriteup(
+  project: Pick<Project, "problem" | "approach" | "outcome">,
+): boolean {
+  return Boolean(
+    project.problem?.trim() &&
+      project.approach?.trim() &&
+      project.outcome?.trim(),
+  );
+}
+
 export async function getProjects(): Promise<Project[]> {
   const entries = await getCollection("projects");
-  return entries.map(toProject).sort(sortByOrder);
+  const companyProfiles = await getCompanyProfiles();
+
+  return entries
+    .map(toProject)
+    .map((project) => {
+      if (!project.organization) {
+        return project;
+      }
+
+      const companyProfile = companyProfiles[project.organization];
+      if (!companyProfile?.shortName?.trim()) {
+        return project;
+      }
+
+      return {
+        ...project,
+        organizationShortName: companyProfile.shortName.trim(),
+      };
+    })
+    .sort(sortByOrder);
 }
 
 function resolveProjectRecencyDate(project: Project, referenceNow: Date): Date {

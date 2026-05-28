@@ -33,17 +33,23 @@
   "home": {
     "metaDescription": "Systems builder and operations leader: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
     "hero": {
-      "eyebrow": "// SYSTEMS BUILDER + OPERATIONS LEADER",
+      "eyebrow": "// PROGRAMS, PEOPLE, AND SYSTEMS",
       "roleLine": "Systems Builder | Event Operations | Community Platforms | Military Operations",
-      "headlineLead": "I build the operating systems behind ",
-      "headlineAccent": "messy work",
-      "headlineTail": ".",
-      "subtext": "I turn messy, high-context work into systems people can run: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
+      "headlineLead": "I help turn messy work into",
+      "headlineAccent": "systems",
+      "headlineTail": "people can actually use.",
+      "subtext": "I work where product, operations, community, and technology overlap: the places where the goal is clear enough to matter, but the path still needs to be built.",
+      "supportingText": "My favorite work is making the confusing parts easier to see, giving teams a steadier way forward, and leaving behind something useful after the first push is over.",
+      "quickNotes": [
+        "10+ years growing through support, operations, product, and program work at Ubisoft",
+        "30%+ fewer Ubisoft e-commerce support tickets after a refund-flow rebuild",
+        "Discord systems and community operations for a 40,000-member group",
+        "15+ years of military service, including air traffic control work"
+      ],
       "proofPoints": [
         "Built offline software solution for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
         "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
         "13+ years in the game industry, including program manager experience leading cross-functional delivery and live operations",
-        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
         "Lead event operations across volunteers, vendors, booths, schedules, and community activations",
         "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm"
       ],
@@ -52,19 +58,19 @@
     },
     "hiringProfiles": [
       {
-        "title": "Technical program leadership",
-        "text": "For organizations with too many dependencies, unclear ownership, or complex initiatives that need one operator who can align product, technical, and operational execution."
+        "title": "Messy programs that need traction",
+        "text": "I am useful when a lot of people are depending on each other, ownership is fuzzy, and the work needs someone who can pull the pieces into motion."
       },
       {
-        "title": "Operational systems design",
-        "text": "For teams relying on tribal knowledge, reactive coordination, or brittle processes that need to become repeatable systems other people can actually run."
+        "title": "Workflows that need to feel less fragile",
+        "text": "I like turning tribal knowledge, handoffs, and recurring pain points into practical routines that other people can run without needing a hero every time."
       },
       {
-        "title": "Technical enablement and automation",
-        "text": "For high-friction workflows where the right tooling, automation, or integration can create leverage without losing the human judgment the work still requires."
+        "title": "Tools that should make work easier",
+        "text": "When a workflow is repetitive or high-friction, I look for the right mix of tooling, automation, and human judgment to make it calmer and more useful."
       }
     ],
-    "featuredEvidence": [
+    "featuredHighlights": [
       {
         "value": "50+",
         "label": "Events per year",
@@ -122,15 +128,15 @@
     "thinkItems": [
       {
         "title": "Systems first",
-        "text": "I do not see isolated problems - I see systems with feedback loops, dependencies, and failure modes. My instinct is to map the whole before touching any part."
+        "text": "I usually do not see problems as isolated issues. I look at the people, tools, habits, and handoffs around them before changing any one piece."
       },
       {
         "title": "Clarity as a product",
         "text": "One of the most valuable things I produce is clarity. Whether it is a plan, a decision, or a communication - if people leave the conversation less confused, I have done my job."
       },
       {
-        "title": "Diagnose before designing",
-        "text": "The stated problem is rarely the actual problem. I spend disproportionate time on diagnosis - because solving the wrong problem perfectly is still failure."
+        "title": "Understand before fixing",
+        "text": "The first problem someone names is not always the real one. I would rather slow down long enough to understand what is happening than build the wrong thing quickly."
       },
       {
         "title": "Repeatable over clever",
@@ -245,7 +251,7 @@
           "Team Building and Coaching",
           "Strategic Planning",
           "Mission Clarity",
-          "Decision Frameworks",
+          "Decision Making",
           "After Action Review"
         ]
       }
@@ -284,41 +290,41 @@
     ]
   },
   "howIWork": {
-    "metaDescription": "My operating principles, methodology, and approach to solving complex operational and technical problems.",
+    "metaDescription": "How I move through messy work, organize people and systems, and keep improving the next pass.",
     "coreApproachParagraphs": [
-      "I am not a specialist in one domain - I am a generalist who builds systems. The through-line in everything I do is translating complexity into structure: taking messy, ambiguous situations and creating clarity, process, and working systems out of them.",
-      "Whether I am planning a military operation, running a large-scale community event, migrating aging infrastructure, or designing an automation workflow, the underlying methodology is the same. Understand the system. Identify the failure modes. Build something that actually holds up in production."
+      "I have never fit neatly into one lane. Most of my work has been about taking confusing, cross-functional situations and making them easier for people to understand, run, and improve.",
+      "Whether I am planning a military task, running a community event, moving old infrastructure, or building an automation workflow, I start by learning how the pieces interact. Then I look for the simplest useful system that makes the next pass easier."
     ],
     "workPrinciples": [
       {
         "num": "01",
-        "title": "Diagnose before designing",
-        "body": "The biggest failure mode in operations and engineering is solving the wrong problem well. I invest heavily in diagnosis - understanding root causes, mapping system states, and validating assumptions before proposing solutions. The stated problem is rarely the actual problem."
+        "title": "Understand before fixing",
+        "body": "I try not to rush into a solution just because one is available. I want to know what is actually getting in the way, what people have already tried, and where the pain is really coming from."
       },
       {
         "num": "02",
-        "title": "Build systems, not solutions",
-        "body": "A one-off fix is not a solution - it is technical debt with a short grace period. I build repeatable, maintainable systems that can be operated by others, updated without me, and scaled beyond the original scope. If it is not systemized, it is not done."
+        "title": "Build something people can keep using",
+        "body": "A fix is better when it can survive the next busy week. I care about simple routines, clean handoffs, and documentation that lets the work keep moving without me in the middle of everything."
       },
       {
         "num": "03",
-        "title": "Align people before automating process",
-        "body": "Technology amplifies what is already in the organization. Automating a broken process makes broken things happen faster. I always start with the human system - the incentives, the workflows, the communication patterns - before reaching for tooling."
+        "title": "Get the people part right",
+        "body": "Tools can help, but they usually amplify whatever is already happening. Before I automate anything, I want the ownership, handoffs, and communication habits to make sense."
       },
       {
         "num": "04",
-        "title": "Create clarity in ambiguity",
-        "body": "Ambiguity is not an obstacle - it is the job. My role is to reduce uncertainty for the people around me: clear problem statements, defined ownership, explicit tradeoffs, documented decisions. Clarity is a deliverable."
+        "title": "Make the unclear parts visible",
+        "body": "Unclear work is normal. I help by naming the open questions, spelling out tradeoffs, documenting decisions, and making sure people know what is settled and what still needs attention."
       },
       {
         "num": "05",
-        "title": "Balance strategy and execution",
-        "body": "Most operational failures come from working at only one altitude - either too zoomed out to execute or too zoomed in to see the full picture. I deliberately move between both. Long-term architecture and immediate execution decisions both need attention simultaneously."
+        "title": "Keep the big picture and the next step in view",
+        "body": "I like moving between the long view and the practical next step. The plan needs direction, but it also needs someone watching the details that can quietly break it."
       },
       {
         "num": "06",
-        "title": "Design for the humans who actually exist",
-        "body": "Systems succeed or fail at the human interface. I build for the real operators - with their real constraints, cognitive loads, and failure modes - not the idealized ones. Good design accounts for how people actually behave under pressure."
+        "title": "Build for real people",
+        "body": "A system only works if real people can use it when they are tired, busy, distracted, or under pressure. I try to build for the actual humans in the loop, not the perfect version of them."
       }
     ],
     "workStyleGroups": [
@@ -394,7 +400,7 @@
       }
     ],
     "aar": {
-      "intro": "The After Action Review (AAR) is one of the most valuable practices I took from military service. After every significant operation, event, or project, I ask:",
+      "intro": "One habit I kept from military service is taking time to debrief after meaningful work. After a project, event, or tough cycle, I like to ask:",
       "questions": [
         {
           "q": "What was supposed to happen?",
@@ -406,7 +412,7 @@
         },
         {
           "q": "Why was there a difference?",
-          "sub": "Root causes, not symptoms. Contributing factors."
+          "sub": "What was underneath it, not just what showed up on the surface."
         },
         {
           "q": "What do we sustain?",
@@ -434,7 +440,7 @@
       {
         "icon": "⬡",
         "title": "Technical Program Management at Scale",
-        "body": "Studying how TPM functions in large-scale engineering orgs - tooling, frameworks, and how the best TPMs create leverage for their teams."
+        "body": "Studying how TPM functions in large-scale engineering orgs: tooling, team habits, and how the best TPMs make the work easier for the people around them."
       },
       {
         "icon": "◉",

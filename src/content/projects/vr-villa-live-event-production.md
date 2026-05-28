@@ -54,8 +54,8 @@ media:
   - type: image
     src: "/media/projects/vr-villa-live-event-production-media.jpg"
     alt: VR Villa Live Event Production
-featured: false
-order: 27
+featured: true
+order: 4
 ---
 
 VR Villa is not just a booth presence. It is a traveling, community-first VR program designed to make immersive gaming approachable for players at conventions and pop-culture events across the country.

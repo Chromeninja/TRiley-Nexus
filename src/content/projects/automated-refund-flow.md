@@ -19,7 +19,7 @@ highlights:
   - Defined eligibility rules and automation touchpoints for self-service refunds in the Tecsys order management system.
   - Reduced overall e-commerce customer support ticket pressure through automation of eligible refund cases.
   - Coordinated a multi-month delivery across dev, design, and business stakeholders.
-problem: "Manual refund handling drove high CS ticket volume, slow response times, and inconsistent player outcomes. Every refund needing human review created a bottleneck and a poor player experience."
+problem: "Manual refund handling drove high CS ticket volume, slow response times, and uneven player experiences. Every refund needing human review created a bottleneck and made a common support moment harder than it needed to be."
 approach: |
   I worked with dev, design, and business teams to turn a manual refund bottleneck into a rules-based automation flow inside Tecsys.
 

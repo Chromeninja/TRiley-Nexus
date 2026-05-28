@@ -14,7 +14,7 @@ highlights:
   - "Sustained a delivery cadence of 5 to 10 weekly events and 1 to 2 large monthly events, with regular attendance ranging from 15 to 60 members across operations, training, and custom RP formats."
 problem: "Community growth created a need for consistent, high-quality events that could scale beyond ad-hoc hosting and keep members active over time."
 approach: |
-  I formed a dedicated **Event Coordinators** group of trusted members and built a repeatable operating model around how TEST plans, staffs, and improves events.
+  I formed a dedicated **Event Coordinators** group of trusted members and built a repeatable event playbook around how TEST plans, staffs, and improves events.
 
   The program rests on three foundations:
   - **planning playbooks** that define how events get scoped and prepared

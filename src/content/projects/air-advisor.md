@@ -25,7 +25,7 @@ approach: |
   I completed Air Advisor qualification through the formal USAF Air Advisor program in November 2024 to add advising capability on top of my operational airfield background.
 
   The training covered:
-  1. **advising methodology** for building genuine partner capability instead of just delivering classroom instruction
+  1. **advisor habits and structure** for building genuine partner capability instead of just delivering classroom instruction
   2. **cultural awareness and partner engagement** needed to work credibly inside foreign organizations
   3. **technical application** of my ATC, airfield operations, and landing zone experience in advisor settings
 
