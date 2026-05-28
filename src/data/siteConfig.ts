@@ -84,8 +84,9 @@ export interface SiteConfig {
       headlineAccent: string;
       headlineTail: string;
       subtext: string;
-      supportingText: string;
-      quickNotes: string[];
+      supportingText?: string;
+    quickNotes?: string[];
+    proofPoints?: string[];
       primaryAction: { label: string; href: string };
       secondaryAction: { label: string; href: string };
     };

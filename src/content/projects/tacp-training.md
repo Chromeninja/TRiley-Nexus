@@ -3,12 +3,13 @@ title: TACP
 status: completed
 category: Military Operations
 organization: 118th Air Support Operations Squadron
+organizationShortName: "118 ASOS"
 roleTitle: TACP Trainee
 timeframe: Past
 startedAt: "2013-10"
 endedAt: "2015-04"
 summary: "Trained with the North Carolina Air National Guard's 118th Air Support Operations Squadron in the Tactical Air Control Party pipeline, gaining foundational exposure to close air support, joint fires coordination, radio communications, and air-ground integration before transitioning to the 235th ATCS."
-cardSummary: "Built a joint-operations foundation in the TACP pipeline before transitioning into airfield operations and ATC work."
+cardSummary: "Completed TACP pipeline training with the 118th ASOS, building joint air-ground and radio coordination fundamentals that later strengthened my transition into airfield operations and air traffic control."
 highlights:
   - "Trained in the TACP pipeline with exposure to close air support, joint fires, and air-ground integration."
   - "Developed radio communication and joint operations fundamentals later used in airfield operations work."
@@ -22,7 +23,7 @@ approach: |
   - radio communications across joint nets
   - the operating environment TACPs work in alongside Army ground forces
   - the discipline required to connect ground maneuver needs with air support capabilities
-outcome: "Built a joint operations foundation and understanding of air-ground integration that directly informed my transition into airfield operations and air traffic control with the 235th ATCS in April 2015."
+outcome: "Established the air-ground coordination and communications foundation that supported my transition into airfield operations and air traffic control in April 2015. The training strengthened mission-context awareness that continued to inform later expeditionary, landing zone, and combat airspace responsibilities."
 skills:
   - Joint Operations Familiarization
   - Radio Communications
@@ -30,6 +31,10 @@ skills:
   - Military Training
   - Adaptability
   - Team Integration
+tools:
+  - Joint Radio Procedures
+  - CAS Training Materials
+  - Mission Planning Checklists
 tags:
   - Air National Guard
   - Tactical Air Control Party
@@ -40,4 +45,3 @@ tags:
 featured: false
 order: 7
 ---
-

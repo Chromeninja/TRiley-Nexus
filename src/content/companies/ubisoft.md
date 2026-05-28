@@ -1,7 +1,7 @@
 ---
 profiles:
   Ubisoft:
-    summary: "Player support, e-commerce operations, and program management work spanning 10+ years at Ubisoft, from frontline contract CSR through Senior Program Manager."
+    summary: "Player support, e-commerce operations, and program management work spanning 13+ years in gaming at Ubisoft, from frontline contract CSR through Senior Program Manager."
     companyInfo: "Ubisoft is a global game publisher and live-service operator supporting large player communities across multiple titles, subscription products, and support platforms."
     myTimeInfo: |
       From **October 2013 to April 2024**, I grew through seven roles at Ubisoft, starting as a contract CSR and ending as a **Senior Program Manager** owning the Help program and Customer Experience research.
@@ -11,22 +11,22 @@ profiles:
       - the **Mercury → Tecsys** order management migration
       - the **Gear Store** launch
       - cloud gaming partnerships with **GeForce Now, Luna, and Stadia**
-      - an automated refund flow that cut e-commerce CS tickets by **30%+**
+      - an automated refund flow that materially reduced e-commerce CS ticket pressure
     longSummary: |
-      **10+ years across Ubisoft's player-facing operations**, scaling from frontline support into program leadership.
+      **13+ years in gaming, including Ubisoft's player-facing operations**, scaling from frontline support into program leadership.
 
       The progression looked like this:
       - frontline support and escalation work close to real player issues
       - automation, dashboards, and KB foundations earlier in my career
       - worldwide e-commerce CS operations through Ubisoft+, Gear Store, and cloud gaming launches as a Supervisor
       - ownership of the Help program and Customer Experience research as Senior Program Manager
-    roleSummary: "Frontline CSR → Senior Program Manager (7 roles, 10+ years)"
+    roleSummary: "Frontline CSR → Senior Program Manager (7 roles, 13+ years in gaming)"
     achievements:
       - "Led Ubisoft Help program (CS portal, in-game help, bug reporting, guides) as Senior Program Manager."
       - "Drove customer experience and player research strike teams improving onboarding and journey flows."
-      - "Helped launch Ubisoft+ supporting 100+ games on day one across worldwide regions."
+      - "Helped launch Ubisoft+ across worldwide regions with support-readiness, refund-flow validation, and subscription edge-case coverage."
       - "Onboarded Ubisoft titles to GeForce Now, Amazon Luna, and Google Stadia."
-      - "Built an automated refund flow that reduced e-commerce CS tickets by 30%+."
+      - "Built an automated refund flow that reduced e-commerce CS ticket pressure and improved turnaround for eligible cases."
       - "Led the Mercury → Tecsys Order Dynamics order management migration."
       - "Authored Salesforce, MicroStrategy, and Tableau dashboards used by Ubisoft worldwide CS."
     logo:

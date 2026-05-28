@@ -1,0 +1,48 @@
+---
+interface Props {
+  count: number;
+}
+
+const { count } = Astro.props;
+---
+
+{
+  count > 1 && (
+    <div class="project-gallery__controls">
+      <div class="project-gallery__toolbar">
+        <button
+          type="button"
+          class="project-gallery__nav project-gallery__nav--prev"
+          data-gallery-prev
+          aria-label="Previous media item"
+        >
+          ←
+        </button>
+
+        <div class="project-gallery__dots" aria-label="Project media slides">
+          {Array.from({ length: count }).map((_, index) => (
+            <button
+              type="button"
+              class={`project-gallery__dot ${index === 0 ? "is-active" : ""}`}
+              data-gallery-dot
+              data-gallery-index={index}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-pressed={index === 0 ? "true" : "false"}
+            >
+              <span class="sr-only">Slide {index + 1}</span>
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          class="project-gallery__nav project-gallery__nav--next"
+          data-gallery-next
+          aria-label="Next media item"
+        >
+          →
+        </button>
+      </div>
+    </div>
+  )
+}

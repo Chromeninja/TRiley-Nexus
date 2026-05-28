@@ -17,8 +17,16 @@ const CONTENT_BASE_DIR = path.join(ROOT_DIR, "src/content");
 const ABOUT_FILE_PATH = "src/content/about/about.md";
 
 const MEDIA_TARGETS = [
-  { id: "projects", label: "Project Media", relativeDir: "public/media/projects" },
-  { id: "companies", label: "Company Logos", relativeDir: "public/media/companies" },
+  {
+    id: "projects",
+    label: "Project Media",
+    relativeDir: "public/media/projects",
+  },
+  {
+    id: "companies",
+    label: "Company Logos",
+    relativeDir: "public/media/companies",
+  },
   { id: "site", label: "Site Media", relativeDir: "public/media/site" },
   { id: "documents", label: "Documents", relativeDir: "public/documents" },
 ];
@@ -28,58 +36,283 @@ const TOKEN_TTL_MS = 10 * 60 * 1000;
 
 // Fields handled explicitly by renderFrontmatterPreview: excluded from the fallback scalar table.
 const RESERVED_FM_FIELDS = new Set([
-  "title", "organization", "roleTitle", "status", "category",
-  "startedAt", "endedAt", "summary", "cardSummary", "longSummary", "problem", "approach",
-  "outcome", "skills", "tags", "metaDescription", "featured", "order", "color",
-  "organizationUrl", "timeframe", "backgroundParagraphs", "thinkItems", "personalItems",
-  "values", "profileMedia", "additionalMedia", "resume", "highlights", "achievements",
-  "timelineRoles", "companyInfo", "myTimeInfo", "roleSummary",
+  "title",
+  "organization",
+  "roleTitle",
+  "status",
+  "category",
+  "organizationShortName",
+  "startedAt",
+  "endedAt",
+  "summary",
+  "cardSummary",
+  "longSummary",
+  "problem",
+  "approach",
+  "outcome",
+  "skills",
+  "tags",
+  "metaDescription",
+  "featured",
+  "order",
+  "color",
+  "organizationUrl",
+  "timeframe",
+  "backgroundParagraphs",
+  "thinkItems",
+  "personalItems",
+  "values",
+  "profileMedia",
+  "additionalMedia",
+  "resume",
+  "skillAtlas",
+  "highlights",
+  "achievements",
+  "timelineRoles",
+  "companyInfo",
+  "myTimeInfo",
+  "roleSummary",
 ]);
 
 const FORM_SCHEMAS = {
   projects: [
-    { key: "title", label: "Title", type: "text", required: true, placeholder: "Project title" },
-    { key: "status", label: "Status", type: "select", required: true, options: ["active", "completed", "archived", "concept"] },
-    { key: "category", label: "Category", type: "text", required: true, placeholder: "Project category" },
-    { key: "organization", label: "Organization", type: "text", placeholder: "Company or team" },
-    { key: "organizationUrl", label: "Organization URL", type: "text", placeholder: "https://example.com" },
-    { key: "roleTitle", label: "Role Title", type: "text", placeholder: "Your role on this project" },
-    { key: "timeframe", label: "Timeframe", type: "text", placeholder: "Ongoing or Jan 2024 - Mar 2025" },
-    { key: "startedAt", label: "Started At", type: "text", placeholder: "Nov 2024" },
+    {
+      key: "title",
+      label: "Title",
+      type: "text",
+      required: true,
+      placeholder: "Project title",
+    },
+    {
+      key: "status",
+      label: "Status",
+      type: "select",
+      required: true,
+      options: ["active", "completed", "archived", "concept"],
+    },
+    {
+      key: "category",
+      label: "Category",
+      type: "text",
+      required: true,
+      placeholder: "Project category",
+    },
+    {
+      key: "organization",
+      label: "Organization",
+      type: "text",
+      placeholder: "Company or team",
+    },
+    {
+      key: "organizationShortName",
+      label: "Organization Short Name",
+      type: "text",
+      placeholder: "Short label for cards (e.g. BCI)",
+    },
+    {
+      key: "organizationUrl",
+      label: "Organization URL",
+      type: "text",
+      placeholder: "https://example.com",
+    },
+    {
+      key: "roleTitle",
+      label: "Role Title",
+      type: "text",
+      placeholder: "Your role on this project",
+    },
+    {
+      key: "timeframe",
+      label: "Timeframe",
+      type: "text",
+      placeholder: "Ongoing or Jan 2024 - Mar 2025",
+    },
+    {
+      key: "startedAt",
+      label: "Started At",
+      type: "text",
+      placeholder: "Nov 2024",
+    },
     { key: "endedAt", label: "Ended At", type: "text", placeholder: "Present" },
-    { key: "summary", label: "Summary", type: "textarea", required: true, placeholder: "What was done and why it mattered." },
-    { key: "cardSummary", label: "Card Summary", type: "textarea", placeholder: "Short version for cards/lists." },
-    { key: "problem", label: "Problem", type: "textarea", placeholder: "What challenge existed?" },
-    { key: "approach", label: "Approach", type: "textarea", placeholder: "How was the work executed?" },
-    { key: "outcome", label: "Outcome", type: "textarea", placeholder: "What changed as a result?" },
-    { key: "tags", label: "Tags", type: "list", placeholder: "One item per line or comma-separated" },
-    { key: "skills", label: "Skills", type: "list", placeholder: "One item per line or comma-separated" },
-    { key: "tools", label: "Tools", type: "list", placeholder: "One item per line or comma-separated" },
-    { key: "highlights", label: "Highlights", type: "list", placeholder: "Up to 3 concise highlights" },
+    {
+      key: "summary",
+      label: "Summary",
+      type: "textarea",
+      required: true,
+      placeholder: "What was done and why it mattered.",
+    },
+    {
+      key: "cardSummary",
+      label: "Card Summary",
+      type: "textarea",
+      placeholder: "Short version for cards/lists.",
+    },
+    {
+      key: "problem",
+      label: "Problem",
+      type: "textarea",
+      placeholder: "What challenge existed?",
+    },
+    {
+      key: "approach",
+      label: "Approach",
+      type: "textarea",
+      placeholder: "How was the work executed?",
+    },
+    {
+      key: "outcome",
+      label: "Outcome",
+      type: "textarea",
+      placeholder: "What changed as a result?",
+    },
+    {
+      key: "tags",
+      label: "Tags",
+      type: "list",
+      placeholder: "One item per line or comma-separated",
+    },
+    {
+      key: "skills",
+      label: "Skills",
+      type: "list",
+      placeholder: "One item per line or comma-separated",
+    },
+    {
+      key: "tools",
+      label: "Tools",
+      type: "list",
+      placeholder: "One item per line or comma-separated",
+    },
+    {
+      key: "highlights",
+      label: "Highlights",
+      type: "list",
+      placeholder: "Up to 3 concise highlights",
+    },
     { key: "featured", label: "Featured Project", type: "boolean" },
-    { key: "order", label: "Sort Order", type: "number", placeholder: "Lower appears first" },
+    {
+      key: "order",
+      label: "Sort Order",
+      type: "number",
+      placeholder: "Lower appears first",
+    },
   ],
   about: [
-    { key: "metaDescription", label: "Meta Description", type: "textarea", required: true, placeholder: "Short SEO/about summary." },
-    { key: "backgroundParagraphs", label: "Background Paragraphs", type: "list", placeholder: "One paragraph per line" },
-    { key: "values", label: "Values", type: "list", placeholder: "One value per line" },
-    { key: "thinkItems", label: "Think Items", type: "textarea", placeholder: "Use one per line: Title::Text" },
-    { key: "personalItems", label: "Personal Items", type: "textarea", placeholder: "Use one per line: Icon|Title|Body" },
+    {
+      key: "metaDescription",
+      label: "Meta Description",
+      type: "textarea",
+      required: true,
+      placeholder: "Short SEO/about summary.",
+    },
+    {
+      key: "backgroundParagraphs",
+      label: "Background Paragraphs",
+      type: "list",
+      placeholder: "One paragraph per line",
+    },
+    {
+      key: "values",
+      label: "Values",
+      type: "list",
+      placeholder: "One value per line",
+    },
+    {
+      key: "thinkItems",
+      label: "Think Items",
+      type: "textarea",
+      placeholder: "Use one per line: Title::Text",
+    },
+    {
+      key: "personalItems",
+      label: "Personal Items",
+      type: "textarea",
+      placeholder: "Use one per line: Icon|Title|Body",
+    },
   ],
   companies: [
-    { key: "companyName", label: "Profile Name", type: "text", required: true, placeholder: "Must match project organization" },
-    { key: "summary", label: "Summary", type: "textarea", required: true, placeholder: "Company summary used in timeline views." },
-    { key: "companyInfo", label: "Company Info", type: "textarea", required: true, placeholder: "Company context and mission." },
-    { key: "myTimeInfo", label: "My Time Info", type: "textarea", required: true, placeholder: "Your tenure narrative." },
-    { key: "longSummary", label: "Long Summary", type: "textarea", placeholder: "Optional expanded summary." },
-    { key: "roleSummary", label: "Role Summary", type: "textarea", placeholder: "Optional role-specific summary." },
-    { key: "achievements", label: "Achievements", type: "list", placeholder: "One achievement per line" },
-    { key: "logoSrc", label: "Logo Source", type: "text", placeholder: "/media/companies/company-logo.png" },
-    { key: "logoAlt", label: "Logo Alt Text", type: "text", placeholder: "Accessible logo description" },
-    { key: "color", label: "Brand Color", type: "text", placeholder: "#57a6ff" },
-    { key: "tenureStart", label: "Tenure Start", type: "text", placeholder: "YYYY-MM or date label" },
-    { key: "tenureEnd", label: "Tenure End", type: "text", placeholder: "Present or end date" },
-    { key: "timelineRoles", label: "Timeline Roles", type: "textarea", placeholder: "Use one per line: Label|Start|End(optional)" },
+    {
+      key: "companyName",
+      label: "Profile Name",
+      type: "text",
+      required: true,
+      placeholder: "Must match project organization",
+    },
+    {
+      key: "summary",
+      label: "Summary",
+      type: "textarea",
+      required: true,
+      placeholder: "Company summary used in timeline views.",
+    },
+    {
+      key: "companyInfo",
+      label: "Company Info",
+      type: "textarea",
+      required: true,
+      placeholder: "Company context and mission.",
+    },
+    {
+      key: "myTimeInfo",
+      label: "My Time Info",
+      type: "textarea",
+      required: true,
+      placeholder: "Your tenure narrative.",
+    },
+    {
+      key: "longSummary",
+      label: "Long Summary",
+      type: "textarea",
+      placeholder: "Optional expanded summary.",
+    },
+    {
+      key: "roleSummary",
+      label: "Role Summary",
+      type: "textarea",
+      placeholder: "Optional role-specific summary.",
+    },
+    {
+      key: "achievements",
+      label: "Achievements",
+      type: "list",
+      placeholder: "One achievement per line",
+    },
+    {
+      key: "logoSrc",
+      label: "Logo Source",
+      type: "text",
+      placeholder: "/media/companies/company-logo.png",
+    },
+    {
+      key: "logoAlt",
+      label: "Logo Alt Text",
+      type: "text",
+      placeholder: "Accessible logo description",
+    },
+    {
+      key: "color",
+      label: "Brand Color",
+      type: "text",
+      placeholder: "#57a6ff",
+    },
+    {
+      key: "tenureStart",
+      label: "Tenure Start",
+      type: "text",
+      placeholder: "YYYY-MM or date label",
+    },
+    {
+      key: "tenureEnd",
+      label: "Tenure End",
+      type: "text",
+      placeholder: "Present or end date",
+    },
+    {
+      key: "timelineRoles",
+      label: "Timeline Roles",
+      type: "textarea",
+      placeholder: "Use one per line: Label|Start|End(optional)",
+    },
   ],
 };
 
@@ -110,7 +343,9 @@ function parseArrayInput(value) {
 function parseBooleanInput(value) {
   if (typeof value === "boolean") return value;
   if (typeof value === "number") return value !== 0;
-  const normalized = String(value ?? "").trim().toLowerCase();
+  const normalized = String(value ?? "")
+    .trim()
+    .toLowerCase();
   return normalized === "true" || normalized === "1" || normalized === "yes";
 }
 
@@ -199,11 +434,11 @@ function scalarToYaml(value) {
   }
 
   if (
-    /[:#\n\-,]|^\s|\s$/.test(text)
-    || text.includes("[")
-    || text.includes("]")
-    || text.includes("{")
-    || text.includes("}")
+    /[:#\n\-,]|^\s|\s$/.test(text) ||
+    text.includes("[") ||
+    text.includes("]") ||
+    text.includes("{") ||
+    text.includes("}")
   ) {
     return quoteYamlString(text);
   }
@@ -229,9 +464,13 @@ function serializeYaml(value, indent = 0) {
           if (entries.length === 0) return `${space}- {}`;
 
           const [firstKey, firstValue] = entries[0];
-          const rendered = [`${space}- ${yamlKey(firstKey)}: ${scalarToYaml(firstValue)}`];
+          const rendered = [
+            `${space}- ${yamlKey(firstKey)}: ${scalarToYaml(firstValue)}`,
+          ];
           for (const [key, itemValue] of entries.slice(1)) {
-            rendered.push(`${space}  ${yamlKey(key)}: ${scalarToYaml(itemValue)}`);
+            rendered.push(
+              `${space}  ${yamlKey(key)}: ${scalarToYaml(itemValue)}`,
+            );
           }
           return rendered.join("\n");
         }
@@ -260,7 +499,9 @@ function serializeYaml(value, indent = 0) {
       }
 
       if (child && typeof child === "object") {
-        const childEntries = Object.entries(child).filter(([, v]) => v !== undefined);
+        const childEntries = Object.entries(child).filter(
+          ([, v]) => v !== undefined,
+        );
         if (childEntries.length === 0) {
           out.push(`${space}${yamlKey(key)}: {}`);
         } else {
@@ -304,7 +545,12 @@ function objectsToLines(value, keys, delimiter = "|") {
   if (!Array.isArray(value)) return "";
   return value
     .filter((item) => item && typeof item === "object")
-    .map((item) => keys.map((key) => String(item[key] ?? "").trim()).join(` ${delimiter} `).trim())
+    .map((item) =>
+      keys
+        .map((key) => String(item[key] ?? "").trim())
+        .join(` ${delimiter} `)
+        .trim(),
+    )
     .filter(Boolean)
     .join("\n");
 }
@@ -321,7 +567,12 @@ function sendJson(res, statusCode, payload) {
   res.end(JSON.stringify(payload));
 }
 
-function sendText(res, statusCode, text, contentType = "text/plain; charset=utf-8") {
+function sendText(
+  res,
+  statusCode,
+  text,
+  contentType = "text/plain; charset=utf-8",
+) {
   res.writeHead(statusCode, {
     "Content-Type": contentType,
     "Cache-Control": "no-store",
@@ -366,7 +617,10 @@ async function serveStatic(url, res) {
   const editorFilePath = path.join(PUBLIC_DIR, pathname);
   const siteFilePath = path.join(SITE_PUBLIC_DIR, pathname);
 
-  if (!editorFilePath.startsWith(PUBLIC_DIR) || !siteFilePath.startsWith(SITE_PUBLIC_DIR)) {
+  if (
+    !editorFilePath.startsWith(PUBLIC_DIR) ||
+    !siteFilePath.startsWith(SITE_PUBLIC_DIR)
+  ) {
     sendText(res, 403, "Forbidden");
     return;
   }
@@ -441,7 +695,9 @@ async function walkFiles(dirPath, out) {
 
 function inferMediaKind(fileName) {
   const ext = path.extname(fileName).toLowerCase();
-  if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)) {
+  if (
+    [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)
+  ) {
     return "image";
   }
   if ([".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"].includes(ext)) {
@@ -470,7 +726,9 @@ async function listMediaFiles(targetId) {
   const items = await Promise.all(
     files.map(async (absolutePath) => {
       const stat = await fs.stat(absolutePath);
-      const relativePath = path.relative(ROOT_DIR, absolutePath).replace(/\\/g, "/");
+      const relativePath = path
+        .relative(ROOT_DIR, absolutePath)
+        .replace(/\\/g, "/");
       return {
         fileName: path.basename(absolutePath),
         relativePath,
@@ -492,7 +750,9 @@ async function listMediaFiles(targetId) {
 function inferMediaKindFromSource(src, explicitType) {
   if (explicitType === "image" || explicitType === "video") return explicitType;
   const ext = path.extname(String(src ?? "")).toLowerCase();
-  if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)) {
+  if (
+    [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".avif"].includes(ext)
+  ) {
     return "image";
   }
   if ([".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"].includes(ext)) {
@@ -537,8 +797,11 @@ function finalizeProjectMediaEntries(mediaItems) {
   const firstMarkedCoverIndex = normalized.findIndex(
     (entry) => entry.type === "image" && entry.isCover === true,
   );
-  const fallbackCoverIndex = normalized.findIndex((entry) => entry.type === "image");
-  const coverIndex = firstMarkedCoverIndex >= 0 ? firstMarkedCoverIndex : fallbackCoverIndex;
+  const fallbackCoverIndex = normalized.findIndex(
+    (entry) => entry.type === "image",
+  );
+  const coverIndex =
+    firstMarkedCoverIndex >= 0 ? firstMarkedCoverIndex : fallbackCoverIndex;
 
   return normalized.map((entry, index) => {
     if (entry.type !== "image") {
@@ -571,12 +834,15 @@ function normalizeProjectMediaEntries(parsed, options = {}) {
   }
 
   const legacyCover = parsed?.cover;
-  const legacyCoverSrc = legacyCover && typeof legacyCover === "object"
-    ? String(legacyCover.src ?? "").trim()
-    : "";
+  const legacyCoverSrc =
+    legacyCover && typeof legacyCover === "object"
+      ? String(legacyCover.src ?? "").trim()
+      : "";
 
   if (legacyCoverSrc) {
-    const existingLegacyIndex = normalized.findIndex((entry) => entry.type === "image" && entry.src === legacyCoverSrc);
+    const existingLegacyIndex = normalized.findIndex(
+      (entry) => entry.type === "image" && entry.src === legacyCoverSrc,
+    );
     if (existingLegacyIndex >= 0) {
       normalized[existingLegacyIndex] = {
         ...normalized[existingLegacyIndex],
@@ -587,7 +853,9 @@ function normalizeProjectMediaEntries(parsed, options = {}) {
         {
           type: "image",
           src: legacyCoverSrc,
-          alt: String(legacyCover.alt ?? parsed?.title ?? "Project cover image").trim(),
+          alt: String(
+            legacyCover.alt ?? parsed?.title ?? "Project cover image",
+          ).trim(),
           isCover: true,
         },
         ...normalized,
@@ -605,7 +873,9 @@ function serializeProjectMediaContent(content, transform) {
   }
 
   const parsed = parseFrontmatterYaml(rawFm);
-  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+  const mediaItems = normalizeProjectMediaEntries(parsed, {
+    migrateLegacyCover: true,
+  });
   const nextMediaItems = transform(cloneJsonLike(mediaItems));
   const finalizedMedia = finalizeProjectMediaEntries(nextMediaItems);
 
@@ -618,7 +888,9 @@ function serializeProjectMediaContent(content, transform) {
 
   const serialized = serializeYaml(parsed);
   const normalizedBody = String(body ?? "");
-  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  const bodyBlock = normalizedBody.startsWith("\n")
+    ? normalizedBody
+    : `\n${normalizedBody}`;
   return {
     content: `---\n${serialized}\n---${bodyBlock}`,
     media: finalizedMedia,
@@ -641,22 +913,32 @@ function collectConfiguredMediaPreview(relativePath, content) {
   const items = [];
 
   if (section === "projects") {
-    const projectMedia = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+    const projectMedia = normalizeProjectMediaEntries(parsed, {
+      migrateLegacyCover: true,
+    });
     projectMedia.forEach((entry, index) => {
       items.push(
-        normalizePreviewItem(entry.isCover ? "Cover" : `Media ${index + 1}`, entry.src, entry.type, {
-          alt: entry.alt ?? "",
-          caption: entry.caption ?? "",
-          poster: entry.poster ?? "",
-          isCover: entry.isCover === true,
-          mediaIndex: index,
-        }),
+        normalizePreviewItem(
+          entry.isCover ? "Cover" : `Media ${index + 1}`,
+          entry.src,
+          entry.type,
+          {
+            alt: entry.alt ?? "",
+            caption: entry.caption ?? "",
+            poster: entry.poster ?? "",
+            isCover: entry.isCover === true,
+            mediaIndex: index,
+          },
+        ),
       );
     });
   }
 
   if (section === "companies") {
-    const profiles = parsed.profiles && typeof parsed.profiles === "object" ? parsed.profiles : {};
+    const profiles =
+      parsed.profiles && typeof parsed.profiles === "object"
+        ? parsed.profiles
+        : {};
     for (const [profileName, profileData] of Object.entries(profiles)) {
       if (!profileData || typeof profileData !== "object") continue;
       const logo = profileData.logo;
@@ -686,10 +968,15 @@ function collectConfiguredMediaPreview(relativePath, content) {
         .filter((entry) => entry && typeof entry === "object" && entry.src)
         .forEach((entry, index) => {
           items.push(
-            normalizePreviewItem(`Additional Media ${index + 1}`, entry.src, "image", {
-              alt: entry.alt ?? "",
-              caption: entry.caption ?? "",
-            }),
+            normalizePreviewItem(
+              `Additional Media ${index + 1}`,
+              entry.src,
+              "image",
+              {
+                alt: entry.alt ?? "",
+                caption: entry.caption ?? "",
+              },
+            ),
           );
         });
     }
@@ -708,13 +995,16 @@ function slugToLabel(value) {
 }
 
 function parseFrontmatter(rawContent) {
-  if (!rawContent.startsWith("---\n")) return { title: undefined, organization: undefined };
+  if (!rawContent.startsWith("---\n"))
+    return { title: undefined, organization: undefined };
   const endIndex = rawContent.indexOf("\n---", 4);
   if (endIndex === -1) return { title: undefined, organization: undefined };
   const frontmatter = rawContent.slice(4, endIndex);
 
   const titleMatch = frontmatter.match(/^title:\s*["']?(.+?)["']?\s*$/m);
-  const organizationMatch = frontmatter.match(/^organization:\s*["']?(.+?)["']?\s*$/m);
+  const organizationMatch = frontmatter.match(
+    /^organization:\s*["']?(.+?)["']?\s*$/m,
+  );
 
   return {
     title: titleMatch?.[1]?.trim(),
@@ -727,15 +1017,21 @@ function splitFrontmatter(rawContent) {
   const startMatch = normalized.match(/^---\r?\n/);
   if (!startMatch) return { frontmatter: "", rawFm: "", body: normalized };
 
-  const endMatch = normalized.slice(startMatch[0].length).match(/\r?\n---(\r?\n|$)/);
+  const endMatch = normalized
+    .slice(startMatch[0].length)
+    .match(/\r?\n---(\r?\n|$)/);
   if (!endMatch || endMatch.index === undefined) {
     return { frontmatter: "", rawFm: "", body: normalized };
   }
 
-  const frontmatterEnd = startMatch[0].length + endMatch.index + endMatch[0].length;
+  const frontmatterEnd =
+    startMatch[0].length + endMatch.index + endMatch[0].length;
   return {
     frontmatter: normalized.slice(0, frontmatterEnd),
-    rawFm: normalized.slice(startMatch[0].length, startMatch[0].length + endMatch.index),
+    rawFm: normalized.slice(
+      startMatch[0].length,
+      startMatch[0].length + endMatch.index,
+    ),
     body: normalized.slice(frontmatterEnd),
   };
 }
@@ -749,7 +1045,9 @@ function parseFrontmatterYaml(rawFm) {
   const lines = String(rawFm ?? "").split("\n");
 
   function stripQuotes(value) {
-    return String(value ?? "").replace(/^["']|["']$/g, "").trim();
+    return String(value ?? "")
+      .replace(/^["']|["']$/g, "")
+      .trim();
   }
 
   function parseScalar(value) {
@@ -776,7 +1074,9 @@ function parseFrontmatterYaml(rawFm) {
 
   function parseArrayItemObject(firstLineContent, startIndex, parentIndent) {
     const item = {};
-    const inlineMatch = firstLineContent.match(/^(["'][^"']*["']|[^:]+?):\s*(.*)$/);
+    const inlineMatch = firstLineContent.match(
+      /^(["'][^"']*["']|[^:]+?):\s*(.*)$/,
+    );
     let index = startIndex;
 
     if (inlineMatch) {
@@ -795,7 +1095,10 @@ function parseFrontmatterYaml(rawFm) {
         }
       }
     } else if (firstLineContent.trim()) {
-      return { value: parseScalar(firstLineContent), nextIndex: startIndex + 1 };
+      return {
+        value: parseScalar(firstLineContent),
+        nextIndex: startIndex + 1,
+      };
     }
 
     index += 1;
@@ -865,7 +1168,11 @@ function parseFrontmatterYaml(rawFm) {
         if (indent < baseIndent) break;
         if (indent !== baseIndent || !line.trim().startsWith("- ")) break;
 
-        const parsedItem = parseArrayItemObject(line.trim().slice(2), index, baseIndent);
+        const parsedItem = parseArrayItemObject(
+          line.trim().slice(2),
+          index,
+          baseIndent,
+        );
         items.push(parsedItem.value);
         index = parsedItem.nextIndex;
       }
@@ -932,7 +1239,9 @@ function parseFrontmatterYaml(rawFm) {
 function getPrimaryCompanyProfile(parsedFrontmatter) {
   const profiles = parsedFrontmatter?.profiles;
   if (!profiles || typeof profiles !== "object") {
-    const [legacyName, legacyProfile] = getLegacyCompanyProfileEntries(parsedFrontmatter)[0] ?? ["", null];
+    const [legacyName, legacyProfile] = getLegacyCompanyProfileEntries(
+      parsedFrontmatter,
+    )[0] ?? ["", null];
     if (!legacyProfile || typeof legacyProfile !== "object") {
       return { name: "", profile: null };
     }
@@ -970,6 +1279,7 @@ function createFormModel(relativePath, content) {
     knownKeys.add("profileMedia");
     knownKeys.add("additionalMedia");
     knownKeys.add("resume");
+    knownKeys.add("skillAtlas");
   }
   if (section === "companies") {
     knownKeys.add("profiles");
@@ -977,11 +1287,18 @@ function createFormModel(relativePath, content) {
 
   const legacyCompanyProfileNames =
     section === "companies"
-      ? new Set(getLegacyCompanyProfileEntries(parsed).map(([name]) => String(name ?? "")))
+      ? new Set(
+          getLegacyCompanyProfileEntries(parsed).map(([name]) =>
+            String(name ?? ""),
+          ),
+        )
       : new Set();
 
   const unknownFrontmatter = topLevelKeyBlocks(rawFm)
-    .filter((entry) => !knownKeys.has(entry.key) && !legacyCompanyProfileNames.has(entry.key))
+    .filter(
+      (entry) =>
+        !knownKeys.has(entry.key) && !legacyCompanyProfileNames.has(entry.key),
+    )
     .map((entry) => entry.block)
     .join("\n")
     .trim();
@@ -1008,7 +1325,9 @@ function createFormModel(relativePath, content) {
       tags: Array.isArray(parsed.tags) ? parsed.tags.join("\n") : "",
       skills: Array.isArray(parsed.skills) ? parsed.skills.join("\n") : "",
       tools: Array.isArray(parsed.tools) ? parsed.tools.join("\n") : "",
-      highlights: Array.isArray(parsed.highlights) ? parsed.highlights.join("\n") : "",
+      highlights: Array.isArray(parsed.highlights)
+        ? parsed.highlights.join("\n")
+        : "",
       featured: parseBooleanInput(parsed.featured),
       order: parsed.order === undefined ? "" : String(parsed.order),
     };
@@ -1030,7 +1349,11 @@ function createFormModel(relativePath, content) {
         : "",
       values: Array.isArray(parsed.values) ? parsed.values.join("\n") : "",
       thinkItems: objectsToLines(parsed.thinkItems, ["title", "text"], "::"),
-      personalItems: objectsToLines(parsed.personalItems, ["icon", "title", "body"], "|"),
+      personalItems: objectsToLines(
+        parsed.personalItems,
+        ["icon", "title", "body"],
+        "|",
+      ),
     };
 
     context = {
@@ -1038,14 +1361,19 @@ function createFormModel(relativePath, content) {
         profileMedia: parsed.profileMedia,
         additionalMedia: parsed.additionalMedia,
         resume: parsed.resume,
+        skillAtlas: parsed.skillAtlas,
       },
     };
   }
 
   if (section === "companies") {
     const profiles =
-      parsed.profiles && typeof parsed.profiles === "object" ? cloneJsonLike(parsed.profiles) : {};
-    for (const [profileName, legacyProfile] of getLegacyCompanyProfileEntries(parsed)) {
+      parsed.profiles && typeof parsed.profiles === "object"
+        ? cloneJsonLike(parsed.profiles)
+        : {};
+    for (const [profileName, legacyProfile] of getLegacyCompanyProfileEntries(
+      parsed,
+    )) {
       if (!(profileName in profiles)) {
         profiles[profileName] = cloneJsonLike(legacyProfile);
       }
@@ -1061,13 +1389,19 @@ function createFormModel(relativePath, content) {
       myTimeInfo: String(profile.myTimeInfo ?? ""),
       longSummary: String(profile.longSummary ?? ""),
       roleSummary: String(profile.roleSummary ?? ""),
-      achievements: Array.isArray(profile.achievements) ? profile.achievements.join("\n") : "",
+      achievements: Array.isArray(profile.achievements)
+        ? profile.achievements.join("\n")
+        : "",
       logoSrc: String(profile.logo?.src ?? ""),
       logoAlt: String(profile.logo?.alt ?? ""),
       color: String(profile.color ?? ""),
       tenureStart: String(profile.tenureStart ?? ""),
       tenureEnd: String(profile.tenureEnd ?? ""),
-      timelineRoles: objectsToLines(profile.timelineRoles, ["label", "start", "end"], "|"),
+      timelineRoles: objectsToLines(
+        profile.timelineRoles,
+        ["label", "start", "end"],
+        "|",
+      ),
     };
 
     context = {
@@ -1086,14 +1420,21 @@ function createFormModel(relativePath, content) {
   };
 }
 
-function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter, context = {}) {
+function composeMarkdownFromForm(
+  relativePath,
+  values,
+  body,
+  unknownFrontmatter,
+  context = {},
+) {
   const section = inferSectionFromPath(relativePath);
   const out = {};
 
   if (section === "projects") {
     out.title = String(values.title ?? "").trim() || "Untitled Project";
     out.status = String(values.status ?? "active").trim() || "active";
-    out.category = String(values.category ?? "Operations").trim() || "Operations";
+    out.category =
+      String(values.category ?? "Operations").trim() || "Operations";
 
     const organization = String(values.organization ?? "").trim();
     if (organization) out.organization = organization;
@@ -1138,10 +1479,16 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
 
     out.tags = parseArrayInput(values.tags);
 
-    const preserved = context.preserved && typeof context.preserved === "object" ? context.preserved : {};
-    if (preserved.cover && typeof preserved.cover === "object") out.cover = preserved.cover;
-    if (Array.isArray(preserved.links) && preserved.links.length) out.links = preserved.links;
-    if (Array.isArray(preserved.media) && preserved.media.length) out.media = preserved.media;
+    const preserved =
+      context.preserved && typeof context.preserved === "object"
+        ? context.preserved
+        : {};
+    if (preserved.cover && typeof preserved.cover === "object")
+      out.cover = preserved.cover;
+    if (Array.isArray(preserved.links) && preserved.links.length)
+      out.links = preserved.links;
+    if (Array.isArray(preserved.media) && preserved.media.length)
+      out.media = preserved.media;
 
     out.featured = parseBooleanInput(values.featured);
     const order = toNumberOrUndefined(values.order);
@@ -1149,28 +1496,47 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
   }
 
   if (section === "about") {
-    out.metaDescription = String(values.metaDescription ?? "").trim() || "Add about meta description.";
+    out.metaDescription =
+      String(values.metaDescription ?? "").trim() ||
+      "Add about meta description.";
 
     const backgroundParagraphs = parseArrayInput(values.backgroundParagraphs);
     out.backgroundParagraphs = backgroundParagraphs;
 
-    const thinkItems = parseLinesToObjects(values.thinkItems, ["title", "text"], "::");
+    const thinkItems = parseLinesToObjects(
+      values.thinkItems,
+      ["title", "text"],
+      "::",
+    );
     out.thinkItems = thinkItems;
 
-    const personalItems = parseLinesToObjects(values.personalItems, ["icon", "title", "body"], "|");
+    const personalItems = parseLinesToObjects(
+      values.personalItems,
+      ["icon", "title", "body"],
+      "|",
+    );
     out.personalItems = personalItems;
 
     const valueList = parseArrayInput(values.values);
     out.values = valueList;
 
-    const preserved = context.preserved && typeof context.preserved === "object" ? context.preserved : {};
-    if (preserved.profileMedia && typeof preserved.profileMedia === "object") out.profileMedia = preserved.profileMedia;
-    if (Array.isArray(preserved.additionalMedia)) out.additionalMedia = preserved.additionalMedia;
-    if (preserved.resume && typeof preserved.resume === "object") out.resume = preserved.resume;
+    const preserved =
+      context.preserved && typeof context.preserved === "object"
+        ? context.preserved
+        : {};
+    if (preserved.profileMedia && typeof preserved.profileMedia === "object")
+      out.profileMedia = preserved.profileMedia;
+    if (Array.isArray(preserved.additionalMedia))
+      out.additionalMedia = preserved.additionalMedia;
+    if (preserved.resume && typeof preserved.resume === "object")
+      out.resume = preserved.resume;
+    if (preserved.skillAtlas && typeof preserved.skillAtlas === "object")
+      out.skillAtlas = preserved.skillAtlas;
   }
 
   if (section === "companies") {
-    const profileName = String(values.companyName ?? "").trim() || "Organization";
+    const profileName =
+      String(values.companyName ?? "").trim() || "Organization";
     const preservedProfiles =
       context.preservedProfiles && typeof context.preservedProfiles === "object"
         ? cloneJsonLike(context.preservedProfiles)
@@ -1178,9 +1544,14 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
 
     const activeProfileName = String(context.activeProfileName ?? "").trim();
     const baseProfile =
-      (activeProfileName && preservedProfiles[activeProfileName] && typeof preservedProfiles[activeProfileName] === "object")
+      activeProfileName &&
+      preservedProfiles[activeProfileName] &&
+      typeof preservedProfiles[activeProfileName] === "object"
         ? preservedProfiles[activeProfileName]
-        : ((preservedProfiles[profileName] && typeof preservedProfiles[profileName] === "object") ? preservedProfiles[profileName] : {});
+        : preservedProfiles[profileName] &&
+            typeof preservedProfiles[profileName] === "object"
+          ? preservedProfiles[profileName]
+          : {};
 
     if (activeProfileName && activeProfileName !== profileName) {
       delete preservedProfiles[activeProfileName];
@@ -1228,7 +1599,11 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
       delete updatedProfile.logo;
     }
 
-    const timelineRoles = parseLinesToObjects(values.timelineRoles, ["label", "start", "end"], "|");
+    const timelineRoles = parseLinesToObjects(
+      values.timelineRoles,
+      ["label", "start", "end"],
+      "|",
+    );
     if (timelineRoles.length) updatedProfile.timelineRoles = timelineRoles;
     else delete updatedProfile.timelineRoles;
 
@@ -1247,7 +1622,8 @@ function composeMarkdownFromForm(relativePath, values, body, unknownFrontmatter,
 function renderFrontmatterPreview(rawFm) {
   const fm = parseFrontmatterYaml(rawFm);
   const parts = [];
-  const { name: companyName, profile: companyProfile } = getPrimaryCompanyProfile(fm);
+  const { name: companyName, profile: companyProfile } =
+    getPrimaryCompanyProfile(fm);
 
   if (companyProfile) {
     if (companyName) {
@@ -1255,34 +1631,63 @@ function renderFrontmatterPreview(rawFm) {
     }
 
     if (companyProfile.logo?.src) {
-      const logoAlt = String(companyProfile.logo.alt ?? companyName ?? "Company logo");
+      const logoAlt = String(
+        companyProfile.logo.alt ?? companyName ?? "Company logo",
+      );
       parts.push(
         `<div class="fm-section"><img class="media-library__preview" src="${escapeHtml(String(companyProfile.logo.src))}" alt="${escapeHtml(logoAlt)}"></div>`,
       );
     }
 
     if (companyProfile.summary) {
-      parts.push(`<div class="fm-summary">${renderRichTextPreview(companyProfile.summary)}</div>`);
+      parts.push(
+        `<div class="fm-summary">${renderRichTextPreview(companyProfile.summary)}</div>`,
+      );
     }
 
-    for (const [label, field] of [["Company Info", "companyInfo"], ["My Time Info", "myTimeInfo"], ["Role Summary", "roleSummary"], ["Long Summary", "longSummary"]]) {
+    for (const [label, field] of [
+      ["Company Info", "companyInfo"],
+      ["My Time Info", "myTimeInfo"],
+      ["Role Summary", "roleSummary"],
+      ["Long Summary", "longSummary"],
+    ]) {
       if (companyProfile[field]) {
-        parts.push(`<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(companyProfile[field])}</div></div>`);
+        parts.push(
+          `<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(companyProfile[field])}</div></div>`,
+        );
       }
     }
 
-    if (Array.isArray(companyProfile.achievements) && companyProfile.achievements.length) {
-      const items = companyProfile.achievements.map((item) => `<li>${escapeHtml(String(item))}</li>`).join("");
-      parts.push(`<div class="fm-section"><strong>Achievements</strong><ul class="fm-values">${items}</ul></div>`);
+    if (
+      Array.isArray(companyProfile.achievements) &&
+      companyProfile.achievements.length
+    ) {
+      const items = companyProfile.achievements
+        .map((item) => `<li>${escapeHtml(String(item))}</li>`)
+        .join("");
+      parts.push(
+        `<div class="fm-section"><strong>Achievements</strong><ul class="fm-values">${items}</ul></div>`,
+      );
     }
 
-    if (Array.isArray(companyProfile.timelineRoles) && companyProfile.timelineRoles.length) {
+    if (
+      Array.isArray(companyProfile.timelineRoles) &&
+      companyProfile.timelineRoles.length
+    ) {
       const rows = companyProfile.timelineRoles
         .filter((item) => item && typeof item === "object" && item.label)
-        .map((item) => `<li>${escapeHtml(String(item.label))} (${[item.start, item.end].filter(Boolean).map((value) => escapeHtml(String(value))).join(" to ")})</li>`)
+        .map(
+          (item) =>
+            `<li>${escapeHtml(String(item.label))} (${[item.start, item.end]
+              .filter(Boolean)
+              .map((value) => escapeHtml(String(value)))
+              .join(" to ")})</li>`,
+        )
         .join("");
       if (rows) {
-        parts.push(`<div class="fm-section"><strong>Timeline Roles</strong><ul class="fm-values">${rows}</ul></div>`);
+        parts.push(
+          `<div class="fm-section"><strong>Timeline Roles</strong><ul class="fm-values">${rows}</ul></div>`,
+        );
       }
     }
 
@@ -1295,70 +1700,120 @@ function renderFrontmatterPreview(rawFm) {
 
   // Org / role / status badges
   const badges = [];
-  if (fm.organization) badges.push(`<span class="fm-badge fm-org">${escapeHtml(String(fm.organization))}</span>`);
-  if (fm.roleTitle) badges.push(`<span class="fm-badge fm-role">${escapeHtml(String(fm.roleTitle))}</span>`);
-  if (fm.status) badges.push(`<span class="fm-badge fm-status">${escapeHtml(String(fm.status))}</span>`);
-  if (fm.category) badges.push(`<span class="fm-badge fm-cat">${escapeHtml(String(fm.category))}</span>`);
-  if (badges.length) parts.push(`<div class="fm-badges">${badges.join("")}</div>`);
+  if (fm.organization)
+    badges.push(
+      `<span class="fm-badge fm-org">${escapeHtml(String(fm.organization))}</span>`,
+    );
+  if (fm.roleTitle)
+    badges.push(
+      `<span class="fm-badge fm-role">${escapeHtml(String(fm.roleTitle))}</span>`,
+    );
+  if (fm.status)
+    badges.push(
+      `<span class="fm-badge fm-status">${escapeHtml(String(fm.status))}</span>`,
+    );
+  if (fm.category)
+    badges.push(
+      `<span class="fm-badge fm-cat">${escapeHtml(String(fm.category))}</span>`,
+    );
+  if (badges.length)
+    parts.push(`<div class="fm-badges">${badges.join("")}</div>`);
 
   // Dates
   if (fm.startedAt || fm.endedAt) {
-    const dates = [fm.startedAt, fm.endedAt].filter(Boolean).map((d) => escapeHtml(String(d)));
+    const dates = [fm.startedAt, fm.endedAt]
+      .filter(Boolean)
+      .map((d) => escapeHtml(String(d)));
     parts.push(`<p class="fm-dates">&#128197; ${dates.join(" to ")}</p>`);
   }
 
   // Primary summary
   const summaryText = fm.summary || fm.cardSummary || fm.longSummary;
   if (summaryText) {
-    parts.push(`<div class="fm-summary">${renderRichTextPreview(summaryText)}</div>`);
+    parts.push(
+      `<div class="fm-summary">${renderRichTextPreview(summaryText)}</div>`,
+    );
   }
 
   // About: metaDescription as summary if no other summary
   if (!summaryText && fm.metaDescription) {
-    parts.push(`<div class="fm-summary">${renderRichTextPreview(fm.metaDescription)}</div>`);
+    parts.push(
+      `<div class="fm-summary">${renderRichTextPreview(fm.metaDescription)}</div>`,
+    );
   }
 
   // About: backgroundParagraphs
-  if (Array.isArray(fm.backgroundParagraphs) && fm.backgroundParagraphs.length) {
-    parts.push(`<div class="fm-section"><strong>Background</strong>${fm.backgroundParagraphs.map((p) => `<div class="fm-richtext">${renderRichTextPreview(typeof p === "string" ? p : JSON.stringify(p))}</div>`).join("")}</div>`);
+  if (
+    Array.isArray(fm.backgroundParagraphs) &&
+    fm.backgroundParagraphs.length
+  ) {
+    parts.push(
+      `<div class="fm-section"><strong>Background</strong>${fm.backgroundParagraphs.map((p) => `<div class="fm-richtext">${renderRichTextPreview(typeof p === "string" ? p : JSON.stringify(p))}</div>`).join("")}</div>`,
+    );
   }
 
   // About: thinkItems (array of {title, text})
   if (Array.isArray(fm.thinkItems) && fm.thinkItems.length) {
     const rows = fm.thinkItems
       .filter((item) => typeof item === "object" && item.title)
-      .map((item) => `<div class="fm-think-item"><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.text ?? "")}</div></div>`)
+      .map(
+        (item) =>
+          `<div class="fm-think-item"><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.text ?? "")}</div></div>`,
+      )
       .join("");
-    if (rows) parts.push(`<div class="fm-section"><strong>How I Think</strong>${rows}</div>`);
+    if (rows)
+      parts.push(
+        `<div class="fm-section"><strong>How I Think</strong>${rows}</div>`,
+      );
   }
 
   // About: personalItems (array of {icon, title, body})
   if (Array.isArray(fm.personalItems) && fm.personalItems.length) {
     const rows = fm.personalItems
       .filter((item) => typeof item === "object" && item.title)
-      .map((item) => `<div class="fm-personal-item"><span class="fm-personal-icon">${escapeHtml(String(item.icon ?? ""))}</span><div><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.body ?? "")}</div></div></div>`)
+      .map(
+        (item) =>
+          `<div class="fm-personal-item"><span class="fm-personal-icon">${escapeHtml(String(item.icon ?? ""))}</span><div><strong>${escapeHtml(String(item.title))}</strong><div class="fm-richtext">${renderRichTextPreview(item.body ?? "")}</div></div></div>`,
+      )
       .join("");
-    if (rows) parts.push(`<div class="fm-section"><strong>Personal</strong>${rows}</div>`);
+    if (rows)
+      parts.push(
+        `<div class="fm-section"><strong>Personal</strong>${rows}</div>`,
+      );
   }
 
   // About: values list
   if (Array.isArray(fm.values) && fm.values.length) {
-    const items = fm.values.map((v) => `<li>${escapeHtml(String(v))}</li>`).join("");
-    parts.push(`<div class="fm-section"><strong>Values</strong><ul class="fm-values">${items}</ul></div>`);
+    const items = fm.values
+      .map((v) => `<li>${escapeHtml(String(v))}</li>`)
+      .join("");
+    parts.push(
+      `<div class="fm-section"><strong>Values</strong><ul class="fm-values">${items}</ul></div>`,
+    );
   }
 
   // Problem / Approach / Outcome
   for (const field of ["problem", "approach", "outcome"]) {
     if (fm[field]) {
-      const label = { problem: "Problem", approach: "Approach", outcome: "Outcome" }[field];
-      parts.push(`<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(fm[field])}</div></div>`);
+      const label = {
+        problem: "Problem",
+        approach: "Approach",
+        outcome: "Outcome",
+      }[field];
+      parts.push(
+        `<div class="fm-section"><strong>${label}</strong><div class="fm-richtext">${renderRichTextPreview(fm[field])}</div></div>`,
+      );
     }
   }
 
   // Skills + Tags chips
   for (const field of ["skills", "tags"]) {
     const val = fm[field];
-    if (Array.isArray(val) && val.length && val.every((v) => typeof v === "string")) {
+    if (
+      Array.isArray(val) &&
+      val.length &&
+      val.every((v) => typeof v === "string")
+    ) {
       parts.push(
         `<div class="fm-tags"><span class="fm-tag-label">${field === "skills" ? "Skills" : "Tags"}:</span>${val.map((t) => `<span class="fm-tag">${escapeHtml(t)}</span>`).join("")}</div>`,
       );
@@ -1366,11 +1821,15 @@ function renderFrontmatterPreview(rawFm) {
   }
 
   // Remaining unreserved scalar fields
-  const extras = Object.entries(fm)
-    .filter(([k, v]) => !RESERVED_FM_FIELDS.has(k) && typeof v === "string" && v);
+  const extras = Object.entries(fm).filter(
+    ([k, v]) => !RESERVED_FM_FIELDS.has(k) && typeof v === "string" && v,
+  );
   if (extras.length) {
     const rows = extras
-      .map(([k, v]) => `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`)
+      .map(
+        ([k, v]) =>
+          `<tr><th>${escapeHtml(k)}</th><td>${escapeHtml(v)}</td></tr>`,
+      )
       .join("");
     parts.push(`<table class="fm-table">${rows}</table>`);
   }
@@ -1391,9 +1850,8 @@ async function listMarkdownFiles() {
       const section = filePath.split("/")[2] ?? "content";
       const baseName = path.basename(filePath);
       const { title, organization } = parseFrontmatter(raw);
-      const { name: companyName } = section === "companies"
-        ? getCompanyFileMetadata(raw)
-        : { name: "" };
+      const { name: companyName } =
+        section === "companies" ? getCompanyFileMetadata(raw) : { name: "" };
 
       return {
         id: createHash("sha1").update(filePath).digest("hex").slice(0, 16),
@@ -1456,7 +1914,9 @@ function validateMarkdownContent(content) {
 
   if (!content.trim()) errors.push("Markdown content cannot be empty.");
   if (!content.includes("---")) {
-    warnings.push("No frontmatter delimiter found. Project files usually need frontmatter.");
+    warnings.push(
+      "No frontmatter delimiter found. Project files usually need frontmatter.",
+    );
   }
 
   return { errors, warnings };
@@ -1506,9 +1966,14 @@ async function writeMarkdown(relativePath, content) {
 }
 
 function sanitizeUploadName(name) {
-  if (typeof name !== "string" || !name.trim()) throw new Error("File name is required.");
-  const cleaned = name.trim().replace(/\s+/g, "-").replace(/[^A-Za-z0-9._-]/g, "");
-  if (!cleaned || cleaned === "." || cleaned === "..") throw new Error("Invalid file name.");
+  if (typeof name !== "string" || !name.trim())
+    throw new Error("File name is required.");
+  const cleaned = name
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^A-Za-z0-9._-]/g, "");
+  if (!cleaned || cleaned === "." || cleaned === "..")
+    throw new Error("Invalid file name.");
   return cleaned;
 }
 
@@ -1538,7 +2003,9 @@ async function fileExists(filePath) {
 }
 
 function getAllowedPublicAssetPath(publicPath) {
-  const normalizedInput = String(publicPath ?? "").trim().replace(/\\/g, "/");
+  const normalizedInput = String(publicPath ?? "")
+    .trim()
+    .replace(/\\/g, "/");
   if (!normalizedInput.startsWith("/")) {
     throw new Error("publicPath must start with '/'.");
   }
@@ -1554,7 +2021,9 @@ function getAllowedPublicAssetPath(publicPath) {
     throw new Error("Path traversal detected.");
   }
 
-  const relativePath = path.relative(ROOT_DIR, absolutePath).replace(/\\/g, "/");
+  const relativePath = path
+    .relative(ROOT_DIR, absolutePath)
+    .replace(/\\/g, "/");
   return {
     publicPath: normalizedPath,
     absolutePath,
@@ -1570,7 +2039,7 @@ async function deletePublicAsset(publicPath) {
     stat = await fs.stat(resolved.absolutePath);
   } catch (error) {
     if (error?.code === "ENOENT") {
-        throw new Error("Media file not found.", { cause: error });
+      throw new Error("Media file not found.", { cause: error });
     }
     throw error;
   }
@@ -1599,7 +2068,9 @@ function unlinkConfiguredMedia(relativePath, content, publicPath) {
   const section = inferSectionFromPath(relativePath);
 
   if (section === "projects") {
-    const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
+    const mediaItems = normalizeProjectMediaEntries(parsed, {
+      migrateLegacyCover: true,
+    });
     const before = mediaItems.length;
     const filtered = mediaItems.filter(
       (entry) => String(entry.src ?? "").trim() !== cleanedPublicPath,
@@ -1617,9 +2088,10 @@ function unlinkConfiguredMedia(relativePath, content, publicPath) {
   }
 
   if (section === "about") {
-    const profileMediaSrc = parsed?.profileMedia && typeof parsed.profileMedia === "object"
-      ? String(parsed.profileMedia.src ?? "").trim()
-      : "";
+    const profileMediaSrc =
+      parsed?.profileMedia && typeof parsed.profileMedia === "object"
+        ? String(parsed.profileMedia.src ?? "").trim()
+        : "";
     if (profileMediaSrc === cleanedPublicPath) {
       delete parsed.profileMedia;
       removedCount += 1;
@@ -1648,9 +2120,10 @@ function unlinkConfiguredMedia(relativePath, content, publicPath) {
     if (profiles && typeof profiles === "object") {
       for (const profileData of Object.values(profiles)) {
         if (!profileData || typeof profileData !== "object") continue;
-        const logoSrc = profileData.logo && typeof profileData.logo === "object"
-          ? String(profileData.logo.src ?? "").trim()
-          : "";
+        const logoSrc =
+          profileData.logo && typeof profileData.logo === "object"
+            ? String(profileData.logo.src ?? "").trim()
+            : "";
 
         if (logoSrc === cleanedPublicPath) {
           delete profileData.logo;
@@ -1666,7 +2139,9 @@ function unlinkConfiguredMedia(relativePath, content, publicPath) {
 
   const serialized = serializeYaml(parsed);
   const normalizedBody = String(body ?? "");
-  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  const bodyBlock = normalizedBody.startsWith("\n")
+    ? normalizedBody
+    : `\n${normalizedBody}`;
   return {
     content: `---\n${serialized}\n---${bodyBlock}`,
     removedCount,
@@ -1687,27 +2162,48 @@ async function resolveUniqueUploadName(targetDir, baseName, ext) {
   return candidate;
 }
 
-async function getProjectUploadNaming(activePath, originalFileName, mimeType, targetDir) {
+async function getProjectUploadNaming(
+  activePath,
+  originalFileName,
+  mimeType,
+  targetDir,
+) {
   if (!activePath) return null;
 
   const { normalized, absolutePath } = getAllowedAbsolutePath(activePath);
   if (!normalized.startsWith("src/content/projects/")) return null;
 
-  const projectSlug = toSlug(path.basename(normalized, path.extname(normalized)));
+  const projectSlug = toSlug(
+    path.basename(normalized, path.extname(normalized)),
+  );
   if (!projectSlug) return null;
 
   const raw = await fs.readFile(absolutePath, "utf-8");
   const { rawFm } = splitFrontmatter(raw);
   const parsed = parseFrontmatterYaml(rawFm);
-  const mediaKind = inferMediaKindFromSource(originalFileName, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
-  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
-  const hasCover = mediaItems.some((entry) => entry.type === "image" && entry.isCover === true);
+  const mediaKind = inferMediaKindFromSource(
+    originalFileName,
+    String(mimeType ?? "").startsWith("video/") ? "video" : "image",
+  );
+  const mediaItems = normalizeProjectMediaEntries(parsed, {
+    migrateLegacyCover: true,
+  });
+  const hasCover = mediaItems.some(
+    (entry) => entry.type === "image" && entry.isCover === true,
+  );
   const role = !hasCover && mediaKind === "image" ? "cover" : "media";
 
-  const originalExt = path.extname(String(originalFileName ?? "")).toLowerCase();
+  const originalExt = path
+    .extname(String(originalFileName ?? ""))
+    .toLowerCase();
   const extension = originalExt || extensionFromMimeType(mimeType) || ".bin";
-  const baseName = role === "cover" ? `${projectSlug}-cover` : `${projectSlug}-media`;
-  const fileName = await resolveUniqueUploadName(targetDir, baseName, extension);
+  const baseName =
+    role === "cover" ? `${projectSlug}-cover` : `${projectSlug}-media`;
+  const fileName = await resolveUniqueUploadName(
+    targetDir,
+    baseName,
+    extension,
+  );
 
   return { fileName, role };
 }
@@ -1724,10 +2220,17 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
   }
 
   const parsed = parseFrontmatterYaml(rawFm);
-  const mediaKind = inferMediaKindFromSource(cleanedPublicPath, String(mimeType ?? "").startsWith("video/") ? "video" : "image");
+  const mediaKind = inferMediaKindFromSource(
+    cleanedPublicPath,
+    String(mimeType ?? "").startsWith("video/") ? "video" : "image",
+  );
 
-  const mediaItems = normalizeProjectMediaEntries(parsed, { migrateLegacyCover: true });
-  const existingIndex = mediaItems.findIndex((entry) => String(entry.src ?? "").trim() === cleanedPublicPath);
+  const mediaItems = normalizeProjectMediaEntries(parsed, {
+    migrateLegacyCover: true,
+  });
+  const existingIndex = mediaItems.findIndex(
+    (entry) => String(entry.src ?? "").trim() === cleanedPublicPath,
+  );
   const alreadyLinked = existingIndex >= 0;
 
   if (alreadyLinked) {
@@ -1742,9 +2245,15 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
   const entry =
     mediaKind === "video"
       ? { type: "video", src: cleanedPublicPath }
-      : { type: "image", src: cleanedPublicPath, alt: String(parsed.title ?? "") };
+      : {
+          type: "image",
+          src: cleanedPublicPath,
+          alt: String(parsed.title ?? ""),
+        };
 
-  const hasCover = mediaItems.some((item) => item.type === "image" && item.isCover === true);
+  const hasCover = mediaItems.some(
+    (item) => item.type === "image" && item.isCover === true,
+  );
   const role = mediaKind === "image" && !hasCover ? "cover" : "media";
   if (role === "cover" && entry.type === "image") {
     entry.isCover = true;
@@ -1754,7 +2263,9 @@ function linkUploadedProjectMedia(content, publicPath, mimeType) {
   delete parsed.cover;
   const serialized = serializeYaml(parsed);
   const normalizedBody = String(body ?? "");
-  const bodyBlock = normalizedBody.startsWith("\n") ? normalizedBody : `\n${normalizedBody}`;
+  const bodyBlock = normalizedBody.startsWith("\n")
+    ? normalizedBody
+    : `\n${normalizedBody}`;
   return {
     content: `---\n${serialized}\n---${bodyBlock}`,
     role,
@@ -1797,7 +2308,10 @@ function renderPreviewNodes(nodes) {
       }
 
       return `<${node.listType}>${node.items
-        .map((item) => `<li>${formatPreviewInline(item.text)}${renderPreviewNodes(item.children)}</li>`)
+        .map(
+          (item) =>
+            `<li>${formatPreviewInline(item.text)}${renderPreviewNodes(item.children)}</li>`,
+        )
         .join("")}</${node.listType}>`;
     })
     .join("");
@@ -1838,7 +2352,11 @@ function renderRichTextPreview(value) {
     const frame = listStack.pop();
     if (!frame) return;
 
-    const listNode = { type: "list", listType: frame.listType, items: frame.items };
+    const listNode = {
+      type: "list",
+      listType: frame.listType,
+      items: frame.items,
+    };
     const parent = listStack[listStack.length - 1];
     if (parent) {
       parent.items[parent.items.length - 1].children.push(listNode);
@@ -1849,7 +2367,10 @@ function renderRichTextPreview(value) {
   };
 
   const closeListsToIndent = (indent) => {
-    while (listStack.length > 0 && listStack[listStack.length - 1].indent > indent) {
+    while (
+      listStack.length > 0 &&
+      listStack[listStack.length - 1].indent > indent
+    ) {
       closeListFrame();
     }
   };
@@ -1886,13 +2407,21 @@ function renderRichTextPreview(value) {
 
     const current = listStack[listStack.length - 1];
     if (!current || indent > current.indent) {
-      listStack.push({ listType, indent, items: [{ text: content, children: [] }] });
+      listStack.push({
+        listType,
+        indent,
+        items: [{ text: content, children: [] }],
+      });
       continue;
     }
 
     if (current.listType !== listType) {
       closeListFrame();
-      listStack.push({ listType, indent, items: [{ text: content, children: [] }] });
+      listStack.push({
+        listType,
+        indent,
+        items: [{ text: content, children: [] }],
+      });
       continue;
     }
 
@@ -1979,7 +2508,9 @@ function renderMarkdownToHtml(content) {
         inList = false;
       }
       const level = headingMatch[1].length;
-      html.push(`<h${level}>${applyInlineMarkdown(headingMatch[2])}</h${level}>`);
+      html.push(
+        `<h${level}>${applyInlineMarkdown(headingMatch[2])}</h${level}>`,
+      );
       continue;
     }
 
@@ -2016,13 +2547,15 @@ function quoteYamlString(value) {
 
 async function createProjectFile(body) {
   const title = typeof body.title === "string" ? body.title.trim() : "";
-  const organization = typeof body.organization === "string" ? body.organization.trim() : "";
+  const organization =
+    typeof body.organization === "string" ? body.organization.trim() : "";
   const summary = typeof body.summary === "string" ? body.summary.trim() : "";
 
   if (!title) throw new Error("Project title is required.");
   if (!summary) throw new Error("Project summary is required.");
 
-  const slugSource = typeof body.slug === "string" && body.slug.trim() ? body.slug : title;
+  const slugSource =
+    typeof body.slug === "string" && body.slug.trim() ? body.slug : title;
   const slug = toSlug(slugSource);
   if (!slug) throw new Error("Unable to generate project slug.");
 
@@ -2031,7 +2564,9 @@ async function createProjectFile(body) {
 
   try {
     await fs.access(absolutePath);
-    throw new Error("Project file already exists. Choose a different slug/title.");
+    throw new Error(
+      "Project file already exists. Choose a different slug/title.",
+    );
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }
@@ -2064,12 +2599,14 @@ Describe project scope, execution, and outcomes.
 }
 
 async function createCompanyFile(body) {
-  const companyName = typeof body.companyName === "string" ? body.companyName.trim() : "";
+  const companyName =
+    typeof body.companyName === "string" ? body.companyName.trim() : "";
   const summary = typeof body.summary === "string" ? body.summary.trim() : "";
 
   if (!companyName) throw new Error("Company name is required.");
 
-  const slugSource = typeof body.slug === "string" && body.slug.trim() ? body.slug : companyName;
+  const slugSource =
+    typeof body.slug === "string" && body.slug.trim() ? body.slug : companyName;
   const slug = toSlug(slugSource);
   if (!slug) throw new Error("Unable to generate company slug.");
 
@@ -2078,7 +2615,9 @@ async function createCompanyFile(body) {
 
   try {
     await fs.access(absolutePath);
-    throw new Error("Company file already exists. Choose a different slug/name.");
+    throw new Error(
+      "Company file already exists. Choose a different slug/name.",
+    );
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }
@@ -2111,13 +2650,15 @@ async function appendAboutInfo(body) {
 
   if (!text) throw new Error("About text is required.");
   const allowedSections = new Set(["backgroundParagraphs", "values"]);
-  if (!allowedSections.has(section)) throw new Error("Unsupported about section.");
+  if (!allowedSections.has(section))
+    throw new Error("Unsupported about section.");
 
   const aboutAbsolute = path.join(ROOT_DIR, ABOUT_FILE_PATH);
   const content = await fs.readFile(aboutAbsolute, "utf-8");
   const lines = content.split("\n");
   const sectionIndex = lines.findIndex((line) => line.trim() === `${section}:`);
-  if (sectionIndex === -1) throw new Error(`Could not find ${section} in about file.`);
+  if (sectionIndex === -1)
+    throw new Error(`Could not find ${section} in about file.`);
 
   let insertIndex = lines.length;
   for (let index = sectionIndex + 1; index < lines.length; index += 1) {
@@ -2130,6 +2671,331 @@ async function appendAboutInfo(body) {
   lines.splice(insertIndex, 0, `  - ${quoteYamlString(text)}`);
   await fs.writeFile(aboutAbsolute, `${lines.join("\n")}\n`, "utf-8");
   return { path: ABOUT_FILE_PATH };
+}
+
+// --- Skill Atlas preview (mirrors src/data/skillAtlas.ts). Read-only. ---
+const SKILL_ATLAS_STATUS_WEIGHT = {
+  active: 1.5,
+  completed: 1.0,
+  archived: 0.5,
+  concept: 0.4,
+};
+const SKILL_ATLAS_FEATURED_BOOST = 2;
+const SKILL_ATLAS_HIGHLIGHT_BOOST_PER_ITEM = 0.1;
+const SKILL_ATLAS_HIGHLIGHT_BOOST_CAP = 1.3;
+const SKILL_ATLAS_RECENCY_HALF_LIFE_MONTHS = 36;
+const SKILL_ATLAS_DEFAULT_KEYWORDS = {
+  "Technical Program Management": [
+    "program",
+    "roadmap",
+    "risk",
+    "stakeholder",
+    "dependency",
+    "okr",
+    "kpi",
+    "cross-functional",
+    "cross functional",
+    "planning",
+    "schedule",
+    "budget",
+    "delivery",
+    "project management",
+  ],
+  "Operations and Systems": [
+    "operations",
+    "ops ",
+    "process",
+    "automation",
+    "infrastructure",
+    "incident",
+    "runbook",
+    "change management",
+    "workflow",
+    "systems design",
+    "logistics",
+    "deployment",
+    "migration",
+    "cloud",
+    "backend",
+    "security",
+  ],
+  "Community and Event Leadership": [
+    "community",
+    "event",
+    "governance",
+    "moderation",
+    "member",
+    "fundraising",
+    "meetup",
+    "ceremon",
+    "attendee",
+    "organizer",
+    "venue",
+    "live event",
+    "hosting",
+  ],
+  "Technology and Tools": [
+    "bot",
+    "api",
+    "llm",
+    "ai",
+    "visualization",
+    "static site",
+    "automation design",
+    "discord",
+    "data ",
+    "analytics",
+    "integration",
+    "tooling",
+    "crm",
+  ],
+  "Leadership and Strategy": [
+    "leadership",
+    "coach",
+    "strategic",
+    "mission",
+    "decision",
+    "after action",
+    "military",
+    "command",
+    "training",
+    "policy",
+    "protocol",
+    "mentoring",
+    "team building",
+  ],
+};
+
+function parseSkillAtlasDate(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (!s) return null;
+  let m = /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/.exec(s);
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3] ?? 1));
+  m = /^(\d{4})$/.exec(s);
+  if (m) return new Date(Number(m[1]), 0, 1);
+  const d = new Date(s);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function computeSkillAtlasRecencyBoost(project, now) {
+  if (project.status === "active") return 1.2;
+  const dateStr = (project.endedAt ?? project.startedAt ?? "").trim();
+  if (!dateStr) return 0.9;
+  const parsed = parseSkillAtlasDate(dateStr);
+  if (!parsed) return 0.9;
+  const months =
+    (now.getFullYear() - parsed.getFullYear()) * 12 +
+    (now.getMonth() - parsed.getMonth());
+  if (months <= 0) return 1.2;
+  const decay = Math.pow(0.5, months / SKILL_ATLAS_RECENCY_HALF_LIFE_MONTHS);
+  return 0.6 + 0.6 * decay;
+}
+
+function computeSkillAtlasProjectWeight(project, now) {
+  const statusWeight = SKILL_ATLAS_STATUS_WEIGHT[project.status] ?? 1;
+  const featuredBoost = project.featured ? SKILL_ATLAS_FEATURED_BOOST : 1;
+  const highlightCount = project.highlights?.length ?? 0;
+  const highlightBoost = Math.min(
+    1 + SKILL_ATLAS_HIGHLIGHT_BOOST_PER_ITEM * highlightCount,
+    SKILL_ATLAS_HIGHLIGHT_BOOST_CAP,
+  );
+  return (
+    statusWeight *
+    featuredBoost *
+    highlightBoost *
+    computeSkillAtlasRecencyBoost(project, now)
+  );
+}
+
+function resolveSkillAtlasAliases(skillAtlasFm) {
+  const byGroup = new Map();
+  for (const [g, kw] of Object.entries(SKILL_ATLAS_DEFAULT_KEYWORDS)) {
+    byGroup.set(g, [...kw]);
+  }
+  const weighted = [];
+  const overrides = Array.isArray(skillAtlasFm?.aliases)
+    ? skillAtlasFm.aliases
+    : [];
+  for (const ov of overrides) {
+    const group = String(ov?.group ?? "").trim();
+    const label = String(ov?.label ?? "")
+      .trim()
+      .toLowerCase();
+    if (!group || !label) continue;
+    const list = byGroup.get(group) ?? [];
+    list.push(label);
+    byGroup.set(group, list);
+    const w = Number(ov?.weight);
+    if (Number.isFinite(w) && w > 0 && w !== 1) {
+      weighted.push({ pattern: label, group, weight: w });
+    }
+  }
+  return { byGroup, weighted };
+}
+
+function matchSkillToSkillAtlasGroups(skill, aliases) {
+  const haystack = skill.toLowerCase();
+  const matches = [];
+  for (const [group, keywords] of aliases.byGroup.entries()) {
+    for (const keyword of keywords) {
+      if (haystack.includes(keyword)) {
+        const override = aliases.weighted.find(
+          (w) => w.group === group && haystack.includes(w.pattern),
+        );
+        matches.push({ group, aliasWeight: override?.weight ?? 1 });
+        break;
+      }
+    }
+  }
+  return matches;
+}
+
+async function loadSkillAtlasProjects() {
+  const projectsDir = path.join(CONTENT_BASE_DIR, "projects");
+  const files = [];
+  await walkDirectory(projectsDir, files);
+  const projects = [];
+  for (const rel of files) {
+    const abs = path.join(ROOT_DIR, rel);
+    let raw;
+    try {
+      raw = await fs.readFile(abs, "utf-8");
+    } catch {
+      continue;
+    }
+    const { rawFm } = splitFrontmatter(raw);
+    const fm = parseFrontmatterYaml(rawFm) ?? {};
+    projects.push({
+      slug: path.basename(rel, ".md"),
+      title: String(fm.title ?? path.basename(rel, ".md")),
+      organization: fm.organization ? String(fm.organization) : undefined,
+      status: String(fm.status ?? "completed"),
+      featured: Boolean(fm.featured),
+      skills: Array.isArray(fm.skills) ? fm.skills.map(String) : [],
+      highlights: Array.isArray(fm.highlights) ? fm.highlights : [],
+      startedAt: fm.startedAt ? String(fm.startedAt) : undefined,
+      endedAt: fm.endedAt ? String(fm.endedAt) : undefined,
+    });
+  }
+  return projects;
+}
+
+async function computeSkillAtlasPreview(aboutContentOverride) {
+  const configPath = path.join(ROOT_DIR, "portfolio-config.json");
+  const config = JSON.parse(await fs.readFile(configPath, "utf-8"));
+  const groups = Array.isArray(config?.skills?.groups)
+    ? config.skills.groups
+    : [];
+
+  let aboutFm;
+  try {
+    const raw = aboutContentOverride
+      ? String(aboutContentOverride)
+      : await fs.readFile(path.join(ROOT_DIR, ABOUT_FILE_PATH), "utf-8");
+    const { rawFm } = splitFrontmatter(raw);
+    aboutFm = parseFrontmatterYaml(rawFm) ?? {};
+  } catch {
+    aboutFm = {};
+  }
+
+  const aliases = resolveSkillAtlasAliases(aboutFm.skillAtlas);
+  const projects = await loadSkillAtlasProjects();
+  const now = new Date();
+
+  const axisAcc = new Map();
+  for (const g of groups) {
+    axisAcc.set(String(g.label), {
+      icon: String(g.icon ?? ""),
+      raw: 0,
+      skills: new Set(),
+      evidence: new Map(),
+    });
+  }
+  const unmappedCounts = new Map();
+  let totalSkillsAnalyzed = 0;
+
+  for (const project of projects) {
+    if (project.skills.length === 0) continue;
+    const baseWeight = computeSkillAtlasProjectWeight(project, now);
+    for (const skill of project.skills) {
+      const cleaned = String(skill).trim();
+      if (!cleaned) continue;
+      totalSkillsAnalyzed += 1;
+      const matches = matchSkillToSkillAtlasGroups(cleaned, aliases);
+      if (matches.length === 0) {
+        unmappedCounts.set(cleaned, (unmappedCounts.get(cleaned) ?? 0) + 1);
+        continue;
+      }
+      const per = baseWeight / matches.length;
+      for (const { group, aliasWeight } of matches) {
+        const bucket = axisAcc.get(group);
+        if (!bucket) continue;
+        const contrib = per * aliasWeight;
+        bucket.raw += contrib;
+        bucket.skills.add(cleaned);
+        const prior = bucket.evidence.get(project.slug);
+        if (prior) {
+          prior.contribution += contrib;
+          if (!prior.matchedSkills.includes(cleaned)) {
+            prior.matchedSkills.push(cleaned);
+          }
+        } else {
+          bucket.evidence.set(project.slug, {
+            slug: project.slug,
+            title: project.title,
+            organization: project.organization,
+            status: project.status,
+            contribution: contrib,
+            matchedSkills: [cleaned],
+          });
+        }
+      }
+    }
+  }
+
+  const rawMax = Math.max(1, ...Array.from(axisAcc.values()).map((a) => a.raw));
+
+  const axes = groups.map((g) => {
+    const bucket = axisAcc.get(String(g.label));
+    if (!bucket) {
+      return {
+        group: String(g.label),
+        icon: String(g.icon ?? ""),
+        rawScore: 0,
+        normalizedScore: 0,
+        projectCount: 0,
+        topEvidence: [],
+      };
+    }
+    const topEvidence = Array.from(bucket.evidence.values())
+      .sort((a, b) => b.contribution - a.contribution)
+      .slice(0, 5)
+      .map((e) => ({
+        ...e,
+        contribution: Math.round(e.contribution * 100) / 100,
+      }));
+    return {
+      group: String(g.label),
+      icon: String(g.icon ?? ""),
+      rawScore: Math.round(bucket.raw * 100) / 100,
+      normalizedScore: Math.round((bucket.raw / rawMax) * 100),
+      projectCount: bucket.evidence.size,
+      topEvidence,
+    };
+  });
+
+  const unmappedSkills = Array.from(unmappedCounts.entries())
+    .map(([skill, count]) => ({ skill, count }))
+    .sort((a, b) => b.count - a.count || a.skill.localeCompare(b.skill));
+
+  return {
+    axes,
+    unmappedSkills,
+    totalProjectsAnalyzed: projects.length,
+    totalSkillsAnalyzed,
+    generatedAt: new Date().toISOString(),
+  };
 }
 
 async function handleApi(req, res, url) {
@@ -2151,6 +3017,29 @@ async function handleApi(req, res, url) {
       sendJson(res, 200, { path: normalized, content });
     } catch (error) {
       sendJson(res, 400, { error: `Failed to read file: ${error.message}` });
+    }
+    return;
+  }
+
+  if (url.pathname === "/api/skill-atlas-preview") {
+    if (req.method !== "GET" && req.method !== "POST") {
+      sendJson(res, 405, { error: "Method not allowed." });
+      return;
+    }
+    try {
+      let aboutContent;
+      if (req.method === "POST") {
+        const body = await parseJsonBody(req);
+        if (body && typeof body.aboutContent === "string") {
+          aboutContent = body.aboutContent;
+        }
+      }
+      const data = await computeSkillAtlasPreview(aboutContent);
+      sendJson(res, 200, data);
+    } catch (error) {
+      sendJson(res, 500, {
+        error: `Skill atlas preview failed: ${error.message}`,
+      });
     }
     return;
   }
@@ -2177,7 +3066,8 @@ async function handleApi(req, res, url) {
       let content = String(body.content ?? "");
       let relativePath = String(body.path ?? "");
       if (!content && relativePath) {
-        const { normalized, absolutePath } = getAllowedAbsolutePath(relativePath);
+        const { normalized, absolutePath } =
+          getAllowedAbsolutePath(relativePath);
         relativePath = normalized;
         content = await fs.readFile(absolutePath, "utf-8");
       }
@@ -2199,7 +3089,9 @@ async function handleApi(req, res, url) {
       const body = await parseJsonBody(req);
       const relativePath = String(body.path ?? "");
       if (!relativePath) {
-        sendJson(res, 400, { error: "Path is required to preview configured media." });
+        sendJson(res, 400, {
+          error: "Path is required to preview configured media.",
+        });
         return;
       }
 
@@ -2214,7 +3106,9 @@ async function handleApi(req, res, url) {
 
       sendJson(res, 200, collectConfiguredMediaPreview(relativePath, content));
     } catch (error) {
-      sendJson(res, 400, { error: `Configured media preview failed: ${error.message}` });
+      sendJson(res, 400, {
+        error: `Configured media preview failed: ${error.message}`,
+      });
     }
     return;
   }
@@ -2251,7 +3145,9 @@ async function handleApi(req, res, url) {
   if (req.method === "POST" && url.pathname === "/api/render") {
     try {
       const body = await parseJsonBody(req);
-      sendJson(res, 200, { html: renderMarkdownToHtml(String(body.content ?? "")) });
+      sendJson(res, 200, {
+        html: renderMarkdownToHtml(String(body.content ?? "")),
+      });
     } catch (error) {
       sendJson(res, 400, { error: `Render failed: ${error.message}` });
     }
@@ -2263,7 +3159,9 @@ async function handleApi(req, res, url) {
       const body = await parseJsonBody(req);
       sendJson(res, 200, validateMarkdownContent(body.content));
     } catch (error) {
-      sendJson(res, 400, { error: `Invalid request payload: ${error.message}` });
+      sendJson(res, 400, {
+        error: `Invalid request payload: ${error.message}`,
+      });
     }
     return;
   }
@@ -2329,7 +3227,8 @@ async function handleApi(req, res, url) {
 
       if (tokenData.digest !== digestContent(body.content)) {
         sendJson(res, 400, {
-          error: "Content changed after preview. Run preview again before saving.",
+          error:
+            "Content changed after preview. Run preview again before saving.",
         });
         return;
       }
@@ -2464,7 +3363,9 @@ async function handleApi(req, res, url) {
       }
 
       await fs.writeFile(filePath, Buffer.from(body.base64, "base64"));
-      const relativePath = path.relative(ROOT_DIR, filePath).replace(/\\/g, "/");
+      const relativePath = path
+        .relative(ROOT_DIR, filePath)
+        .replace(/\\/g, "/");
       sendJson(res, 200, {
         uploaded: true,
         relativePath,
@@ -2531,7 +3432,9 @@ async function handleApi(req, res, url) {
 
       const { normalized } = getAllowedAbsolutePath(relativePath);
       if (!normalized.startsWith("src/content/projects/")) {
-        sendJson(res, 400, { error: "Only project files can be linked to uploaded project media." });
+        sendJson(res, 400, {
+          error: "Only project files can be linked to uploaded project media.",
+        });
         return;
       }
 
@@ -2542,7 +3445,9 @@ async function handleApi(req, res, url) {
 
       sendJson(res, 200, linked);
     } catch (error) {
-      sendJson(res, 400, { error: `Project media linking failed: ${error.message}` });
+      sendJson(res, 400, {
+        error: `Project media linking failed: ${error.message}`,
+      });
     }
     return;
   }
@@ -2558,14 +3463,18 @@ async function handleApi(req, res, url) {
 
       const { normalized } = getAllowedAbsolutePath(relativePath);
       if (!normalized.startsWith("src/content/projects/")) {
-        sendJson(res, 400, { error: "Only project files support cover media updates." });
+        sendJson(res, 400, {
+          error: "Only project files support cover media updates.",
+        });
         return;
       }
 
       const content = String(body.content ?? "");
       const mediaIndex = Number.parseInt(String(body.mediaIndex ?? ""), 10);
       if (!Number.isInteger(mediaIndex) || mediaIndex < 0) {
-        sendJson(res, 400, { error: "mediaIndex must be a non-negative integer." });
+        sendJson(res, 400, {
+          error: "mediaIndex must be a non-negative integer.",
+        });
         return;
       }
 
@@ -2596,7 +3505,9 @@ async function handleApi(req, res, url) {
 
       sendJson(res, 200, updated);
     } catch (error) {
-      sendJson(res, 400, { error: `Set project cover failed: ${error.message}` });
+      sendJson(res, 400, {
+        error: `Set project cover failed: ${error.message}`,
+      });
     }
     return;
   }
@@ -2612,18 +3523,26 @@ async function handleApi(req, res, url) {
 
       const { normalized } = getAllowedAbsolutePath(relativePath);
       if (!normalized.startsWith("src/content/projects/")) {
-        sendJson(res, 400, { error: "Only project files support media reordering." });
+        sendJson(res, 400, {
+          error: "Only project files support media reordering.",
+        });
         return;
       }
 
       if (!Array.isArray(body.order)) {
-        sendJson(res, 400, { error: "order must be an array of media indexes." });
+        sendJson(res, 400, {
+          error: "order must be an array of media indexes.",
+        });
         return;
       }
 
       const content = String(body.content ?? "");
-      const orderedIndexes = body.order.map((value) => Number.parseInt(String(value), 10));
-      const hasInvalidIndex = orderedIndexes.some((value) => !Number.isInteger(value) || value < 0);
+      const orderedIndexes = body.order.map((value) =>
+        Number.parseInt(String(value), 10),
+      );
+      const hasInvalidIndex = orderedIndexes.some(
+        (value) => !Number.isInteger(value) || value < 0,
+      );
       if (hasInvalidIndex) {
         sendJson(res, 400, { error: "order contains invalid media indexes." });
         return;
@@ -2643,7 +3562,9 @@ async function handleApi(req, res, url) {
           throw new Error("order must include each media index exactly once.");
         }
 
-        const outOfRange = orderedIndexes.some((index) => index >= mediaItems.length);
+        const outOfRange = orderedIndexes.some(
+          (index) => index >= mediaItems.length,
+        );
         if (outOfRange) {
           throw new Error("order contains an index out of range.");
         }
@@ -2653,7 +3574,9 @@ async function handleApi(req, res, url) {
 
       sendJson(res, 200, updated);
     } catch (error) {
-      sendJson(res, 400, { error: `Reorder project media failed: ${error.message}` });
+      sendJson(res, 400, {
+        error: `Reorder project media failed: ${error.message}`,
+      });
     }
     return;
   }
@@ -2671,7 +3594,8 @@ const server = createServer(async (req, res) => {
     await serveStatic(url, res);
   } catch (err) {
     console.error("[server] Unhandled request error:", err);
-    if (!res.headersSent) sendJson(res, 500, { error: "Internal server error." });
+    if (!res.headersSent)
+      sendJson(res, 500, { error: "Internal server error." });
   }
 });
 

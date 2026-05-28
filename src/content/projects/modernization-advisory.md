@@ -26,7 +26,7 @@ approach: |
   - shaping modernization roadmaps that fit real business needs
   - coordinating cloud and backend improvement work with delivery milestones
   - keeping documentation and communication clear enough for both technical and non-technical stakeholders
-outcome: "Created clearer modernization paths for client systems, improved delivery coordination, and helped connect technical priorities to practical business results."
+outcome: "Improved modernization delivery confidence by turning ambiguous technical requests into sequenced plans with clear ownership and milestones. This reduced planning churn, improved cross-team alignment, and made it easier for client stakeholders to approve and execute infrastructure and backend improvements."
 skills:
   - Project Coordination
   - Infrastructure Strategy
@@ -45,4 +45,3 @@ links:
 featured: false
 order: 4
 ---
-

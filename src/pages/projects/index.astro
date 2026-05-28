@@ -30,14 +30,13 @@ const detailedWriteupCount = listedProjects.filter(
         subtitle="A browseable mix of community systems, product work, operations, tools, and events. Start with a few stories I would point people to first, or jump into the area that interests you."
       />
 
-      <div class="projects-topline" aria-label="Projects summary">
+      <div class="projects-topline panel" aria-label="Projects summary">
         <div class="projects-topline__intro">
           <p class="projects-topline__eyebrow text-mono">Quick scan</p>
           <p>
-            {projectsPageData.totalProjectCount} projects total, with {
-              detailedWriteupCount
-            }
-            longer writeups if you want the story behind the work.
+            {projectsPageData.totalProjectCount} projects total, grouped into a
+            few high-level focus areas, with {detailedWriteupCount} longer
+            writeups if you want the story behind the work.
           </p>
         </div>
         <div class="projects-topline__chips" aria-label="Project focus areas">

@@ -1,10 +1,11 @@
 ---
-title: North Carolina Bar Citizen Meetups
+title: NC Bar Citizen Meetups
 status: active
 category: Events & Community Operations
 organization: Bar Citizen International
+organizationShortName: "BCI"
 organizationUrl: "https://www.barcitizen.org/"
-roleTitle: Local Meetup Organizer / Community Host
+roleTitle: Event Cordinator
 timeframe: "2021 - Present"
 startedAt: "2021"
 summary: "Organize and host 4 to 5 Bar Citizen meetups each year across North Carolina, creating recurring in-person events where Star Citizen players can connect, plan future activities, and build local community momentum."
@@ -53,4 +54,3 @@ media:
 featured: false
 order: 21
 ---
-

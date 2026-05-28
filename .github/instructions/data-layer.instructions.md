@@ -1,6 +1,7 @@
 ---
 applyTo: "{src/data/**/*.ts,src/content.config.ts}"
 ---
+
 <!-- Last reviewed: 2026-05-06; update when new collections or data patterns are added -->
 
 # Data Layer Rules
@@ -39,6 +40,17 @@ const myCollection = defineCollection({
 - Import `z` from `"astro:schema"`, not directly from `"zod"`
 
 ## Data File Patterns
+
+## File Size Guard Rails
+
+- Soft limit: keep each `src/data/*.ts` file at or below 6000 characters
+- Hard trigger: once a data file exceeds 9000 characters, split it before adding new logic
+- Split decomposition order:
+  - 1. Move constants/maps/enums into `*Themes.ts` or `*Constants.ts`
+  - 2. Move pure formatting/parsing/sorting helpers into `*Helpers.ts`
+  - 3. Keep orchestration and exported data loaders in the primary file
+- Re-export moved symbols from the original file when needed to preserve import compatibility
+- Avoid duplicated interfaces across pages/components, centralize shared types in `src/data/`
 
 ### Enriched Types
 
@@ -89,6 +101,7 @@ export async function getCompanyProfiles() {
 ## Exports
 
 Every `src/data/*.ts` file must export:
+
 1. **Typed interfaces** for all data shapes used in components
 2. **Helper functions** (async where collection access is needed)
 3. No default exports: named exports only
@@ -104,3 +117,10 @@ Every `src/data/*.ts` file must export:
 ## Utilities
 
 Shared utility functions go in `src/utils/`. Keep data files focused on data transformation, not string formatting or DOM utilities.
+
+## Refactor Validation
+
+- After data-layer splits, run:
+  - `npm run check`
+  - `npm run build`
+- If imports were moved, run a workspace search to confirm no stale import paths remain

@@ -3,6 +3,7 @@ title: Engineering Operations
 status: completed
 category: Military Operations
 organization: 878th Engineer Company
+organizationShortName: "878 EN CO"
 roleTitle: Plumber / Engineering Specialist
 timeframe: Past
 startedAt: "2011-02"
@@ -45,6 +46,11 @@ skills:
   - Vehicle Operations
   - Field Operations
   - Operational Readiness
+tools:
+  - Unit Training SOPs
+  - Motorpool Workflows
+  - Logistics and Inventory Tracking
+  - Field Readiness Checklists
 tags:
   - Army National Guard
   - Engineering Operations
@@ -64,4 +70,3 @@ media:
 featured: false
 order: 6
 ---
-

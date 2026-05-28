@@ -56,7 +56,6 @@ media:
   - type: image
     src: "/media/projects/ubisoft-help-program-leadership-cover.png"
     alt: Ubisoft Help
-featured: true
+featured: false
 order: 10
 ---
-

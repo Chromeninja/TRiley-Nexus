@@ -8,6 +8,7 @@ tags:
   - Community Operations
   - Logistics Coordination
 organization: Bar Citizen International
+organizationShortName: "BCI"
 timeframe: Ongoing
 roleTitle: Community Operations Lead
 startedAt: "2024-04"
@@ -50,4 +51,3 @@ tools:
 featured: false
 order: 20
 ---
-

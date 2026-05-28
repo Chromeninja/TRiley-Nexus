@@ -20,19 +20,10 @@ import {
   type Project,
   type ProjectOrganizationGroup,
 } from "../../data/projects";
-
-interface TimelineMonthGroup {
-  key: string;
-  month: number;
-  monthLabel: string;
-  projects: Project[];
-}
-
-interface TimelineYearGroup {
-  year: number;
-  key: string;
-  months: TimelineMonthGroup[];
-}
+import {
+  type TimelineMonthGroup,
+  type TimelineYearGroup,
+} from "../../data/careerTimeline";
 
 const timelineViewModes: TimelineViewMode[] = [
   "gantt",
@@ -151,8 +142,7 @@ const companyTimelineGroups = organizationGroups
   )
   .sort(
     (groupA, groupB) =>
-      groupB.timeline.rangeEnd.getTime() -
-        groupA.timeline.rangeEnd.getTime() ||
+      groupB.timeline.rangeEnd.getTime() - groupA.timeline.rangeEnd.getTime() ||
       groupB.timeline.rangeStart.getTime() -
         groupA.timeline.rangeStart.getTime(),
   );

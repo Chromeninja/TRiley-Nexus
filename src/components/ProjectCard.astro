@@ -13,6 +13,7 @@ import {
   normalizeWhitespace,
 } from "../utils/paths";
 import { richTextToPlainText } from "../utils/richText";
+import { getOrganizationLabel } from "../utils/organizationLabels";
 
 interface Props {
   project: Project;
@@ -22,6 +23,15 @@ interface Props {
 const { project, featured = false } = Astro.props;
 const projectPath = toBasePath(`/projects/${project.slug}`);
 const projectDateRange = formatProjectDateRange(project);
+
+const MAX_ORGANIZATION_LABEL_CHARS = 18;
+const organizationName = project.organization?.trim();
+const organizationShortName = project.organizationShortName?.trim();
+const organizationLabel = organizationShortName
+  ? organizationShortName
+  : organizationName
+    ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
+    : undefined;
 
 function firstSentence(value: string): string {
   const normalized = normalizeWhitespace(richTextToPlainText(value));
@@ -96,20 +106,25 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
         >{projectStatusLabels[project.status]}</span
       >
       {
-        project.organization &&
+        organizationName &&
           (project.organizationUrl ? (
             <a
               href={project.organizationUrl}
               class="project-card__org text-mono text-muted"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${project.organization} website`}
+              aria-label={`${organizationName} website`}
+              title={organizationName}
             >
-              {project.organizationShortName ?? project.organization}
+              {organizationLabel}
             </a>
           ) : (
-            <span class="project-card__org text-mono text-muted">
-              {project.organizationShortName ?? project.organization}
+            <span
+              class="project-card__org text-mono text-muted"
+              title={organizationName}
+              aria-label={organizationName}
+            >
+              {organizationLabel}
             </span>
           ))
       }
@@ -164,6 +179,7 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
             <span class="project-card__media-kicker text-mono">
               {project.category}
             </span>
+            <div class="project-card__media-orbit" />
             <div class="project-card__media-tags">
               {project.tags.slice(0, 2).map((tag) => (
                 <span>{tag}</span>
@@ -177,17 +193,19 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     <h3 class="project-card__title">{project.title}</h3>
 
     {
-      project.roleTitle && (
-        <p class="project-card__role text-mono text-muted">
-          {project.roleTitle}
-        </p>
-      )
-    }
-
-    {
-      projectDateRange && (
-        <p class="project-card__timeframe text-mono text-muted">
-          {projectDateRange}
+      (project.roleTitle || projectDateRange) && (
+        <p class="project-card__meta-line text-mono text-muted">
+          {project.roleTitle && (
+            <span class="project-card__role">{project.roleTitle}</span>
+          )}
+          {project.roleTitle && projectDateRange && (
+            <span class="project-card__meta-divider" aria-hidden="true">
+              •
+            </span>
+          )}
+          {projectDateRange && (
+            <span class="project-card__timeframe">{projectDateRange}</span>
+          )}
         </p>
       )
     }
@@ -208,7 +226,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     }
 
     <span class="project-card__writeup-cue text-mono">{cardCtaLabel}</span>
-
     <div class="project-card__tags">
       {project.tags.slice(0, 4).map((tag) => <span>{tag}</span>)}
       {project.tags.length > 4 && <span>+{project.tags.length - 4}</span>}
@@ -273,11 +290,7 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     flex-direction: column;
     gap: var(--space-lg);
     background:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-accent), transparent 97%),
-        transparent 34%
-      ),
+      linear-gradient(180deg, var(--color-surface-sheen-soft), transparent 28%),
       var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -309,6 +322,25 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     z-index: 1;
   }
 
+  /* Corner accent */
+  .project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 88px;
+    height: 88px;
+    background: linear-gradient(
+      135deg,
+      var(--color-project-corner-accent),
+      transparent 62%
+    );
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
+    opacity: 0.65;
+  }
   .project-card:hover {
     border-color: var(--color-border-strong);
     box-shadow: var(--shadow-card);
@@ -337,6 +369,10 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     box-shadow: var(--shadow-card);
   }
 
+  .project-card--featured {
+    border-color: var(--color-featured-border);
+  }
+
   .project-card__header {
     display: flex;
     align-items: center;
@@ -354,9 +390,14 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
   }
 
   .project-card__org {
+    display: inline-block;
+    max-width: 100%;
     font-size: 0.7rem;
     letter-spacing: 0.04em;
     text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .project-card:focus-visible {
@@ -393,6 +434,10 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     margin: 0;
     position: relative;
     z-index: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .project-card__media {
@@ -415,7 +460,13 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 
   .project-card__media--empty {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 55%),
+      radial-gradient(
+        circle at top right,
+        var(--color-accent-glow),
+        transparent 40%
+      ),
+      linear-gradient(135deg, var(--color-accent-dim), transparent 58%),
+      linear-gradient(180deg, var(--color-surface-sheen), transparent 55%),
       var(--color-bg);
   }
 
@@ -436,10 +487,41 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     grid-area: kicker;
     width: fit-content;
     max-width: 100%;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--color-accent);
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-project-media-chip-bg);
+  }
+
+  .project-card__media-orbit {
+    grid-area: orbit;
+    align-self: center;
+    justify-self: end;
+    width: clamp(4.5rem, 20vw, 6.5rem);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    opacity: 0.8;
+    position: relative;
+  }
+
+  .project-card__media-orbit::before,
+  .project-card__media-orbit::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    inset: 12%;
+  }
+
+  .project-card__media-orbit::after {
+    inset: 28%;
+    background: var(--color-accent-dim);
   }
 
   .project-card__media-tags {
@@ -452,15 +534,13 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
   }
 
   .project-card__media-tags span {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     line-height: 1;
     color: var(--color-text-muted);
-  }
-
-  .project-card__media-tags span + span::before {
-    content: "/";
-    margin-inline-end: var(--space-xs);
-    color: var(--color-text-dim);
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-project-media-tag-bg);
   }
 
   .project-card__media--hover-preview {
@@ -493,26 +573,45 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     }
   }
 
-  .project-card__timeframe {
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
+  .project-card__meta-line {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    min-width: 0;
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
     margin: 0;
     position: relative;
     z-index: 1;
+    white-space: nowrap;
+  }
+
+  .project-card__timeframe {
+    flex: 0 0 auto;
+    font-size: 0.74rem;
+    margin: 0;
   }
 
   .project-card__role {
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.74rem;
     margin: 0;
-    position: relative;
-    z-index: 1;
+  }
+
+  .project-card__meta-divider {
+    flex: 0 0 auto;
+    opacity: 0.65;
+    line-height: 1;
   }
 
   .project-card__summary {
-    font-size: 0.875rem;
+    font-size: 0.92rem;
     color: var(--color-text-muted);
-    line-height: 1.55;
+    line-height: 1.7;
     margin: 0;
     position: relative;
     z-index: 1;
@@ -591,6 +690,23 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     .project-card__title {
       font-size: 1rem;
       line-height: 1.35;
+    }
+
+    .project-card__meta-line {
+      white-space: normal;
+      flex-wrap: wrap;
+      row-gap: 0.2rem;
+    }
+
+    .project-card__role {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      flex-basis: 100%;
+    }
+
+    .project-card__meta-divider {
+      display: none;
     }
 
     .project-card__summary {

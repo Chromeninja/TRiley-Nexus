@@ -23,7 +23,7 @@ approach: |
   - sourcing last-minute local items for setup and delivery needs
   - supporting day-of booth coverage with staff and volunteers
   - helping execute meetups and meet-and-greet moments around the event
-outcome: "Helped deliver a stable TEST Squadron presence at CitizenCon 2953, strengthening booth coverage, volunteer execution, and community engagement through practical operations support."
+outcome: "Contributed to a steadier booth operation during a high-pressure convention window by closing last-minute logistics gaps and supporting volunteer coverage execution. The result was a more dependable community-facing presence and a stronger operations baseline carried into later CitizenCon and TEST event work."
 skills:
   - Event Staff Coordination
   - Convention Logistics Support
@@ -60,4 +60,3 @@ media:
 featured: false
 order: 25
 ---
-

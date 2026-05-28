@@ -134,7 +134,7 @@ const safeProjectColor = sanitizeCssColor(color);
   }
 
   .project-item__bar:focus-visible {
-    outline: 2px solid white;
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
 
@@ -147,7 +147,7 @@ const safeProjectColor = sanitizeCssColor(color);
   }
 
   .project-item__title {
-    font-size: 0.66rem;
+    font-size: 0.72rem;
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
@@ -157,7 +157,7 @@ const safeProjectColor = sanitizeCssColor(color);
   }
 
   .project-item__meta {
-    font-size: 0.56rem;
+    font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.03em;
     color: color-mix(in srgb, var(--project-color), white 70%);
@@ -165,7 +165,7 @@ const safeProjectColor = sanitizeCssColor(color);
   }
 
   .project-item__live {
-    font-size: 0.52rem;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -178,14 +178,14 @@ const safeProjectColor = sanitizeCssColor(color);
     position: absolute;
     left: 0;
     top: calc(100% + 0.5rem);
-    background: color-mix(in srgb, var(--color-bg), black 14%);
+    background: var(--color-timeline-card-bg);
     border: 1px solid color-mix(in srgb, var(--project-color), transparent 45%);
     border-radius: var(--radius-sm);
     padding: 0.45rem 0.55rem;
     width: min(28rem, 48vw);
     color: var(--color-text);
-    font-size: 0.72rem;
-    line-height: 1.45;
+    font-size: 0.78rem;
+    line-height: 1.55;
     display: grid;
     gap: 0.28rem;
     opacity: 0;
@@ -197,15 +197,15 @@ const safeProjectColor = sanitizeCssColor(color);
   }
 
   .project-item__preview strong {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     letter-spacing: 0.03em;
     color: color-mix(in srgb, var(--project-color), white 68%);
   }
 
   .project-item__preview span {
     color: var(--color-text-muted);
-    font-size: 0.72rem;
-    line-height: 1.45;
+    font-size: 0.78rem;
+    line-height: 1.55;
     font-weight: 500;
     text-transform: none;
     letter-spacing: normal;

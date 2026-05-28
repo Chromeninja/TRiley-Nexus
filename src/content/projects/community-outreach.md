@@ -9,11 +9,12 @@ tags:
   - Air National Guard
   - Community Outreach
 organization: 235th Combat Airfield Operations Squadron
+organizationShortName: "235 CAOS"
 timeframe: Ongoing
 roleTitle: Volunteer / Community Support
 startedAt: "2015-04"
 summary: "Support recurring 235th CAOS community outreach through volunteer service, parades, Special Olympics events, food drives, and other local activities that connect the unit with the people it serves."
-cardSummary: "Support 235th CAOS outreach through Special Olympics events, parades, food drives, and local service activities."
+cardSummary: "Support recurring 235th CAOS outreach through Special Olympics, parades, and service projects, strengthening community relationships while representing the Air National Guard through consistent volunteer operations."
 cover:
   src: "/media/projects/ang-235-volunteer.jpg"
   alt: Members of the 235th CAOS volunteering at a community event
@@ -36,7 +37,10 @@ skills:
   - Volunteer Coordination
   - Event Support
   - Public Representation
+tools:
+  - Unit Volunteer Coordination
+  - Event Run Sheets
+  - Community Partner Communication
 featured: false
 order: 12
 ---
-

@@ -44,8 +44,8 @@ const { data } = Astro.props;
   .timeline-section__axis {
     display: block;
     padding-left: var(--atlas-axis-start);
-    font-size: 0.6rem;
-    letter-spacing: 0.06em;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
@@ -97,7 +97,7 @@ const { data } = Astro.props;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(74, 222, 128, 0.95);
+    background: var(--color-timeline-success-bright);
     box-shadow: 0 0 0 0 var(--color-timeline-success-medium);
     animation: atlas-now-pulse 2.1s ease-out infinite;
   }
@@ -107,10 +107,10 @@ const { data } = Astro.props;
     top: -1.4rem;
     left: 0.35rem;
     font-style: normal;
-    font-size: 0.55rem;
-    letter-spacing: 0.06em;
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--color-success), white 10%);
+    color: var(--color-now-marker-text);
   }
 
   .timeline-section[data-show-now="false"] .timeline-section__now-marker {
@@ -122,7 +122,7 @@ const { data } = Astro.props;
       box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
     }
     70% {
-      box-shadow: 0 0 0 12px rgba(74, 222, 128, 0);
+      box-shadow: 0 0 0 12px transparent;
     }
     100% {
       box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);

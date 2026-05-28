@@ -1,5 +1,5 @@
 ---
-title: Cloud Gaming Platform Partnerships
+title: Cloud Gaming Launch
 status: completed
 category: Digital Products & Platforms
 organization: Ubisoft
@@ -15,21 +15,22 @@ highlights:
   - Championed a "AAA experience anywhere" philosophy as a passion project across cloud platforms.
 problem: "Each cloud gaming platform introduced its own quirks, including input lag patterns, account linking behaviors, regional availability, and storefront integration. These were bugs that didn't always reproduce on native installs and could undermine the player experience."
 approach: |
-  I built a CRC-led research and QA loop dedicated specifically to the cloud experience rather than assuming native parity would cover the same issues.
+  I ran this as a cross-functional support and validation lane alongside platform onboarding.
 
-  The work followed three tracks:
-  1. **Research the cloud-specific player experience** across GeForce Now, Luna, and Stadia
-  2. **Reproduce and escalate edge-case bugs** with development teams so platform-specific issues could be prioritized correctly
-  3. **Coordinate player feedback channels** to capture recurring pain points that only appeared in cloud play contexts
+  The operating pattern included:
+  1. **edge-case discovery** through frontline signal and structured user research
+  2. **cross-team triage** with development and platform partners to isolate root causes
+  3. **escalation and tracking discipline** so cloud-specific defects were visible and owned
+  4. **release-readiness checks** against known risk areas before player-facing milestones
 
-  This was important because cloud platforms introduced their own failure patterns that did not always reproduce on local installs.
+  This kept cloud launch quality tied to real player experience instead of platform checklists alone.
 outcome: |
-  Supported smoother Ubisoft launches and ongoing operations across **GeForce Now, Luna, and Stadia**.
+  Helped Ubisoft launch and stabilize player support for GeForce Now, Luna, and Stadia by catching cloud-specific friction early and routing issues to the right owners.
 
-  The work delivered:
-  - better documentation and escalation of cloud-specific edge cases
-  - stronger coordination with the right development teams for fixes
-  - broader access to Ubisoft's AAA experiences for players who could not run them locally
+  The work improved:
+  - launch readiness for cloud onboarding windows
+  - alignment between support and development teams on cloud defects
+  - player experience consistency across cloud and native contexts
 skills:
   - Cloud Platform Onboarding
   - User Research
@@ -52,7 +53,6 @@ tags:
 cover:
   src: "/media/projects/ubisoft-cloud-gaming-platform-partnerships-cover.webp"
   alt: Cloud Gaming Platform Partnerships
-featured: true
+featured: false
 order: 13
 ---
-

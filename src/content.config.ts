@@ -13,6 +13,7 @@ const projectsCollection = defineCollection({
     category: z.string(),
     tags: z.array(z.string()),
     organization: z.string().optional(),
+    organizationShortName: z.string().optional(),
     organizationUrl: z.url().optional(),
     roleTitle: z.string().optional(),
     startedAt: z.string().optional(),
@@ -110,6 +111,22 @@ const aboutCollection = defineCollection({
         filePath: z.string(),
         lastUpdated: z.string(),
         summary: z.string().optional(),
+      })
+      .optional(),
+    skillAtlas: z
+      .object({
+        title: z.string().optional(),
+        intro: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        aliases: z
+          .array(
+            z.object({
+              label: z.string(),
+              group: z.string(),
+              weight: z.number().optional(),
+            }),
+          )
+          .optional(),
       })
       .optional(),
   }),

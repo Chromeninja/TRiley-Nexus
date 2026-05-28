@@ -7,7 +7,7 @@ roleTitle: Operations Systems Manager
 timeframe: Ongoing
 startedAt: "2025"
 summary: "Built a Google Sheets operations system for VR Villa staffing schedules, role assignments, event hours, pay calculations, and expense tracking across recurring live events."
-cardSummary: "Built a staffing and payroll system that made event schedules, role coverage, hours, and payouts easier to manage."
+cardSummary: "Handles VR Villa scheduling, shift coverage, tracked hours, pay rates, and payout settlement for recurring events. Replaces manual coordination."
 highlights:
   - Standardized schedule management across recurring events and rotating staff roles.
   - "Automated pay calculations using role rates, tracked hours, and event-specific adjustments."
@@ -21,7 +21,7 @@ approach: |
   - role mapping for event coverage
   - hour tracking tied to pay formulas
   - expense visibility and payout-ready summaries
-outcome: "Reduced scheduling confusion, improved payroll accuracy, and gave event leadership a cleaner path from staffing plans to post-event settlement."
+outcome: "Created a repeatable staffing-to-settlement workflow that made role coverage planning clearer before events and payout preparation faster after events. The system reduced avoidable spreadsheet errors, improved payroll confidence, and gave operations leadership a shared source of truth for staffing and cost decisions."
 skills:
   - Workforce Scheduling
   - Operations Finance
@@ -32,6 +32,7 @@ tools:
   - Google Workspace
   - Formula Automation
   - Discord
+  - Meta Quest
 tags:
   - Scheduling Systems
   - Staffing Operations
@@ -47,4 +48,3 @@ media:
 featured: false
 order: 8
 ---
-

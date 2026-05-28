@@ -3,6 +3,7 @@ title: Honor Guard
 status: completed
 category: Military Operations
 organization: North Carolina National Guard Joint Force Headquarters
+organizationShortName: "NCNG JFHQ"
 roleTitle: Team Lead
 timeframe: Past
 startedAt: "2012-05"
@@ -71,4 +72,3 @@ media:
 featured: false
 order: 9
 ---
-

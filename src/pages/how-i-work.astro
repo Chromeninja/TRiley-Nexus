@@ -44,19 +44,16 @@ const operatingCommitments = [
 
   <!-- Core Approach -->
   <section class="section">
-    <div class="container container--md">
-      <SectionHeader label="// SHORT VERSION" title="The Short Version" />
+    <div class="container container--reading">
+      <SectionHeader label="// CORE APPROACH" title="The Short Version" />
       <div class="prose">
         {coreApproachParagraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     </div>
   </section>
 
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// WHAT TEAMS CAN EXPECT"
         title="What Working With Me Feels Like"
@@ -78,7 +75,7 @@ const operatingCommitments = [
 
   <!-- Principles -->
   <section class="section">
-    <div class="container">
+    <div class="container container--page">
       <SectionHeader
         label="// WORK HABITS"
         title="The Habits I Come Back To"
@@ -104,11 +101,8 @@ const operatingCommitments = [
   </section>
 
   <!-- Working style -->
-  <section
-    class="section"
-    style="background: var(--color-bg-secondary); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
-    <div class="container container--md">
+  <section class="section section--alt">
+    <div class="container container--page">
       <SectionHeader
         label="// WORKING STYLE"
         title="How I Like To Work"
@@ -136,7 +130,7 @@ const operatingCommitments = [
 
   <!-- Tools I Use -->
   <section class="section">
-    <div class="container container--md">
+    <div class="container container--page">
       <SectionHeader
         label="// TOOLS & FRAMEWORKS"
         title="Tools I Reach For"
@@ -162,7 +156,7 @@ const operatingCommitments = [
 
   <!-- Debrief habits -->
   <section class="section">
-    <div class="container container--sm">
+    <div class="container container--reading">
       <SectionHeader
         label="// LEARNING LOOP"
         title="How I Debrief After The Work"
@@ -204,7 +198,7 @@ const operatingCommitments = [
   }
 
   .commitment-card__title {
-    font-size: 0.95rem;
+    font-size: var(--font-size-card-title);
     color: var(--color-text-heading);
     margin-bottom: var(--space-sm);
   }
@@ -212,6 +206,7 @@ const operatingCommitments = [
   .commitment-card__body {
     margin: 0;
     color: var(--color-text-muted);
+    font-size: var(--font-size-body);
     line-height: 1.7;
   }
 
@@ -239,19 +234,19 @@ const operatingCommitments = [
   }
 
   .principle-card__num {
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
     letter-spacing: 0.08em;
     padding-top: 4px;
   }
 
   .principle-card__title {
-    font-size: 1rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-sm);
     color: var(--color-text-heading);
   }
 
   .principle-card__body {
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.7;
     margin: 0;
@@ -272,7 +267,7 @@ const operatingCommitments = [
   }
 
   .style-col__title {
-    font-size: 0.9rem;
+    font-size: var(--font-size-card-title);
     margin-bottom: var(--space-lg);
     display: flex;
     align-items: center;
@@ -290,7 +285,7 @@ const operatingCommitments = [
   }
 
   .style-list li {
-    font-size: 0.85rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-muted);
     line-height: 1.55;
     padding-left: var(--space-md);
@@ -321,7 +316,7 @@ const operatingCommitments = [
   }
 
   .toolchain-group__label {
-    font-size: 0.75rem;
+    font-size: var(--font-size-label);
     font-family: var(--font-mono);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -341,7 +336,7 @@ const operatingCommitments = [
     color: var(--color-text-muted);
     line-height: 1.7;
     margin-bottom: var(--space-xl);
-    font-size: 0.9375rem;
+    font-size: var(--font-size-body);
   }
 
   .aar-questions {
@@ -365,13 +360,13 @@ const operatingCommitments = [
 
   .aar-item__q {
     font-family: var(--font-heading);
-    font-size: 0.875rem;
+    font-size: var(--font-size-body-sm);
     color: var(--color-text-heading);
     margin: 0;
   }
 
   .aar-item__sub {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-meta);
     color: var(--color-text-muted);
     margin: 0;
     font-family: var(--font-mono);

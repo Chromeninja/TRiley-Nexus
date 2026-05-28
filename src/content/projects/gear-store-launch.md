@@ -59,4 +59,3 @@ cover:
 featured: false
 order: 16
 ---
-

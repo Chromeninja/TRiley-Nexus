@@ -42,6 +42,11 @@ skills:
   - Stakeholder Communication
   - Convention Logistics
   - Programming Coordination
+tools:
+  - Discord
+  - Eventbrite
+  - Run of Show Planning
+  - Sponsor Coordination Workflows
 tags:
   - Star Citizen
   - Community Events
@@ -65,4 +70,3 @@ media:
 featured: false
 order: 21
 ---
-

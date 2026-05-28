@@ -9,7 +9,7 @@ timeframe: "Oct-Nov 2024, iterated through 2025"
 startedAt: "2024-10"
 endedAt: "2025-12"
 summary: "Coordinated ShepherdTech website delivery, testing, design feedback, and project management support so prospective clients could understand the services offered and move cleanly into appointment booking. Core launch work ran from October to November 2024, followed by iterative improvements through 2025."
-cardSummary: "Coordinated the ShepherdTech website launch with QA, design feedback, service messaging, and booking-flow improvements."
+cardSummary: "Coordinated ShepherdTech's website and booking launch with QA, design, and messaging reviews, improving service clarity and appointment flow so prospective clients could move from discovery to booking with less friction."
 highlights:
   - "Coordinated cross-functional website delivery from October through November 2024."
   - "Led site testing and design feedback loops to improve clarity, trust, and booking flow usability."
@@ -23,7 +23,7 @@ approach: |
   - design and content feedback focused on clarity, trust, and service fit
   - milestone tracking to keep delivery moving toward launch
   - post-launch iteration on service messaging and booking paths
-outcome: "Delivered a business-aligned website with clearer service communication, appointment-booking support, and a practical improvement path that continued through 2025."
+outcome: "Launched a client-facing website and booking flow that improved service clarity and made first-contact conversion easier for prospective customers. Continued iteration through 2025 created a stronger operating baseline for messaging, QA, and booking-path improvements without reworking the full site architecture."
 skills:
   - Project Coordination
   - Website QA Testing
@@ -50,4 +50,3 @@ links:
 featured: false
 order: 26
 ---
-
