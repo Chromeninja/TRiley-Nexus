@@ -1,11 +1,11 @@
 ---
-title: Nope Challange
+title: Nope Challenge
 status: active
 category: Digital Products & Platforms
 tags:
   - VR
-  - Video Game
-  - Production
+  - Agile Delivery
+  - Perforce
   - Mixed Reality
   - Community Testing
 organization: Happy Manic
@@ -13,22 +13,23 @@ organizationUrl: "https://happymanic.com/"
 timeframe: Ongoing
 roleTitle: Producer
 startedAt: "2025-10"
-summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout, coordinating Jira priorities with developers, community testing, Discord operations updates, and ongoing hand-tracking work."
-cardSummary: "Producer for Nope Challenge during Reality Breach rollout, aligning mixed reality delivery, community testing, and hand-tracking priorities."
+summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout, coordinating roadmap planning, Jira priorities, Perforce workflows, feature deployments, developer/designer/QA coordination, estimates, backlog management, community testing, Discord operations updates, and ongoing hand-tracking work."
+cardSummary: "Producer for Nope Challenge, aligning VR delivery, Jira priorities, Perforce workflows, community testing, and feature deployments."
 highlights:
   - "Worked with 30+ community members to run testing cycles and collect actionable feedback."
   - "Revamped Discord channel structure and implemented AutoMod best practices for safer community operations."
-  - "Partnered with developers in Jira to prioritize roadmap work across mixed reality and hand-tracking features."
+  - "Partnered with developers, designers, and QA in Jira and Perforce to prioritize roadmap work across mixed reality and hand-tracking features."
 problem: "Nope Challenge entered the Reality Breach mixed reality rollout phase and needed coordinated production support to manage live feature priorities, community testing signal, and cross-team planning."
-approach: "Led producer workflows across Jira planning, developer prioritization, community testing operations, and Discord operations updates. Coordinated rollout support for Reality Breach mixed reality features while helping shape hand-tracking implementation priorities from test feedback."
+approach: "Led producer workflows across Jira planning, Perforce coordination, developer and designer prioritization, QA feedback, community testing operations, estimate gathering, backlog management, and Discord operations updates. Coordinated rollout support for Reality Breach mixed reality features while helping shape hand-tracking implementation priorities from test feedback."
 outcome: "Created a tighter rollout loop between community testing and development decisions, improved server safety and feedback quality through Discord updates and AutoMod practices, and helped maintain an over 4.5 player rating for the game."
 skills:
-  - Production
+  - Technical Production
   - Roadmapping
-  - Jira Management
+  - Agile Delivery
   - Beta Testing
   - Bug Triage
-  - Team Coordination
+  - Cross-Functional Delivery
+  - QA Coordination
   - Release Coordination
 tools:
   - Unreal Engine
@@ -58,4 +59,3 @@ media:
 featured: true
 order: 2
 ---
-

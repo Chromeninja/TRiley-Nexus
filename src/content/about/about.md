@@ -1,23 +1,23 @@
 ---
-metaDescription: "About T. Riley: systems builder, technical program manager, Air National Guard Air Traffic Controller, BarCitizen International COO, community leader, and father."
+metaDescription: "About T. Riley: technical product and program manager, systems builder, Air National Guard Air Traffic Controller, BarCitizen International COO, community leader, and father."
 backgroundParagraphs:
   - |
-    I am a **systems builder**, technical program manager, and operations-focused problem solver.
+    I am a **technical product and program manager**, systems builder, and operations-focused problem solver.
 
     My background spans:
     - military service
     - game industry operations
-    - customer support systems
-    - tools development and user research
+    - e-commerce support automation and customer experience systems
+    - roadmap ownership, tools development, and user research
     - live events, community leadership, and AI-assisted workflow design
 
   - "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That path has taken me through a wide range of environments: tactical operations, precision work under pressure, leadership in ambiguous situations, and circumstances where the stakes were real and the playbook did not exist. Military service shaped how I think more than anything else in my career. You learn to stay calm, build structure, communicate clearly, and keep the mission moving even when the situation keeps changing."
 
-  - "My civilian career started while I was still serving. The National Guard gave me the ability to keep serving while building something outside of it. I started at Ubisoft in 2013 in customer support, where I got close to real player problems and saw how support systems worked from the ground up. Over the next decade I moved into tools development, user research, process improvement, and eventually into senior program management. My final role was Sr. Program Manager. One initiative I am especially proud of was building out automated refunds for the Ubisoft Store, a project that required aligning complex systems, multiple stakeholders, and operational processes across teams to actually ship."
+  - "My civilian career started while I was still serving. The National Guard gave me the ability to keep serving while building something outside of it. I started at Ubisoft in 2013 in customer support, where I got close to real player problems and saw how support systems worked from the ground up. Over the next decade I moved into e-commerce operations, support automation, user research, process improvement, roadmap ownership, and eventually senior program management. My final role was Sr. Program Manager. One initiative I am especially proud of was modernizing digital refund and cancellation workflows for Ubisoft Store and Ubisoft+, a project that required turning policy, platform data, customer friction, and stakeholder needs into supportable systems that actually shipped."
 
-  - "The clearest pattern in my career is this: I notice problems that other people walk past, and I do not just flag them. I start building. A good example is VR Villa. I joined as a VR Tech, helping people into headsets. Within months I had expanded into staffing and scheduling systems, data tracking, and eventually built a custom check-in software solution from scratch. Nobody asked me to. I just saw what needed to exist and built it. That instinct has shown up everywhere I have worked."
+  - "The clearest pattern in my career is this: I notice problems that other people walk past, and I do not just flag them. I start building. A good example is VR Villa. I joined as a VR Tech, helping people into headsets. Within months I had expanded into staffing and scheduling systems, data tracking, check-in workflows, payroll support, and live event visibility tooling. Nobody asked me to. I just saw what needed to exist and built it. That instinct has shown up everywhere I have worked."
 
-  - "Today I am focused on growing as a leader and getting faster as a builder. I am leaning into AI-assisted development tools to accelerate how quickly I can turn an idea into working software, and I am thinking seriously about where to apply that capability next. The goal is director-level leadership or higher, building cross-functional systems and teams that genuinely change how an organization operates."
+  - "Today I am focused on growing as a leader and getting faster as a builder. I use GPT, Claude, Ollama, and GitHub Codex to accelerate coding, documentation, planning, portfolio iteration, and operational tooling, always with human review and clear boundaries. The goal is director-level leadership or higher: building cross-functional systems and teams that genuinely change how an organization operates."
 
 thinkItems:
   - title: Systems first
