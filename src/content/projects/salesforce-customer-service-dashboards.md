@@ -1,7 +1,7 @@
 ---
 title: Salesforce Customer Service Dashboards
 status: completed
-category: Customer Support
+category: Ubisoft Platform Work
 tags:
   - Salesforce
   - Dashboards

@@ -1,7 +1,7 @@
 ---
 title: E-Commerce Analytics and Reporting
 status: completed
-category: Digital Products & Platforms
+category: Commerce & Community Operations
 tags:
   - Analytics
   - Dashboards

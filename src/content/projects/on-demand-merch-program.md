@@ -1,7 +1,7 @@
 ---
 title: On-Demand Merch Program
 status: active
-category: Digital Products & Platforms
+category: Commerce & Community Operations
 tags:
   - Ecommerce Operations
   - Merchandise Operations
@@ -14,7 +14,7 @@ organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
 roleTitle: Director of Operations & Community Strategy
 summary: "Launched and manage an on-demand Fourthwall storefront for TEST Squadron as part of a broader operations strategy, creating a sustainable fundraising channel while giving members access to 50+ custom community products, including items made by community creators."
-cardSummary: "Built and run an on-demand Fourthwall merch program with 50-plus products that gives members reliable access to branded gear while creating a sustainable fundraising channel without traditional inventory risk."
+cardSummary: "Built a 50-plus product Fourthwall merch program that supports community fundraising without inventory risk."
 highlights:
   - Stood up an on-demand Fourthwall storefront with 50+ products to support recurring org fundraising without upfront inventory risk.
   - Built a member-friendly merch access model so community apparel could be ordered on demand with less admin overhead.

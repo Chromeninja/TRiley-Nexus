@@ -1,7 +1,7 @@
 ---
 title: Cloud Gaming Launch
 status: completed
-category: Digital Products & Platforms
+category: Ubisoft Platform Work
 organization: Ubisoft
 roleTitle: "Supervisor, E-Commerce Operations"
 timeframe: 2018 – 2022

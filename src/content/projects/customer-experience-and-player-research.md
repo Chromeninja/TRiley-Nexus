@@ -1,7 +1,7 @@
 ---
 title: Customer Experience and Player Research
 status: completed
-category: Digital Products & Platforms
+category: Ubisoft Platform Work
 tags:
   - User Research
   - Customer Experience

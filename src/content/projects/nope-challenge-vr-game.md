@@ -1,7 +1,7 @@
 ---
 title: Nope Challenge
 status: active
-category: Digital Products & Platforms
+category: VR & Experimental Tech
 tags:
   - VR
   - Agile Delivery
@@ -13,7 +13,7 @@ organizationUrl: "https://happymanic.com/"
 timeframe: Ongoing
 roleTitle: Producer
 startedAt: "2025-10"
-summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout, coordinating roadmap planning, Jira priorities, Perforce workflows, feature deployments, developer/designer/QA coordination, estimates, backlog management, community testing, Discord operations updates, and ongoing hand-tracking work."
+summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout. The work coordinated roadmap planning, Jira priorities, Perforce workflows, feature deployments, developer/designer/QA coordination, community testing, Discord operations updates, and ongoing hand-tracking work."
 cardSummary: "Producer for Nope Challenge, aligning VR delivery, Jira priorities, Perforce workflows, community testing, and feature deployments."
 highlights:
   - "Worked with 30+ community members to run testing cycles and collect actionable feedback."

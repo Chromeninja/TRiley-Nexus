@@ -11,7 +11,7 @@ profiles:
       - the **Mercury → Tecsys** order management migration
       - the **Gear Store** launch
       - cloud gaming partnerships with **GeForce Now, Luna, and Stadia**
-      - Ubisoft Store and Ubisoft+ refund/cancellation workflow modernization that reduced overall e-commerce support ticket volume by over 30%
+      - Ubisoft Store and Ubisoft+ refund/cancellation workflow modernization that reduced overall e-commerce support ticket volume by 30%
     longSummary: |
       **10+ years across Ubisoft's player-facing operations**, scaling from frontline support into program leadership.
 
@@ -27,7 +27,7 @@ profiles:
       - "Helped launch Ubisoft+ across worldwide regions with support-readiness, refund-flow validation, and subscription edge-case coverage."
       - "Represented customer support and voice-of-customer needs for Ubisoft Gear Store checkout, order flow, refund, fulfillment, merchandising, and launch-readiness workstreams."
       - "Onboarded Ubisoft titles to GeForce Now, Amazon Luna, and Google Stadia."
-      - "Modernized Ubisoft Store and Ubisoft+ refund workflows, reducing overall e-commerce support ticket volume by over 30%."
+      - "Modernized Ubisoft Store and Ubisoft+ refund workflows, reducing overall e-commerce support ticket volume by 30%."
       - "Led the Mercury → Tecsys Order Dynamics order management migration."
       - "Authored Salesforce, MicroStrategy, and Tableau dashboards used by Ubisoft worldwide CS."
     logo:

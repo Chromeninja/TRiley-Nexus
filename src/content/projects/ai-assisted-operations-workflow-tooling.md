@@ -1,13 +1,13 @@
 ---
 title: AI-Assisted Operations & Workflow Tooling
 status: active
-category: Digital Products & Platforms
+category: Production & Pipeline
 organization: T.Riley
 roleTitle: Systems Builder / Technical Program Manager
 timeframe: Ongoing
 startedAt: "2024"
-summary: "Built and used AI-assisted workflows with GPT, Claude, Ollama, and GitHub Codex to accelerate coding, documentation, planning, portfolio iteration, operational tooling, and internal productivity work. The focus is practical enablement: reducing repetitive program-management and knowledge-work overhead while keeping human review and clear operating boundaries in place."
-cardSummary: "Built practical AI-assisted workflows for coding, documentation, planning, portfolio iteration, and operations tooling."
+summary: "Use GPT, Claude, Ollama, and GitHub Codex to accelerate coding, documentation, resume and portfolio iteration, operational tooling, and workflow delivery across personal projects. The work is practical applied AI: reducing friction in program management, documentation, status/reporting, and software delivery with human review."
+cardSummary: "Built practical AI-assisted workflows for coding, documentation, portfolio iteration, and operations tooling."
 highlights:
   - "Used GPT, Claude, Ollama, and GitHub Codex to accelerate coding support, documentation, planning, and operational tooling."
   - "Applied LLM tools to reduce repetitive program-management and knowledge-work overhead."
@@ -42,12 +42,11 @@ tools:
   - Python
   - Markdown
 tags:
-  - AI Workflows
-  - Workflow Automation
-  - Technical Program Management
-  - GitHub Actions
-  - Operational Tooling
-  - Documentation Systems
+  - Workflow Design
+  - Automation
+  - Technical Production
+  - Delivery Coordination
+  - AI-Assisted Workflows
 featured: false
 order: 28
 ---

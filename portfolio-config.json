@@ -42,7 +42,7 @@
       "supportingText": "My favorite work is making the confusing parts easier to see, giving teams a steadier way forward, and leaving behind something useful after the first push is over.",
       "quickNotes": [
         "10+ years growing through support, operations, product, and program work at Ubisoft",
-        "30%+ fewer Ubisoft e-commerce support tickets after a refund-flow rebuild",
+        "Reduced overall e-commerce support ticket volume by 30% after a Ubisoft refund-flow rebuild",
         "Roadmap ownership, user research, PRDs, acceptance criteria, and release planning across support platforms",
         "Discord systems and community operations for a 40,000-member group",
         "15+ years of military service, including air traffic control work"
@@ -553,7 +553,7 @@
       "roleSummary": "Support operations to senior program leadership",
       "achievements": [
         "Managed Ubisoft Help roadmap delivery as Senior Program Manager.",
-        "Reduced overall e-commerce support ticket volume by over 30% through refund flow modernization.",
+        "Reduced overall e-commerce support ticket volume by 30% through refund flow modernization.",
         "Represented support and voice-of-customer needs across e-commerce launch and operations workstreams."
       ],
       "logo": {
@@ -597,10 +597,10 @@
     "TEST Squadron": {
       "summary": "Director-level operations and community strategy spanning event programs, Discord governance, automation platforms, and member-facing commerce for a large org and partnered Discord ecosystem.",
       "companyInfo": "TEST Squadron is a large Star Citizen organization and partnered Discord community with member programs, events, community systems, and volunteer-led operating needs at significant scale.",
-      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including leadership workflows across 27 leadership members with functional groups such as 12 managers, 9 event coordinators, 2 admins, 2 bot developers, and 7 designers.",
+      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including leadership workflows across 27 leadership members spanning overlapping manager, event coordination, admin, bot development, and design functions.",
       "roleSummary": "Director of Operations and Community Strategy",
       "achievements": [
-        "Coordinate leadership workflows across 27 leadership members and supporting manager, coordinator, admin, bot developer, and designer groups.",
+        "Coordinate leadership workflows across 27 leadership members spanning overlapping manager, event coordination, admin, bot development, and design functions.",
         "Built and operate an open-source Discord bot platform for verification, role management, voice channel orchestration, analytics, and staff workflows."
       ],
       "color": "#de87ff",
