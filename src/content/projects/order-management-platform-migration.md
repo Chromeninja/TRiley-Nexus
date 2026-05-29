@@ -1,7 +1,7 @@
 ---
 title: Order Management Platform Migration
 status: completed
-category: Digital Products & Platforms
+category: Ubisoft Platform Work
 tags:
   - Platform Migration
   - Order Management

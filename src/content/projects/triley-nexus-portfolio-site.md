@@ -1,7 +1,7 @@
 ---
 title: Custom Portfolio Platform
 status: active
-category: Personal Product & Portfolio Engineering
+category: Production & Pipeline
 organization: T. Riley Productions
 roleTitle: Creator and Product Builder
 timeframe: Ongoing

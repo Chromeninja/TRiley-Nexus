@@ -1,14 +1,14 @@
 ---
 title: Ubisoft Gear Store E-commerce Launch & Customer Experience Operations
 status: completed
-category: Digital Products & Platforms
+category: Commerce & Community Operations
 organization: Ubisoft
 roleTitle: "Supervisor, E-Commerce Operations"
 timeframe: 2019 – 2021
 startedAt: "2019-09"
 endedAt: "2021-06"
-summary: "Served as the customer support stakeholder and voice-of-customer representative for Ubisoft Gear Store and marketplace e-commerce operations, connecting customer-facing friction back to product, operations, vendor, and support teams across checkout, order flow, refunds, fulfillment, listings, merchandising, and launch readiness."
-cardSummary: "Represented customer support and voice-of-customer needs across Ubisoft Gear Store launch readiness and e-commerce operations."
+summary: "Served as the customer support stakeholder and voice-of-customer representative for Ubisoft Gear Store launch readiness and e-commerce operations. The work connected customer-facing friction back to product, operations, vendor, and support teams across checkout, order flow, refunds, fulfillment, listings, and merchandising."
+cardSummary: "Represented voice-of-customer needs across Ubisoft Gear Store launch readiness and e-commerce operations."
 highlights:
   - "Served as the customer support stakeholder and voice-of-customer representative for Ubisoft Gear Store and marketplace operations."
   - "Supported checkout, cart abandonment, payment issue, order flow, refund, fulfillment, item listing, merchandising, and launch-readiness workstreams."

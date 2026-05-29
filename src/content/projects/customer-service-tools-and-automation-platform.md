@@ -1,7 +1,7 @@
 ---
 title: CS Tools and Automation
 status: completed
-category: Customer Support
+category: Ubisoft Platform Work
 organization: Ubisoft
 roleTitle: Ancillary Frontline Representative
 timeframe: "2015"

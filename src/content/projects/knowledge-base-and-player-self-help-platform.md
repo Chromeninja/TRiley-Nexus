@@ -1,7 +1,7 @@
 ---
 title: Knowledge Base and Player Self-Help Platform
 status: completed
-category: Customer Support
+category: Ubisoft Platform Work
 tags:
   - Knowledge Base
   - Self-Help

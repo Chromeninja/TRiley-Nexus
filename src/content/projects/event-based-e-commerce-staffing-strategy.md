@@ -1,7 +1,7 @@
 ---
 title: Event-Based E-Commerce Staffing Strategy
 status: completed
-category: Customer Support
+category: Commerce & Community Operations
 tags:
   - Staffing Strategy
   - Workforce Planning

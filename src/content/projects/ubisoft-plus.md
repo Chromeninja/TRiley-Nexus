@@ -1,7 +1,7 @@
 ---
 title: Ubisoft+
 status: completed
-category: Digital Products & Platforms
+category: Ubisoft Platform Work
 organization: Ubisoft
 roleTitle: "Supervisor, E-Commerce Operations"
 timeframe: 2019 – 2021

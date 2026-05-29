@@ -1,7 +1,7 @@
 ---
 title: Monkey Laser Face
 status: completed
-category: Digital Products & Platforms
+category: VR & Experimental Tech
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 roleTitle: Producer
@@ -9,7 +9,7 @@ timeframe: Demo Sprint
 startedAt: "2026-01"
 endedAt: "2026-02"
 summary: "Built and delivered Monkey Laser Face as a demo project to expand mixed reality mode capabilities and hand-tracking support for future Nope Challenge features."
-cardSummary: "Produced Monkey Laser Face as a mixed-reality demo sprint to validate hand-tracking interactions, align cross-discipline testing, and deliver decisions that de-risked feature rollout priorities for Nope Challenge."
+cardSummary: "Produced a mixed-reality demo sprint to validate hand tracking and de-risk Nope Challenge feature rollout."
 highlights:
   - "Coordinated demo priorities for mixed reality mode and hand-tracking feature implementation."
   - "Supported cross-discipline testing and iteration to validate interaction design choices."

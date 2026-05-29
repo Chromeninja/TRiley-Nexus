@@ -1,13 +1,13 @@
 ---
 title: Ubisoft Help Roadmap & Customer Support Platform Delivery
 status: completed
-category: Digital Products & Platforms
+category: Ubisoft Platform Work
 organization: Ubisoft
 roleTitle: Senior Program Manager
 timeframe: 2022 – 2023
 startedAt: "2022-02"
 endedAt: "2023-08"
-summary: "Managed the Ubisoft Help roadmap as Senior Program Manager, spanning new contact flows, in-game help features, user research pipelines, and customer-support platform improvements. The work centered on turning messy player and support needs into PRDs, one-pagers, Jira user stories, acceptance criteria, release plans, and sequenced delivery across product, engineering, design, QA, support, and business stakeholders."
+summary: "Managed the Ubisoft Help roadmap across contact flows, in-game help, user research pipelines, and customer-support platform improvements. The work turned messy player and support needs into PRDs, one-pagers, Jira user stories, acceptance criteria, release plans, and sequenced delivery across product, engineering, design, QA, support, and business stakeholders."
 cardSummary: "Managed the Ubisoft Help roadmap across contact flows, in-game help, research pipelines, and support platform delivery."
 highlights:
   - "Managed the Ubisoft Help roadmap across contact flows, in-game help features, research pipelines, and support platform improvements."
