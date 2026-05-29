@@ -68,10 +68,9 @@ export default [
     files: ["inventory_script.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "commonjs",
+      sourceType: "module",
       globals: {
         console: "readonly",
-        require: "readonly",
       },
     },
   },

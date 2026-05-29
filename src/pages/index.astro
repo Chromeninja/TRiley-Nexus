@@ -68,11 +68,11 @@ const projectFocusAreas = [
           <p class="hero__subtext">
             {homeHero.subtext}
           </p>
-          {homeHero.supportingText && (
-            <p class="hero__supporting-text">
-              {homeHero.supportingText}
-            </p>
-          )}
+          {
+            homeHero.supportingText && (
+              <p class="hero__supporting-text">{homeHero.supportingText}</p>
+            )
+          }
           <ul class="hero__quick-notes" aria-label="Selected proof points">
             {
               heroProofItems.map((point) => (
@@ -107,8 +107,8 @@ const projectFocusAreas = [
               A wide mix of work, tied together by follow-through.
             </h2>
             <p class="hero__highlights-copy">
-              Across military service, games, community work, and live events,
-              I tend to do the same useful thing: find the messy middle, make it
+              Across military service, games, community work, and live events, I
+              tend to do the same useful thing: find the messy middle, make it
               easier to understand, and help people move.
             </p>
           </div>
@@ -287,7 +287,7 @@ const projectFocusAreas = [
           Use narrative view for the story, gantt for role and project overlap,
           or scroll for the full progression in one pass.
         </p>
-      <div class="career-hub-card">
+
         <div class="career-hub-card__actions">
           <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
             >Open Narrative View</a

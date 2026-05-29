@@ -3,7 +3,7 @@
     "name": "T.Riley",
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
-    "description": "Systems builder and operations leader focused on event operations, community platforms, military-tested execution, and the automation that helps complex work hold together.",
+    "description": "Technical product and program leader focused on turning messy operational needs into clear requirements, roadmaps, workflows, and supportable systems.",
     "canonicalUrl": "https://chromeninja.com",
     "repository": {
       "owner": "Chromeninja",
@@ -27,14 +27,14 @@
     "email": "t.riley.garrett@gmail.com"
   },
   "footer": {
-    "tagline": "Systems builder for event operations, community platforms, and complex work.",
-    "focusLine": "FOCUS: EVENT OPERATIONS, COMMUNITY PLATFORMS, MILITARY OPERATIONS"
+    "tagline": "Technical product and program leadership for operations, customer experience, communities, and complex delivery.",
+    "focusLine": "FOCUS: PRODUCT, PROGRAMS, OPERATIONS, COMMUNITY"
   },
   "home": {
-    "metaDescription": "Systems builder and operations leader: live VR event operations, large gaming community platforms, military airfield execution, and the automation that keeps teams moving.",
+    "metaDescription": "Technical product and program manager and systems builder spanning e-commerce support automation, live VR event operations, large gaming community platforms, military airfield execution, and practical workflow tooling.",
     "hero": {
       "eyebrow": "// PROGRAMS, PEOPLE, AND SYSTEMS",
-      "roleLine": "Systems Builder | Event Operations | Community Platforms | Military Operations",
+      "roleLine": "Technical Product & Program Manager | Systems Builder | Event and Community Leadership",
       "headlineLead": "I help turn messy work into",
       "headlineAccent": "systems",
       "headlineTail": "people can actually use.",
@@ -43,6 +43,7 @@
       "quickNotes": [
         "10+ years growing through support, operations, product, and program work at Ubisoft",
         "30%+ fewer Ubisoft e-commerce support tickets after a refund-flow rebuild",
+        "Roadmap ownership, user research, PRDs, acceptance criteria, and release planning across support platforms",
         "Discord systems and community operations for a 40,000-member group",
         "15+ years of military service, including air traffic control work"
       ],
@@ -58,16 +59,16 @@
     },
     "hiringProfiles": [
       {
-        "title": "Messy programs that need traction",
-        "text": "I am useful when a lot of people are depending on each other, ownership is fuzzy, and the work needs someone who can pull the pieces into motion."
+        "title": "Technical program leadership",
+        "text": "I am useful when messy operational needs must become clear requirements, user stories, release plans, and supportable systems."
       },
       {
-        "title": "Workflows that need to feel less fragile",
-        "text": "I like turning tribal knowledge, handoffs, and recurring pain points into practical routines that other people can run without needing a hero every time."
+        "title": "Operational systems design",
+        "text": "I like turning tribal knowledge, handoffs, and recurring pain points into practical workflows other people can run without needing a hero every time."
       },
       {
-        "title": "Tools that should make work easier",
-        "text": "When a workflow is repetitive or high-friction, I look for the right mix of tooling, automation, and human judgment to make it calmer and more useful."
+        "title": "Technical enablement and automation",
+        "text": "When a workflow is repetitive or high-friction, I look for the right mix of tooling, automation, AI assistance, and human judgment to make it calmer and more useful."
       }
     ],
     "featuredHighlights": [
@@ -86,7 +87,7 @@
       {
         "value": "13+",
         "label": "Years in gaming",
-        "detail": "13+ years in the gaming industry spanning player support, program management, live operations, and community systems at Ubisoft and beyond.",
+        "detail": "13+ years in gaming spanning player support, technical program management, live operations, customer experience, and community systems.",
         "href": "/career"
       },
       {
@@ -199,11 +200,12 @@
         "label": "Technical Program Management",
         "icon": "◈",
         "skills": [
-          "Program Planning and Roadmapping",
+          "Roadmapping and Release Planning",
           "Risk Management",
           "Cross-functional Coordination",
           "Stakeholder Communication",
-          "OKR and KPI Frameworks",
+          "PRDs and One-Pagers",
+          "OKRs and Acceptance Criteria",
           "Dependency Mapping"
         ]
       },
@@ -211,10 +213,10 @@
         "label": "Operations and Systems",
         "icon": "⬡",
         "skills": [
-          "Systems Design",
+          "Support Automation",
           "Process Automation",
-          "Infrastructure Operations",
-          "Incident Management",
+          "Customer Experience Operations",
+          "E-commerce Operations",
           "Runbook Development",
           "Change Management"
         ]
@@ -238,8 +240,9 @@
           "Discord Bot Development",
           "API Integration",
           "Workflow Automation",
-          "AI and LLM Tools",
+          "AI-Assisted Workflow Tools",
           "Data Visualization",
+          "GitHub Actions",
           "Static Site Development"
         ]
       },
@@ -260,7 +263,7 @@
       {
         "icon": "⬡",
         "title": "Program Leadership",
-        "description": "I connect strategy, planning, owners, risks, and delivery so complex work can move with executive-level clarity."
+        "description": "I connect strategy, requirements, owners, risks, estimates, and delivery so complex work can move with executive-level clarity."
       },
       {
         "icon": "◈",
@@ -279,8 +282,8 @@
       },
       {
         "icon": "◆",
-        "title": "Technical Enablement",
-        "description": "I use automation, content tooling, and workflow design to remove friction without making the tools the point."
+        "title": "Technical Product Delivery",
+        "description": "I work close to engineering, design, and QA to turn ambiguous needs into user stories, acceptance criteria, roadmaps, and release plans."
       },
       {
         "icon": "⊕",
@@ -292,8 +295,8 @@
   "howIWork": {
     "metaDescription": "How I move through messy work, organize people and systems, and keep improving the next pass.",
     "coreApproachParagraphs": [
-      "I have never fit neatly into one lane. Most of my work has been about taking confusing, cross-functional situations and making them easier for people to understand, run, and improve.",
-      "Whether I am planning a military task, running a community event, moving old infrastructure, or building an automation workflow, I start by learning how the pieces interact. Then I look for the simplest useful system that makes the next pass easier."
+      "I am a technical product and program leader who builds systems. Most of my work has been about taking confusing, cross-functional situations and making them easier for people to understand, run, and improve.",
+      "Whether I am planning a military task, running a community event, coordinating a software roadmap, or building an automation workflow, I start by learning how the pieces interact. Then I look for the simplest useful system that makes the next pass easier."
     ],
     "workPrinciples": [
       {
@@ -303,8 +306,8 @@
       },
       {
         "num": "02",
-        "title": "Build something people can keep using",
-        "body": "A fix is better when it can survive the next busy week. I care about simple routines, clean handoffs, and documentation that lets the work keep moving without me in the middle of everything."
+        "title": "Turn needs into delivery artifacts",
+        "body": "A good idea still needs a usable path to delivery. I translate research, support friction, stakeholder needs, and operational constraints into PRDs, one-pagers, user stories, acceptance criteria, OKRs, roadmaps, and release plans."
       },
       {
         "num": "03",
@@ -318,8 +321,8 @@
       },
       {
         "num": "05",
-        "title": "Keep the big picture and the next step in view",
-        "body": "I like moving between the long view and the practical next step. The plan needs direction, but it also needs someone watching the details that can quietly break it."
+        "title": "Deliver in working increments",
+        "body": "I use Scrum, Kanban, sprint planning, standups, backlog grooming, cross-functional estimation, QA coordination, and release planning as practical tools, not ceremony. The point is to make work visible, sequence it honestly, and keep teams moving."
       },
       {
         "num": "06",
@@ -363,7 +366,7 @@
       },
       {
         "icon": "▣",
-        "title": "How I build",
+        "title": "How I build and deliver",
         "items": [
           "Simplest working solution first, then optimize.",
           "Document as I go - future me and future operators need this.",
@@ -371,12 +374,30 @@
           "Automate the repeatable; keep humans in judgment roles.",
           "Nothing is done until it is documented and someone else can run it."
         ]
+      },
+      {
+        "icon": "⊕",
+        "title": "How I deliver with technical teams",
+        "items": [
+          "Write PRDs, one-pagers, user stories, and acceptance criteria that engineering, design, QA, and support can use.",
+          "Use Jira, GitHub Projects, Confluence, and Miro to keep plans visible and decisions traceable.",
+          "Gather estimates with the people doing the work, then sequence delivery around real constraints.",
+          "Coordinate QA and release readiness so shipped work can be supported after launch.",
+          "Stay close enough to technical workflows to manage GitHub Actions, Perforce, and delivery tooling without presenting myself as a pure software engineer."
+        ]
       }
     ],
     "toolchainGroups": [
       {
         "category": "Planning and Documentation",
-        "tools": ["Notion", "Obsidian", "Google Workspace", "Markdown"]
+        "tools": [
+          "Jira",
+          "Confluence",
+          "Miro",
+          "GitHub Projects",
+          "Notion",
+          "Markdown"
+        ]
       },
       {
         "category": "Community and Communications",
@@ -384,11 +405,24 @@
       },
       {
         "category": "Automation and Integration",
-        "tools": ["Zapier", "n8n", "Python", "REST APIs", "Node.js"]
+        "tools": [
+          "Zapier",
+          "n8n",
+          "Python",
+          "REST APIs",
+          "Node.js",
+          "GitHub Actions"
+        ]
       },
       {
         "category": "AI and Workflow",
-        "tools": ["Ollama", "LangChain", "GPT", "Claude", "Prompt Engineering"]
+        "tools": [
+          "GPT",
+          "Claude",
+          "Ollama",
+          "GitHub Codex",
+          "Prompt Engineering"
+        ]
       },
       {
         "category": "Infrastructure",
@@ -396,7 +430,7 @@
       },
       {
         "category": "Development",
-        "tools": ["VS Code", "Git", "Astro", "TypeScript", "Python"]
+        "tools": ["VS Code", "Git", "Perforce", "Astro", "TypeScript", "Python"]
       }
     ],
     "aar": {
@@ -435,7 +469,7 @@
       {
         "icon": "◈",
         "title": "AI-Assisted Operations",
-        "body": "How agentic AI tools can reduce friction in program management, status reporting, and knowledge retrieval - without adding complexity."
+        "body": "How GPT, Claude, Ollama, and GitHub Codex can reduce friction in coding, documentation, planning, status reporting, and knowledge retrieval with human review."
       },
       {
         "icon": "⬡",
@@ -461,7 +495,7 @@
       },
       {
         "label": "HIGH",
-        "text": "Ship V1 of the AI workflow assistant",
+        "text": "Continue building practical AI-assisted workflow tooling",
         "color": "badge-green"
       },
       {
@@ -512,15 +546,15 @@
   "_comment_companies": "COMPANIES & ORGANIZATIONS: All company and organizational profiles. Add new companies here and reference by name in projects.",
   "companies": {
     "Ubisoft": {
-      "summary": "Player-support, platform, and live-service program work across multiple Ubisoft surfaces and launches.",
+      "summary": "Player support, e-commerce operations, customer experience, and technical program management across multiple Ubisoft surfaces and launches.",
       "companyInfo": "Ubisoft is a global game publisher and live-service operator supporting large player communities across multiple titles, subscription products, and support platforms.",
-      "myTimeInfo": "From 2013 to 2024, I worked across Ubisoft support and platform operations, including Ubisoft Help improvements, R6Fix quality reporting, For Honor bug reporting workflows, Ubisoft+ launch support, GamePlan integration, Gear Store launch readiness, and automated refund flow operations.",
-      "longSummary": "Long-horizon work across player support and live platform operations, scaling issue quality, automation pathways, launch readiness, and cross-functional coordination with support, product, and development teams.",
+      "myTimeInfo": "From 2013 to 2024, I worked across Ubisoft support and platform operations, including Ubisoft Help roadmap ownership, customer research, Ubisoft+ launch support, Gear Store e-commerce operations, cloud gaming launch readiness, and digital refund flow modernization.",
+      "longSummary": "Long-horizon work across player support and live platform operations, scaling issue quality, support automation, customer experience feedback loops, launch readiness, and cross-functional coordination with support, product, engineering, design, QA, and business teams.",
       "roleSummary": "Support operations to senior program leadership",
       "achievements": [
-        "Scaled reporting quality loops for live-service teams.",
-        "Improved release readiness for support-facing platform launches.",
-        "Aligned operations, support, and product stakeholders across multiple surfaces."
+        "Managed Ubisoft Help roadmap delivery as Senior Program Manager.",
+        "Reduced overall e-commerce support ticket volume by over 30% through refund flow modernization.",
+        "Represented support and voice-of-customer needs across e-commerce launch and operations workstreams."
       ],
       "logo": {
         "src": "/media/companies/ubisoft-logo.png",
@@ -542,8 +576,8 @@
     "Happy Manic": {
       "summary": "Technical production and operations work across Nope Challenge feature development, testing, and delivery systems.",
       "companyInfo": "Happy Manic is a creative production environment focused on experimentation, rapid iteration, and community-facing game experiences.",
-      "myTimeInfo": "Since October 2025, I have supported Nope Challenge through production pipeline management, Reality Breach and beta community testing, hand-tracking development, and Perforce workflow improvements.",
-      "longSummary": "Hands-on technical production leadership across planning, testing, workflow reliability, and feature delivery for ongoing Nope Challenge development.",
+      "myTimeInfo": "Since October 2025, I have supported Nope Challenge through production pipeline management, Reality Breach and beta community testing, hand-tracking development, Jira planning, developer/designer/QA coordination, and Perforce workflow improvements.",
+      "longSummary": "Hands-on technical production leadership across roadmap planning, estimates, testing, workflow reliability, backlog management, and feature delivery for ongoing Nope Challenge development.",
       "roleSummary": "Technical production and delivery operations",
       "achievements": [
         "Strengthened delivery structure around ongoing Nope Challenge work.",
@@ -563,10 +597,10 @@
     "TEST Squadron": {
       "summary": "Director-level operations and community strategy spanning event programs, Discord governance, automation platforms, and member-facing commerce for a large org and partnered Discord ecosystem.",
       "companyInfo": "TEST Squadron is a large Star Citizen organization and partnered Discord community with member programs, events, community systems, and volunteer-led operating needs at significant scale.",
-      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including a 15+ person Event Coordinators program and a custom Discord bot platform for a roughly 40k-member Discord tied to a 24k-member organization.",
+      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including leadership workflows across 27 leadership members with functional groups such as 12 managers, 9 event coordinators, 2 admins, 2 bot developers, and 7 designers.",
       "roleSummary": "Director of Operations and Community Strategy",
       "achievements": [
-        "Built and lead a 15+ person Event Coordinators program delivering 5 to 10 weekly events and 1 to 2 large monthly activations.",
+        "Coordinate leadership workflows across 27 leadership members and supporting manager, coordinator, admin, bot developer, and designer groups.",
         "Built and operate an open-source Discord bot platform for verification, role management, voice channel orchestration, analytics, and staff workflows."
       ],
       "color": "#de87ff",
@@ -668,7 +702,7 @@
     "VR Villa": {
       "summary": "Live event production and operations systems for a touring VR activation program, including Event Ops Manager for check-in, waivers, live player visibility, staff coordination, and staffing and payroll workflows.",
       "companyInfo": "VR Villa is a free-to-play VR and AR event program that travels to conventions and pop-culture events across the United States.",
-      "myTimeInfo": "Since 2024, I have led production, event operations, and internal tooling support for VR Villa, building the Event Ops Manager platform and a staffing and payroll system that support roughly 50 to 60 events per year.",
+      "myTimeInfo": "Since 2024, I have led production, event operations, and internal tooling support for VR Villa, building the Event Ops Manager platform and a staffing and payroll system that support roughly 50 to 60 events per year, events up to 30 staff members, and contractor-heavy staffing workflows.",
       "roleSummary": "Producer and event operations systems lead",
       "logo": {
         "src": "/media/companies/vr-villa-logo.jpg",

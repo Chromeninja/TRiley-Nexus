@@ -4,17 +4,17 @@ status: active
 category: Events & Community Operations
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
-roleTitle: Director of Operations & Community Strategy
+roleTitle: Program Lead / Community Operations
 timeframe: Ongoing
-summary: "Built and led the TEST Squadron Event Coordinators program as Director of Operations & Community Strategy, organizing a trusted team to run 5 to 10 weekly operations, training, and story-driven events, plus 1 to 2 larger monthly activations that keep members engaged and active."
-cardSummary: "Built and led a 15-plus person Event Coordinators program that delivers 5 to 10 weekly events and 1 to 2 larger monthly activations, with regular attendance ranging from 15 to 60 members."
+summary: "Built and led the TEST Squadron Event Coordinators program as part of a broader leadership operating model for a roughly 24k-member Star Citizen organization and roughly 40k-member Discord, organizing coordinators, managers, admins, developers, and designers around recurring operations, training, and story-driven events."
+cardSummary: "Built and lead the Event Coordinators program inside a 27-member leadership structure supporting recurring operations and RP events."
 highlights:
-  - "Established and managed a 15+ person Event Coordinators team with clear ownership, planning standards, and delivery expectations."
+  - "Help coordinate a broader leadership structure with 27 leadership members, including manager, coordinator, admin, bot developer, and designer groups."
+  - "Established and managed the 9-person Event Coordinators team with clear ownership, planning standards, and delivery expectations."
   - "Built event handbooks, guidelines, and policy documentation to standardize quality, safety, and execution across event leads."
-  - "Sustained a delivery cadence of 5 to 10 weekly events and 1 to 2 large monthly events, with regular attendance ranging from 15 to 60 members across operations, training, and custom RP formats."
 problem: "Community growth created a need for consistent, high-quality events that could scale beyond ad-hoc hosting and keep members active over time."
 approach: |
-  I formed a dedicated **Event Coordinators** group of trusted members and built a repeatable event playbook around how TEST plans, staffs, and improves events.
+  I formed a dedicated **Event Coordinators** group of trusted members and built a repeatable operating model around how TEST plans, staffs, and improves events.
 
   The program rests on three foundations:
   - **planning playbooks** that define how events get scoped and prepared
@@ -28,15 +28,12 @@ approach: |
   - custom storyboard-driven RP scenarios
 
   The result is a program that does not rely on one-off hosts carrying the entire community calendar alone.
-
-  In practice, that structure now supports 5 to 10 events each week and 1 to 2 larger monthly activations, with regular turnout ranging from 15 to 60 participants depending on format.
 outcome: |
-  Created a dependable event engine that increased organizational consistency, strengthened participation, and maintained ongoing engagement.
+  Created a dependable event engine and leadership workflow that increased organizational consistency, strengthened participation, and maintained ongoing engagement.
 
   The program now provides:
-  - a more reliable cadence of 5 to 10 structured events each week
-  - clearer ownership across a 15+ person coordinator team
-  - larger monthly activations layered on top of the regular calendar
+  - a more reliable cadence of structured events
+  - clearer ownership across coordinators, managers, admins, bot developers, designers, and community leaders
   - more varied community experiences for members across time zones and play styles
 skills:
   - Community Program Leadership
@@ -52,10 +49,11 @@ tools:
   - Event Briefing Templates
 tags:
   - Event Operations
+  - Community Platforms
   - Community Engagement
   - Program Leadership
   - Training Operations
-  - Roleplay Event Design
+  - Governance Systems
   - Team Management
 cover:
   src: "/media/projects/test-squadron-event-coordinators-program-and-community-engagement-cover.jpg"
@@ -68,6 +66,6 @@ media:
     src: "/media/projects/test-squadron-event-coordinators-program-and-community-engagement-media.mp4"
     poster: "/media/projects/test-squadron-event-coordinators-program-and-community-engagement-cover.jpg"
     caption: Event Coordinators program footage showing organized community event delivery.
-featured: true
-order: 4
+featured: false
+order: 19
 ---

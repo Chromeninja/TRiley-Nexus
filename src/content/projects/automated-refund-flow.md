@@ -1,51 +1,57 @@
 ---
-title: Automated Refund Flow
+title: Ubisoft Store & Ubisoft+ Refund Flow Modernization
 status: completed
 category: Digital Products & Platforms
 tags:
-  - Automation
-  - Refund Workflow
-  - Order Management
-  - Customer Support
-  - Process Engineering
+  - Support Automation
+  - Refund Flow
+  - Subscription Cancellation
+  - Customer Experience
+  - Cross-Functional Delivery
 organization: Ubisoft
 timeframe: "2020 – 2021"
 roleTitle: Supervisor, E-Commerce Operations
 startedAt: "2019-11"
 endedAt: "2021-12"
-summary: "Designed and delivered an automated refund flow integrated with the Tecsys order management system that auto-refunds players who meet defined eligibility rules, a multi-month build with dev, design, and business teams that materially reduced e-commerce CS ticket pressure."
-cardSummary: "Led delivery of a Tecsys-integrated automated refund flow that replaced manual review for eligible cases and improved player turnaround time."
+summary: "Led customer-support-side requirements, research, reporting, and stakeholder alignment for Ubisoft Store digital refund flow modernization, then helped extend similar support logic into Ubisoft+ subscription refund and cancellation scenarios after launch. The work translated policy into usable customer and internal workflows, handled play-time validation edge cases with platform teams, and reduced overall e-commerce support ticket volume by over 30%."
+cardSummary: "Modernized Ubisoft Store and Ubisoft+ refund workflows, reducing overall e-commerce support ticket volume by over 30%."
 highlights:
-  - Defined eligibility rules and automation touchpoints for self-service refunds in the Tecsys order management system.
-  - Reduced overall e-commerce customer support ticket pressure through automation of eligible refund cases.
-  - Coordinated a multi-month delivery across dev, design, and business stakeholders.
-problem: "Manual refund handling drove high CS ticket volume, slow response times, and uneven player experiences. Every refund needing human review created a bottleneck and made a common support moment harder than it needed to be."
+  - "Led customer-support-side requirements, user research, reporting, bug triage, roadmapping, and stakeholder alignment for refund workflow modernization."
+  - "Helped translate a 2-hour to 14-day digital refund policy into customer-facing and internal support workflows across Ubisoft Store purchases and Ubisoft+ subscription refund and cancellation scenarios."
+  - "Reduced overall e-commerce support ticket volume by over 30%; refunds had previously represented roughly 35-40% of e-commerce ticket volume."
+problem: "Ubisoft Store digital purchases had a 2-hour to 14-day refund policy, and Ubisoft+ needed a similar support path for subscription refund and cancellation scenarios after launch. Internal automation existed for returns and refunds, but the customer-facing flow and support process still created too much ticket volume, manual review, and edge-case confusion."
 approach: |
-  I worked with dev, design, and business teams to turn a manual refund bottleneck into a rules-based automation flow inside Tecsys.
+  I owned the customer support and customer experience side of the work: requirements, user research, bug triage, stakeholder management, reporting, and roadmap alignment.
 
-  The delivery centered on three steps:
-  1. **Define refund eligibility rules** so qualifying cases could be separated from exceptions
-  2. **Build the automation flow** against the Tecsys order management system so eligible refunds could process without agent intervention
-  3. **Iterate on edge cases** over a multi-month build so exception handling stayed practical and safe
+  The delivery centered on four connected pieces:
+  1. **Policy-to-workflow translation** so refund rules became usable customer self-service paths and internal handling procedures
+  2. **Cross-functional delivery coordination** with developers, designers, vendors, external partners, e-commerce operations, and support teams
+  3. **Play-time validation** with Uplay PC and internal platform teams so eligibility could account for inaccurate or missing gameplay tracking
+  4. **Edge-case handling** for cases where automation needed a supportable exception path instead of a hard failure
 
-  The goal was to reduce ticket volume without creating a brittle rules engine that broke on real customer scenarios.
+  The goal was to reduce refund friction without creating a brittle automation path that failed the moment customer data was incomplete.
 outcome: |
-  The automated flow delivered:
-  - materially lower e-commerce CS ticket pressure for eligible refund scenarios
-  - faster refund turnaround for players who met the criteria
-  - more agent capacity available for higher-complexity issues
+  The modernized flow delivered:
+  - over 30% lower overall e-commerce support ticket volume
+  - clearer customer self-service paths for eligible refund and cancellation cases
+  - better internal handling paths for exceptions, missing play-time data, and inaccurate tracking
+  - stronger release coordination between support operations, product, platform, vendor, and development teams
 
-  Certain internal performance metrics are not public, so this case study focuses on delivery scope and operational impact.
+  Refunds had previously represented roughly 35-40% of e-commerce ticket volume, so the work addressed one of the highest-friction areas in the support operation.
 skills:
-  - Process Engineering
-  - Automation Design
+  - Technical Product Management
+  - Customer Experience
+  - User Research
+  - Support Automation
   - Cross-Functional Delivery
-  - Refund Workflow
-  - Order Management Integration
+  - Policy-to-Workflow Translation
+  - Bug Triage
 tools:
   - Tecsys Order Dynamics
   - Salesforce
   - Demandware
+  - Uplay PC
+  - Jira
 featured: true
-order: 1
+order: 14
 ---
