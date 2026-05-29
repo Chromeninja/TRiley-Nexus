@@ -38,7 +38,10 @@ function renderNodes(nodes: RichNode[]): string {
       }
 
       return `<${node.listType}>${node.items
-        .map((item) => `<li>${formatInlineMarkdown(item.text)}${renderNodes(item.children)}</li>`)
+        .map(
+          (item) =>
+            `<li>${formatInlineMarkdown(item.text)}${renderNodes(item.children)}</li>`,
+        )
         .join("")}</${node.listType}>`;
     })
     .join("");
@@ -92,7 +95,11 @@ export function renderRichText(value?: string): string {
       return;
     }
 
-    const listNode: RichNode = { type: "list", listType: frame.listType, items: frame.items };
+    const listNode: RichNode = {
+      type: "list",
+      listType: frame.listType,
+      items: frame.items,
+    };
     const parent = listStack[listStack.length - 1];
     if (parent) {
       parent.items[parent.items.length - 1].children.push(listNode);
@@ -103,7 +110,10 @@ export function renderRichText(value?: string): string {
   };
 
   const closeListsToIndent = (indent: number) => {
-    while (listStack.length > 0 && listStack[listStack.length - 1].indent > indent) {
+    while (
+      listStack.length > 0 &&
+      listStack[listStack.length - 1].indent > indent
+    ) {
       closeListFrame();
     }
   };

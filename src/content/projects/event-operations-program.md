@@ -54,13 +54,10 @@ tools:
   - "Offline-first LAN app"
 tags:
   - Event operations
-  - Workflow automation
   - "Offline-first systems"
   - "Check-in operations"
   - Operational tooling
-  - "Real-time dashboards"
   - Staff tooling
-  - Queue management
 links:
   - label: Website
     url: "https://vrvilla.org/"
@@ -83,6 +80,5 @@ media:
     alt: Event Operations Program
     isCover: true
 featured: true
-order: 3
+order: 1
 ---
-

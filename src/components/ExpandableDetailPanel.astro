@@ -26,7 +26,7 @@ const { id, title } = Astro.props;
   }
 
   .expandable-detail--open {
-    max-height: 60rem;
+    max-height: 120rem;
     opacity: 1;
     pointer-events: auto;
   }
@@ -46,5 +46,16 @@ const { id, title } = Astro.props;
     color: var(--color-text-muted);
     font-size: 0.84rem;
     line-height: 1.6;
+  }
+
+  @media (max-width: 540px) {
+    .expandable-detail__inner {
+      padding: 0.75rem 0.85rem;
+      gap: var(--space-sm);
+    }
+
+    .expandable-detail__inner p {
+      font-size: 0.8rem;
+    }
   }
 </style>

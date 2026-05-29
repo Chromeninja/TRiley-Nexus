@@ -25,6 +25,7 @@ profiles:
         start: "2015"
         end: "Present"
   235th Combat Airfield Operations Squadron:
+    shortName: "235 CAOS"
     summary: "Combat airfield operations service spanning ATC, landing zone safety, Air Advisor work, Combat Airspace qualification, unit IT support, and community outreach."
     companyInfo: "The 235th Combat Airfield Operations Squadron provides air traffic control, expeditionary airfield operations, landing zone support, and combat support capabilities for domestic and deployed missions."
     myTimeInfo: "Since April 2015, I have served with the 235th CAOS as an Air Traffic Controller and multi-role operations specialist, adding Landing Zone Safety Officer, Air Advisor, Combat Airspace, informal unit IT, and community outreach responsibilities over time."

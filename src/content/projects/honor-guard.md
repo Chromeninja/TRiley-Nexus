@@ -72,4 +72,3 @@ media:
 featured: false
 order: 9
 ---
-

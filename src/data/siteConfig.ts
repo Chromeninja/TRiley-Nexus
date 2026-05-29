@@ -20,6 +20,7 @@ export interface CompanyTimelineRoleEntry {
 }
 
 export interface CompanyProfile {
+  shortName?: string;
   summary: string;
   companyInfo: string;
   myTimeInfo: string;
@@ -84,12 +85,13 @@ export interface SiteConfig {
       headlineTail: string;
       subtext: string;
       supportingText?: string;
-      proofPoints: string[];
+      quickNotes?: string[];
+      proofPoints?: string[];
       primaryAction: { label: string; href: string };
       secondaryAction: { label: string; href: string };
     };
     hiringProfiles: Array<{ title: string; text: string }>;
-    featuredEvidence: Array<{
+    featuredHighlights: Array<{
       value: string;
       label: string;
       detail: string;

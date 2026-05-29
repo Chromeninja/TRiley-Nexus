@@ -65,6 +65,16 @@ export default [
   },
   js.configs.recommended,
   {
+    files: ["inventory_script.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+      },
+    },
+  },
+  {
     files: ["**/*.ts"],
     languageOptions: {
       parser: tsParser,

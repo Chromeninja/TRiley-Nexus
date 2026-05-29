@@ -9,7 +9,7 @@ timeframe: Ongoing
 summary: "Built and led the TEST Squadron Event Coordinators program as part of a broader leadership operating model for a roughly 24k-member Star Citizen organization and roughly 40k-member Discord, organizing coordinators, managers, admins, developers, and designers around recurring operations, training, and story-driven events."
 cardSummary: "Built and lead the Event Coordinators program inside a 27-member leadership structure supporting recurring operations and RP events."
 highlights:
-  - "Help coordinate a broader leadership structure with 27 leadership members."
+  - "Help coordinate a broader leadership structure with 27 leadership members, including manager, coordinator, admin, bot developer, and designer groups."
   - "Established and managed the 9-person Event Coordinators team with clear ownership, planning standards, and delivery expectations."
   - "Built event handbooks, guidelines, and policy documentation to standardize quality, safety, and execution across event leads."
 problem: "Community growth created a need for consistent, high-quality events that could scale beyond ad-hoc hosting and keep members active over time."

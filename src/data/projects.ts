@@ -20,6 +20,7 @@ type ProjectCollectionEntry = CollectionEntry<"projects">;
 
 export type Project = ProjectCollectionEntry["data"] & {
   slug: string;
+  organizationShortName?: string;
 };
 
 export interface ProjectOrganizationGroup {
@@ -216,12 +217,17 @@ export interface ProjectsPageData {
 
 // Re-export theme constants and helpers for backward compatibility
 export { projectStatusColors, projectStatusLabels } from "./projectThemes";
-export { formatProjectDateRange, parseProjectDateValue } from "./projectHelpers";
+export {
+  formatProjectDateRange,
+  parseProjectDateValue,
+} from "./projectHelpers";
 
 let currentCompanyProfiles: Record<string, CompanyProfile> = {};
 
 function getFallbackColor(label: string): string {
-  return atlasFallbackColors[hashStringToIndex(label, atlasFallbackColors.length)];
+  return atlasFallbackColors[
+    hashStringToIndex(label, atlasFallbackColors.length)
+  ];
 }
 
 function toPositioning(
@@ -286,9 +292,38 @@ export function sortProjectsByOrderThenRecency(
   return a.title.localeCompare(b.title);
 }
 
+export function hasDetailedProjectWriteup(
+  project: Pick<Project, "problem" | "approach" | "outcome">,
+): boolean {
+  return Boolean(
+    project.problem?.trim() &&
+      project.approach?.trim() &&
+      project.outcome?.trim(),
+  );
+}
+
 export async function getProjects(): Promise<Project[]> {
   const entries = await getCollection("projects");
-  return entries.map(toProject).sort(sortByOrder);
+  const companyProfiles = await getCompanyProfiles();
+
+  return entries
+    .map(toProject)
+    .map((project) => {
+      if (!project.organization) {
+        return project;
+      }
+
+      const companyProfile = companyProfiles[project.organization];
+      if (!companyProfile?.shortName?.trim()) {
+        return project;
+      }
+
+      return {
+        ...project,
+        organizationShortName: companyProfile.shortName.trim(),
+      };
+    })
+    .sort(sortByOrder);
 }
 
 function resolveProjectRecencyDate(project: Project, referenceNow: Date): Date {
@@ -768,7 +803,8 @@ export async function getProjectOrganizationGroups(): Promise<
   const grouped = new Map<string, Project[]>();
 
   for (const project of projects) {
-    const organization = project.organization?.trim() || "Unspecified Organization";
+    const organization =
+      project.organization?.trim() || "Unspecified Organization";
 
     if (!grouped.has(organization)) {
       grouped.set(organization, []);
@@ -1116,8 +1152,8 @@ export async function getCareerNarrativeData(): Promise<CareerNarrativeData> {
       const narrativeProjects = [...group.projects]
         .sort((a, b) => sortProjectsByOrderThenRecency(a, b, referenceNow))
         .map((project) =>
-        buildNarrativeProjectNode(project, group.organization),
-      );
+          buildNarrativeProjectNode(project, group.organization),
+        );
       const featuredProjectCount = narrativeProjects.filter(
         (project) => project.isFeatured,
       ).length;

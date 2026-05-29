@@ -113,9 +113,7 @@ export function toSlugId(value: string): string {
  * Used for comparing date ranges in timeline logic
  * @internal
  */
-export function rangeLengthInMonths(
-  range: { start: Date; end: Date },
-): number {
+export function rangeLengthInMonths(range: { start: Date; end: Date }): number {
   return (
     (range.end.getFullYear() - range.start.getFullYear()) * 12 +
     (range.end.getMonth() - range.start.getMonth())

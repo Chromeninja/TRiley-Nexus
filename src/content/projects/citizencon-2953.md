@@ -60,4 +60,3 @@ media:
 featured: false
 order: 25
 ---
-

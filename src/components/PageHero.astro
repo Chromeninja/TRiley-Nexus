@@ -9,6 +9,7 @@ interface Props {
 const { label, title, subtitle, meta } = Astro.props;
 const hasAside = Astro.slots.has("aside");
 const hasMetaSlot = Astro.slots.has("meta");
+const hasActions = Astro.slots.has("actions");
 ---
 
 <section class="page-hero">
@@ -31,6 +32,13 @@ const hasMetaSlot = Astro.slots.has("meta");
             </p>
           ) : (
             meta && <p class="page-hero__meta text-mono text-muted">{meta}</p>
+          )
+        }
+        {
+          hasActions && (
+            <div class="page-hero__actions">
+              <slot name="actions" />
+            </div>
           )
         }
       </div>
@@ -85,6 +93,13 @@ const hasMetaSlot = Astro.slots.has("meta");
     margin-top: var(--space-md);
     margin-bottom: 0;
     letter-spacing: 0.04em;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
   }
 
   @media (max-width: 640px) {

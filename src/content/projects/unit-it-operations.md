@@ -1,4 +1,7 @@
 ---
+# TODO for T.Riley: If you have concrete examples of specific automation scripts, Power Automate flows,
+# or other tools you built for the unit (beyond SharePoint/Teams admin work), add them to highlights
+# or the approach section. Do not add anything you cannot verify from memory.
 title: Unit IT Operations
 status: active
 category: Military Operations
@@ -43,4 +46,3 @@ tools:
 featured: false
 order: 11
 ---
-

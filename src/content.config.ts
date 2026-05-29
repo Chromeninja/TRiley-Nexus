@@ -113,10 +113,27 @@ const aboutCollection = defineCollection({
         summary: z.string().optional(),
       })
       .optional(),
+    skillAtlas: z
+      .object({
+        title: z.string().optional(),
+        intro: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        aliases: z
+          .array(
+            z.object({
+              label: z.string(),
+              group: z.string(),
+              weight: z.number().optional(),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
   }),
 });
 
 const companyProfileSchema = z.object({
+  shortName: z.string().optional(),
   summary: z.string(),
   companyInfo: z.string(),
   myTimeInfo: z.string(),

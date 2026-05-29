@@ -20,14 +20,14 @@ cardSummary: "Built staffing forecasts for launches, major sales, and announceme
 highlights:
   - Partnered with CRC staffing leadership and finance to forecast ticket volumes around launches, major sales, game announcements, and seasonal peaks.
   - Built and validated prediction models used to determine when to scale employee headcount up or down.
-  - Worked with training teams to design 2-3 week ramp plans that prepared new hires for recurring demand windows without materially impacting attrition.
+  - Worked with training teams to design 2-3 week ramp plans that prepared new hires for recurring demand windows without increasing attrition.
 problem: "Game launches, major sales, game announcements, and other promotional windows created sharp swings in support volume, but over-hiring hurt efficiency and under-hiring damaged service levels. Ubisoft needed a more reliable way to forecast demand and scale staffing without burning out teams or increasing churn."
 approach: |
   I partnered with CRC staffing teams and finance to turn demand spikes into a more repeatable workforce-planning model.
 
   The work followed three steps:
   1. **Forecast demand** using launch calendars, sales events, announcement schedules, seasonal patterns, and prior ticket volume data
-  2. **Validate the model** against real operational outcomes so hiring assumptions could be adjusted with actual results
+  2. **Validate the forecast** against real support results so hiring assumptions could be adjusted with actual data
   3. **Align training readiness** with short-form 2-3 week onboarding plans timed around recurring demand windows
 
   That combination made staffing decisions less reactive and gave the business a clearer way to scale support without over-hiring.

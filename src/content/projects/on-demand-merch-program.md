@@ -12,13 +12,13 @@ tags:
 organization: TEST Squadron
 organizationUrl: "https://testsquadron.com/"
 timeframe: Ongoing
-roleTitle: Commerce Program Lead
-summary: "Launched and manage an on-demand Fourthwall storefront for TEST Squadron, creating a sustainable fundraising channel while giving members easier access to custom community merchandise."
-cardSummary: "Built and run an on-demand Fourthwall merch program that gives members reliable access to branded gear while creating a sustainable fundraising channel without traditional inventory risk."
+roleTitle: Director of Operations & Community Strategy
+summary: "Launched and manage an on-demand Fourthwall storefront for TEST Squadron as part of a broader operations strategy, creating a sustainable fundraising channel while giving members access to 50+ custom community products, including items made by community creators."
+cardSummary: "Built and run an on-demand Fourthwall merch program with 50-plus products that gives members reliable access to branded gear while creating a sustainable fundraising channel without traditional inventory risk."
 highlights:
-  - Stood up an on-demand Fourthwall storefront to support recurring org fundraising without upfront inventory risk.
+  - Stood up an on-demand Fourthwall storefront with 50+ products to support recurring org fundraising without upfront inventory risk.
   - Built a member-friendly merch access model so community apparel could be ordered on demand with less admin overhead.
-  - Coordinated with designers to develop branded esports jerseys and hoodies aligned to TEST Squadron visual identity standards.
+  - Coordinated with designers and community creators to develop branded esports jerseys, hoodies, and other products aligned to TEST Squadron visual identity standards.
 problem: "The org needed a low-overhead way to fund community initiatives and deliver consistent, high-quality branded merchandise without manual fulfillment complexity."
 approach: |
   I built the merch program around an on-demand model so TEST Squadron could offer branded products without taking on the risk and overhead of traditional inventory.
@@ -28,13 +28,13 @@ approach: |
   2. **merchandising priorities and product selection** so the catalog supported both fundraising and community interest
   3. **design iteration and rollout readiness** with designers to keep jerseys, hoodies, and other products aligned with brand direction
 
-  That made the merch operation easier to sustain and easier for members to actually use.
+  That made the merch operation easier to sustain and easier for members to actually use, while expanding the catalog to 50+ products and creating room for community-made merchandise to contribute to org funding.
 outcome: |
   The program established:
   - a repeatable merchandising pipeline
   - easier member access to custom apparel
   - lower operational burden than traditional inventory models
-  - an ongoing funding stream for community activities
+  - an ongoing funding stream for community activities and org support
 skills:
   - E-Commerce Operations
   - Fundraising Program Design

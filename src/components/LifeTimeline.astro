@@ -175,4 +175,23 @@ function buildSpanStyle(entry: LifeTimelineEntry): string {
       font-size: 0.78rem;
     }
   }
+
+  @media (max-width: 540px) {
+    .life-timeline__item {
+      gap: var(--space-xs);
+    }
+
+    .life-timeline__range {
+      font-size: 0.64rem;
+    }
+
+    .life-timeline__company {
+      font-size: 0.94rem;
+      line-height: 1.3;
+    }
+
+    .life-timeline__track {
+      height: 0.75rem;
+    }
+  }
 </style>

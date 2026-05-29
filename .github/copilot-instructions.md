@@ -8,16 +8,16 @@ Personal portfolio template and live portfolio site for T.Riley Garrett. Deploye
 
 ## Tech Stack
 
-| Layer | Details |
-|---|---|
-| **Framework** | Astro 6.2.1, static output (`output: "static"`) |
-| **Language** | TypeScript (strict mode via `astro/tsconfigs/strict`) |
-| **Node** | ≥ 22.12.0 required |
-| **Styling** | CSS custom properties only, no Tailwind or CSS-in-JS |
-| **UI Frameworks** | None. Vanilla Astro components only |
-| **Content** | Astro 6 content collections with glob loader |
-| **Config layer** | `portfolio-config.json`, the primary user customization surface |
-| **Dev tools** | ESLint 10, Prettier 3, `@astrojs/check` |
+| Layer             | Details                                                         |
+| ----------------- | --------------------------------------------------------------- |
+| **Framework**     | Astro 6.2.1, static output (`output: "static"`)                 |
+| **Language**      | TypeScript (strict mode via `astro/tsconfigs/strict`)           |
+| **Node**          | ≥ 22.12.0 required                                              |
+| **Styling**       | CSS custom properties only, no Tailwind or CSS-in-JS            |
+| **UI Frameworks** | None. Vanilla Astro components only                             |
+| **Content**       | Astro 6 content collections with glob loader                    |
+| **Config layer**  | `portfolio-config.json`, the primary user customization surface |
+| **Dev tools**     | ESLint 10, Prettier 3, `@astrojs/check`                         |
 
 ## Architecture Overview
 
@@ -61,11 +61,11 @@ Content collections (`getCollection("projects" | "companies" | "about")`) are lo
 
 ## Content Collections Summary
 
-| Collection | Location | Required fields |
-|---|---|---|
-| `projects` | `src/content/projects/*.md` | title, status, category, tags, summary, featured |
-| `companies` | `src/content/companies/*.md` | profiles (record keyed by company slug) |
-| `about` | `src/content/about/*.md` | metaDescription, backgroundParagraphs, thinkItems, personalItems, values |
+| Collection  | Location                     | Required fields                                                          |
+| ----------- | ---------------------------- | ------------------------------------------------------------------------ |
+| `projects`  | `src/content/projects/*.md`  | title, status, category, tags, summary, featured                         |
+| `companies` | `src/content/companies/*.md` | profiles (record keyed by company slug)                                  |
+| `about`     | `src/content/about/*.md`     | metaDescription, backgroundParagraphs, thinkItems, personalItems, values |
 
 Status enum for projects: `active | completed | archived | concept`
 

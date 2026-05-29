@@ -33,7 +33,7 @@ All fields must be nested inside the `profiles` record under the company slug ke
 ```md
 ---
 profiles:
-  {slug}:
+  { slug }:
     summary: "{summary}"
     companyInfo: >
       {companyInfo}
@@ -41,17 +41,17 @@ profiles:
       {myTimeInfo}
     longSummary: >
       {longSummary}               # omit if not provided
-    roleSummary: "{roleSummary}"  # omit if not provided
-    achievements:                 # omit if not provided
+    roleSummary: "{roleSummary}" # omit if not provided
+    achievements: # omit if not provided
       - "{achievement 1}"
       - "{achievement 2}"
-    tenureStart: "{tenureStart}"  # omit if not provided
-    tenureEnd: "{tenureEnd}"      # omit if not provided
-    color: "{color}"              # omit if not provided
-    timelineRoles:                # omit if not provided
+    tenureStart: "{tenureStart}" # omit if not provided
+    tenureEnd: "{tenureEnd}" # omit if not provided
+    color: "{color}" # omit if not provided
+    timelineRoles: # omit if not provided
       - label: "{role label}"
         start: "{start}"
-        end: "{end}"              # omit if current role
+        end: "{end}" # omit if current role
 ---
 ```
 

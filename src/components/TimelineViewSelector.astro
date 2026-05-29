@@ -123,6 +123,11 @@ function buildViewHref(mode: TimelineViewMode): string {
       min-width: 0;
       width: 100%;
       justify-content: center;
+      padding-inline: var(--space-sm);
+    }
+
+    .timeline-view-selector__option:last-child {
+      grid-column: 1 / -1;
     }
 
     .timeline-view-selector__option-full {
@@ -131,6 +136,16 @@ function buildViewHref(mode: TimelineViewMode): string {
 
     .timeline-view-selector__option-short {
       display: inline;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .timeline-view-selector__controls {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline-view-selector__option:last-child {
+      grid-column: auto;
     }
   }
 </style>

@@ -31,18 +31,28 @@
     "focusLine": "FOCUS: PRODUCT, PROGRAMS, OPERATIONS, COMMUNITY"
   },
   "home": {
-    "metaDescription": "Technical Product and Program Manager and systems builder with 13+ years in gaming and platform operations, including e-commerce support automation, roadmap ownership, and cross-functional delivery.",
+    "metaDescription": "Technical product and program manager and systems builder spanning e-commerce support automation, live VR event operations, large gaming community platforms, military airfield execution, and practical workflow tooling.",
     "hero": {
-      "eyebrow": "// DIRECTOR-LEVEL PROJECT LEADERSHIP",
+      "eyebrow": "// PROGRAMS, PEOPLE, AND SYSTEMS",
       "roleLine": "Technical Product & Program Manager | Systems Builder | Event and Community Leadership",
-      "headlineLead": "I lead the programs behind ",
-      "headlineAccent": "complex operations",
-      "headlineTail": " at scale.",
-      "subtext": "Technical product and program leader with 13+ years in gaming, platform operations, e-commerce support automation, customer experience systems, roadmap ownership, and cross-functional software delivery.",
+      "headlineLead": "I help turn messy work into",
+      "headlineAccent": "systems",
+      "headlineTail": "people can actually use.",
+      "subtext": "I work where product, operations, community, and technology overlap: the places where the goal is clear enough to matter, but the path still needs to be built.",
+      "supportingText": "My favorite work is making the confusing parts easier to see, giving teams a steadier way forward, and leaving behind something useful after the first push is over.",
+      "quickNotes": [
+        "10+ years growing through support, operations, product, and program work at Ubisoft",
+        "30%+ fewer Ubisoft e-commerce support tickets after a refund-flow rebuild",
+        "Roadmap ownership, user research, PRDs, acceptance criteria, and release planning across support platforms",
+        "Discord systems and community operations for a 40,000-member group",
+        "15+ years of military service, including air traffic control work"
+      ],
       "proofPoints": [
-        "7 roles across 10+ years at Ubisoft, ending as Senior Program Manager",
-        "Support automation, customer experience, and roadmap delivery across player-facing systems",
-        "15+ years of military service in high-pressure operational environments"
+        "Built offline software solution for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
+        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
+        "13+ years in the game industry, including program manager experience leading cross-functional delivery and live operations",
+        "Lead event operations across volunteers, vendors, booths, schedules, and community activations",
+        "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm"
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
       "secondaryAction": { "label": "About Me", "href": "/about" }
@@ -50,41 +60,41 @@
     "hiringProfiles": [
       {
         "title": "Technical program leadership",
-        "text": "For organizations with messy operational needs that must become clear requirements, user stories, release plans, and supportable systems."
+        "text": "I am useful when messy operational needs must become clear requirements, user stories, release plans, and supportable systems."
       },
       {
         "title": "Operational systems design",
-        "text": "For e-commerce, support, event, or community teams relying on tribal knowledge, reactive coordination, or brittle processes that need to become repeatable workflows."
+        "text": "I like turning tribal knowledge, handoffs, and recurring pain points into practical workflows other people can run without needing a hero every time."
       },
       {
         "title": "Technical enablement and automation",
-        "text": "For high-friction workflows where the right automation, AI-assisted tooling, or integration can create leverage while keeping humans in judgment roles."
+        "text": "When a workflow is repetitive or high-friction, I look for the right mix of tooling, automation, AI assistance, and human judgment to make it calmer and more useful."
       }
     ],
-    "featuredEvidence": [
+    "featuredHighlights": [
       {
-        "value": "30%+",
-        "label": "Ticket reduction",
-        "detail": "Reduced overall Ubisoft e-commerce support ticket volume by modernizing digital refund and cancellation workflows.",
-        "href": "/projects/automated-refund-flow"
-      },
-      {
-        "value": "7 Roles",
-        "label": "Ubisoft progression",
-        "detail": "Grew from frontline support into Senior Program Manager over a 10+ year run inside a global game publisher.",
-        "href": "/career?view=narrative"
+        "value": "50+",
+        "label": "Events per year",
+        "detail": "Built VR Villa's offline-first event operations platform to support 50+ annual events, with room to scale further as the program grows.",
+        "href": "/projects/event-operations-program"
       },
       {
         "value": "40K",
-        "label": "Community scale",
-        "detail": "Led governance, permissions, and automation strategy for a partnered Discord community operating at large scale.",
-        "href": "/projects/discord-governance"
+        "label": "Discord community",
+        "detail": "Built and operate the systems layer behind TEST Squadron verification, roles, voice workflows, and privacy-conscious activity visibility.",
+        "href": "/projects/discord-operations-platform"
       },
       {
-        "value": "15+ Years",
-        "label": "Operational discipline",
-        "detail": "Military service and air traffic control work shaped a leadership style built for ambiguity, precision, and pressure.",
-        "href": "/projects/air-traffic-control"
+        "value": "13+",
+        "label": "Years in gaming",
+        "detail": "13+ years in gaming spanning player support, technical program management, live operations, customer experience, and community systems.",
+        "href": "/career"
+      },
+      {
+        "value": "15+",
+        "label": "Years military service",
+        "detail": "Military ATC and LZSO work shaped a leadership style built around calm execution, hazard awareness, and tight timelines.",
+        "href": "/projects/landing-zone-safety"
       }
     ],
     "principles": [
@@ -98,36 +108,36 @@
       },
       {
         "num": "03",
-        "text": "Translate messy work into requirements, roadmaps, release plans, and systems teams can actually use."
+        "text": "Create clarity, ownership, and momentum across teams, stakeholders, and communities."
       }
     ],
     "stats": [
       { "value": "15+", "label": "Years military experience" },
-      { "value": "10+", "label": "Years in gaming industry" },
+      { "value": "13+", "label": "Years in gaming industry" },
       { "value": "40+", "label": "Operations planned and executed" },
       { "value": "12+", "label": "Large-scale events led" }
     ]
   },
   "about": {
-    "metaDescription": "Who I am, how I think, how I work, and what matters to me. Background spanning military service, technical program management, community systems, and live event operations.",
+    "metaDescription": "Who I am, how I think, and how I work. Background spanning military service, event operations, community systems, technical program management, and the automation that connects them.",
     "backgroundParagraphs": [
-      "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That experience shaped how I approach planning, risk, communication, and execution when the situation is ambiguous and the stakes are real.",
-      "My civilian work has centered on gaming and platform operations: 10+ years at Ubisoft, e-commerce support automation, customer experience systems, roadmap ownership, and cross-functional software delivery with engineering, design, QA, support, and business teams.",
-      "I have also built internal tools, community systems, event operations platforms, and practical AI-assisted workflows that reduce friction in documentation, planning, status reporting, and software delivery.",
+      "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That experience fundamentally shaped how I approach complex work. I default to structure, clear communication, and planning for contingencies before they happen.",
+      "After military service, I moved into technical program management and operations leadership in the gaming and community space. Over the past several years, I have designed and operated systems for communities with thousands of members - building the governance structures, automation infrastructure, event frameworks, and moderation pipelines that keep large-scale organizations running.",
+      "I have also done meaningful work in infrastructure modernization, migrating legacy systems to modern architectures, building operational runbooks, and improving reliability across distributed services. Alongside this, I have been building AI-assisted workflow tools to reduce the manual overhead of program management and knowledge work.",
       "My background is deliberately broad because the problems I care about are broad. I work best at the layer where systems thinking, technical execution, and human coordination all have to come together at once."
     ],
     "thinkItems": [
       {
         "title": "Systems first",
-        "text": "I do not see isolated problems - I see systems with feedback loops, dependencies, and failure modes. My instinct is to map the whole before touching any part."
+        "text": "I usually do not see problems as isolated issues. I look at the people, tools, habits, and handoffs around them before changing any one piece."
       },
       {
         "title": "Clarity as a product",
         "text": "One of the most valuable things I produce is clarity. Whether it is a plan, a decision, or a communication - if people leave the conversation less confused, I have done my job."
       },
       {
-        "title": "Diagnose before designing",
-        "text": "The stated problem is rarely the actual problem. I spend disproportionate time on diagnosis - because solving the wrong problem perfectly is still failure."
+        "title": "Understand before fixing",
+        "text": "The first problem someone names is not always the real one. I would rather slow down long enough to understand what is happening than build the wrong thing quickly."
       },
       {
         "title": "Repeatable over clever",
@@ -244,7 +254,7 @@
           "Team Building and Coaching",
           "Strategic Planning",
           "Mission Clarity",
-          "Decision Frameworks",
+          "Decision Making",
           "After Action Review"
         ]
       }
@@ -283,16 +293,16 @@
     ]
   },
   "howIWork": {
-    "metaDescription": "My operating principles, methodology, and approach to solving complex operational and technical problems.",
+    "metaDescription": "How I move through messy work, organize people and systems, and keep improving the next pass.",
     "coreApproachParagraphs": [
-      "I am a technical product and program leader who builds systems. The through-line in everything I do is translating complexity into structure: taking messy operational needs and turning them into requirements, roadmaps, workflows, and working systems.",
-      "Whether I am planning a military operation, running a large-scale community event, coordinating a software roadmap, or designing an automation workflow, the underlying method is the same. Understand the system. Identify the failure modes. Build something that actually holds up when other people have to use it."
+      "I am a technical product and program leader who builds systems. Most of my work has been about taking confusing, cross-functional situations and making them easier for people to understand, run, and improve.",
+      "Whether I am planning a military task, running a community event, coordinating a software roadmap, or building an automation workflow, I start by learning how the pieces interact. Then I look for the simplest useful system that makes the next pass easier."
     ],
     "workPrinciples": [
       {
         "num": "01",
-        "title": "Diagnose before designing",
-        "body": "The biggest failure mode in operations and engineering is solving the wrong problem well. I invest heavily in diagnosis - understanding root causes, mapping system states, and validating assumptions before proposing solutions. The stated problem is rarely the actual problem."
+        "title": "Understand before fixing",
+        "body": "I try not to rush into a solution just because one is available. I want to know what is actually getting in the way, what people have already tried, and where the pain is really coming from."
       },
       {
         "num": "02",
@@ -301,13 +311,13 @@
       },
       {
         "num": "03",
-        "title": "Align people before automating process",
-        "body": "Technology amplifies what is already in the organization. Automating a broken process makes broken things happen faster. I always start with the human system - the incentives, the workflows, the communication patterns - before reaching for tooling."
+        "title": "Get the people part right",
+        "body": "Tools can help, but they usually amplify whatever is already happening. Before I automate anything, I want the ownership, handoffs, and communication habits to make sense."
       },
       {
         "num": "04",
-        "title": "Create clarity in ambiguity",
-        "body": "Ambiguity is not an obstacle - it is the job. My role is to reduce uncertainty for the people around me: clear problem statements, defined ownership, explicit tradeoffs, documented decisions. Clarity is a deliverable."
+        "title": "Make the unclear parts visible",
+        "body": "Unclear work is normal. I help by naming the open questions, spelling out tradeoffs, documenting decisions, and making sure people know what is settled and what still needs attention."
       },
       {
         "num": "05",
@@ -316,8 +326,8 @@
       },
       {
         "num": "06",
-        "title": "Design for the humans who actually exist",
-        "body": "Systems succeed or fail at the human interface. I build for the real operators - with their real constraints, cognitive loads, and failure modes - not the idealized ones. Good design accounts for how people actually behave under pressure."
+        "title": "Build for real people",
+        "body": "A system only works if real people can use it when they are tired, busy, distracted, or under pressure. I try to build for the actual humans in the loop, not the perfect version of them."
       }
     ],
     "workStyleGroups": [
@@ -373,7 +383,7 @@
           "Use Jira, GitHub Projects, Confluence, and Miro to keep plans visible and decisions traceable.",
           "Gather estimates with the people doing the work, then sequence delivery around real constraints.",
           "Coordinate QA and release readiness so shipped work can be supported after launch.",
-          "Stay close enough to technical workflows to manage CI/CD exposure, GitHub Actions, Perforce, and delivery tooling without pretending to be a pure software engineer."
+          "Stay close enough to technical workflows to manage GitHub Actions, Perforce, and delivery tooling without presenting myself as a pure software engineer."
         ]
       }
     ],
@@ -424,7 +434,7 @@
       }
     ],
     "aar": {
-      "intro": "The After Action Review (AAR) is one of the most valuable practices I took from military service. After every significant operation, event, or project, I ask:",
+      "intro": "One habit I kept from military service is taking time to debrief after meaningful work. After a project, event, or tough cycle, I like to ask:",
       "questions": [
         {
           "q": "What was supposed to happen?",
@@ -436,7 +446,7 @@
         },
         {
           "q": "Why was there a difference?",
-          "sub": "Root causes, not symptoms. Contributing factors."
+          "sub": "What was underneath it, not just what showed up on the surface."
         },
         {
           "q": "What do we sustain?",
@@ -450,8 +460,8 @@
     }
   },
   "now": {
-    "metaDescription": "What T.Riley is currently working on, exploring, and focused on right now.",
-    "lastUpdated": "April 2025",
+    "metaDescription": "What T.Riley is currently working on, exploring, and focused on in May 2026.",
+    "lastUpdated": "May 2026",
     "statusHeadline": "CURRENT FOCUS",
     "statusValue": "OPEN TO OPPORTUNITIES",
     "statusSupport": "Program work, systems improvement, and innovation tooling",
@@ -464,7 +474,7 @@
       {
         "icon": "⬡",
         "title": "Technical Program Management at Scale",
-        "body": "Studying how TPM functions in large-scale engineering orgs - tooling, frameworks, and how the best TPMs create leverage for their teams."
+        "body": "Studying how TPM functions in large-scale engineering orgs: tooling, team habits, and how the best TPMs make the work easier for the people around them."
       },
       {
         "icon": "◉",
@@ -480,7 +490,7 @@
     "priorityItems": [
       {
         "label": "HIGH",
-        "text": "Complete this portfolio site and deploy to GitHub Pages",
+        "text": "Continue refining the portfolio around systems-builder positioning",
         "color": "badge-green"
       },
       {
@@ -490,17 +500,17 @@
       },
       {
         "label": "MED",
-        "text": "Document community operations patterns for public sharing",
+        "text": "Expand documentation for event operations and community platform patterns",
         "color": "badge-yellow"
       },
       {
         "label": "MED",
-        "text": "Deepen TypeScript and Astro proficiency through production use",
+        "text": "Continue building practical AI-assisted workflow tools",
         "color": "badge-yellow"
       },
       {
         "label": "LOW",
-        "text": "Begin formal TPM certification study track",
+        "text": "Deepen Astro, TypeScript, and automation capability through production use",
         "color": "badge-gray"
       }
     ],
@@ -564,7 +574,7 @@
       ]
     },
     "Happy Manic": {
-      "summary": "Technical production and operations work across Nope Challenge VR feature development, testing, roadmap planning, Perforce workflows, and delivery systems.",
+      "summary": "Technical production and operations work across Nope Challenge feature development, testing, and delivery systems.",
       "companyInfo": "Happy Manic is a creative production environment focused on experimentation, rapid iteration, and community-facing game experiences.",
       "myTimeInfo": "Since October 2025, I have supported Nope Challenge through production pipeline management, Reality Breach and beta community testing, hand-tracking development, Jira planning, developer/designer/QA coordination, and Perforce workflow improvements.",
       "longSummary": "Hands-on technical production leadership across roadmap planning, estimates, testing, workflow reliability, backlog management, and feature delivery for ongoing Nope Challenge development.",
@@ -585,32 +595,39 @@
       ]
     },
     "TEST Squadron": {
-      "summary": "Community operations, governance, events, and platform systems for a roughly 24k-member Star Citizen organization and roughly 40k-member Discord.",
-      "companyInfo": "TEST Squadron is a large Star Citizen organization and partnered Discord community with member programs, events, community systems, governance needs, and platform operations at significant scale.",
-      "myTimeInfo": "Help coordinate operations, community strategy, events, bot and platform features, and leadership workflows across 27 leadership members, 12 managers, 9 event coordinators, 2 admins, 2 bot developers, and 7 designers.",
-      "roleSummary": "Systems builder for community operations",
+      "summary": "Director-level operations and community strategy spanning event programs, Discord governance, automation platforms, and member-facing commerce for a large org and partnered Discord ecosystem.",
+      "companyInfo": "TEST Squadron is a large Star Citizen organization and partnered Discord community with member programs, events, community systems, and volunteer-led operating needs at significant scale.",
+      "myTimeInfo": "As Director of Operations and Community Strategy, I manage community operations, event leadership, Discord governance, and internal systems work across TEST Squadron, including leadership workflows across 27 leadership members with functional groups such as 12 managers, 9 event coordinators, 2 admins, 2 bot developers, and 7 designers.",
+      "roleSummary": "Director of Operations and Community Strategy",
       "achievements": [
-        "Connected moderation, verification, role management, voice orchestration, analytics, and staff workflows through platform tooling.",
-        "Reduced manual effort through service-layer and bot automation.",
-        "Help coordinate leadership workflows across a 27-member leadership structure."
+        "Coordinate leadership workflows across 27 leadership members and supporting manager, coordinator, admin, bot developer, and designer groups.",
+        "Built and operate an open-source Discord bot platform for verification, role management, voice channel orchestration, analytics, and staff workflows."
       ],
       "color": "#de87ff",
       "tenureStart": "2020",
       "tenureEnd": "Present",
       "timelineRoles": [
-        { "label": "Platform Engineer", "start": "2020", "end": "Present" }
+        {
+          "label": "Director of Operations and Community Strategy",
+          "start": "2020",
+          "end": "Present"
+        }
       ]
     },
     "Bar Citizen": {
-      "summary": "Community event and operations support initiatives.",
-      "companyInfo": "Community-led operations and collaboration across event contexts.",
-      "myTimeInfo": "Supported operations and program execution in community-facing settings.",
-      "roleSummary": "Community operations contributor",
+      "summary": "Community event coordination and operations support for recurring North Carolina meetups, international organizer collaboration, website delivery, and larger Star Citizen community activations.",
+      "companyInfo": "Bar Citizen International supports community-first event coordination, organizer collaboration, and live meetup operations for Star Citizen players across multiple regions.",
+      "myTimeInfo": "Since 2021, I have organized recurring North Carolina meetups, supported international operations planning, led volunteer delivery of the Bar Citizen 2.0 website migration, and produced larger community activations.",
+      "roleSummary": "Bar Citizen Coordinator",
       "color": "#5eead4",
-      "tenureStart": "2019",
-      "tenureEnd": "2022",
+      "tenureStart": "2021",
+      "tenureEnd": "Present",
       "timelineRoles": [
-        { "label": "Community Operations Lead", "start": "2019", "end": "2022" }
+        {
+          "label": "Bar Citizen Coordinator",
+          "start": "2021",
+          "end": "Present"
+        }
       ]
     },
     "North Carolina Army National Guard": {
@@ -683,10 +700,10 @@
       ]
     },
     "VR Villa": {
-      "summary": "Live event production, operational tooling, and staff-facing workflow design for recurring VR activations across the United States.",
-      "companyInfo": "VR Villa is a community-driven event environment centered on immersive experiences, programming, and live operations.",
-      "myTimeInfo": "Since January 2024, I have managed event production and operational systems for roughly 50 to 60 VR Villa events per year, including check-in, waivers, live player visibility, staff coordination, staffing, and payroll workflows.",
-      "roleSummary": "Event production and operations leadership",
+      "summary": "Live event production and operations systems for a touring VR activation program, including Event Ops Manager for check-in, waivers, live player visibility, staff coordination, and staffing and payroll workflows.",
+      "companyInfo": "VR Villa is a free-to-play VR and AR event program that travels to conventions and pop-culture events across the United States.",
+      "myTimeInfo": "Since 2024, I have led production, event operations, and internal tooling support for VR Villa, building the Event Ops Manager platform and a staffing and payroll system that support roughly 50 to 60 events per year, events up to 30 staff members, and contractor-heavy staffing workflows.",
+      "roleSummary": "Producer and event operations systems lead",
       "logo": {
         "src": "/media/companies/vr-villa-logo.jpg",
         "alt": "VR Villa logo"

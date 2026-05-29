@@ -5,9 +5,7 @@ import {
   projectStatusLabels,
   type Project,
 } from "../data/projects";
-import {
-  type TimelineYearGroup,
-} from "../data/careerTimeline";
+import { type TimelineYearGroup } from "../data/careerTimeline";
 import { toBasePath, normalizeWhitespace } from "../utils/paths";
 
 interface Props {
@@ -144,7 +142,8 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
                       {formatProjectDateRange(project)}
                     </p>
                   )}
-                  <p>{normalizeWhitespace(project.summary)}</p>\n                </li>
+                  <p>{normalizeWhitespace(project.summary)}</p>\n{" "}
+                </li>
               ))}
             </ul>
           )
@@ -573,6 +572,36 @@ const sortedCurrentProjects = [...currentProjects].sort((a, b) =>
 
     .career-scroll__project-list {
       padding-left: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .career-scroll__rail {
+      padding-right: 0;
+    }
+
+    .career-scroll__rail-copy {
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .career-scroll__month-list {
+      grid-template-columns: 1fr;
+    }
+
+    .career-scroll__project-list {
+      display: none;
+    }
+
+    .career-scroll__month-head,
+    .career-scroll__card-top {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .career-scroll__card {
+      padding: var(--space-sm) var(--space-md);
     }
   }
 </style>

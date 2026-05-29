@@ -16,12 +16,12 @@ cardSummary: "Coordinate modernization work by translating client goals into pra
 highlights:
   - Designed pragmatic cloud and backend modernization roadmaps.
   - Improved reliability and scalability for client operations.
-  - Connected technical priorities to measurable business outcomes.
+  - Connected technical priorities to practical business results.
 problem: "Small and growing organizations often run on fragile infrastructure, scattered documentation, and ad hoc processes that limit scale. Technical work can stall when business needs are not translated into clear delivery priorities."
 approach: |
   I support ShepherdTech by turning early discovery into structured modernization work.
 
-  The advisory model focuses on:
+  The work focuses on:
   - clarifying client goals and operational constraints
   - shaping modernization roadmaps that fit real business needs
   - coordinating cloud and backend improvement work with delivery milestones
@@ -42,7 +42,6 @@ links:
     url: "https://shepherdtech.io"
   - label: GitHub
     url: "https://github.com/Chromeninja"
-featured: true
+featured: false
 order: 4
 ---
-

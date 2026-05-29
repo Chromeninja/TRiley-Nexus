@@ -9,25 +9,38 @@ import { siteConfig } from "../data/siteConfig";
 
 const homeHero = siteConfig.home.hero;
 const hiringProfiles = siteConfig.home.hiringProfiles;
-const featuredEvidence = siteConfig.home.featuredEvidence;
-const featuredStrengths = coreStrengths.filter(s => s.title !== "Star Citizen Operations").slice(0, 4);
-
+const featuredHighlights = siteConfig.home.featuredHighlights;
+const heroProofItems = homeHero.proofPoints ?? homeHero.quickNotes ?? [];
+const featuredStrengths = coreStrengths.filter((strength) =>
+  [
+    "Event Management",
+    "Star Citizen Operations",
+    "Operating Systems",
+    "Leadership Under Pressure",
+  ].includes(strength.title),
+);
+const helpAreaLabels = [
+  "Program momentum",
+  "Day-to-day systems",
+  "Useful tooling",
+];
+const strengthModes = ["Clarify", "Coordinate", "Systemize", "Hold"];
 const projectFocusAreas = [
   {
-    title: "Event management",
-    text: "Live-event systems, staffing models, check-in operations, runbooks, and the decision structure needed when people are moving in real time.",
+    title: "Event operations systems",
+    text: "Offline-first platforms, check-in tooling, staff visibility, and real-time decision support built for live events where the internet is unreliable and errors have consequences.",
   },
   {
-    title: "Leadership",
-    text: "Director-level ownership across teams, communities, vendors, volunteers, and stakeholders with clear accountability for outcomes.",
+    title: "Community platforms and governance",
+    text: "Discord bot systems, verification workflows, role management, analytics, and governance design for large-scale communities that need to run without constant manual intervention.",
   },
   {
-    title: "Program management",
-    text: "Roadmaps, risk management, launch readiness, platform support, production pipelines, and cross-functional delivery across overlapping workstreams.",
+    title: "People and live event leadership",
+    text: "Director-level ownership across volunteer coordinators, vendors, and stakeholders when schedules are live, people are moving, and someone has to hold the operating picture.",
   },
   {
-    title: "Community",
-    text: "Community operations, organization leadership, large-scale coordination, and event production built around clear governance and repeatable systems.",
+    title: "Military operations under pressure",
+    text: "ATC, landing zone safety, and expeditionary airfield operations built the execution habits that carry into every high-stakes environment: calm, systematic, and hazard-aware.",
   },
 ];
 ---
@@ -55,56 +68,62 @@ const projectFocusAreas = [
           <p class="hero__subtext">
             {homeHero.subtext}
           </p>
-          <ul class="hero__proof-list" aria-label="Selected proof points">
+          {
+            homeHero.supportingText && (
+              <p class="hero__supporting-text">{homeHero.supportingText}</p>
+            )
+          }
+          <ul class="hero__quick-notes" aria-label="Selected proof points">
             {
-              homeHero.proofPoints.map((point) => (
-                <li class="hero__proof-pill">{point}</li>
+              heroProofItems.map((point) => (
+                <li class="hero__quick-note">{point}</li>
               ))
             }
           </ul>
           <div class="hero__actions">
             <a
               href={toBasePath(homeHero.primaryAction.href)}
-              class="btn btn-primary"
-              >{homeHero.primaryAction.label}</a
+              class="btn btn-primary">{homeHero.primaryAction.label}</a
             >
             <a
               href={toBasePath(homeHero.secondaryAction.href)}
-              class="btn btn-outline"
-              >{homeHero.secondaryAction.label}</a
+              class="btn btn-outline">{homeHero.secondaryAction.label}</a
             >
           </div>
         </div>
 
         <div
-          class="hero__evidence panel animate-fade-up delay-200"
-          aria-label="Selected proof of impact"
+          class="hero__highlights animate-fade-up delay-200"
+          aria-label="A few career highlights"
         >
-          <div class="hero__evidence-head">
-            <p class="hero__evidence-label text-mono">
-              EXECUTIVE SNAPSHOT // SELECTED PROOF
+          <div class="hero__highlights-head">
+            <p class="hero__highlights-label text-mono">
+              A FEW THINGS I'VE BUILT
             </p>
-            <span class="hero__evidence-status">Verified</span>
           </div>
 
-          <div class="hero__evidence-intro">
-            <h2 class="hero__evidence-title">
-              Backed by shipped work.
+          <div class="hero__highlights-intro">
+            <h2 class="hero__highlights-title">
+              A wide mix of work, tied together by follow-through.
             </h2>
-            <p class="hero__evidence-copy">
-              The pattern across my career is consistent: diagnose quickly,
-              align the work, build the system, and leave the organization with
-              more leverage than it had before.
+            <p class="hero__highlights-copy">
+              Across military service, games, community work, and live events, I
+              tend to do the same useful thing: find the messy middle, make it
+              easier to understand, and help people move.
             </p>
           </div>
 
-          <div class="hero__evidence-grid">
+          <div class="hero__highlights-grid">
             {
-              featuredEvidence.map((item) => (
-                <a class="hero__evidence-card" href={toBasePath(item.href)}>
-                  <span class="hero__evidence-value">{item.value}</span>
-                  <span class="hero__evidence-card-label">{item.label}</span>
-                  <p class="hero__evidence-card-detail">{item.detail}</p>
+              featuredHighlights.map((item) => (
+                <a
+                  class="hero__highlights-card"
+                  href={toBasePath(item.href)}
+                  aria-label={`${item.label}: ${item.detail}`}
+                >
+                  <span class="hero__highlights-value">{item.value}</span>
+                  <span class="hero__highlights-card-label">{item.label}</span>
+                  <p class="hero__highlights-card-detail">{item.detail}</p>
                 </a>
               ))
             }
@@ -112,32 +131,33 @@ const projectFocusAreas = [
         </div>
       </div>
     </div>
-
-    <!-- Background decoration -->
-    <div class="hero__bg-grid" aria-hidden="true"></div>
   </section>
 
   <!-- ═══════════════════════════════════════════
        WHAT I SOLVE
   ═══════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container--page">
+  <section class="section help-section">
+    <div class="container">
       <SectionHeader
         label="// WHAT I SOLVE"
-        title="Where I Create Leverage"
-        subtitle="I am most useful when an organization needs one operator who can clarify the problem, align the work, and build systems that keep holding after launch."
+        title="Where I Tend To Help"
+        subtitle="I am at my best when the work is important, a little tangled, and in need of someone who can make the path feel doable."
       />
 
-      <div class="grid-3 profile-grid">
+      <div class="profile-list">
         {
           hiringProfiles.map((profile, i) => (
-            <div
+            <article
               class={`profile-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
             >
-              <p class="profile-card__kicker text-mono">Focus {i + 1}</p>
-              <h3 class="profile-card__title">{profile.title}</h3>
-              <p class="profile-card__desc">{profile.text}</p>
-            </div>
+              <p class="profile-card__kicker text-mono">
+                {helpAreaLabels[i] ?? `Focus ${i + 1}`}
+              </p>
+              <div class="profile-card__body">
+                <h3 class="profile-card__title">{profile.title}</h3>
+                <p class="profile-card__desc">{profile.text}</p>
+              </div>
+            </article>
           ))
         }
       </div>
@@ -145,32 +165,32 @@ const projectFocusAreas = [
   </section>
 
   <!-- ═══════════════════════════════════════════
-       HOW I LEAD PROGRAMS
+      HOW I WORK
   ═══════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container container--page">
+  <section class="section section--band">
+    <div class="container">
       <SectionHeader
-        label="// HOW I LEAD PROGRAMS"
-        title="The Operating Model, In Brief"
-        subtitle="This is the short version of how I approach director-level program work before you dive into the full methodology page."
+        label="// HOW I WORK"
+        title="How I Usually Approach the Work"
+        subtitle="A short version of how I move from fuzzy problem to shared plan, useful system, and cleaner handoff."
       />
 
-      <div class="principles-list principles-list--grid">
+      <ol class="principles-list">
         {
           homePrinciples.map((principle) => (
-            <div class="principle principle--card">
-              <span class="principle__num text-mono text-accent">
+            <li class="principle">
+              <span class="principle__num text-mono" aria-hidden="true">
                 {principle.num}
               </span>
               <p class="principle__text">{principle.text}</p>
-            </div>
+            </li>
           ))
         }
-      </div>
+      </ol>
 
       <div class="section-actions">
         <a href={toBasePath("/how-i-work")} class="btn btn-outline"
-          >See the full operating model</a
+          >See how I work</a
         >
       </div>
     </div>
@@ -187,18 +207,23 @@ const projectFocusAreas = [
         subtitle="Event operations, program management, community systems, and the tools that enable execution."
       />
 
-      <div class="grid-3 strengths-grid">
+      <div class="strengths-list">
         {
           featuredStrengths.map((strength, i) => (
-            <div
-              class={`strength-card animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
+            <article
+              class={`strength-row animate-fade-up delay-${Math.min((i + 1) * 100, 400)}`}
             >
-              <span class="strength-card__icon" aria-hidden="true">
+              <span class="strength-row__mode text-mono">
+                {strengthModes[i] ?? "Build"}
+              </span>
+              <span class="strength-row__icon" aria-hidden="true">
                 {strength.icon}
               </span>
-              <h3 class="strength-card__title">{strength.title}</h3>
-              <p class="strength-card__desc">{strength.description}</p>
-            </div>
+              <div class="strength-row__body">
+                <h3 class="strength-row__title">{strength.title}</h3>
+                <p class="strength-row__desc">{strength.description}</p>
+              </div>
+            </article>
           ))
         }
       </div>
@@ -246,15 +271,23 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        CAREER TIMELINE HUB
   ═══════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container container--page">
+  <section class="section section--band career-section">
+    <div class="container">
       <SectionHeader
         label="// CAREER ARC"
-        title="See the progression behind the outcomes"
-        subtitle="Browse the full arc — from military roots to senior program leadership."
+        title="See How The Work Connects"
+        subtitle="The career page pulls the whole path together, from frontline support and military operations to program leadership, community systems, and live-event work."
       />
 
-      <div class="career-hub-card panel">
+      <div class="career-hub-card">
+        <p class="career-hub-card__label text-mono">
+          Three ways to browse the same body of work
+        </p>
+        <p class="career-hub-card__copy text-muted">
+          Use narrative view for the story, gantt for role and project overlap,
+          or scroll for the full progression in one pass.
+        </p>
+
         <div class="career-hub-card__actions">
           <a href={toBasePath("/career?view=narrative")} class="btn btn-primary"
             >Open Narrative View</a
@@ -273,22 +306,32 @@ const projectFocusAreas = [
   <!-- ═══════════════════════════════════════════
        PERSONAL INTRO
   ═══════════════════════════════════════════ -->
-  <section class="section section--alt">
-    <div class="container container--page">
+  <section class="section section--band intro-section">
+    <div class="container">
       <div class="intro-grid">
         <div class="intro__text">
           <p class="section-label">// BACKGROUND</p>
           <span class="accent-line"></span>
-          <h2>Why this perspective holds up in real environments</h2>
+          <h2>Why this background fits messy work</h2>
+          <p>
+            My background is broad on purpose. Military service taught me how to
+            lead under pressure, Ubisoft taught me how large organizations
+            actually move work, and community and event systems gave me places
+            to keep building beyond formal job boundaries.
+          </p>
           <p>
             That mix is why I tend to operate well above a narrow title line. I
             am comfortable in the strategy layer, the execution layer, and the
             system-design layer at the same time, especially when multiple
             projects are moving at once.
           </p>
-          <a
-            href={toBasePath("/about")}
-            class="btn btn-outline intro__action">Read the background</a
+          <p>
+            If you want the fuller version, the About page explains where that
+            operating style came from and why I keep getting pulled toward
+            systems that need to be clarified, rebuilt, or scaled.
+          </p>
+          <a href={toBasePath("/about")} class="btn btn-outline intro__action"
+            >Read the background</a
           >
         </div>
 
@@ -332,7 +375,17 @@ const projectFocusAreas = [
 </Layout>
 
 <style>
-  /* ── Hero ── */
+  .section--band {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-bg-secondary), transparent 8%),
+        color-mix(in srgb, var(--color-bg), transparent 16%)
+      ),
+      var(--color-bg-secondary);
+    border-block: 1px solid var(--color-border);
+  }
+
   .hero {
     position: relative;
     overflow: hidden;
@@ -344,7 +397,7 @@ const projectFocusAreas = [
 
   .hero__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.95fr);
     gap: var(--space-3xl);
     align-items: center;
   }
@@ -393,55 +446,39 @@ const projectFocusAreas = [
     flex-wrap: wrap;
   }
 
-  .hero__proof-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+  .hero__quick-notes {
+    display: grid;
+    gap: var(--space-xs);
     margin: 0 0 var(--space-xl);
-    padding: 0;
+    padding-left: 1.15rem;
+    color: var(--color-text-muted);
   }
 
-  .hero__proof-pill {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background: rgba(87, 166, 255, 0.08);
-    color: var(--color-text);
+  .hero__quick-note {
     font-size: 0.8rem;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
-  .hero__evidence {
+  .hero__highlights {
     min-height: 0;
-    padding: var(--space-xl);
+    padding: var(--space-2xl);
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
     position: relative;
+    border-block: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     background:
-      radial-gradient(circle at top, rgba(87, 166, 255, 0.18), transparent 35%),
-      radial-gradient(
-        circle at 85% 20%,
-        rgba(34, 211, 238, 0.14),
-        transparent 28%
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-bg-card), transparent 8%),
+        color-mix(in srgb, var(--color-bg-secondary), transparent 18%)
       ),
-      linear-gradient(145deg, rgba(6, 12, 24, 0.94), rgba(10, 20, 40, 0.94));
+      var(--color-bg-card);
+    box-shadow: var(--shadow-card);
   }
 
-  .hero__evidence::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(rgba(87, 166, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(87, 166, 255, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .hero__evidence-head {
+  .hero__highlights-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -450,123 +487,122 @@ const projectFocusAreas = [
     z-index: 1;
   }
 
-  .hero__evidence-label {
+  .hero__highlights-label {
     margin: 0;
     font-size: var(--font-size-label);
     letter-spacing: 0.14em;
     color: var(--color-text-muted);
   }
 
-  .hero__evidence-status {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    border: 1px solid rgba(87, 166, 255, 0.28);
-    border-radius: 999px;
-    padding: 0.35rem 0.75rem;
-    font-size: var(--font-size-label);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-heading);
-    background: rgba(87, 166, 255, 0.08);
-  }
-
-  .hero__evidence-status::before {
-    content: "";
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 999px;
-    background: var(--color-success);
-    box-shadow: 0 0 14px rgba(87, 166, 255, 0.55);
-  }
-
-  .hero__evidence-intro {
+  .hero__highlights-intro {
     position: relative;
     z-index: 1;
   }
 
-  .hero__evidence-title {
+  .hero__highlights-title {
     margin: 0 0 var(--space-sm);
-    font-size: var(--font-size-card-title);
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
     color: var(--color-text-heading);
   }
 
-  .hero__evidence-copy {
+  .hero__highlights-copy {
     margin: 0;
     color: var(--color-text-muted);
     line-height: 1.65;
   }
 
-  .hero__evidence-grid {
+  .hero__highlights-grid {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
-  .hero__evidence-card {
+  .hero__highlights-card {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
+    display: grid;
+    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr);
+    grid-template-areas:
+      "value label"
+      "value detail";
+    column-gap: var(--space-lg);
+    row-gap: var(--space-xs);
     padding: var(--space-md);
-    border: 1px solid rgba(87, 166, 255, 0.16);
-    border-radius: var(--radius-md);
-    background: rgba(6, 13, 18, 0.68);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--color-border);
+    background: transparent;
     text-decoration: none;
     transition:
       border-color var(--transition-fast),
+      background var(--transition-fast),
       transform var(--transition-fast);
   }
 
-  .hero__evidence-card:hover {
+  .hero__highlights-card:first-child {
+    border-top: 0;
+  }
+
+  .hero__highlights-card:hover {
+    background: color-mix(in srgb, var(--color-accent), transparent 94%);
     border-color: var(--color-border-strong);
     transform: translateY(-2px);
   }
 
-  .hero__evidence-value {
+  .hero__highlights-card:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: var(--space-xs);
+  }
+
+  .hero__highlights-value {
+    grid-area: value;
     font-family: var(--font-heading);
-    font-size: 1.35rem;
+    font-size: clamp(1.8rem, 3vw, 2.65rem);
+    line-height: 1;
     color: var(--color-text-heading);
   }
 
-  .hero__evidence-card-label {
-    font-size: var(--font-size-meta);
+  .hero__highlights-card-label {
+    grid-area: label;
+    font-size: 0.78rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
   }
 
-  .hero__evidence-card-detail {
+  .hero__highlights-card-detail {
+    grid-area: detail;
     margin: 0;
-    font-size: var(--font-size-body-sm);
+    font-size: 0.86rem;
     color: var(--color-text-muted);
     line-height: 1.55;
   }
 
-  .profile-grid {
-    align-items: stretch;
+  .profile-list {
+    display: grid;
+    gap: var(--space-sm);
   }
 
   .profile-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.28fr) minmax(0, 1fr);
+    gap: var(--space-xl);
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .profile-card:first-child {
+    border-top-color: var(--color-border-strong);
   }
 
   .profile-card__kicker {
-    margin: 0 0 var(--space-md);
-    font-size: var(--font-size-label);
+    margin: 0;
+    font-size: 0.72rem;
     color: var(--color-accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .profile-card__title {
-    font-size: var(--font-size-card-title);
+    font-size: clamp(1.1rem, 2vw, 1.45rem);
     color: var(--color-text-heading);
     margin-bottom: var(--space-sm);
   }
@@ -575,23 +611,6 @@ const projectFocusAreas = [
     color: var(--color-text-muted);
     margin: 0;
     line-height: 1.7;
-  }
-
-  .principles-list--grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .principle--card {
-    height: 100%;
-    padding: var(--space-lg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-bg-card);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
   }
 
   .section-actions {
@@ -694,29 +713,77 @@ const projectFocusAreas = [
 
   /* ── Principles ── */
   .principles-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+    list-style: none;
+    display: grid;
+    gap: var(--space-md);
+    max-width: var(--container-md);
   }
 
   .principle {
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
-    gap: var(--space-md);
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: var(--space-lg);
     align-items: start;
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
   }
 
-  .principle:last-child {
-    border-bottom: none;
+  .principle__num {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
   }
 
   .principle__text {
     color: var(--color-text);
-    line-height: 1.65;
+    line-height: 1.7;
     margin: 0;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
   }
 
-  /* ── Intro ── */
+  .strengths-list {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .strength-row {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, auto) auto minmax(0, 1fr);
+    gap: var(--space-lg);
+    align-items: start;
+    padding-block: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .strength-row:first-child {
+    border-top-color: var(--color-border-strong);
+  }
+
+  .strength-row__mode {
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .strength-row__icon {
+    color: var(--color-text-dim);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .strength-row__title {
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-heading);
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  }
+
+  .strength-row__desc {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
   .intro-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
@@ -728,21 +795,22 @@ const projectFocusAreas = [
     margin-bottom: var(--space-lg);
   }
 
+  .intro__text p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
   .intro__action {
     margin-top: var(--space-md);
   }
 
   .intro__stats {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .stat-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
+    border-left: 1px solid var(--color-border-strong);
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-lg);
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
@@ -764,11 +832,26 @@ const projectFocusAreas = [
 
   .career-hub-card {
     display: grid;
-    gap: var(--space-md);
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-xl);
+    align-items: center;
+    padding-block: var(--space-xl);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .career-hub-card__label {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--color-accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .career-hub-card__copy {
     margin: 0;
+    max-width: 62ch;
+    line-height: 1.7;
   }
 
   .career-hub-card__actions {
@@ -777,16 +860,20 @@ const projectFocusAreas = [
     gap: var(--space-sm);
   }
 
-  /* ── CTA ── */
   .cta-panel {
-    background: var(--color-bg-card);
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    border-radius: var(--radius-xl);
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-accent), transparent 94%),
+        transparent
+      ),
+      var(--color-bg-card);
+    border: 1px solid color-mix(in srgb, var(--color-accent2), transparent 72%);
+    border-radius: var(--radius-lg);
     padding: var(--space-3xl);
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--glow-accent);
   }
 
   .cta-panel h2 {
@@ -809,15 +896,10 @@ const projectFocusAreas = [
     margin-top: var(--space-xl);
   }
 
-  /* Responsive */
   @media (max-width: 1024px) {
     .hero__grid {
       grid-template-columns: 1fr;
       gap: var(--space-2xl);
-    }
-
-    .hero__signal {
-      min-height: auto;
     }
 
     .hero {
@@ -832,32 +914,53 @@ const projectFocusAreas = [
     .project-focus-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-  }
 
-  @media (max-width: 640px) {
-    .hero__signal {
-      padding: var(--space-lg);
-    }
-
-    .hero__signal-head {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .hero__signal-node,
-    .hero__signal-node--center,
-    .hero__signal-node--left,
-    .hero__signal-node--right {
-      justify-self: stretch;
-      width: 100%;
-    }
-
-    .hero__signal-metrics {
+    .hero__evidence-grid {
       grid-template-columns: 1fr;
     }
 
+    .career-hub-card {
+      grid-template-columns: 1fr;
+    }
+
+    .career-hub-card__actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-block: var(--space-3xl);
+    }
+
+    .hero__highlights {
+      padding: var(--space-lg);
+    }
+
+    .hero__highlights-card {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "value"
+        "label"
+        "detail";
+      gap: var(--space-xs);
+    }
+
+    .profile-card,
+    .principle,
+    .strength-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+
     .intro__stats {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+
+    .career-hub-card__actions,
+    .cta-panel__actions {
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .project-focus-grid {

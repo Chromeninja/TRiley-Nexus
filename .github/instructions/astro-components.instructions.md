@@ -1,6 +1,7 @@
 ---
 applyTo: "src/components/**/*.astro"
 ---
+
 <!-- Last reviewed: 2026-05-06; update when new component patterns are added -->
 
 # Astro Component Rules
@@ -31,11 +32,13 @@ const { title, subtitle, featured = false } = Astro.props;
 Check for slot presence before using conditional layouts:
 
 ```astro
-{Astro.slots.has("aside") && (
-  <div class="component__aside">
-    <slot name="aside" />
-  </div>
-)}
+{
+  Astro.slots.has("aside") && (
+    <div class="component__aside">
+      <slot name="aside" />
+    </div>
+  )
+}
 ```
 
 - Named slots for secondary content regions (`aside`, `meta`, `footer`)
@@ -76,7 +79,9 @@ Vanilla JS only in `<script>` blocks, with no framework imports:
 ```astro
 <script>
   const el = document.querySelector("[data-my-hook]");
-  el?.addEventListener("click", () => { /* ... */ });
+  el?.addEventListener("click", () => {
+    /* ... */
+  });
 </script>
 ```
 

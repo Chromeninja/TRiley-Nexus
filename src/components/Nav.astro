@@ -10,7 +10,7 @@ const navItems = enabledNavItems.map((link) => ({
 }));
 ---
 
-<nav class="nav" aria-label="Main navigation">
+<nav class="nav" aria-label="Main navigation" data-nav-root>
   <div class="nav__inner">
     <!-- Logo / Wordmark -->
     <a
@@ -45,6 +45,7 @@ const navItems = enabledNavItems.map((link) => ({
     <!-- Mobile menu toggle -->
     <button
       class="nav__toggle"
+      data-nav-toggle
       aria-label="Toggle navigation"
       aria-expanded="false"
       aria-controls="mobile-menu"
@@ -56,7 +57,7 @@ const navItems = enabledNavItems.map((link) => ({
   </div>
 
   <!-- Mobile menu -->
-  <div class="nav__mobile" id="mobile-menu" aria-hidden="true">
+  <div class="nav__mobile" id="mobile-menu" aria-hidden="true" data-nav-menu>
     <ul role="list">
       {
         navItems.map((link) => {
@@ -313,15 +314,72 @@ const navItems = enabledNavItems.map((link) => ({
 </style>
 
 <script>
-  const toggle = document.querySelector(
-    ".nav__toggle",
-  ) as HTMLButtonElement | null;
-  const menu = document.getElementById("mobile-menu");
+  const navRoots = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-nav-root]"),
+  );
 
-  toggle?.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!expanded));
-    menu?.classList.toggle("is-open");
-    if (menu) menu.setAttribute("aria-hidden", String(expanded));
+  navRoots.forEach((nav) => {
+    if (nav.dataset.navInitialized === "true") {
+      return;
+    }
+
+    nav.dataset.navInitialized = "true";
+
+    const toggle = nav.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const menu = nav.querySelector<HTMLElement>("[data-nav-menu]");
+    const menuLinks = menu
+      ? Array.from(
+          menu.querySelectorAll<HTMLAnchorElement>(".nav__mobile-link"),
+        )
+      : [];
+
+    const setMenuState = (isOpen: boolean) => {
+      if (!toggle || !menu) {
+        return;
+      }
+
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      menu.classList.toggle("is-open", isOpen);
+      menu.setAttribute("aria-hidden", String(!isOpen));
+    };
+
+    const closeMenu = ({
+      restoreFocus = true,
+    }: { restoreFocus?: boolean } = {}) => {
+      if (!toggle || !menu) {
+        return;
+      }
+
+      setMenuState(false);
+
+      if (restoreFocus) {
+        toggle.focus();
+      }
+    };
+
+    toggle?.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      setMenuState(!expanded);
+
+      if (!expanded) {
+        menuLinks[0]?.focus();
+      }
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMenu({ restoreFocus: false });
+      });
+    });
+
+    nav.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      if (toggle?.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+      }
+    });
   });
 </script>

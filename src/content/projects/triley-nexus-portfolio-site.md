@@ -37,7 +37,11 @@ tags:
 links:
   - label: Repository
     url: "https://github.com/Chromeninja/TRiley-Nexus"
-featured: true
+media:
+  - type: image
+    src: "/media/projects/triley-nexus-portfolio-site-cover.png"
+    alt: Custom Portfolio Platform
+    isCover: true
+featured: false
 order: 25
 ---
-

@@ -52,7 +52,7 @@ export function getOrganizationLabel(value: string, maxChars: number): string {
     .filter(Boolean)
     .map((part) => part.replace(/[^A-Za-z0-9]/g, ""))
     .filter(Boolean)
-    .map((part) => (/[0-9]/.test(part) ? part : part[0]?.toUpperCase() ?? ""))
+    .map((part) => (/[0-9]/.test(part) ? part : (part[0]?.toUpperCase() ?? "")))
     .join("");
 
   if (acronym.length >= 2 && acronym.length <= maxChars) {
