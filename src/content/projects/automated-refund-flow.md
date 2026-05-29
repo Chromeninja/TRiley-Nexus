@@ -9,10 +9,10 @@ tags:
   - Customer Experience
   - Cross-Functional Delivery
 organization: Ubisoft
-timeframe: "2020 – 2021"
+timeframe: "2019-2021"
 roleTitle: Supervisor, E-Commerce Operations
-startedAt: "2019-11"
-endedAt: "2021-12"
+startedAt: "2019-10"
+endedAt: "2021-04"
 summary: "Led customer-support-side requirements, research, reporting, and stakeholder alignment for Ubisoft Store and Ubisoft+ refund workflow modernization. The work translated policy into usable customer and internal workflows, handled play-time validation edge cases with platform teams, and reduced overall e-commerce support ticket volume by 30%."
 cardSummary: "Modernized Ubisoft Store and Ubisoft+ refund workflows, reducing overall e-commerce support ticket volume by 30%."
 highlights:
