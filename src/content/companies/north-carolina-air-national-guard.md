@@ -3,13 +3,14 @@ profiles:
   North Carolina Air National Guard:
     summary: "Long-term Air National Guard service spanning TACP training, air traffic control, expeditionary airfield operations, landing zone safety, air advising, combat airspace, unit IT, and community support."
     companyInfo: "The North Carolina Air National Guard supports federal and state missions across a range of specialties. Service spanned two units: the 118th Air Support Operations Squadron (TACP) and the 235th Combat Airfield Operations Squadron, which provides air traffic control, expeditionary airfield operations, and combat support capabilities."
-    myTimeInfo: "Served continuously since October 2013, first in the 118th Air Support Operations Squadron and then in the 235th Combat Airfield Operations Squadron. Work has included TACP training, air traffic control, expeditionary landing zone operations, Air Advisor qualification, Combat Airspace qualification, informal unit IT support, and community outreach."
-    longSummary: "The ANG work is intentionally broad: operational airfield control, expeditionary safety assessment, theater-level airspace management, partner-nation advising, digital unit support, and civic engagement. The common thread is practical readiness, calm execution under pressure, and the ability to bridge technical procedures with mission needs."
+    myTimeInfo: "Served continuously since October 2013, first in the 118th Air Support Operations Squadron and then in the 235th Combat Airfield Operations Squadron. Work has included TACP training, air traffic control, expeditionary landing zone operations, Air Advisor qualification, Combat Airspace qualification, informal unit IT support, and community outreach. Unit IT support has included Teams deployment, OneDrive migration support, Outlook troubleshooting, printer support, and day-to-day network troubleshooting."
+    longSummary: "The ANG work is intentionally broad: operational airfield control, expeditionary safety assessment, theater-level airspace management, partner-nation advising, digital unit support, and civic engagement. The common thread is practical readiness, calm execution under pressure, and the ability to bridge technical procedures with mission needs, including Microsoft 365 support that keeps unit communication and documentation workflows operational."
     roleSummary: "Air Traffic Controller / TACP / multi-role ANG specialist"
     achievements:
       - "Qualified as an Air Traffic Controller and maintained readiness across expeditionary and domestic airfield operations."
       - "Added Landing Zone Safety Officer, Air Advisor, and Combat Airspace capabilities to the broader CAOS mission portfolio."
-      - "Supports unit digital operations through informal SharePoint, Teams, and Microsoft 365 administration."
+      - "Supports unit digital operations through informal SharePoint, Teams, and Microsoft 365 administration, including Teams rollout support and OneDrive migration help."
+      - "Provides practical troubleshooting for Outlook, printers, and basic network issues when routine support is needed quickly."
       - "Contributes to community outreach through Special Olympics, parades, food drives, and public-facing unit service events."
     logo:
       src: "/media/companies/north-carolina-air-national-guard-logo.png"
@@ -28,7 +29,7 @@ profiles:
     shortName: "235 CAOS"
     summary: "Combat airfield operations service spanning ATC, landing zone safety, Air Advisor work, Combat Airspace qualification, unit IT support, and community outreach."
     companyInfo: "The 235th Combat Airfield Operations Squadron provides air traffic control, expeditionary airfield operations, landing zone support, and combat support capabilities for domestic and deployed missions."
-    myTimeInfo: "Since April 2015, I have served with the 235th CAOS as an Air Traffic Controller and multi-role operations specialist, adding Landing Zone Safety Officer, Air Advisor, Combat Airspace, informal unit IT, and community outreach responsibilities over time."
+    myTimeInfo: "Since April 2015, I have served with the 235th CAOS as an Air Traffic Controller and multi-role operations specialist, adding Landing Zone Safety Officer, Air Advisor, Combat Airspace, informal unit IT, and community outreach responsibilities over time. The informal IT scope includes Teams deployment support, OneDrive migration help, Outlook troubleshooting, printer support, and routine network troubleshooting."
     longSummary: "The role combines tower-level control discipline with expeditionary field operations and broader mission support. I support airfield safety, airspace management, landing zone assessment, partner-nation advising capability, Microsoft 365 unit operations, and public-facing service activities that strengthen the squadron's readiness and community presence."
     roleSummary: "Air Traffic Controller and multi-role CAOS specialist"
     achievements:
@@ -36,6 +37,7 @@ profiles:
       - "Certified as a Landing Zone Safety Officer for austere and contingency landing zone operations."
       - "Completed Air Advisor and Combat Airspace qualification tracks to expand the unit's mission capability."
       - "Provides informal SharePoint, Teams, and Microsoft 365 support that keeps unit digital workflows operational."
+      - "Supports Teams deployment, OneDrive migrations, Outlook troubleshooting, printer setup, and basic network troubleshooting for daily squadron operations."
     logo:
       src: "/media/companies/north-carolina-air-national-guard-logo.png"
       alt: "235th Combat Airfield Operations Squadron logo"

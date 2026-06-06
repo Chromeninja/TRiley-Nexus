@@ -1,16 +1,18 @@
 ---
 profiles:
   ShepherdTech:
-    summary: "Project coordination and modernization delivery support across client discovery, cloud planning, backend improvements, and business-facing operations."
-    companyInfo: "ShepherdTech supports small and medium-sized businesses with backend IT modernization, cloud infrastructure improvements, website delivery, and practical operational support."
-    myTimeInfo: "My work has focused on project coordination and business operations, including client discovery, negotiations, modernization planning, website delivery, knowledge-base development, and hands-on support for internal tools and documentation workflows."
-    longSummary: "I help turn broad technical goals into structured, actionable work by connecting client needs, technical execution, and scalable operating processes. The role centers on organizing priorities, shaping client-facing conversations, coordinating delivery milestones, and supporting practical system improvements that can be maintained after launch."
-    roleSummary: "Project coordinator for modernization and delivery operations"
+    summary: "Project coordination and IT operations support across endpoint deployment, Microsoft 365 administration, security tooling, and client modernization delivery."
+    companyInfo: "ShepherdTech supports small and medium-sized businesses with IT modernization, cloud infrastructure improvements, endpoint operations, security tooling deployment, website delivery, and practical business support."
+    myTimeInfo: "My work spans project coordination and hands-on IT operations support, including Windows and Linux endpoint deployments, Microsoft 365 setup, Teams and SharePoint configuration, Outlook and account support, security tooling rollout, and internal documentation workflows."
+    longSummary: "I help turn broad technical goals into structured, actionable work by connecting client needs, endpoint operations, and delivery execution. The role combines project coordination with practical support work across device provisioning, Microsoft 365 administration, SaaS access setup, documentation, and ongoing troubleshooting so teams can stay productive."
+    roleSummary: "Project coordinator and IT operations support"
     achievements:
       - "Coordinated an NDA-safe AWS backend modernization engagement covering security, observability, rate limiting, and push notification readiness."
+      - "Supported Windows and Linux endpoint deployment workflows, including provisioning, baseline setup, security tooling rollout, and operational handoff."
+      - "Configured and supported Microsoft 365 environments, including Teams, SharePoint, and Outlook setup for day-to-day collaboration."
+      - "Provided practical SaaS and identity support across AWS IAM, Slack, HubSpot, NinjaOne, and internal documentation systems."
       - "Supported ShepherdTech website delivery through testing, design feedback, project tracking, and booking-flow iteration."
       - "Turned broad technical goals into structured project plans and actionable delivery work."
-      - "Contributed to knowledge-base, tooling, and documentation workflows that improved internal operating consistency."
     logo:
       src: "/media/companies/shepherdtech-logo.jpeg"
       alt: "ShepherdTech logo"
