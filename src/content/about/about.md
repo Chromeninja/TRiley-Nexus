@@ -11,7 +11,7 @@ backgroundParagraphs:
     - roadmap ownership, tools development, and user research
     - live events, community leadership, and AI-assisted workflow design
 
-  - "I joined the Army in 2011 and have served for over 15 years, currently as an Air Traffic Controller in the Air National Guard. That path has taken me through a wide range of environments: tactical operations, precision work under pressure, leadership in ambiguous situations, and circumstances where the stakes were real and the playbook did not exist. Military service shaped how I think more than anything else in my career. You learn to stay calm, build structure, communicate clearly, and keep the mission moving even when the situation keeps changing."
+  - "I began military service in the North Carolina Army National Guard in 2011, then transferred to the North Carolina Air National Guard in 2013 and have served for over 15 years, currently as an Air Traffic Controller. That path has taken me through a wide range of environments: tactical operations, precision work under pressure, leadership in ambiguous situations, and circumstances where the stakes were real and the playbook did not exist. Military service shaped how I think more than anything else in my career. You learn to stay calm, build structure, communicate clearly, and keep the mission moving even when the situation keeps changing."
 
   - "My civilian career started while I was still serving. The National Guard gave me the ability to keep serving while building something outside of it. I started at Ubisoft in 2013 in customer support, where I got close to real player problems and saw how support systems worked from the ground up. Over the next decade I moved into e-commerce operations, support automation, user research, process improvement, roadmap ownership, and eventually senior program management. My final role was Sr. Program Manager. One initiative I am especially proud of was modernizing digital refund and cancellation workflows for Ubisoft Store and Ubisoft+, a project that required turning policy, platform data, customer friction, and stakeholder needs into supportable systems that actually shipped."
 
@@ -53,7 +53,7 @@ personalItems:
   - icon: ⬡
     title: Star Citizen
     body: |
-      I am deeply involved in the **Star Citizen** community as an org leader and operations builder for **TEST Squadron**, one of the largest player organizations in the game with more than 24,000 members.
+      I am deeply involved in the **Star Citizen** community as an org leader and operations builder for **TEST Squadron**, operating a 40K-member Discord ecosystem tied to a roughly 24K-member Star Citizen organization.
 
       I also serve as **COO of BarCitizen International**, where I help organize and support in-person BarCitizen events around the world.
 

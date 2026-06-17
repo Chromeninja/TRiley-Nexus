@@ -11,17 +11,17 @@ tags:
 organization: Happy Manic
 organizationUrl: "https://happymanic.com/"
 timeframe: Ongoing
-roleTitle: Producer
+roleTitle: Technical Producer
 startedAt: "2025-10"
-summary: "Served as producer for Nope Challenge on Meta Quest during the Reality Breach mixed reality rollout. The work coordinated roadmap planning, Jira priorities, Perforce workflows, feature deployments, developer/designer/QA coordination, community testing, Discord operations updates, and ongoing hand-tracking work."
-cardSummary: "Producer for Nope Challenge, aligning VR delivery, Jira priorities, Perforce workflows, community testing, and feature deployments."
+summary: "Technical Producer for Nope Challenge on Meta Quest through the Reality Breach mixed reality rollout. Owned the delivery loop: roadmap planning, Jira priorities, Perforce workflow coordination, developer/designer/QA alignment, community testing operations, and feature prioritization informed by live test feedback. Helped maintain a 4.5+ player rating while shipping mixed reality and hand-tracking features."
+cardSummary: "Technical Producer for Nope Challenge, managing the delivery loop from roadmap to Jira to Perforce to QA to community testing, with a 4.5+ player rating maintained."
 highlights:
-  - "Worked with 30+ community members to run testing cycles and collect actionable feedback."
-  - "Revamped Discord channel structure and implemented AutoMod best practices for safer community operations."
-  - "Partnered with developers, designers, and QA in Jira and Perforce to prioritize roadmap work across mixed reality and hand-tracking features."
+  - "Managed the technical production delivery loop: roadmap estimates, Jira priorities, Perforce coordination, QA feedback integration, and feature sequencing across mixed reality and hand-tracking work."
+  - "Led community testing operations with 30+ participants, translating test feedback into prioritized feature decisions and helping maintain a 4.5+ player rating."
+  - "Improved Discord server safety and feedback quality through channel restructuring and AutoMod implementation, creating a more reliable signal channel for live community input."
 problem: "Nope Challenge entered the Reality Breach mixed reality rollout phase and needed coordinated production support to manage live feature priorities, community testing signal, and cross-team planning."
-approach: "Led producer workflows across Jira planning, Perforce coordination, developer and designer prioritization, QA feedback, community testing operations, estimate gathering, backlog management, and Discord operations updates. Coordinated rollout support for Reality Breach mixed reality features while helping shape hand-tracking implementation priorities from test feedback."
-outcome: "Created a tighter rollout loop between community testing and development decisions, improved server safety and feedback quality through Discord updates and AutoMod practices, and helped maintain an over 4.5 player rating for the game."
+approach: "Led the full technical production delivery loop: Jira planning and backlog management, Perforce workflow coordination, developer and designer prioritization, QA integration, estimate gathering, and community testing operations. Coordinated Reality Breach mixed reality rollout support and shaped hand-tracking implementation priorities using structured test feedback from 30+ community testers. Rebuilt Discord community infrastructure to improve safety and increase the signal quality of community feedback reaching the development team."
+outcome: "Delivered a tighter, more disciplined rollout loop between community testing and development decisions for an ongoing VR game in active live operations. Improved server safety and feedback quality through Discord restructuring and AutoMod implementation. Helped maintain a 4.5+ player rating during an active mixed reality feature rollout."
 skills:
   - Technical Production
   - Roadmapping
@@ -56,6 +56,6 @@ media:
     src: "/media/projects/nope-trailer.mp4"
     poster: "/media/projects/nope-cover.webp"
     caption: Nope Challenge trailer
-featured: false
-order: 2
+featured: true
+order: 5
 ---

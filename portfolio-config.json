@@ -3,7 +3,7 @@
     "name": "T.Riley",
     "logoText": "T.RILEY",
     "baseTitle": "T.Riley",
-    "description": "Technical product and program leader focused on turning messy operational needs into clear requirements, roadmaps, workflows, and supportable systems.",
+    "description": "I build operational systems for complex environments: gaming platforms, live events, large communities, support operations, and military execution.",
     "canonicalUrl": "https://chromeninja.com",
     "repository": {
       "owner": "Chromeninja",
@@ -35,16 +35,16 @@
     "hero": {
       "eyebrow": "// PROGRAMS, PEOPLE, AND SYSTEMS",
       "roleLine": "Technical Product & Program Manager | Systems Builder | Event and Community Leadership",
-      "headlineLead": "I help turn messy work into",
-      "headlineAccent": "systems",
-      "headlineTail": "people can actually use.",
-      "subtext": "I work where product, operations, community, and technology overlap: the places where the goal is clear enough to matter, but the path still needs to be built.",
-      "supportingText": "My favorite work is making the confusing parts easier to see, giving teams a steadier way forward, and leaving behind something useful after the first push is over.",
+      "headlineLead": "I build operational systems for",
+      "headlineAccent": "complex environments",
+      "headlineTail": "that teams can actually run.",
+      "subtext": "I work where product, operations, community, and technology overlap: turning ambiguous cross-functional needs into requirements, workflows, governance, and delivery systems.",
+      "supportingText": "My work produces repeatable operating models: roadmaps with real sequencing, staff-adopted tooling, shared decision surfaces, and delivery systems that hold up after the first push is over.",
       "quickNotes": [
         "10+ years growing through support, operations, product, and program work at Ubisoft",
         "Reduced overall e-commerce support ticket volume by 30% after a Ubisoft refund-flow rebuild",
         "Roadmap ownership, user research, PRDs, acceptance criteria, and release planning across support platforms",
-        "Discord systems and community operations for a 40,000-member group",
+        "Discord systems and community operations for a 40K-member Discord ecosystem tied to a roughly 24K-member Star Citizen organization",
         "15+ years of military service, including air traffic control work"
       ],
       "proofPoints": [
@@ -60,11 +60,11 @@
     "hiringProfiles": [
       {
         "title": "Technical program leadership",
-        "text": "I am useful when messy operational needs must become clear requirements, user stories, release plans, and supportable systems."
+        "text": "I am useful when ambiguous cross-functional needs must become clear requirements, user stories, release plans, and supportable delivery systems."
       },
       {
         "title": "Operational systems design",
-        "text": "I like turning tribal knowledge, handoffs, and recurring pain points into practical workflows other people can run without needing a hero every time."
+        "text": "I turn tribal knowledge, handoffs, and recurring pain points into field-tested workflows with clear ownership, operating cadence, and enough structure that no single person has to carry it."
       },
       {
         "title": "Technical enablement and automation",
@@ -272,8 +272,8 @@
       },
       {
         "icon": "◉",
-        "title": "Star Citizen Operations",
-        "description": "I build community systems, event structures, and leadership models shaped by years inside the Star Citizen ecosystem."
+        "title": "Community Operations at Scale",
+        "description": "I build governance frameworks, automation platforms, and leadership models for large online communities. Proof: TEST Squadron Discord operations platform supporting a 40K-member ecosystem tied to a roughly 24K-member Star Citizen organization."
       },
       {
         "icon": "▣",
@@ -293,7 +293,7 @@
     ]
   },
   "howIWork": {
-    "metaDescription": "How I move through messy work, organize people and systems, and keep improving the next pass.",
+    "metaDescription": "How I move through complex, cross-functional work: organizing people, systems, and delivery so the next iteration is better than the last.",
     "coreApproachParagraphs": [
       "I am a technical product and program leader who builds systems. Most of my work has been about taking confusing, cross-functional situations and making them easier for people to understand, run, and improve.",
       "Whether I am planning a military task, running a community event, coordinating a software roadmap, or building an automation workflow, I start by learning how the pieces interact. Then I look for the simplest useful system that makes the next pass easier."
@@ -460,8 +460,8 @@
     }
   },
   "now": {
-    "metaDescription": "What T.Riley is currently working on, exploring, and focused on in May 2026.",
-    "lastUpdated": "May 2026",
+    "metaDescription": "What T.Riley is currently working on, exploring, and focused on in June 2026.",
+    "lastUpdated": "June 2026",
     "statusHeadline": "CURRENT FOCUS",
     "statusValue": "OPEN TO OPPORTUNITIES",
     "statusSupport": "Program work, systems improvement, and innovation tooling",
@@ -495,17 +495,12 @@
       },
       {
         "label": "HIGH",
-        "text": "Continue building practical AI-assisted workflow tooling",
+        "text": "Continue building AI-assisted operational workflow tooling with human review and clear scope boundaries",
         "color": "badge-green"
       },
       {
         "label": "MED",
         "text": "Expand documentation for event operations and community platform patterns",
-        "color": "badge-yellow"
-      },
-      {
-        "label": "MED",
-        "text": "Continue building practical AI-assisted workflow tools",
         "color": "badge-yellow"
       },
       {
@@ -538,7 +533,7 @@
     "githubHint": "Selected builds, tooling, and project history",
     "responseTime": "I typically respond to email inquiries within 1-2 business days. LinkedIn messages may take a bit longer.",
     "bestFor": "Job opportunities, collaboration proposals, interesting problems, and thoughtful conversations.",
-    "notAFit": "Generic outreach, spray-and-pray recruiting messages, or anything that opens with a vague opportunity.",
+    "notAFit": "Generic outreach without role context, opportunities without clear scope or compensation range, or roles without meaningful ownership.",
     "status": "Open to opportunities",
     "statusNote": "Actively considering TPM, operations leadership, and systems enablement roles. Remote-first preferred."
   },
@@ -552,7 +547,9 @@
       "longSummary": "Long-horizon work across player support and live platform operations, scaling issue quality, support automation, customer experience feedback loops, launch readiness, and cross-functional coordination with support, product, engineering, design, QA, and business teams.",
       "roleSummary": "Support operations to senior program leadership",
       "achievements": [
-        "Managed Ubisoft Help roadmap delivery as Senior Program Manager.",
+        "Managed Ubisoft Help roadmap delivery as Senior Program Manager across Assassin's Creed: Nexus VR, Assassin's Creed: Mirage, The Crew: Motorfest, and Avatar: Frontiers of Pandora release periods.",
+        "Led CX research strike teams across major 2023-2024 releases including Star Wars: Outlaws, XDefiant, Skull and Bones, Prince of Persia: The Lost Crown, and Beyond Good & Evil: 20th Anniversary Edition.",
+        "Credited as Senior Program Manager on 45 Ubisoft games (51 total credits) across Customer/Technical Support, Marketing, and Public Relations.",
         "Reduced overall e-commerce support ticket volume by 30% through refund flow modernization.",
         "Represented support and voice-of-customer needs across e-commerce launch and operations workstreams."
       ],
