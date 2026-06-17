@@ -7,12 +7,12 @@ roleTitle: Senior Program Manager
 timeframe: 2022 – 2023
 startedAt: "2022-02"
 endedAt: "2023-08"
-summary: "Managed the Ubisoft Help roadmap across contact flows, in-game help, user research pipelines, and customer-support platform improvements. The work turned messy player and support needs into PRDs, one-pagers, Jira user stories, acceptance criteria, release plans, and sequenced delivery across product, engineering, design, QA, support, and business stakeholders."
-cardSummary: "Managed the Ubisoft Help roadmap across contact flows, in-game help, research pipelines, and support platform delivery."
+summary: "Senior Program Manager for the Ubisoft Help roadmap across contact flows, in-game help, user research pipelines, and customer-support platform improvements. Owned cross-functional requirements, delivery sequencing, and stakeholder alignment across product, engineering, design, QA, support, and business teams in a 200+ person stakeholder environment."
+cardSummary: "Led the Ubisoft Help roadmap as Senior Program Manager, owning PRDs, acceptance criteria, release planning, and stakeholder alignment across 200+ stakeholders."
 highlights:
-  - "Managed the Ubisoft Help roadmap across contact flows, in-game help features, research pipelines, and support platform improvements."
-  - "Wrote and coached teams on PRDs, one-pagers, Jira user stories, acceptance criteria, backlog prioritization, OKRs, and release planning."
-  - "Coordinated cross-functional work in a 200+ person stakeholder environment spanning product, engineering, design, QA, support, and business teams."
+  - "Owned the Ubisoft Help roadmap as Senior Program Manager across contact flows, in-game help, research pipelines, and support platform improvements."
+  - "Produced PRDs, one-pagers, Jira user stories, acceptance criteria, OKRs, and release plans that engineering, design, QA, and business stakeholders could execute against."
+  - "Coordinated cross-functional estimation and delivery sequencing across a 200+ person stakeholder environment spanning product, engineering, design, QA, support, and business teams."
 problem: "Players moved through fragmented support surfaces, portal, in-game help, bug reporting, and guides each had their own friction points and disconnected workflows, increasing time-to-resolution."
 approach: |
   I stood up a unified program view across all Help surfaces so the portal, in-game help, bug reporting, and guide experiences could be managed as one system instead of disconnected streams.
@@ -25,6 +25,8 @@ approach: |
   5. **Stakeholder coordination** across a 200+ person environment spanning multiple departments
 
   That structure made it easier to keep delivery predictable while balancing player impact against internal stakeholder priorities.
+
+  The work ran in parallel with customer support readiness for major Ubisoft releases during this period, including Assassin's Creed: Nexus VR, Assassin's Creed: Mirage, The Crew: Motorfest, Avatar: Frontiers of Pandora, and Just Dance 2024 Edition.
 outcome: |
   Established a coordinated Help program roadmap with clearer ownership and prioritization across the player support surface.
 
@@ -63,5 +65,5 @@ media:
     src: "/media/projects/ubisoft-help-program-leadership-cover.png"
     alt: Ubisoft Help
 featured: true
-order: 10
+order: 2
 ---

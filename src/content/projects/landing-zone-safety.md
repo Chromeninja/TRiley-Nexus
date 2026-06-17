@@ -7,8 +7,8 @@ organizationShortName: "235 CAOS"
 roleTitle: Landing Zone Safety Officer (LZSO)
 timeframe: Ongoing
 startedAt: "2017"
-summary: "Certified as a Landing Zone Safety Officer for the 235th CAOS, responsible for assessing and managing expeditionary landing zones for rotary-wing and fixed-wing operations."
-cardSummary: "Certified LZSO delivering expeditionary landing zone operations under tight timelines: hazard assessment, obstacle clearance, surface evaluation, and calm execution where standard airfield infrastructure does not exist."
+summary: "Certified as a Landing Zone Safety Officer for the 235th CAOS, providing organic LZSO capability for expeditionary and contingency missions where established airfield infrastructure does not exist. The work applies structured hazard assessment, operational readiness evaluation, and coordinated execution under real constraints: terrain limits, surface conditions, tight timelines, and no established support chain."
+cardSummary: "Certified LZSO: hazard assessment, surface evaluation, and coordinated execution for expeditionary operations where no established airfield infrastructure exists."
 highlights:
   - Certified to conduct initial airfield suitability assessments and establish landing zones in expeditionary and austere environments where no established airfield infrastructure exists.
   - "Manages landing zone operations for rotary-wing and fixed-wing aircraft, coordinating with aircrews and ground forces to ensure safe sequencing, obstacle clearance, and surface conditions."
@@ -29,6 +29,8 @@ approach: |
   That process turns improvised or unprepared locations into safer operating environments for rotary-wing and fixed-wing aircraft.
 outcome: |
   Provides the 235th CAOS with organic **LZSO capability** for expeditionary and contingency missions where established ATC infrastructure is unavailable.
+
+  The civilian translation: this is operational readiness work under real constraints. No established infrastructure, limited time, real consequences. The skill set transfers directly to complex environments where the normal support chain does not exist and execution has to stay calm anyway.
 
   The result is:
   - safer aircraft operations in austere environments
@@ -65,5 +67,5 @@ media:
     alt: Landing Zone Safety
     caption: Field-side view highlighting landing zone assessment and control conditions.
 featured: true
-order: 3
+order: 6
 ---

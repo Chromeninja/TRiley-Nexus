@@ -24,15 +24,15 @@ approach: |
 
   I owned the product from architecture through production use, balancing technical decisions with event-day usability.
 outcome: |
-  The platform gave VR Villa a stronger operating layer for live events.
+  Delivered a repeatable operating model for VR Villa live events that reduced dependency on manual coordination and whoever had the latest spreadsheet open.
 
-  It improved:
-  - attendee check-in flow
-  - waiver visibility and player record handling
+  The platform improved:
+  - attendee check-in flow and waiver visibility
   - staff awareness during active event operations
-  - resilience when venues had inconsistent internet access
+  - resilience when venues had inconsistent or unavailable internet access
+  - consistency of event-day execution across the team
 
-  The system now supports an annual cadence of roughly **50 to 60 events** with more consistent event-day execution.
+  The system now supports an annual cadence of roughly **50 to 60 events** with production-used workflows that staff can run without escalating to a single person.
 skills:
   - Live event operations
   - Workflow automation
@@ -80,5 +80,5 @@ media:
     alt: Event Operations Program
     isCover: true
 featured: true
-order: 1
+order: 3
 ---
