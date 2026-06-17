@@ -16,7 +16,7 @@ endedAt: "2024-04"
 summary: "Senior Program Manager, Customer Experience at Ubisoft, leading cross-functional strike teams that mapped onboarding flows and customer journeys across major game releases to surface concrete improvement opportunities. Supported customer experience delivery across titles including Star Wars: Outlaws, XDefiant, Skull and Bones, Prince of Persia: The Lost Crown, and Beyond Good & Evil: 20th Anniversary Edition."
 cardSummary: "Led CX research strike teams across major Ubisoft releases including Star Wars: Outlaws and XDefiant, translating journey data into prioritized product recommendations."
 highlights:
-  - Ran cross-functional CX strike teams producing structured customer journey reports across major Ubisoft releases, including Star Wars: Outlaws, XDefiant, Prince of Persia: The Lost Crown, Skull and Bones, and Beyond Good & Evil: 20th Anniversary Edition.
+  - "Ran cross-functional CX strike teams producing structured customer journey reports across major Ubisoft releases, including Star Wars: Outlaws, XDefiant, Prince of Persia: The Lost Crown, Skull and Bones, and Beyond Good & Evil: 20th Anniversary Edition."
   - Owned onboarding flow improvements informed by user research, qualitative feedback, and behavioral data across Ubisoft games, websites, and adjacent products.
   - Translated research findings into prioritized, action-ready recommendations that executive and product teams could act on.
 problem: "Customer journeys across games, websites, and ancillary products were inconsistent and lacked a unified research lens, making it hard for teams to see where players got stuck in friction or churned out of onboarding."
