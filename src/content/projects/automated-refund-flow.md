@@ -13,8 +13,8 @@ timeframe: "2019-2021"
 roleTitle: Supervisor, E-Commerce Operations
 startedAt: "2019-10"
 endedAt: "2021-04"
-summary: "Led customer-support-side requirements, research, reporting, and stakeholder alignment for Ubisoft Store and Ubisoft+ refund workflow modernization. The work translated policy into usable customer and internal workflows, handled play-time validation edge cases with platform teams, and reduced overall e-commerce support ticket volume by 30%."
-cardSummary: "Modernized Ubisoft Store and Ubisoft+ refund workflows, reducing overall e-commerce support ticket volume by 30%."
+summary: "Reduced overall e-commerce support ticket volume by 30% by leading customer-support-side requirements, research, reporting, and stakeholder alignment for Ubisoft Store and Ubisoft+ refund workflow modernization. The work translated a complex digital refund policy into usable customer and internal workflows, resolved play-time validation edge cases with platform teams, and created supportable exception paths where automation alone was not sufficient."
+cardSummary: "Led support-side requirements and stakeholder alignment for Ubisoft refund flow modernization, reducing overall e-commerce ticket volume by 30%."
 highlights:
   - "Led customer-support-side requirements, user research, reporting, bug triage, roadmapping, and stakeholder alignment for refund workflow modernization."
   - "Helped translate a 2-hour to 14-day digital refund policy into customer-facing and internal support workflows across Ubisoft Store purchases and Ubisoft+ subscription refund and cancellation scenarios."
@@ -53,5 +53,5 @@ tools:
   - Uplay PC
   - Jira
 featured: true
-order: 14
+order: 1
 ---

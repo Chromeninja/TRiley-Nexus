@@ -23,7 +23,8 @@ profiles:
     roleSummary: "Frontline CSR → Senior Program Manager (7 roles, 10+ years)"
     achievements:
       - "Managed the Ubisoft Help roadmap across contact flows, in-game help features, user research pipelines, and support platform improvements as Senior Program Manager."
-      - "Drove customer experience and player research strike teams improving onboarding and journey flows."
+      - "Drove customer experience and player research strike teams across major releases including Star Wars: Outlaws, XDefiant, Assassin's Creed: Mirage, The Crew: Motorfest, and Avatar: Frontiers of Pandora."
+      - "Credited on 45 Ubisoft game releases (51 total credits) spanning Customer/Technical Support, Marketing, and Public Relations across a 10+ year tenure."
       - "Helped launch Ubisoft+ across worldwide regions with support-readiness, refund-flow validation, and subscription edge-case coverage."
       - "Represented customer support and voice-of-customer needs for Ubisoft Gear Store checkout, order flow, refund, fulfillment, merchandising, and launch-readiness workstreams."
       - "Onboarded Ubisoft titles to GeForce Now, Amazon Luna, and Google Stadia."
