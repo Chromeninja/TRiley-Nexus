@@ -95,7 +95,7 @@ additionalMedia: []
 
 resume:
   title: Resume
-  filePath: "/documents/Timothy Garrett - Sep 25 Resume.pdf"
+  filePath: "/documents/T-Riley-Garrett_June-26_Resume.pdf"
   lastUpdated: September 2025
   summary: View or download my current resume in PDF format.
 ---
