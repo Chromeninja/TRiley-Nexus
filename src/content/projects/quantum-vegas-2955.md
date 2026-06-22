@@ -7,13 +7,13 @@ roleTitle: "Co-Producer"
 timeframe: Past
 startedAt: "2024-11"
 endedAt: "2025-07"
-summary: "Helped co-produce Quantum Vegas 2955, a fan-run Star Citizen community convention in Las Vegas that brought together over 200 players, content creators, special guests, and Cloud Imperium Games developers for an immersive community event at AREA15."
-cardSummary: "Co-produced Quantum Vegas 2955, supporting developer relations, sponsor coordination, Bar Citizen meetup planning, and on-site operations for a 200+ attendee Star Citizen fan convention in Las Vegas."
+summary: "Helped co-produce Quantum Vegas 2955, a fan-run Star Citizen community convention in Las Vegas with 220+ ticket sales, 20+ volunteers, 20+ sponsors, content creators, special guests, and Cloud Imperium Games developer participation for an immersive community event at AREA15."
+cardSummary: "Co-produced Quantum Vegas 2955, supporting developer relations, sponsor coordination, Bar Citizen meetup planning, and on-site operations for a 220+ ticket sales Star Citizen fan convention in Las Vegas."
 highlights:
-  - "Helped deliver a fan-run Star Citizen community convention with over 200 attendees."
+  - "Helped deliver a fan-run Star Citizen community convention with 220+ ticket sales, 20+ volunteers, and 20+ sponsors."
   - "Supported a full day of presentations, activities, and fan-focused programming for the Star Citizen community."
   - "Supported developer relations for Cloud Imperium Games guests and special attendees, helping coordinate communication, expectations, and on-site needs."
-problem: "Star Citizen's community spans players, creators, organizations, and developers across the world. Creating a meaningful in-person gathering required careful coordination between fan organizers, venue staff, sponsors, special guests, Cloud Imperium Games developers, Bar Citizen organizers, and more than 200 attendees while maintaining a polished attendee experience."
+problem: "Star Citizen's community spans players, creators, organizations, and developers across the world. Creating a meaningful in-person gathering required careful coordination between fan organizers, venue staff, sponsors, special guests, Cloud Imperium Games developers, Bar Citizen organizers, 220+ ticketed attendees, 20+ volunteers, and 20+ sponsors while maintaining a polished attendee experience."
 approach: |
   I served as a **Co-Producer** across the planning and execution work needed to make Quantum Vegas 2955 feel organized, credible, and guest-ready.
 
@@ -26,7 +26,7 @@ approach: |
 
   A large part of the value was acting as connective tissue between organizers, guests, venue staff, Bar Citizen International, and the broader event ecosystem.
 outcome: |
-  Helped deliver a successful fan-run Star Citizen convention in Las Vegas that brought **200+ community members** together with content creators, special guests, and several Cloud Imperium Games developers.
+  Helped deliver a successful fan-run Star Citizen convention in Las Vegas that reached **220+ ticket sales** and brought the community together with content creators, special guests, and several Cloud Imperium Games developers.
 
   The event outcome included:
   - a full day of presentations and community programming

@@ -41,18 +41,18 @@
       "subtext": "I work where product, operations, community, and technology overlap: turning ambiguous cross-functional needs into requirements, workflows, governance, and delivery systems.",
       "supportingText": "My work produces repeatable operating models: roadmaps with real sequencing, staff-adopted tooling, shared decision surfaces, and delivery systems that hold up after the first push is over.",
       "quickNotes": [
-        "10+ years growing through support, operations, product, and program work at Ubisoft",
+        "Credited on 45+ Ubisoft game releases; 10+ years across support, operations, product, and program work at Ubisoft",
         "Reduced overall e-commerce support ticket volume by 30% after a Ubisoft refund-flow rebuild",
         "Roadmap ownership, user research, PRDs, acceptance criteria, and release planning across support platforms",
         "Discord systems and community operations for a 40K-member Discord ecosystem tied to a roughly 24K-member Star Citizen organization",
         "15+ years of military service, including air traffic control work"
       ],
       "proofPoints": [
-        "Built offline software solution for check-in, waivers, live player visibility, and staff coordination across a 50 to 60 event annual cadence",
-        "Built and operate TEST Squadron Discord bot systems for verification, roles, voice workflows, and privacy-conscious community telemetry",
-        "13+ years in the game industry, including program manager experience leading cross-functional delivery and live operations",
-        "Lead event operations across volunteers, vendors, booths, schedules, and community activations",
-        "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm"
+        "Built event operations tooling supporting 100+ VR activations, 54K+ players, and 76K+ game sessions since 2018.",
+        "Built and operate TEST Squadron Discord systems for a 40K-member Discord ecosystem tied to a 24K-member Star Citizen organization.",
+        "Credited on 45+ Ubisoft game releases across Customer/Technical Support, Marketing, and Public Relations.",
+        "Reduced overall Ubisoft e-commerce support ticket volume by 30% through refund-flow modernization.",
+        "15+ years of military service including ATC and LZSO work where timelines are tight and execution has to stay calm."
       ],
       "primaryAction": { "label": "View Projects", "href": "/projects" },
       "secondaryAction": { "label": "About Me", "href": "/about" }
@@ -73,10 +73,10 @@
     ],
     "featuredHighlights": [
       {
-        "value": "50+",
-        "label": "Events per year",
-        "detail": "Built VR Villa's offline-first event operations platform to support 50+ annual events, with room to scale further as the program grows.",
-        "href": "/projects/event-operations-program"
+        "value": "54K+",
+        "label": "Players served",
+        "detail": "Built VR Villa's event operations platform supporting a 100+ activation program that has served 54K+ players and delivered 76K+ game sessions since 2018.",
+        "href": "/projects/vr-villa-live-event-production"
       },
       {
         "value": "40K",
@@ -85,9 +85,9 @@
         "href": "/projects/discord-operations-platform"
       },
       {
-        "value": "13+",
-        "label": "Years in gaming",
-        "detail": "13+ years in gaming spanning player support, technical program management, live operations, customer experience, and community systems.",
+        "value": "45+",
+        "label": "Game credits",
+        "detail": "Credited on 45+ Ubisoft game releases across Customer/Technical Support, Marketing, and Public Relations over a 10+ year career.",
         "href": "/career"
       },
       {

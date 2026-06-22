@@ -6,12 +6,12 @@ organization: VR Villa
 roleTitle: Event Operations and Product Lead
 timeframe: "2024 - Present"
 startedAt: "2024-01"
-summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used during live VR activations. Designed the product as an offline-first operations platform for check-in, digital waivers, live player information, and staff coordination, then led it from architecture through production use."
+summary: "Built Event Ops Manager to replace a manual Google Forms and Sheets workflow used during live VR activations, within a 100+ activation program spanning 60+ events per year. Designed the product as an offline-first operations platform for check-in, digital waivers, live player information, and staff coordination, then led it from architecture through production use."
 cardSummary: "Built Event Ops Manager, an offline-first platform for check-in, waivers, live player information, and staff operations at VR events."
 highlights:
-  - "Replaced a manual Google Forms and Google Sheets process that slowed check-in and increased staff overhead during live events."
-  - "Built the system as an offline-first platform so event operations could continue reliably when venue connectivity was inconsistent."
-  - "Owned the product from architecture through production use, improving event-day visibility for staff and the attendee experience on the floor."
+  - "Replaced Google Forms and Sheets with structured player records, live metrics, digital waivers, automated game selection for 60+ studios' content, queue/status visibility, and staff coordination — reducing guest check-in from roughly 3–5 minutes to 1–2 minutes."
+  - "Removed 1–2 minutes of manual game-selection support and roughly 1 minute of separate waiver-signing friction per user through automation and integrated digital waiver handling."
+  - "Reduced 30–60 minutes of post-event data cleanup per event by improving data structure, built on an offline-first architecture that kept operations running when venue connectivity was weak."
 problem: "Live VR events were running on a patchwork of Google Forms, Sheets, and manual staff communication. That made check-in slower, waiver handling harder to track, and event-day visibility too dependent on whoever had the latest spreadsheet open."
 approach: |
   I designed Event Ops Manager as a practical event-floor tool first, not as an abstract admin system.
@@ -32,7 +32,7 @@ outcome: |
   - resilience when venues had inconsistent or unavailable internet access
   - consistency of event-day execution across the team
 
-  The system now supports an annual cadence of roughly **50 to 60 events** with production-used workflows that staff can run without escalating to a single person.
+  The system now supports a program of **60+ events per year** — within a broader 100+ activation history — with production-used workflows that staff can run without escalating to a single person.
 skills:
   - Live event operations
   - Workflow automation

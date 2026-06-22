@@ -5,6 +5,7 @@ profiles:
     companyInfo: "Ubisoft is a global game publisher and live-service operator supporting large player communities across multiple titles, subscription products, and support platforms."
     myTimeInfo: |
       From **October 2013 to April 2024**, I grew through seven roles at Ubisoft, starting as a contract CSR and ending as a **Senior Program Manager** owning the Ubisoft Help roadmap and Customer Experience research.
+      Credited on 45+ game releases, I supported worldwide customer operations across a portfolio spanning 100+ games/products, and partnered with 500+ internal and external stakeholders across Ubisoft and industry partners over the course of a 10+ year career.
 
       Along the way, I led or supported:
       - the worldwide e-commerce CS team through the **Ubisoft+** launch
@@ -23,8 +24,11 @@ profiles:
     roleSummary: "Frontline CSR → Senior Program Manager (7 roles, 10+ years)"
     achievements:
       - "Managed the Ubisoft Help roadmap across contact flows, in-game help features, user research pipelines, and support platform improvements as Senior Program Manager."
+      - "Supported worldwide customer operations across Ubisoft's player-facing ecosystem, including Help, Store, Ubisoft+, cloud gaming, launch readiness, and support workflows for a portfolio spanning 100+ games/products."
+      - "Coordinated Ubisoft Help roadmap and delivery work across 100+ stakeholders and 20+ teams, translating CX, product, UX, legal, vendor, support, and engineering needs into PRDs, user stories, acceptance criteria, release plans, and executive-ready status reporting."
+      - "Partnered with 500+ internal and external stakeholders across Ubisoft, NVIDIA, Logitech, AMD, Best Buy, Technicolor, vendors, platform partners, and operational teams throughout a 10+ year Ubisoft career."
       - "Drove customer experience and player research strike teams across major releases including Star Wars: Outlaws, XDefiant, Assassin's Creed: Mirage, The Crew: Motorfest, and Avatar: Frontiers of Pandora."
-      - "Credited on 45 Ubisoft game releases (51 total credits) spanning Customer/Technical Support, Marketing, and Public Relations across a 10+ year tenure."
+      - "Credited on 45+ Ubisoft game releases (51 total credits) spanning Customer/Technical Support, Marketing, and Public Relations across a 10+ year tenure."
       - "Helped launch Ubisoft+ across worldwide regions with support-readiness, refund-flow validation, and subscription edge-case coverage."
       - "Represented customer support and voice-of-customer needs for Ubisoft Gear Store checkout, order flow, refund, fulfillment, merchandising, and launch-readiness workstreams."
       - "Onboarded Ubisoft titles to GeForce Now, Amazon Luna, and Google Stadia."

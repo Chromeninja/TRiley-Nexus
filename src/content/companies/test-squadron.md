@@ -15,6 +15,7 @@ profiles:
       - "Led TEST Squadron CitizenCon 2954 booth operations with 20+ volunteers, livestream visibility, and more than $3,000 in custom merchandise and giveaways."
       - "Operate Discord governance, permission architecture, and automation strategy for a roughly 40k-member partnered community connected to a 24k-member organization."
       - "Built an open-source Discord operations platform for verification, role management, voice channel orchestration, analytics, dashboards, and staff workflows as a solo full-stack owner."
+      - "Verified 1,547 users through automated bot workflows, with automated weekly org-membership rechecks across 1,500+ users saving an estimated 50+ staff hours on manual verification."
       - "Platform telemetry over a recent 30-day window recorded 14,411 voice hours across 6,694 unique users and 19,097 messages from 5,252 unique senders."
       - "Launched an on-demand Fourthwall merch program supporting community fundraising without traditional inventory overhead."
     color: "#de87ff"
