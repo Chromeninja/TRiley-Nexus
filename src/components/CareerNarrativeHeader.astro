@@ -69,3 +69,130 @@ const {
 }
 
 <div class="career-narrative__rail" aria-hidden="true"></div>
+
+<style>
+  .career-narrative__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .career-narrative__header-copy {
+    max-width: 46rem;
+  }
+
+  .career-narrative__label {
+    margin-bottom: var(--space-sm);
+  }
+
+  .career-narrative__title {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.8vw, 2.8rem);
+    line-height: 1.05;
+  }
+
+  .career-narrative__subtitle {
+    margin: var(--space-sm) 0 0;
+    max-width: 42rem;
+    color: var(--color-text-muted);
+  }
+
+  .career-narrative__summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(7rem, 1fr));
+    gap: 0.75rem;
+    width: min(28rem, 100%);
+  }
+
+  .career-narrative__metric {
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
+  }
+
+  .career-narrative__metric-value {
+    display: block;
+    color: var(--color-text-heading);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+  }
+
+  .career-narrative__metric-label {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--color-text-dim);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .career-narrative__controls {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .career-narrative__rail {
+    position: absolute;
+    left: calc(var(--space-xl) + 1.25rem);
+    top: calc(var(--space-4xl) + 1.2rem);
+    bottom: var(--space-xl);
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(59, 130, 246, 0.24),
+      rgba(6, 182, 212, 0.02)
+    );
+    pointer-events: none;
+  }
+
+  @media (max-width: 720px) {
+    .career-narrative__summary {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+      gap: 0.55rem;
+    }
+
+    .career-narrative__metric {
+      padding: 0.68rem 0.75rem;
+      min-height: 4.25rem;
+    }
+
+    .career-narrative__metric-value {
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .career-narrative__metric-label {
+      margin-top: 0.2rem;
+      font-size: 0.66rem;
+    }
+
+    .career-narrative__metric--coverage {
+      display: none;
+    }
+
+    .career-narrative__rail {
+      left: calc(var(--space-lg) + 0.65rem);
+      top: 13rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .career-narrative__rail {
+      display: none;
+    }
+
+    .career-narrative__summary {
+      grid-template-columns: 1fr;
+      max-width: 13rem;
+    }
+  }
+</style>

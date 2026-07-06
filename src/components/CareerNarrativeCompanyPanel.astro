@@ -1,0 +1,143 @@
+---
+import { type CareerNarrativeCompanyNode } from "../data/projects";
+import { renderRichText } from "../utils/richText";
+
+interface Props {
+  company: CareerNarrativeCompanyNode;
+}
+
+const { company } = Astro.props;
+---
+
+<div class="narrative-company__panel-top">
+  <div class="narrative-company__story">
+    <div
+      class="narrative-rich-text"
+      set:html={renderRichText(company.longSummary || company.summary)}
+    />
+    {
+      company.myTimeInfo && (
+        <div
+          class="narrative-rich-text narrative-rich-text--compact"
+          set:html={renderRichText(company.myTimeInfo)}
+        />
+      )
+    }
+  </div>
+
+  <div class="narrative-company__facts">
+    {
+      company.roles.length > 0 && (
+        <div class="narrative-fact-block">
+          <span class="narrative-fact-label text-mono">Roles</span>
+          <p>{company.roles.join(" / ")}</p>
+        </div>
+      )
+    }
+    {
+      company.achievements.length > 0 && (
+        <div class="narrative-fact-block">
+          <span class="narrative-fact-label text-mono">Highlights</span>
+          <ul class="narrative-fact-list">
+            {company.achievements.map((achievement) => (
+              <li>{achievement}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .narrative-company__panel-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .narrative-company__story,
+  .narrative-company__facts {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .narrative-rich-text {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  /* :global() required: rich text children are injected via set:html and never
+     receive Astro's scoped attribute, so scoped selectors cannot match them. */
+  .narrative-rich-text > :global(:first-child) {
+    margin-top: 0;
+  }
+
+  .narrative-rich-text > :global(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .narrative-rich-text :global(p) {
+    margin: 0 0 var(--space-sm);
+  }
+
+  .narrative-rich-text :global(ul),
+  .narrative-rich-text :global(ol) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.25rem;
+  }
+
+  .narrative-rich-text :global(li) {
+    margin-bottom: 0.35rem;
+  }
+
+  .narrative-rich-text :global(strong) {
+    color: var(--color-text);
+  }
+
+  .narrative-fact-block {
+    border-left: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    padding-left: 0.9rem;
+  }
+
+  .narrative-fact-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+  }
+
+  .narrative-fact-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .narrative-fact-list li + li {
+    margin-top: var(--space-xs);
+  }
+
+  @media (max-width: 980px) {
+    .narrative-company__panel-top {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .narrative-fact-block {
+      border-left: none;
+      border-top: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+      padding-left: 0;
+      padding-top: 0.9rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .narrative-company__panel-top {
+      gap: var(--space-sm);
+    }
+  }
+</style>

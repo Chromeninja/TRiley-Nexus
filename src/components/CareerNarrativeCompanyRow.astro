@@ -1,11 +1,9 @@
 ---
 import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
-import {
-  projectStatusColors,
-  type CareerNarrativeCompanyNode,
-} from "../data/projects";
-import { toBasePath } from "../utils/paths";
-import { renderRichText } from "../utils/richText";
+import CareerNarrativeCompanyHeader from "./CareerNarrativeCompanyHeader.astro";
+import CareerNarrativeCompanyPanel from "./CareerNarrativeCompanyPanel.astro";
+import CareerNarrativeProjectRow from "./CareerNarrativeProjectRow.astro";
+import { type CareerNarrativeCompanyNode } from "../data/projects";
 import { sanitizeCssColor } from "../utils/sanitizeCssColor";
 
 interface Props {
@@ -31,193 +29,94 @@ const { company, companyIndex } = Astro.props;
     <span class="narrative-company__node-dot"></span>
   </div>
 
-  <button
-    type="button"
-    class="narrative-company__header"
-    data-narrative-company-toggle
-    aria-expanded="false"
-    aria-controls={`${company.id}-panel`}
-  >
-    <div class="narrative-company__header-main">
-      <div class="narrative-company__identity">
-        {
-          company.logo && (
-            <img
-              class="narrative-company__logo"
-              src={toBasePath(company.logo.src)}
-              alt={company.logo.alt}
-              loading="lazy"
-            />
-          )
-        }
-        <div class="narrative-company__identity-copy">
-          <span class="narrative-company__eyebrow text-mono">
-            {company.rangeLabel}
-          </span>
-          <h3 class="narrative-company__name">{company.organization}</h3>
-        </div>
-      </div>
-      <p class="narrative-company__role">{company.roleSummary}</p>
-    </div>
-
-    <div class="narrative-company__header-meta">
-      <div class="narrative-company__chips">
-        <span class="narrative-chip">{company.projectCount} projects</span>
-        {
-          company.featuredProjectCount > 0 && (
-            <span class="narrative-chip">
-              {company.featuredProjectCount} featured
-            </span>
-          )
-        }
-        {
-          company.isActive && (
-            <span class="narrative-chip narrative-chip--live">active</span>
-          )
-        }
-      </div>
-      <span class="narrative-company__chevron" aria-hidden="true">↘</span>
-    </div>
-  </button>
+  <CareerNarrativeCompanyHeader company={company} />
 
   <ExpandableDetailPanel
     id={`${company.id}-panel`}
     title={`${company.organization} details`}
   >
-    <div class="narrative-company__panel-top">
-      <div class="narrative-company__story">
-        <div
-          class="narrative-rich-text"
-          set:html={renderRichText(company.longSummary || company.summary)}
-        />
-        {
-          company.myTimeInfo && (
-            <div
-              class="narrative-rich-text narrative-rich-text--compact"
-              set:html={renderRichText(company.myTimeInfo)}
-            />
-          )
-        }
-      </div>
-
-      <div class="narrative-company__facts">
-        {
-          company.roles.length > 0 && (
-            <div class="narrative-fact-block">
-              <span class="narrative-fact-label text-mono">Roles</span>
-              <p>{company.roles.join(" / ")}</p>
-            </div>
-          )
-        }
-        {
-          company.achievements.length > 0 && (
-            <div class="narrative-fact-block">
-              <span class="narrative-fact-label text-mono">Highlights</span>
-              <ul class="narrative-fact-list">
-                {company.achievements.map((achievement) => (
-                  <li>{achievement}</li>
-                ))}
-              </ul>
-            </div>
-          )
-        }
-      </div>
-    </div>
+    <CareerNarrativeCompanyPanel company={company} />
 
     <div
       class="narrative-projects"
       aria-label={`${company.organization} projects`}
     >
-      {
-        company.projects.map((project) => (
-          <article
-            id={project.id}
-            class="narrative-project"
-            data-narrative-project
-            data-category={project.category}
-            data-status={project.status}
-            data-expanded="false"
-          >
-            <button
-              type="button"
-              class="narrative-project__summary"
-              data-narrative-project-toggle
-              aria-expanded="false"
-              aria-controls={`${project.id}-panel`}
-            >
-              <div class="narrative-project__summary-main">
-                <div>
-                  <span class="narrative-project__timeframe text-mono">
-                    {project.timeframeLabel}
-                  </span>
-                  <h4 class="narrative-project__title">{project.title}</h4>
-                </div>
-                <p class="narrative-project__role">{project.roleTitle}</p>
-              </div>
-
-              <div class="narrative-project__summary-meta">
-                <span class={`badge ${projectStatusColors[project.status]}`}>
-                  {project.statusLabel}
-                </span>
-                <span class="narrative-project__chevron" aria-hidden="true">
-                  +
-                </span>
-              </div>
-
-              <div class="narrative-project__hover">
-                <div class="narrative-project__hover-meta text-mono">
-                  <span>{project.category}</span>
-                  {project.mediaCount > 0 && (
-                    <span>{project.mediaCount} media</span>
-                  )}
-                  {project.isFeatured && <span>featured</span>}
-                </div>
-                <div class="narrative-project__hover-tags">
-                  {project.tags.map((tag) => (
-                    <span class="narrative-tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            </button>
-
-            <ExpandableDetailPanel
-              id={`${project.id}-panel`}
-              title={`${project.title} details`}
-            >
-              <div class="narrative-project__detail-grid">
-                <div class="narrative-project__detail-copy">
-                  <p>{project.detailSummary}</p>
-                  {project.tools.length > 0 && (
-                    <p>
-                      <span class="text-accent">Tools:</span>{" "}
-                      {project.tools.join(" • ")}
-                    </p>
-                  )}
-                </div>
-
-                <div class="narrative-project__detail-actions">
-                  <a
-                    href={toBasePath(`/projects/${project.slug}`)}
-                    class="btn btn-outline btn-sm"
-                  >
-                    Open case study
-                  </a>
-                  {project.links.slice(0, 2).map((link) => (
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn-ghost btn-sm"
-                    >
-                      {link.label} ↗
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </ExpandableDetailPanel>
-          </article>
-        ))
-      }
+      <CareerNarrativeProjectRow projects={company.projects} />
     </div>
   </ExpandableDetailPanel>
 </article>
+
+<style>
+  .narrative-company {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+
+  .narrative-company--hidden {
+    display: none;
+  }
+
+  .narrative-company__node {
+    display: grid;
+    justify-items: center;
+    gap: 0.55rem;
+    padding-top: 1.15rem;
+  }
+
+  .narrative-company__node-index {
+    font-size: 0.66rem;
+    color: var(--color-text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .narrative-company__node-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--company-color), white 30%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--company-color), white 8%),
+      color-mix(in srgb, var(--company-color), black 24%)
+    );
+    box-shadow: 0 0 0 0.35rem
+      color-mix(in srgb, var(--company-color), transparent 86%);
+  }
+
+  /* :global() required: .expandable-detail is rendered by
+     ExpandableDetailPanel.astro, so it never gets this component's scope. */
+  .narrative-company > :global(.expandable-detail) {
+    grid-column: 2 / -1;
+  }
+
+  .narrative-projects {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  @media (max-width: 720px) {
+    .narrative-company {
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 540px) {
+    .narrative-company__node-index {
+      display: none;
+    }
+
+    .narrative-company {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-company > :global(.expandable-detail) {
+      grid-column: 1 / -1;
+    }
+
+    .narrative-company__node {
+      display: none;
+    }
+  }
+</style>

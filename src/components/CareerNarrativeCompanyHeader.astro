@@ -1,0 +1,252 @@
+---
+import { type CareerNarrativeCompanyNode } from "../data/projects";
+import { toBasePath } from "../utils/paths";
+
+interface Props {
+  company: CareerNarrativeCompanyNode;
+}
+
+const { company } = Astro.props;
+---
+
+<button
+  type="button"
+  class="narrative-company__header"
+  data-narrative-company-toggle
+  aria-expanded="false"
+  aria-controls={`${company.id}-panel`}
+>
+  <div class="narrative-company__header-main">
+    <div class="narrative-company__identity">
+      {
+        company.logo && (
+          <img
+            class="narrative-company__logo"
+            src={toBasePath(company.logo.src)}
+            alt={company.logo.alt}
+            loading="lazy"
+          />
+        )
+      }
+      <div class="narrative-company__identity-copy">
+        <span class="narrative-company__eyebrow text-mono">
+          {company.rangeLabel}
+        </span>
+        <h3 class="narrative-company__name">{company.organization}</h3>
+      </div>
+    </div>
+    <p class="narrative-company__role">{company.roleSummary}</p>
+  </div>
+
+  <div class="narrative-company__header-meta">
+    <div class="narrative-company__chips">
+      <span class="narrative-chip">{company.projectCount} projects</span>
+      {
+        company.featuredProjectCount > 0 && (
+          <span class="narrative-chip">
+            {company.featuredProjectCount} featured
+          </span>
+        )
+      }
+      {
+        company.isActive && (
+          <span class="narrative-chip narrative-chip--live">active</span>
+        )
+      }
+    </div>
+    <span class="narrative-company__chevron" aria-hidden="true">↘</span>
+  </div>
+</button>
+
+<style>
+  .narrative-company__header {
+    grid-column: 2 / -1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    align-items: start;
+    text-align: left;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
+    padding: 1.15rem 1.2rem;
+    color: inherit;
+    cursor: pointer;
+    transition:
+      border-color var(--transition-base),
+      background var(--transition-base),
+      transform var(--transition-fast),
+      box-shadow var(--transition-base);
+  }
+
+  /* :global() required: the [data-expanded] state attribute lives on the parent
+     .narrative-company article rendered by CareerNarrativeCompanyRow.astro. */
+  .narrative-company__header:hover,
+  :global(.narrative-company[data-expanded="true"]) .narrative-company__header {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--company-color), white 18%);
+    box-shadow: 0 22px 40px rgba(2, 8, 20, 0.24);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--company-color), transparent 94%),
+      rgba(255, 255, 255, 0.02)
+    );
+  }
+
+  .narrative-company__header:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .narrative-company__header-main {
+    display: grid;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  .narrative-company__identity {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .narrative-company__identity-copy {
+    min-width: 0;
+  }
+
+  .narrative-company__eyebrow {
+    display: block;
+    color: var(--color-text-dim);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-company__name {
+    margin: 0.25rem 0 0;
+    font-size: clamp(1.1rem, 2vw, 1.55rem);
+  }
+
+  .narrative-company__logo {
+    width: 3.4rem;
+    height: 3.4rem;
+    object-fit: contain;
+    opacity: 0.92;
+    flex-shrink: 0;
+    padding: 0.3rem;
+    border-radius: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 10%);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.01)
+    );
+  }
+
+  .narrative-company__role {
+    margin: 0;
+    color: var(--color-text-muted);
+    max-width: 44rem;
+  }
+
+  .narrative-company__header-meta {
+    display: grid;
+    justify-items: end;
+    gap: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .narrative-company__chips {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .narrative-chip {
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 10%);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.32rem 0.6rem;
+  }
+
+  .narrative-chip--live {
+    color: var(--color-accent);
+    border-color: color-mix(in srgb, var(--color-accent), transparent 58%);
+    background: color-mix(in srgb, var(--color-accent), transparent 88%);
+  }
+
+  .narrative-company__chevron {
+    color: color-mix(in srgb, var(--company-color), white 22%);
+    font-size: 1.05rem;
+    transition: transform var(--transition-base);
+  }
+
+  /* :global() required: expanded state attribute lives on the parent article. */
+  :global(.narrative-company[data-expanded="true"])
+    .narrative-company__chevron {
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 720px) {
+    .narrative-company__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: 1rem;
+    }
+
+    .narrative-company__header-main {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-company__header-meta {
+      justify-items: start;
+    }
+
+    .narrative-company__chips {
+      justify-content: flex-start;
+    }
+
+    .narrative-company__identity {
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .narrative-company__logo {
+      width: 2.7rem;
+      height: 2.7rem;
+    }
+
+    .narrative-company__name {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+      line-height: 1.2;
+    }
+
+    .narrative-company__role {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .narrative-company__eyebrow,
+    .narrative-chip {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .narrative-company__header {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

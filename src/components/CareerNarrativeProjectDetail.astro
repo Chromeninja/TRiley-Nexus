@@ -1,0 +1,113 @@
+---
+import ExpandableDetailPanel from "./ExpandableDetailPanel.astro";
+import { type CareerNarrativeProjectNode } from "../data/projects";
+import { toBasePath } from "../utils/paths";
+
+interface Props {
+  project: CareerNarrativeProjectNode;
+}
+
+const { project } = Astro.props;
+---
+
+<ExpandableDetailPanel
+  id={`${project.id}-panel`}
+  title={`${project.title} details`}
+>
+  <div class="narrative-project__detail-grid">
+    <div class="narrative-project__detail-copy">
+      <p>{project.detailSummary}</p>
+      {
+        project.tools.length > 0 && (
+          <p>
+            <span class="text-accent">Tools:</span>{" "}
+            {project.tools.join(" • ")}
+          </p>
+        )
+      }
+    </div>
+
+    <div class="narrative-project__detail-actions">
+      <a
+        href={toBasePath(`/projects/${project.slug}`)}
+        class="btn btn-outline btn-sm"
+      >
+        Open case study
+      </a>
+      {
+        project.links.slice(0, 2).map((link) => (
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-ghost btn-sm"
+          >
+            {link.label} ↗
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</ExpandableDetailPanel>
+
+<style>
+  .narrative-project__detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .narrative-project__detail-copy {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .narrative-project__detail-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+
+  .narrative-project__detail-actions .btn {
+    flex: 0 1 auto;
+  }
+
+  @media (max-width: 980px) {
+    .narrative-project__detail-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .narrative-project__detail-actions {
+      justify-content: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .narrative-project__detail-actions {
+      justify-items: start;
+    }
+
+    .narrative-project__detail-actions .btn {
+      flex: 1 1 11rem;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .narrative-project__detail-grid {
+      gap: var(--space-sm);
+    }
+
+    .narrative-project__detail-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-project__detail-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

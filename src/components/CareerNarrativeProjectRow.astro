@@ -1,0 +1,221 @@
+---
+import CareerNarrativeProjectDetail from "./CareerNarrativeProjectDetail.astro";
+import {
+  projectStatusColors,
+  type CareerNarrativeProjectNode,
+} from "../data/projects";
+
+interface Props {
+  projects: CareerNarrativeProjectNode[];
+}
+
+const { projects } = Astro.props;
+---
+
+<>
+  {
+    projects.map((project) => (
+      <article
+        id={project.id}
+        class="narrative-project"
+        data-narrative-project
+        data-category={project.category}
+        data-status={project.status}
+        data-expanded="false"
+      >
+        <button
+          type="button"
+          class="narrative-project__summary"
+          data-narrative-project-toggle
+          aria-expanded="false"
+          aria-controls={`${project.id}-panel`}
+        >
+          <div class="narrative-project__summary-main">
+            <div>
+              <span class="narrative-project__timeframe text-mono">
+                {project.timeframeLabel}
+              </span>
+              <h4 class="narrative-project__title">{project.title}</h4>
+            </div>
+            <p class="narrative-project__role">{project.roleTitle}</p>
+          </div>
+
+          <div class="narrative-project__summary-meta">
+            <span class={`badge ${projectStatusColors[project.status]}`}>
+              {project.statusLabel}
+            </span>
+            <span class="narrative-project__chevron" aria-hidden="true">
+              +
+            </span>
+          </div>
+
+          <div class="narrative-project__hover">
+            <div class="narrative-project__hover-meta text-mono">
+              <span>{project.category}</span>
+              {project.mediaCount > 0 && (
+                <span>{project.mediaCount} media</span>
+              )}
+              {project.isFeatured && <span>featured</span>}
+            </div>
+            <div class="narrative-project__hover-tags">
+              {project.tags.map((tag) => (
+                <span class="narrative-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </button>
+
+        <CareerNarrativeProjectDetail project={project} />
+      </article>
+    ))
+  }
+</>
+
+<style>
+  .narrative-project--hidden {
+    display: none;
+  }
+
+  .narrative-project__summary {
+    width: 100%;
+    text-align: left;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    border-radius: var(--radius-md);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02),
+      transparent 85%
+    );
+    color: inherit;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition:
+      border-color var(--transition-base),
+      background var(--transition-base),
+      transform var(--transition-fast);
+  }
+
+  .narrative-project__summary:hover,
+  .narrative-project[data-expanded="true"] .narrative-project__summary {
+    border-color: color-mix(in srgb, var(--color-accent), transparent 52%);
+    background: linear-gradient(
+      180deg,
+      rgba(59, 130, 246, 0.09),
+      rgba(255, 255, 255, 0.02)
+    );
+    transform: translateY(-1px);
+  }
+
+  .narrative-project__summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .narrative-project__summary-main {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .narrative-project__timeframe {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--color-text-dim);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-project__title {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .narrative-project__role {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+
+  .narrative-project__summary-meta {
+    display: grid;
+    justify-items: end;
+    align-content: start;
+    gap: 0.8rem;
+  }
+
+  .narrative-project__chevron {
+    color: var(--color-text-dim);
+    font-size: 1.2rem;
+    line-height: 1;
+    transition:
+      transform var(--transition-base),
+      color var(--transition-base);
+  }
+
+  .narrative-project[data-expanded="true"] .narrative-project__chevron {
+    transform: rotate(45deg);
+    color: var(--color-accent);
+  }
+
+  .narrative-project__hover {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 0.5rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      opacity var(--transition-base),
+      max-height var(--transition-base);
+  }
+
+  .narrative-project__summary:hover .narrative-project__hover,
+  .narrative-project[data-expanded="true"] .narrative-project__hover {
+    opacity: 1;
+    max-height: 8rem;
+  }
+
+  .narrative-project__hover-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    color: var(--color-text-dim);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .narrative-project__hover-tags {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+
+  .narrative-tag {
+    padding: 0.26rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border), white 8%);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 720px) {
+    .narrative-project__summary {
+      grid-template-columns: 1fr;
+    }
+
+    .narrative-project__summary-meta {
+      justify-items: start;
+    }
+
+    .narrative-project__timeframe,
+    .narrative-project__hover-meta {
+      font-size: 0.7rem;
+    }
+  }
+</style>
