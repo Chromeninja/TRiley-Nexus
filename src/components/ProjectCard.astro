@@ -53,26 +53,18 @@ const coverMediaItem = project.media?.find(
 );
 const firstVideo = project.media?.find((item) => item.type === "video");
 const firstImage = project.media?.find((item) => item.type === "image");
+const toCover = (src: string, alt: string) => ({
+  src: resolveMediaPath(src),
+  alt,
+});
 const coverMedia = coverMediaItem
-  ? {
-      src: resolveMediaPath(coverMediaItem.src),
-      alt: coverMediaItem.alt,
-    }
+  ? toCover(coverMediaItem.src, coverMediaItem.alt)
   : project.cover
-    ? {
-        src: resolveMediaPath(project.cover.src),
-        alt: project.cover.alt,
-      }
+    ? toCover(project.cover.src, project.cover.alt)
     : firstVideo?.poster
-      ? {
-          src: resolveMediaPath(firstVideo.poster),
-          alt: `${project.title} video preview`,
-        }
+      ? toCover(firstVideo.poster, `${project.title} video preview`)
       : firstImage
-        ? {
-            src: resolveMediaPath(firstImage.src),
-            alt: firstImage.alt,
-          }
+        ? toCover(firstImage.src, firstImage.alt)
         : undefined;
 
 const previewVideo = firstVideo
