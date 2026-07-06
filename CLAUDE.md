@@ -51,7 +51,7 @@ src/content/{projects,companies,about}/*.md
 | `portfolio-config.json` | Primary user-facing config (name, nav, social, theme, career eras) |
 | `src/content.config.ts` | Astro 6 content collection schemas — Zod, canonical type definitions |
 | `src/data/siteConfig.ts` | Loads portfolio-config.json; all other data files import from here |
-| `src/data/projects.ts` | Project collection helpers and filtering (largest data file) |
+| `src/data/projects.ts` | Barrel entry for project/career data; implementation lives in projectsCore, careerTimeline, careerAtlas, careerNarrative, projectsPage |
 | `src/styles/global.css` | All design tokens as `:root` CSS custom properties |
 | `tools/content-editor/server.mjs` | Express-based local UI for editing markdown (port 4387) |
 

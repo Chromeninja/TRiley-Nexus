@@ -1,40 +1,43 @@
 /**
  * careerTimeline.ts
- * Timeline visualization and company/project organization data.
- * Provides company timelines, life timeline entries, and grouped projects by organization.
+ * Company timelines, life timeline entries, and grouped projects by organization.
+ * Range and segment parsing helpers live in timelineRanges.ts / timelineSegments.ts.
  */
 
 import { getCompanyProfiles } from "./companyProfiles";
 import {
   currentCompanyProfiles,
   setCurrentCompanyProfiles,
-  getPresentDate,
 } from "./careerShared";
-import { parseProjectDateValue, rangeLengthInMonths } from "./projectHelpers";
+import { rangeLengthInMonths } from "./projectHelpers";
 import {
   getProjects,
   sortProjectsByOrderThenRecency,
   type Project,
 } from "./projectsCore";
+import {
+  getProjectDateRange,
+  getCompanyDateRange,
+  getDateRangeFromSegments,
+  type DateRange,
+  type ParsedTimelineSegment,
+} from "./timelineRanges";
+import {
+  mergeTimelineRanges,
+  getProjectTimelineSegment,
+  getRoleSegmentsFromProfile,
+  inferRoleSegmentsFromProjects,
+  buildAxisYears,
+} from "./timelineSegments";
 
-interface DateRange {
-  start: Date;
-  end: Date;
-  startLabel: string;
-  endLabel: string;
-  label: string;
-}
-
-interface ParsedTimelineSegment {
-  label: string;
-  start: Date;
-  end: Date;
-  startLabel: string;
-  endLabel: string;
-  kind: "role" | "project";
-  status?: Project["status"];
-  slug?: string;
-}
+// Re-export the segment API so existing "./careerTimeline" imports keep working
+export {
+  mergeTimelineRanges,
+  getProjectTimelineSegment,
+  getRoleSegmentsFromProfile,
+  inferRoleSegmentsFromProjects,
+  buildAxisYears,
+} from "./timelineSegments";
 
 export interface TimelineMonthGroup {
   key: string;
@@ -90,295 +93,6 @@ export interface ProjectOrganizationGroup {
   myTimeInfo?: string;
   timeRangeLabel?: string;
   timeline?: CompanyTimeline;
-}
-
-function getProjectDateRange(projects: Project[]): DateRange | undefined {
-  const startCandidates = projects
-    .map((project) => project.startedAt?.trim())
-    .filter((value): value is string => Boolean(value));
-  const parsedStarts = startCandidates
-    .map((value) => ({ value, parsed: parseProjectDateValue(value, "start") }))
-    .filter((entry): entry is { value: string; parsed: Date } =>
-      Boolean(entry.parsed),
-    );
-
-  if (parsedStarts.length === 0) {
-    return undefined;
-  }
-
-  const earliestStart = parsedStarts.reduce((currentEarliest, current) =>
-    current.parsed < currentEarliest.parsed ? current : currentEarliest,
-  );
-
-  const parsedEnds = projects
-    .map((project) => {
-      if (project.endedAt?.trim()) {
-        const parsed = parseProjectDateValue(project.endedAt, "end");
-        return parsed
-          ? { value: project.endedAt.trim(), parsed, isPresent: false }
-          : undefined;
-      }
-
-      if (project.status === "active" || project.status === "concept") {
-        return { value: "Present", parsed: getPresentDate(), isPresent: true };
-      }
-
-      return undefined;
-    })
-    .filter(
-      (entry): entry is { value: string; parsed: Date; isPresent: boolean } =>
-        Boolean(entry),
-    );
-
-  if (parsedEnds.length === 0) {
-    return undefined;
-  }
-
-  const latestEnd = parsedEnds.reduce((currentLatest, current) =>
-    current.parsed > currentLatest.parsed ? current : currentLatest,
-  );
-
-  return {
-    start: earliestStart.parsed,
-    end: latestEnd.parsed,
-    startLabel: earliestStart.value,
-    endLabel: latestEnd.value,
-    label: `${earliestStart.value} - ${latestEnd.value}`,
-  };
-}
-
-function getCompanyDateRange(organization: string): DateRange | undefined {
-  const profile = currentCompanyProfiles[organization] as
-    | {
-        tenureStart?: string;
-        tenureEnd?: string;
-      }
-    | undefined;
-  const tenureStart = profile?.tenureStart?.trim();
-  if (!tenureStart) {
-    return undefined;
-  }
-
-  const tenureEnd = profile?.tenureEnd?.trim() || "Present";
-  const parsedStart = parseProjectDateValue(tenureStart, "start");
-  const parsedEnd =
-    tenureEnd === "Present"
-      ? getPresentDate()
-      : parseProjectDateValue(tenureEnd, "end");
-
-  if (!parsedStart || !parsedEnd) {
-    return undefined;
-  }
-
-  return {
-    start: parsedStart,
-    end: parsedEnd,
-    startLabel: tenureStart,
-    endLabel: tenureEnd,
-    label: `${tenureStart} - ${tenureEnd}`,
-  };
-}
-
-function getDateRangeFromSegments(
-  segments: ParsedTimelineSegment[],
-): DateRange | undefined {
-  if (segments.length === 0) {
-    return undefined;
-  }
-
-  const earliest = segments.reduce((currentEarliest, current) =>
-    current.start < currentEarliest.start ? current : currentEarliest,
-  );
-  const latest = segments.reduce((currentLatest, current) =>
-    current.end > currentLatest.end ? current : currentLatest,
-  );
-
-  return {
-    start: earliest.start,
-    end: latest.end,
-    startLabel: earliest.startLabel,
-    endLabel: latest.endLabel,
-    label: `${earliest.startLabel} - ${latest.endLabel}`,
-  };
-}
-
-export function mergeTimelineRanges(
-  ranges: Array<DateRange | undefined>,
-): DateRange | undefined {
-  const validRanges = ranges.filter((range): range is DateRange =>
-    Boolean(range),
-  );
-
-  if (validRanges.length === 0) {
-    return undefined;
-  }
-
-  const earliest = validRanges.reduce((currentEarliest, current) =>
-    current.start < currentEarliest.start ? current : currentEarliest,
-  );
-  const latest = validRanges.reduce((currentLatest, current) =>
-    current.end > currentLatest.end ? current : currentLatest,
-  );
-
-  return {
-    start: earliest.start,
-    end: latest.end,
-    startLabel: earliest.startLabel,
-    endLabel: latest.endLabel,
-    label: `${earliest.startLabel} - ${latest.endLabel}`,
-  };
-}
-
-export function getProjectTimelineSegment(
-  project: Project,
-): ParsedTimelineSegment | undefined {
-  const startLabel = project.startedAt?.trim();
-  if (!startLabel) {
-    return undefined;
-  }
-
-  const start = parseProjectDateValue(startLabel, "start");
-  if (!start) {
-    return undefined;
-  }
-
-  const endLabel =
-    project.endedAt?.trim() ||
-    (project.status === "active" || project.status === "concept"
-      ? "Present"
-      : undefined);
-  if (!endLabel) {
-    return undefined;
-  }
-
-  const end =
-    endLabel === "Present"
-      ? getPresentDate()
-      : parseProjectDateValue(endLabel, "end");
-  if (!end) {
-    return undefined;
-  }
-
-  return {
-    label: project.title,
-    start,
-    end,
-    startLabel,
-    endLabel,
-    kind: "project",
-    status: project.status,
-    slug: project.slug,
-  };
-}
-
-export function getRoleSegmentsFromProfile(
-  organization: string,
-): ParsedTimelineSegment[] {
-  const profile = currentCompanyProfiles[organization] as
-    | {
-        timelineRoles?: Array<{ label: string; start: string; end?: string }>;
-        tenureEnd?: string;
-      }
-    | undefined;
-  if (!profile?.timelineRoles?.length) {
-    return [];
-  }
-
-  return profile.timelineRoles
-    .map((role): ParsedTimelineSegment | undefined => {
-      const startLabel = role.start.trim();
-      const endLabel =
-        role.end?.trim() || profile.tenureEnd?.trim() || "Present";
-      const start = parseProjectDateValue(startLabel, "start");
-      const end =
-        endLabel === "Present"
-          ? getPresentDate()
-          : parseProjectDateValue(endLabel, "end");
-
-      if (!start || !end) {
-        return undefined;
-      }
-
-      return {
-        label: role.label,
-        start,
-        end,
-        startLabel,
-        endLabel,
-        kind: "role" as const,
-      };
-    })
-    .filter(
-      (segment): segment is ParsedTimelineSegment => segment !== undefined,
-    )
-    .sort((a, b) => {
-      const endDifference = (b?.end?.getTime() ?? 0) - (a?.end?.getTime() ?? 0);
-      if (endDifference !== 0) {
-        return endDifference;
-      }
-
-      return (b?.start?.getTime() ?? 0) - (a?.start?.getTime() ?? 0);
-    });
-}
-
-export function inferRoleSegmentsFromProjects(
-  projects: Project[],
-): ParsedTimelineSegment[] {
-  const groupedRoles = new Map<string, ParsedTimelineSegment[]>();
-
-  for (const project of projects) {
-    const segment = getProjectTimelineSegment(project);
-    if (!segment) {
-      continue;
-    }
-
-    const roleLabel = project.roleTitle?.trim() || "Project Contributor";
-
-    if (!groupedRoles.has(roleLabel)) {
-      groupedRoles.set(roleLabel, []);
-    }
-
-    groupedRoles.get(roleLabel)?.push(segment);
-  }
-
-  return [...groupedRoles.entries()]
-    .map(([label, segments]) => {
-      const earliest = segments.reduce((currentEarliest, current) =>
-        current.start < currentEarliest.start ? current : currentEarliest,
-      );
-      const latest = segments.reduce((currentLatest, current) =>
-        current.end > currentLatest.end ? current : currentLatest,
-      );
-
-      return {
-        label,
-        start: earliest.start,
-        end: latest.end,
-        startLabel: earliest.startLabel,
-        endLabel: latest.endLabel,
-        kind: "role" as const,
-      };
-    })
-    .sort((a, b) => {
-      const endDifference = b.end.getTime() - a.end.getTime();
-      if (endDifference !== 0) {
-        return endDifference;
-      }
-
-      return b.start.getTime() - a.start.getTime();
-    });
-}
-
-export function buildAxisYears(range: DateRange): number[] {
-  const startYear = range.start.getFullYear();
-  const endYear = range.end.getFullYear();
-
-  const years: number[] = [];
-  for (let year = endYear; year >= startYear; year--) {
-    years.push(year);
-  }
-
-  return years;
 }
 
 function toRenderSegment(
