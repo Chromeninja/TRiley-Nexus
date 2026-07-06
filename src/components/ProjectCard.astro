@@ -3,8 +3,6 @@
 import {
   formatProjectDateRange,
   hasDetailedProjectWriteup,
-  projectStatusColors,
-  projectStatusLabels,
   type Project,
 } from "../data/projects";
 import {
@@ -13,7 +11,9 @@ import {
   normalizeWhitespace,
 } from "../utils/paths";
 import { richTextToPlainText } from "../utils/richText";
-import { getOrganizationLabel } from "../utils/organizationLabels";
+import ProjectCardHeader from "./ProjectCardHeader.astro";
+import ProjectCardMedia from "./ProjectCardMedia.astro";
+import ProjectCardContent from "./ProjectCardContent.astro";
 
 interface Props {
   project: Project;
@@ -23,15 +23,6 @@ interface Props {
 const { project, featured = false } = Astro.props;
 const projectPath = toBasePath(`/projects/${project.slug}`);
 const projectDateRange = formatProjectDateRange(project);
-
-const MAX_ORGANIZATION_LABEL_CHARS = 18;
-const organizationName = project.organization?.trim();
-const organizationShortName = project.organizationShortName?.trim();
-const organizationLabel = organizationShortName
-  ? organizationShortName
-  : organizationName
-    ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
-    : undefined;
 
 function firstSentence(value: string): string {
   const normalized = normalizeWhitespace(richTextToPlainText(value));
@@ -100,136 +91,27 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
 <article
   class={`project-card ${featured ? "project-card--featured" : ""} ${hasDetailedWriteup ? "project-card--with-writeup" : ""}`}
 >
-  <div class="project-card__header">
-    <div class="project-card__meta">
-      <span class={`badge ${projectStatusColors[project.status]}`}
-        >{projectStatusLabels[project.status]}</span
-      >
-      {
-        organizationName &&
-          (project.organizationUrl ? (
-            <a
-              href={project.organizationUrl}
-              class="project-card__org text-mono text-muted"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${organizationName} website`}
-              title={organizationName}
-            >
-              {organizationLabel}
-            </a>
-          ) : (
-            <span
-              class="project-card__org text-mono text-muted"
-              title={organizationName}
-              aria-label={organizationName}
-            >
-              {organizationLabel}
-            </span>
-          ))
-      }
-    </div>
-    <span
-      class="project-card__arrow-link"
-      aria-hidden="true"
-    >
-      <span class="project-card__arrow" aria-hidden="true">→</span>
-    </span>
-  </div>
+  <ProjectCardHeader project={project} />
 
   <a
     href={projectPath}
     class="project-card__main-link"
     aria-label={`View project: ${project.title}`}
   >
-    <div
-      class={`project-card__media ${hasHoverPreview ? "project-card__media--hover-preview" : ""} ${hasMedia ? "" : "project-card__media--empty"}`}
-      data-project-card-media={hasHoverPreview ? "hover-preview" : undefined}
-      aria-hidden={hasMedia ? undefined : "true"}
-    >
-      {
-        coverMedia && (
-          <img
-            class={`project-card__media-image ${hasHoverPreview ? "project-card__media-image--cover" : ""}`}
-            src={coverMedia.src}
-            alt={coverMedia.alt}
-            loading="lazy"
-            decoding="async"
-          />
-        )
-      }
-      {
-        previewVideo && (
-          <video
-            class={`project-card__media-video ${hasHoverPreview ? "project-card__media-video--preview" : ""}`}
-            src={previewVideo.src}
-            poster={previewVideo.poster}
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label={`${project.title} video preview`}
-            autoplay={!hasHoverPreview}
-          />
-        )
-      }
-      {
-        !hasMedia && (
-          <div class="project-card__media-empty-shell">
-            <span class="project-card__media-kicker text-mono">
-              {project.category}
-            </span>
-            <div class="project-card__media-orbit" />
-            <div class="project-card__media-tags">
-              {project.tags.slice(0, 2).map((tag) => (
-                <span>{tag}</span>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    </div>
-
-    <h3 class="project-card__title">{project.title}</h3>
-
-    {
-      (project.roleTitle || projectDateRange) && (
-        <p class="project-card__meta-line text-mono text-muted">
-          {project.roleTitle && (
-            <span class="project-card__role">{project.roleTitle}</span>
-          )}
-          {project.roleTitle && projectDateRange && (
-            <span class="project-card__meta-divider" aria-hidden="true">
-              •
-            </span>
-          )}
-          {projectDateRange && (
-            <span class="project-card__timeframe">{projectDateRange}</span>
-          )}
-        </p>
-      )
-    }
-
-    <p class="project-card__summary">{summaryText}</p>
-
-    {
-      cardHighlights.length > 0 && (
-        <ul
-          class="project-card__highlights"
-          aria-label={`${project.title} highlights`}
-        >
-          {cardHighlights.map((highlight) => (
-            <li>{highlight}</li>
-          ))}
-        </ul>
-      )
-    }
-
-    <span class="project-card__writeup-cue text-mono">{cardCtaLabel}</span>
-    <div class="project-card__tags">
-      {project.tags.slice(0, 4).map((tag) => <span>{tag}</span>)}
-      {project.tags.length > 4 && <span>+{project.tags.length - 4}</span>}
-    </div>
+    <ProjectCardMedia
+      project={project}
+      coverMedia={coverMedia}
+      previewVideo={previewVideo}
+      hasHoverPreview={hasHoverPreview}
+      hasMedia={hasMedia}
+    />
+    <ProjectCardContent
+      project={project}
+      projectDateRange={projectDateRange}
+      summaryText={summaryText}
+      cardHighlights={cardHighlights}
+      cardCtaLabel={cardCtaLabel}
+    />
   </a>
 </article>
 
@@ -316,12 +198,6 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     z-index: 1;
   }
 
-  .project-card__arrow-link {
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-  }
-
   /* Corner accent */
   .project-card::before {
     content: "";
@@ -341,6 +217,7 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       transform var(--transition-base);
     opacity: 0.65;
   }
+
   .project-card:hover {
     border-color: var(--color-border-strong);
     box-shadow: var(--shadow-card);
@@ -355,7 +232,7 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
   }
 
   .project-card--featured {
-    border-color: color-mix(in srgb, var(--color-accent), transparent 58%);
+    border-color: var(--color-featured-border);
     background:
       linear-gradient(
         180deg,
@@ -369,308 +246,9 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
     box-shadow: var(--shadow-card);
   }
 
-  .project-card--featured {
-    border-color: var(--color-featured-border);
-  }
-
-  .project-card__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
-    position: relative;
-    z-index: 1;
-  }
-
-  .project-card__meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-  }
-
-  .project-card__org {
-    display: inline-block;
-    max-width: 100%;
-    font-size: 0.7rem;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
   .project-card:focus-visible {
     outline: 1px solid var(--color-border-strong);
     box-shadow: var(--shadow-card);
-  }
-
-  a.project-card__org:hover,
-  a.project-card__org:focus-visible {
-    color: var(--color-accent);
-  }
-
-  .project-card__arrow {
-    color: var(--color-accent);
-    font-size: 1rem;
-    opacity: 0;
-    transform: translateX(-4px);
-    transition:
-      opacity var(--transition-base),
-      transform var(--transition-base);
-    flex-shrink: 0;
-  }
-
-  .project-card:hover .project-card__arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .project-card__title {
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--color-text-heading);
-    line-height: 1.3;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .project-card__media {
-    position: relative;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-bg);
-    aspect-ratio: 16 / 9;
-    min-height: 0;
-  }
-
-  .project-card__media img,
-  .project-card__media video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .project-card__media--empty {
-    background:
-      radial-gradient(
-        circle at top right,
-        var(--color-accent-glow),
-        transparent 40%
-      ),
-      linear-gradient(135deg, var(--color-accent-dim), transparent 58%),
-      linear-gradient(180deg, var(--color-surface-sheen), transparent 55%),
-      var(--color-bg);
-  }
-
-  .project-card__media-empty-shell {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "kicker"
-      "."
-      "tags";
-    align-items: stretch;
-    height: 100%;
-    padding: var(--space-md);
-    gap: var(--space-md);
-  }
-
-  .project-card__media-kicker {
-    grid-area: kicker;
-    width: fit-content;
-    max-width: 100%;
-    font-size: 0.72rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    padding: 0.35rem 0.55rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-project-media-chip-bg);
-  }
-
-  .project-card__media-orbit {
-    grid-area: orbit;
-    align-self: center;
-    justify-self: end;
-    width: clamp(4.5rem, 20vw, 6.5rem);
-    aspect-ratio: 1;
-    border-radius: 999px;
-    border: 1px solid var(--color-border-strong);
-    box-shadow: inset 0 0 0 1px var(--color-border);
-    opacity: 0.8;
-    position: relative;
-  }
-
-  .project-card__media-orbit::before,
-  .project-card__media-orbit::after {
-    content: "";
-    position: absolute;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    inset: 12%;
-  }
-
-  .project-card__media-orbit::after {
-    inset: 28%;
-    background: var(--color-accent-dim);
-  }
-
-  .project-card__media-tags {
-    grid-area: tags;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    align-self: end;
-    max-width: 100%;
-  }
-
-  .project-card__media-tags span {
-    font-size: 0.74rem;
-    line-height: 1;
-    color: var(--color-text-muted);
-    padding: 0.4rem 0.5rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-border);
-    background: var(--color-project-media-tag-bg);
-  }
-
-  .project-card__media--hover-preview {
-    isolation: isolate;
-  }
-
-  .project-card__media-image--cover,
-  .project-card__media-video--preview {
-    transition: opacity var(--transition-base);
-  }
-
-  .project-card__media-video--preview {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .project-card__media.is-previewing .project-card__media-image--cover {
-    opacity: 0;
-  }
-
-  .project-card__media.is-previewing .project-card__media-video--preview {
-    opacity: 1;
-  }
-
-  @media (hover: none), (pointer: coarse) {
-    .project-card__media-video--preview {
-      display: none;
-    }
-  }
-
-  .project-card__meta-line {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    min-width: 0;
-    font-size: 0.74rem;
-    letter-spacing: 0.05em;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    white-space: nowrap;
-  }
-
-  .project-card__timeframe {
-    flex: 0 0 auto;
-    font-size: 0.74rem;
-    margin: 0;
-  }
-
-  .project-card__role {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.74rem;
-    margin: 0;
-  }
-
-  .project-card__meta-divider {
-    flex: 0 0 auto;
-    opacity: 0.65;
-    line-height: 1;
-  }
-
-  .project-card__summary {
-    font-size: 0.92rem;
-    color: var(--color-text-muted);
-    line-height: 1.7;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    /* Clamp to a single line for scan-first readability. */
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .project-card--featured .project-card__summary {
-    font-size: 0.94rem;
-    line-height: 1.65;
-    -webkit-line-clamp: 3;
-  }
-
-  .project-card__highlights {
-    margin: 0;
-    padding-left: 1rem;
-    display: grid;
-    gap: var(--space-sm);
-    color: var(--color-text-muted);
-    font-size: 0.82rem;
-    line-height: 1.5;
-    border-top: 1px solid var(--color-border);
-    padding-top: var(--space-md);
-  }
-
-  .project-card__highlights li {
-    margin: 0;
-  }
-
-  .project-card__writeup-cue {
-    width: fit-content;
-    color: var(--color-text-dim);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .project-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-top: auto;
-    position: relative;
-    z-index: 1;
-    color: var(--color-text-dim);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-    line-height: 1.5;
-    text-transform: uppercase;
-  }
-
-  .project-card__tags span + span::before {
-    content: "/";
-    margin-inline-end: var(--space-xs);
-    color: var(--color-border-strong);
   }
 
   @media (max-width: 640px) {
@@ -678,47 +256,5 @@ const hasHoverPreview = Boolean(coverMedia && previewVideo);
       padding: var(--space-lg);
       gap: var(--space-md);
     }
-
-    .project-card__media-empty-shell {
-      padding: var(--space-sm);
-    }
-
-    .project-card__media-tags {
-      max-width: 100%;
-    }
-
-    .project-card__title {
-      font-size: 1rem;
-      line-height: 1.35;
-    }
-
-    .project-card__meta-line {
-      white-space: normal;
-      flex-wrap: wrap;
-      row-gap: 0.2rem;
-    }
-
-    .project-card__role {
-      white-space: normal;
-      overflow: visible;
-      text-overflow: clip;
-      flex-basis: 100%;
-    }
-
-    .project-card__meta-divider {
-      display: none;
-    }
-
-    .project-card__summary {
-      font-size: 0.9rem;
-      line-height: 1.55;
-      -webkit-line-clamp: 2;
-    }
-
-    .project-card__highlights {
-      font-size: 0.82rem;
-      gap: var(--space-xs);
-    }
-
   }
 </style>

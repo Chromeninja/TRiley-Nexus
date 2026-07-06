@@ -1,0 +1,111 @@
+---
+import { projectStatusColors, projectStatusLabels, type Project } from "../data/projects";
+import { getOrganizationLabel } from "../utils/organizationLabels";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const MAX_ORGANIZATION_LABEL_CHARS = 18;
+const organizationName = project.organization?.trim();
+const organizationShortName = project.organizationShortName?.trim();
+const organizationLabel = organizationShortName
+  ? organizationShortName
+  : organizationName
+    ? getOrganizationLabel(organizationName, MAX_ORGANIZATION_LABEL_CHARS)
+    : undefined;
+---
+
+<div class="project-card__header">
+  <div class="project-card__meta">
+    <span class={`badge ${projectStatusColors[project.status]}`}
+      >{projectStatusLabels[project.status]}</span
+    >
+    {
+      organizationName &&
+        (project.organizationUrl ? (
+          <a
+            href={project.organizationUrl}
+            class="project-card__org text-mono text-muted"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${organizationName} website`}
+            title={organizationName}
+          >
+            {organizationLabel}
+          </a>
+        ) : (
+          <span
+            class="project-card__org text-mono text-muted"
+            title={organizationName}
+            aria-label={organizationName}
+          >
+            {organizationLabel}
+          </span>
+        ))
+    }
+  </div>
+  <span
+    class="project-card__arrow-link"
+    aria-hidden="true"
+  >
+    <span class="project-card__arrow" aria-hidden="true">→</span>
+  </span>
+</div>
+
+<style>
+  .project-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .project-card__org {
+    display: inline-block;
+    max-width: 100%;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a.project-card__org:hover,
+  a.project-card__org:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .project-card__arrow-link {
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-card__arrow {
+    color: var(--color-accent);
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
+    flex-shrink: 0;
+  }
+
+  :global(.project-card:hover) .project-card__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
