@@ -1,0 +1,108 @@
+---
+import {
+  formatProjectDateRange,
+  projectStatusLabels,
+  type Project,
+} from "../data/projects";
+import { toBasePath, normalizeWhitespace } from "../utils/paths";
+
+interface Props {
+  project: Project;
+  isCurrent?: boolean;
+}
+
+const { project, isCurrent = false } = Astro.props;
+
+function resolveProjectHref(slug: string): string {
+  return toBasePath(`/projects/${slug}`);
+}
+---
+
+<li id={`project-${project.slug}`} class="career-scroll__card" data-observe-project>
+  <div class="career-scroll__card-top">
+    <span class={`badge ${isCurrent ? "badge-green" : "badge-cyan"}`}>
+      {projectStatusLabels[project.status]}
+    </span>
+    {
+      project.organization && (
+        <span class="text-mono">{project.organization}</span>
+      )
+    }
+  </div>
+  <h3>
+    <a href={resolveProjectHref(project.slug)}>
+      {project.title}
+    </a>
+  </h3>
+  {
+    project.roleTitle && (
+      <p class="career-scroll__card-role">{project.roleTitle}</p>
+    )
+  }
+  {
+    formatProjectDateRange(project) && (
+      <p class="career-scroll__card-range text-mono">
+        {formatProjectDateRange(project)}
+      </p>
+    )
+  }
+  <p>{normalizeWhitespace(project.summary)}</p>
+</li>
+
+<style>
+  .career-scroll__card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    background: var(--color-timeline-card-bg);
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+  }
+
+  .career-scroll__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .career-scroll__card h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .career-scroll__card a {
+    color: var(--color-text-heading);
+    text-decoration: none;
+  }
+
+  .career-scroll__card a:hover,
+  .career-scroll__card a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .career-scroll__card-role,
+  .career-scroll__card-range {
+    margin: 0;
+    color: var(--color-text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__card p {
+    margin: var(--space-xs) 0 0;
+  }
+
+  @media (max-width: 640px) {
+    .career-scroll__card {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .career-scroll__card-top {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+  }
+</style>

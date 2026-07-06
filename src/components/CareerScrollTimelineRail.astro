@@ -1,0 +1,205 @@
+---
+import type { TimelineYearGroup } from "../data/careerTimeline";
+
+interface Props {
+  yearGroups: TimelineYearGroup[];
+}
+
+const { yearGroups } = Astro.props;
+---
+
+<aside class="career-scroll__rail panel" aria-label="Career timeline controls">
+  <div class="career-scroll__rail-head">
+    <p class="text-mono career-scroll__eyebrow">Timeline Control</p>
+    <p class="career-scroll__rail-copy">
+      Click year, month, or project to jump. Scrolling also updates the
+      active marker.
+    </p>
+  </div>
+
+  <button
+    class="career-scroll__jump career-scroll__jump--year"
+    type="button"
+    data-link-type="year"
+    data-link-target="career-present"
+  >
+    Present
+  </button>
+
+  {
+    yearGroups.map((yearGroup) => (
+      <div class="career-scroll__year-block">
+        <button
+          class="career-scroll__jump career-scroll__jump--year"
+          type="button"
+          data-link-type="year"
+          data-link-target={yearGroup.key}
+        >
+          {yearGroup.year}
+        </button>
+
+        <ul class="career-scroll__month-list" role="list">
+          {yearGroup.months.map((monthGroup) => (
+            <li>
+              <button
+                class="career-scroll__jump career-scroll__jump--month"
+                type="button"
+                data-link-type="month"
+                data-link-target={monthGroup.key}
+              >
+                {monthGroup.monthLabel}
+              </button>
+              <ul class="career-scroll__project-list" role="list">
+                {monthGroup.projects.map((project) => (
+                  <li>
+                    <button
+                      class="career-scroll__jump career-scroll__jump--project"
+                      type="button"
+                      data-link-type="project"
+                      data-link-target={`project-${project.slug}`}
+                    >
+                      {project.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</aside>
+
+<style>
+  .career-scroll__rail {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-md));
+    max-height: calc(100vh - var(--nav-height) - var(--space-xl));
+    overflow: auto;
+    padding-right: var(--space-sm);
+  }
+
+  .career-scroll__rail-head {
+    margin-bottom: var(--space-md);
+  }
+
+  .career-scroll__eyebrow {
+    margin: 0 0 var(--space-xs);
+    color: var(--color-text-dim);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .career-scroll__rail-copy {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .career-scroll__year-block {
+    margin-top: var(--space-sm);
+    padding-left: var(--space-sm);
+    border-left: 1px solid var(--color-border-strong);
+  }
+
+  .career-scroll__month-list {
+    list-style: none;
+    margin: var(--space-xs) 0 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .career-scroll__project-list {
+    list-style: none;
+    margin: 0.2rem 0 0 0;
+    padding: 0 0 0 var(--space-sm);
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .career-scroll__jump {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-dim);
+    text-align: left;
+    width: 100%;
+    padding: 0.34rem 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast);
+  }
+
+  .career-scroll__jump:hover,
+  .career-scroll__jump:focus-visible,
+  .career-scroll__jump.is-active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .career-scroll__jump--year {
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: var(--space-xs);
+  }
+
+  .career-scroll__jump--month {
+    font-size: 0.84rem;
+    color: var(--color-text-muted);
+  }
+
+  .career-scroll__jump--project {
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 980px) {
+    .career-scroll__rail {
+      position: static;
+      max-height: none;
+    }
+
+    .career-scroll__year-block {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .career-scroll__month-list {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .career-scroll__project-list {
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .career-scroll__rail {
+      padding-right: 0;
+    }
+
+    .career-scroll__rail-copy {
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .career-scroll__month-list {
+      grid-template-columns: 1fr;
+    }
+
+    .career-scroll__project-list {
+      display: none;
+    }
+  }
+</style>
