@@ -31,6 +31,7 @@
   --color-text-muted: #b2c2df;
   --color-text-dim: #88a0c5;
   --color-text-heading: #f4f8ff;
+  --color-text-on-accent: #06101f;
 
   /* Borders */
   --color-border: rgba(87, 166, 255, 0.16);
@@ -41,11 +42,15 @@
   --color-accent: #57a6ff;
   --color-accent-dim: rgba(87, 166, 255, 0.14);
   --color-accent-glow: rgba(87, 166, 255, 0.28);
+  --color-accent-glow-subtle: rgba(87, 166, 255, 0.08);
+  --color-accent-glow-subtle-2: rgba(87, 166, 255, 0.12);
 
   /* Secondary accent: cyan signal */
   --color-accent2: #22d3ee;
   --color-accent2-dim: rgba(34, 211, 238, 0.14);
   --color-accent2-glow: rgba(34, 211, 238, 0.26);
+  --color-accent2-glow-subtle: rgba(34, 211, 238, 0.06);
+  --color-accent2-glow-subtle-2: rgba(34, 211, 238, 0.08);
 
   /* Surface overlays and decorative gradients */
   --color-surface-sheen: rgba(255, 255, 255, 0.02);
@@ -88,12 +93,6 @@
   --color-era-accent: rgba(124, 211, 137, 0.04);
   --color-era-accent-strong: rgba(124, 211, 137, 0.12);
 
-  /* Text */
-  --color-text: #e6efff;
-  --color-text-muted: #b2c2df;
-  --color-text-dim: #88a0c5;
-  --color-text-heading: #f4f8ff;
-
   /* Typography */
   --font-heading: "Sora", "Space Grotesk", sans-serif;
   --font-body: "Manrope", system-ui, sans-serif;
@@ -130,6 +129,9 @@
   --shadow-card: 0 14px 34px rgba(1, 8, 22, 0.34);
   --shadow-card-hover: 0 24px 58px rgba(1, 8, 22, 0.46);
   --shadow-nav: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-glow-accent: 0 0 14px rgba(87, 166, 255, 0.12);
+  --shadow-glow-pulse-min: 0 0 8px rgba(87, 166, 255, 0.22);
+  --shadow-glow-pulse-max: 0 0 18px rgba(87, 166, 255, 0.38);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -450,12 +452,12 @@ pre {
 
 .btn-primary {
   background: var(--color-accent);
-  color: #06101f;
+  color: var(--color-text-on-accent);
   box-shadow: 0 8px 24px rgba(87, 166, 255, 0.2);
 }
 .btn-primary:hover {
   background: #7db8ff;
-  color: #06101f;
+  color: var(--color-text-on-accent);
   box-shadow: var(--glow-accent-strong);
   transform: translateY(-1px);
 }
@@ -551,6 +553,28 @@ pre {
     transparent
   );
   margin-bottom: var(--space-lg);
+}
+
+/* --- Skip link (accessibility) --- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  z-index: 100;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
 }
 
 /* --- Section header --- */
@@ -661,10 +685,10 @@ pre {
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 8px rgba(87, 166, 255, 0.22);
+    box-shadow: var(--shadow-glow-pulse-min);
   }
   50% {
-    box-shadow: 0 0 18px rgba(87, 166, 255, 0.38);
+    box-shadow: var(--shadow-glow-pulse-max);
   }
 }
 
@@ -684,6 +708,18 @@ pre {
 }
 .delay-400 {
   animation-delay: 0.4s;
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  [class*="delay-"] {
+    animation: none;
+  }
+
+  .pulse-glow {
+    animation: none;
+  }
 }
 
 /* --- Utility --- */

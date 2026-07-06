@@ -130,7 +130,7 @@ const navItems = enabledNavItems.map((link) => ({
   }
 
   .nav__logo-text {
-    text-shadow: 0 0 14px rgba(87, 166, 255, 0.12);
+    text-shadow: var(--shadow-glow-accent);
   }
 
   /* Desktop links */
@@ -161,8 +161,8 @@ const navItems = enabledNavItems.map((link) => ({
     color: var(--color-text);
     background: linear-gradient(
       90deg,
-      rgba(87, 166, 255, 0.08),
-      rgba(34, 211, 238, 0.06)
+      var(--color-accent-glow-subtle),
+      var(--color-accent2-glow-subtle)
     );
   }
 
@@ -256,8 +256,8 @@ const navItems = enabledNavItems.map((link) => ({
     color: var(--color-accent);
     background: linear-gradient(
       90deg,
-      rgba(87, 166, 255, 0.12),
-      rgba(34, 211, 238, 0.08)
+      var(--color-accent-glow-subtle-2),
+      var(--color-accent2-glow-subtle-2)
     );
   }
 

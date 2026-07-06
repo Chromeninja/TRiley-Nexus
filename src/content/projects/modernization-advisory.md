@@ -45,3 +45,8 @@ links:
 featured: false
 order: 4
 ---
+
+<!-- TODO(owner): Add 1-2 concrete, NDA-safe examples to strengthen credibility:
+     - A specific client problem solved (anonymized is fine) and what changed for them
+     - One measurable or observable outcome (timeline, cost avoided, system replaced)
+     This is the thinnest project in an otherwise evidence-heavy portfolio. -->

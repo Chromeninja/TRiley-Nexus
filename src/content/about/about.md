@@ -96,7 +96,7 @@ additionalMedia: []
 resume:
   title: Resume
   filePath: "/documents/T-Riley-Garrett_June-26_Resume.pdf"
-  lastUpdated: September 2025
+  lastUpdated: June 2026
   summary: View or download my current resume in PDF format.
 ---
 

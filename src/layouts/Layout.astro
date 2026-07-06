@@ -71,8 +71,9 @@ const fullTitle =
     <meta name="theme-color" content={siteConfig.site.themeColor} />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <Nav />
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
     <Footer />

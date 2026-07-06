@@ -56,3 +56,5 @@ cover:
 featured: false
 order: 13
 ---
+
+<!-- TODO(owner): Add one specific NDA-safe example of a defect found or an edge case resolved (for example a geolocation, input latency, or entitlement issue), and where it was caught in the release-readiness process. -->

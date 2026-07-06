@@ -1,6 +1,7 @@
 ---
 // Footer.astro: Global footer
 import { toBasePath } from "../utils/paths";
+import { siteConfig } from "../data/siteConfig";
 ---
 
 <footer class="footer">
@@ -8,25 +9,26 @@ import { toBasePath } from "../utils/paths";
     <div class="footer__inner">
       <div class="footer__brand">
         <span class="footer__logo">
-          <span class="bracket">[</span>T.RILEY<span class="bracket">]</span>
+          <span class="bracket">[</span>{siteConfig.site.logoText}<span class="bracket">]</span>
         </span>
         <p class="footer__tagline">
-          Program leadership for teams, systems, and innovation work in motion.
+          {siteConfig.footer.tagline}
         </p>
       </div>
 
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href={toBasePath("/")}>Home</a>
-        <a href={toBasePath("/about")}>About</a>
-        <a href={toBasePath("/projects")}>Projects</a>
-        <a href={toBasePath("/how-i-work")}>How I Work</a>
-        <a href={toBasePath("/now")}>Now</a>
-        <a href={toBasePath("/contact")}>Contact</a>
+        {
+          siteConfig.navigation
+            .filter((item) => item.enabled !== false)
+            .map((link) => (
+              <a href={toBasePath(link.href)}>{link.label}</a>
+            ))
+        }
       </nav>
 
       <div class="footer__social">
         <a
-          href="https://github.com/Chromeninja"
+          href={siteConfig.social.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
@@ -44,7 +46,7 @@ import { toBasePath } from "../utils/paths";
           </svg>
         </a>
         <a
-          href="https://www.linkedin.com/in/trileygarrett/"
+          href={siteConfig.social.linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -61,7 +63,7 @@ import { toBasePath } from "../utils/paths";
             ></path>
           </svg>
         </a>
-        <a href="mailto:t.riley.garrett@gmail.com" aria-label="Email">
+        <a href={`mailto:${siteConfig.social.email}`} aria-label="Email">
           <svg
             width="20"
             height="20"
@@ -82,7 +84,7 @@ import { toBasePath } from "../utils/paths";
 
     <div class="footer__bottom">
       <span class="footer__bottom-text text-mono text-muted">
-        // FOCUS: PROGRAMS, PROCESS, SYSTEMS | {new Date().getFullYear()} T.RILEY
+        // {siteConfig.footer.focusLine} | {new Date().getFullYear()} {siteConfig.site.logoText}
       </span>
     </div>
   </div>
@@ -120,7 +122,7 @@ import { toBasePath } from "../utils/paths";
     font-weight: 700;
     letter-spacing: 0.12em;
     color: var(--color-text-heading);
-    text-shadow: 0 0 14px rgba(87, 166, 255, 0.12);
+    text-shadow: var(--shadow-glow-accent);
   }
   .bracket {
     color: var(--color-accent);

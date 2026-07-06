@@ -74,12 +74,14 @@ const activeProjectCount =
       const hasExpandedRow = Array.from(
         root.querySelectorAll("[data-company-row]"),
       ).some((row) => row.getAttribute("data-expanded") === "true");
+      // querySelector returns Element | null; these are known HTMLElements rendered by this component
       (root as HTMLElement).dataset.view = hasExpandedRow
         ? "detail"
         : "overview";
     };
 
     const setCompanyExpanded = (companyRow: Element, expanded: boolean) => {
+      // querySelector and querySelectorAll return Element; we know these are HTMLElements from markup
       (companyRow as HTMLElement).dataset.expanded = expanded
         ? "true"
         : "false";
@@ -100,6 +102,7 @@ const activeProjectCount =
     };
 
     const setProjectExpanded = (projectItem: Element, expanded: boolean) => {
+      // querySelector returns Element; we know these are HTMLElements from markup
       (projectItem as HTMLElement).dataset.expanded = expanded
         ? "true"
         : "false";
@@ -116,6 +119,7 @@ const activeProjectCount =
     };
 
     const focusTarget = (element: Element) => {
+      // Element parameter is always an HTMLElement from query selectors in this context
       (element as HTMLElement).scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -134,6 +138,7 @@ const activeProjectCount =
         return;
       }
 
+      // querySelector and closest return Element; these are HTMLElements from the DOM in this component
       if (target.matches("[data-company-row]")) {
         setCompanyExpanded(target, true);
         focusTarget(target);
@@ -198,6 +203,7 @@ const activeProjectCount =
         }
 
         if (action === "toggle-major") {
+          // root is guaranteed to exist (checked by if statement at line 70)
           const isMajorOnly =
             (root as HTMLElement).dataset.majorOnly !== "true";
           (root as HTMLElement).dataset.majorOnly = isMajorOnly
@@ -208,6 +214,7 @@ const activeProjectCount =
         }
 
         if (action === "toggle-now") {
+          // timelineSection may be null but is used safely with optional chaining
           const showNow =
             (timelineSection as HTMLElement)?.dataset?.showNow !== "true";
           if (timelineSection) {
@@ -228,6 +235,7 @@ const activeProjectCount =
           return;
         }
 
+        // closest returns Element | null; narrowed to Element by the if check above
         const expanded = (row as HTMLElement).dataset.expanded !== "true";
         setCompanyExpanded(row, expanded);
 
